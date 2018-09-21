@@ -11,6 +11,17 @@ namespace Magento\Framework\KeyValue;
 interface TaggableKeyValueStorageInterface extends KeyValueStorageInterface
 {
     /**
+     * Add a new item to the storage (optionally, add tags to them), throw an exception if the record exists.
+     *
+     * @param string $key
+     * @param string $value
+     * @param string[] $tags
+     * @return void
+     * @throws KeyValueStorageException
+     */
+    public function add(string $key, string $value, array $tags = []);
+
+    /**
      * Return values by tags
      *
      * @param string[] $tags
@@ -23,18 +34,26 @@ interface TaggableKeyValueStorageInterface extends KeyValueStorageInterface
      *
      * @param string $key
      * @param string[] $tags
-     * @return $this
+     * @return void
      * @throws KeyValueStorageException
      */
-    public function addTags(string $key, array $tags): self;
+    public function addTagsToItem(string $key, array $tags);
 
     /**
      * Remove all, throw exception otherwise.
      *
      * @param string $key
      * @param array $tags
-     * @return $this
+     * @return void
      * @throws KeyValueStorageException
      */
-    public function removeTags(string $key, array $tags): self;
+    public function removeTagsFromItem(string $key, array $tags);
+
+    /**
+     * Remove a tag from all items.
+     *
+     * @param string $tag
+     * @return void
+     */
+    public function removeTag(string $tag);
 }

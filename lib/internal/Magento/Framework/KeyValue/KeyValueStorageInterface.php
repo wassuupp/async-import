@@ -24,27 +24,27 @@ interface KeyValueStorageInterface
      *
      * @param string $key
      * @param string $value
-     * @return $this
+     * @return void
      * @throws KeyValueStorageException
      */
-    public function add(string $key, string $value): self;
+    public function add(string $key, string $value);
 
     /**
      * Update existing item, throw an exception if does not exist.
      *
      * @param string $key
      * @param string $value
-     * @return $this
+     * @return void
      * @throws KeyValueStorageException
      */
-    public function update(string $key, string $value): self;
+    public function update(string $key, string $value);
 
     /**
      * Remove existing item, throw an exception if does not exist.
      *
      * @param string $key
-     * @return $this
+     * @return void
      * @throws KeyValueStorageException
      */
-    public function delete(string $key): self;
+    public function delete(string $key);
 }
