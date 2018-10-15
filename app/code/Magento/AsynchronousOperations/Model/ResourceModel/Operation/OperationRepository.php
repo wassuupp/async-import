@@ -10,10 +10,11 @@ namespace Magento\AsynchronousOperations\Model\ResourceModel\Operation;
 
 use Magento\AsynchronousOperations\Api\Data\OperationInterface;
 use Magento\AsynchronousOperations\Api\Data\OperationInterfaceFactory;
+use Magento\AsynchronousOperations\Model\BulkStorageFactory;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\MessageQueue\MessageValidator;
 use Magento\Framework\MessageQueue\MessageEncoder;
 use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\EntityManager\EntityManager;
 
 /**
  * Create operation for list of bulk operations.
@@ -31,11 +32,6 @@ class OperationRepository
     private $jsonSerializer;
 
     /**
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    /**
      * @var MessageEncoder
      */
     private $messageEncoder;
@@ -46,15 +42,20 @@ class OperationRepository
     private $messageValidator;
 
     /**
+     * @var BulkStorageFactory
+     */
+    private $storageFactory;
+
+    /**
      * @param OperationInterfaceFactory $operationFactory
-     * @param EntityManager $entityManager
+     * @param BulkStorageFactory $storageFactory
      * @param MessageValidator $messageValidator
      * @param MessageEncoder $messageEncoder
      * @param Json $jsonSerializer
      */
     public function __construct(
         OperationInterfaceFactory $operationFactory,
-        EntityManager $entityManager,
+        BulkStorageFactory $storageFactory,
         MessageValidator $messageValidator,
         MessageEncoder $messageEncoder,
         Json $jsonSerializer
@@ -63,7 +64,7 @@ class OperationRepository
         $this->jsonSerializer = $jsonSerializer;
         $this->messageEncoder = $messageEncoder;
         $this->messageValidator = $messageValidator;
-        $this->entityManager = $entityManager;
+        $this->storageFactory = $storageFactory;
     }
 
     /**
@@ -71,9 +72,11 @@ class OperationRepository
      * @param $entityParams
      * @param $groupId
      * @return mixed
+     * @throws LocalizedException
      */
     public function createByTopic($topicName, $entityParams, $groupId)
     {
+        $storage = $this->storageFactory->create();
         $this->messageValidator->validate($topicName, $entityParams);
         $encodedMessage = $this->messageEncoder->encode($topicName, $entityParams);
 
@@ -93,6 +96,6 @@ class OperationRepository
 
         /** @var \Magento\AsynchronousOperations\Api\Data\OperationInterface $operation */
         $operation = $this->operationFactory->create($data);
-        return $this->entityManager->save($operation);
+        return $storage->saveOperation($operation);
     }
 }

@@ -57,6 +57,11 @@ class BulkManagement implements \Magento\Framework\Bulk\BulkManagementInterface
     private $logger;
 
     /**
+     * @var BulkStorageFactory
+     */
+    private $storageFactory;
+
+    /**
      * BulkManagement constructor.
      * @param EntityManager $entityManager
      * @param BulkSummaryInterfaceFactory $bulkSummaryFactory
@@ -64,6 +69,7 @@ class BulkManagement implements \Magento\Framework\Bulk\BulkManagementInterface
      * @param BulkPublisherInterface $publisher
      * @param MetadataPool $metadataPool
      * @param ResourceConnection $resourceConnection
+     * @param BulkStorageFactory $bulkStorageFactory
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -73,6 +79,7 @@ class BulkManagement implements \Magento\Framework\Bulk\BulkManagementInterface
         BulkPublisherInterface $publisher,
         MetadataPool $metadataPool,
         ResourceConnection $resourceConnection,
+        BulkStorageFactory $bulkStorageFactory,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
@@ -80,6 +87,7 @@ class BulkManagement implements \Magento\Framework\Bulk\BulkManagementInterface
         $this->operationCollectionFactory = $operationCollectionFactory;
         $this->metadataPool = $metadataPool;
         $this->resourceConnection = $resourceConnection;
+        $this->storageFactory = $bulkStorageFactory;
         $this->publisher = $publisher;
         $this->logger = $logger;
     }
@@ -89,10 +97,9 @@ class BulkManagement implements \Magento\Framework\Bulk\BulkManagementInterface
      */
     public function scheduleBulk($bulkUuid, array $operations, $description, $userId = null)
     {
-        $metadata = $this->metadataPool->getMetadata(BulkSummaryInterface::class);
-        $connection = $this->resourceConnection->getConnectionByName($metadata->getEntityConnectionName());
+        $storage = $this->storageFactory->create();
         // save bulk summary and related operations
-        $connection->beginTransaction();
+        $storage->beginTransaction();
         try {
             /** @var \Magento\AsynchronousOperations\Api\Data\BulkSummaryInterface $bulkSummary */
             $bulkSummary = $this->bulkSummaryFactory->create();
@@ -102,11 +109,11 @@ class BulkManagement implements \Magento\Framework\Bulk\BulkManagementInterface
             $bulkSummary->setUserId($userId);
             $bulkSummary->setOperationCount((int)$bulkSummary->getOperationCount() + count($operations));
 
-            $this->entityManager->save($bulkSummary);
+            $storage->saveBulk($bulkSummary);
 
-            $connection->commit();
+            $storage->commit();
         } catch (\Exception $exception) {
-            $connection->rollBack();
+            $storage->rollBack();
             $this->logger->critical($exception->getMessage());
             return false;
         }
