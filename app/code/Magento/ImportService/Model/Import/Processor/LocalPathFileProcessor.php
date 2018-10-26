@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\ImportService\Model\Import\Processor;
+use Magento\Framework\Filesystem\Io\File;
+
+/**
+ * CSV files processor for asynchronous import
+ */
+class LocalPathFileProcessor implements SourceProcessorInterface
+{
+
+    /**
+     * @var \Magento\Framework\Filesystem\Io\File
+     */
+    protected $fileSystemIo;
+
+    /**
+     * LocalPathFileProcessor constructor.
+     * @param File $fileSystemIo
+     */
+    public function __construct(
+        File $fileSystemIo
+    ) {
+        $this->fileSystemIo = $fileSystemIo;
+    }
+
+    /**
+     *  {@inheritdoc}
+     */
+    public function processUpload(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData)
+    {
+
+        $this->validateSource($sourceData->getSource()->getImportData());
+        return "filename.csv";
+
+    }
+
+    public function validateSource($sourceData){
+
+        if (!$this->fileSystemIo->read($sourceData)){
+            throw new \Magento\ImportService\Exception(
+                __("Cannot read from file system. File not existed or cannot be read")
+            );
+        }
+
+    }
+
+}

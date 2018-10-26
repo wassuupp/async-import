@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\ImportService\Api\ImportInterface" type="Magento\ImportService\Model\Import" />
+    <preference for="Magento\ImportService\Api\Data\SourceInterface" type="Magento\ImportService\Model\Source" />
+    <preference for="Magento\ImportService\Api\Data\SourceDataInterface" type="Magento\ImportService\Model\SourceDataEntry" />
+    <preference for="Magento\ImportService\Api\Data\ImportResponseInterface" type="Magento\ImportService\Model\ImportResponse" />
+
+    <type name="Magento\ImportService\Model\Import\SourceProcessorPool">
+        <arguments>
+            <argument name="sourceProcessors" xsi:type="array">
+                <item name="local_path" xsi:type="array">
+                    <item name="processor" xsi:type="object">Magento\ImportService\Model\Import\Processor\LocalPathFileProcessor\Proxy</item>
+                    <item name="import_type" xsi:type="string">local_path</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
