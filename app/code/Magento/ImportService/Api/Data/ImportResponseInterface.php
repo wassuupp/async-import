@@ -24,9 +24,9 @@ interface ImportResponseInterface
 
     const ERROR = 'error';
 
-    /** 
+    /**
      * Get file ID
-     * 
+     *
      * @return int
      */
     public function getSourceId();
@@ -39,8 +39,8 @@ interface ImportResponseInterface
     public function getStatus();
 
     /**
-     * 
      * Get error
+     *
      * @return string
      */
     public function getError();
@@ -62,5 +62,4 @@ interface ImportResponseInterface
      * @return mixed
      */
     public function setError($error);
-
 }

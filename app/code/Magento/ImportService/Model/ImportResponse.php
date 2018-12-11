@@ -11,7 +11,8 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\ImportResponseInterface;
 
 class ImportResponse extends AbstractModel implements ImportResponseInterface
-{   
+{
+
     /**
      * Get file ID
      *

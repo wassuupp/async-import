@@ -47,7 +47,8 @@ class Import implements ImportInterface
      * @param SourceDataInterface $sourceData
      * @return ImportResponseFactory
      */
-    public function import(SourceDataInterface $sourceData){
+    public function import(SourceDataInterface $sourceData)
+    {
 
         $response = $this->response->create();
         try {
@@ -60,7 +61,5 @@ class Import implements ImportInterface
             $this->response->setFailed()->setError($e->getMessage());
         }
         return $response;
-
     }
-
 }

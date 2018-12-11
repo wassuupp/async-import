@@ -39,7 +39,7 @@ class SourceProcessorPool
      */
     public function getProcessor(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData)
     {
-        foreach ($this->sourceProcessors as $key=>$processorInformation) {
+        foreach ($this->sourceProcessors as $key => $processorInformation) {
             if ($processorInformation['import_type'] === $sourceData->getSource()->getImportType()) {
                 return $processorInformation['processor'];
             }

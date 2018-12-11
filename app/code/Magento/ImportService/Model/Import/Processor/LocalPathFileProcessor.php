@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
+
 use Magento\Framework\Filesystem\Io\File;
 
 /**

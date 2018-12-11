@@ -22,5 +22,4 @@ interface SourceProcessorInterface
      * @return SourceDataInterface
      */
     public function processUpload(SourceDataInterface $sourceData);
-
 }
