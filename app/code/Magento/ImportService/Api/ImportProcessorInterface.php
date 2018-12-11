@@ -11,12 +11,9 @@ use Magento\ImportService\Api\Data\ImportEntryInterface;
 
 /**
  * Class ImportProcessor
- *
- * @package Magento\ImportService\Model
  */
 interface ImportProcessorInterface
 {
-
     /**
      * Run import.
      *

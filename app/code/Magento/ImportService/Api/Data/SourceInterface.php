@@ -9,12 +9,22 @@ namespace Magento\ImportService\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
+/**
+ * Interface SourceInterface
+ */
 interface SourceInterface extends ExtensibleDataInterface
 {
+    const ENTITY_ID = 'source_id';
     const SOURCE_TYPE = 'source_type';
     const IMPORT_TYPE = 'import_type';
     const IMPORT_DATA = 'import_data';
+    const CREATED_AT = 'created_at';
     const STATUS = 'status';
+
+    /**
+     * @return int
+     */
+    public function getSourceId();
 
     /**
      * Retrieve data source type
@@ -71,4 +81,11 @@ interface SourceInterface extends ExtensibleDataInterface
      * @return $this
      */
     public function setImportData($importData);
+
+    /**
+     * Retrieve Import data
+     *
+     * @return string
+     */
+    public function getCreatedAt();
 }

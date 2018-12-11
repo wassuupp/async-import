@@ -7,20 +7,20 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
+use \Magento\ImportService\Api\Data\SourceDataInterface;
+
 /**
  *  Request processor interface
  */
 interface SourceProcessorInterface
 {
     /**
-     * Executes the logic to process the request
-     *
-     * @param \Magento\ImportService\Api\Data\SourceDataInterface $sourceData
-     * @return void
-     * @throws \Magento\Framework\Exception\AuthorizationException
-     * @throws \Magento\Framework\Exception\InputException
-     * @throws \Magento\Framework\Webapi\Exception
+     * @param SourceDataInterface $sourceData
+     * @throws AuthorizationException
+     * @throws InputException
+     * @throws Exception
+     * @return SourceDataInterface
      */
-    public function processUpload(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData);
+    public function processUpload(SourceDataInterface $sourceData);
 
 }

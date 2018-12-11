@@ -7,11 +7,22 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\Framework\DataObject;
+use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceInterface;
 
-class Source extends DataObject implements SourceInterface
+/**
+ * Class Source
+ */
+class Source extends AbstractModel implements SourceInterface
 {
+
+    /**
+     * @return int
+     */
+    public function getSourceId()
+    {
+        return $this->getData(self::ENTITY_ID);
+    }
     /**
      * @inheritDoc
      */
@@ -19,7 +30,6 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->getData(self::SOURCE_TYPE);
     }
-
     /**
      * @inheritDoc
      */
@@ -27,7 +37,6 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->setData(self::SOURCE_TYPE, $sourceType);
     }
-
     /**
      * @inheritDoc
      */
@@ -35,7 +44,6 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->getData(self::IMPORT_TYPE);
     }
-
     /**
      * @inheritDoc
      */
@@ -43,7 +51,6 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->setData(self::IMPORT_TYPE, $importType);
     }
-
     /**
      * @inheritDoc
      */
@@ -51,7 +58,6 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->getData(self::STATUS);
     }
-
     /**
      * @inheritDoc
      */
@@ -59,7 +65,6 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->setData(self::STATUS, $status);
     }
-
     /**
      * @inheritDoc
      */
@@ -67,12 +72,18 @@ class Source extends DataObject implements SourceInterface
     {
         return $this->getData(self::IMPORT_DATA);
     }
-
     /**
      * @inheritDoc
      */
     public function setImportData($importData)
     {
         return $this->setData(self::IMPORT_DATA, $importData);
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getCreatedAt()
+    {
+        return $this->getData(self::CREATED_AT);
     }
 }

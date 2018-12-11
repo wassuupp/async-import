@@ -10,17 +10,18 @@ namespace Magento\ImportService\Model;
 use Magento\ImportService\Api\Data\SourceDataInterface;
 use Magento\ImportService\Model\ImportResponseFactory as ImportResponse;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
+use Magento\ImportService\Api\ImportInterface;
 
 /**
  * Class Import
  *
  * @package Magento\ImportService\Model
  */
-class Import implements \Magento\ImportService\Api\ImportInterface
+class Import implements ImportInterface
 {
 
     /**
-     * @var \Magento\ImportService\Model\Import\SourceProcessorPool
+     * @var SourceProcessorPool
      */
     protected $sourceProcessorPool;
 
@@ -39,7 +40,7 @@ class Import implements \Magento\ImportService\Api\ImportInterface
         SourceProcessorPool $sourceProcessorPool
     ) {
         $this->sourceProcessorPool = $sourceProcessorPool;
-        $this->response = $response->create();
+        $this->response = $response;
     }
 
     /**
@@ -48,13 +49,17 @@ class Import implements \Magento\ImportService\Api\ImportInterface
      */
     public function import(SourceDataInterface $sourceData){
 
+        $response = $this->response->create();
         try {
             $processor = $this->sourceProcessorPool->getProcessor($sourceData);
-            $filename = $processor->processUpload($sourceData);
+            $processor->processUpload($sourceData);
+
+            $response->setSourceId($sourceData->getSourceId());
+            $response->setStatus($sourceData->getStatus());
         } catch (\Exception $e) {
             $this->response->setFailed()->setError($e->getMessage());
         }
-        return $this->response;
+        return $response;
 
     }
 

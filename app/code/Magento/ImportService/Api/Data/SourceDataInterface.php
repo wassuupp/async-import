@@ -9,6 +9,9 @@ namespace Magento\ImportService\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
+/**
+ * Interface SourceDataInterface
+ */
 interface SourceDataInterface extends ExtensibleDataInterface
 {
     const SOURCE_ID = 'source_id';
@@ -41,5 +44,4 @@ interface SourceDataInterface extends ExtensibleDataInterface
      * @return $this
      */
     public function setSource($source);
-
 }

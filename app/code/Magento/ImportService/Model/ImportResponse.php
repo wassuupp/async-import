@@ -1,12 +1,18 @@
-<?php 
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-class ImportResponse extends \Magento\Framework\Model\AbstractModel
-    implements \Magento\ImportService\Api\Data\ImportResponseInterface
+use Magento\Framework\Model\AbstractModel;
+use Magento\ImportService\Api\Data\ImportResponseInterface;
+
+class ImportResponse extends AbstractModel implements ImportResponseInterface
 {   
     /**
-     *
      * Get file ID
      *
      * @return int
@@ -15,9 +21,8 @@ class ImportResponse extends \Magento\Framework\Model\AbstractModel
     {
         return $this->getData(self::SOURCE_ID);
     }
-    
+
     /**
-     *
      * Get file status
      *
      * @return string
@@ -26,9 +31,8 @@ class ImportResponse extends \Magento\Framework\Model\AbstractModel
     {
         return $this->getData(self::STATUS);
     }
-    
+
     /**
-     *
      * Get error
      * @return string
      */

@@ -34,20 +34,6 @@ class LocalPathFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData)
     {
-
-        $this->validateSource($sourceData->getSource()->getImportData());
-        return "filename.csv";
-
+        return $sourceData;
     }
-
-    public function validateSource($sourceData){
-
-        if (!$this->fileSystemIo->read($sourceData)){
-            throw new \Magento\ImportService\Exception(
-                __("Cannot read from file system. File not existed or cannot be read")
-            );
-        }
-
-    }
-
 }

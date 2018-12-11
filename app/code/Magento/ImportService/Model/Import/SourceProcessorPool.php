@@ -7,6 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import;
 
+use Magento\ImportService\Exception as ImportServiceException;
+use Magento\ImportService\Model\Import\Processor\SourceProcessorInterface;
+
 /**
  *  Source Processor Pool
  */
@@ -31,18 +34,18 @@ class SourceProcessorPool
     /**
      * {@inheritdoc}
      *
-     * @throws \Magento\ImportService\Exception
-     * return SourceProcessorInterface
+     * @throws ImportServiceException
+     * @return SourceProcessorInterface
      */
     public function getProcessor(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData)
     {
         foreach ($this->sourceProcessors as $key=>$processorInformation) {
-            if ($processorInformation['import_type'] === $sourceData->getSource()->getImportType()){
+            if ($processorInformation['import_type'] === $sourceData->getSource()->getImportType()) {
                 return $processorInformation['processor'];
             }
         }
-        throw new \Magento\ImportService\Exception(
-            __('Specified Import type "%1" is wrong.', $sourceData->getSource()->getType())
+        throw new ImportServiceException(
+            __('Specified Import type "%1" is wrong.', $sourceData->getSource()->getSourceType())
         );
     }
 }

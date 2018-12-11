@@ -11,7 +11,6 @@ use Magento\ImportService\Api\Data\SourceDataInterface;
 
 class SourceDataEntry extends DataObject implements SourceDataInterface
 {
-
     /**
      * @inheritDoc
      */
@@ -43,5 +42,4 @@ class SourceDataEntry extends DataObject implements SourceDataInterface
     {
         return $this->setData(self::SOURCE, $source);
     }
-
 }
