@@ -7,7 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
-use \Magento\ImportService\Api\Data\SourceDataInterface;
+use \Magento\ImportService\Api\Data\SourceInterface;
+use \Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 
 /**
  *  Request processor interface
@@ -15,11 +16,12 @@ use \Magento\ImportService\Api\Data\SourceDataInterface;
 interface SourceProcessorInterface
 {
     /**
-     * @param SourceDataInterface $sourceData
+     * @param SourceInterface $source
+     * @param SourceUploadResponseInterface $response
      * @throws AuthorizationException
      * @throws InputException
      * @throws Exception
-     * @return SourceDataInterface
+     * @return SourceUploadResponseInterface
      */
-    public function processUpload(SourceDataInterface $sourceData);
+    public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response);
 }

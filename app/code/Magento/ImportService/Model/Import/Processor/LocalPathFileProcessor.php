@@ -33,8 +33,8 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      *  {@inheritdoc}
      */
-    public function processUpload(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData)
+    public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
-        return $sourceData;
+        return $response;
     }
 }

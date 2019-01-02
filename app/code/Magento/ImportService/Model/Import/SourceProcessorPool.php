@@ -37,15 +37,15 @@ class SourceProcessorPool
      * @throws ImportServiceException
      * @return SourceProcessorInterface
      */
-    public function getProcessor(\Magento\ImportService\Api\Data\SourceDataInterface $sourceData)
+    public function getProcessor(\Magento\ImportService\Api\Data\SourceInterface $source)
     {
         foreach ($this->sourceProcessors as $key => $processorInformation) {
-            if ($processorInformation['import_type'] === $sourceData->getSource()->getImportType()) {
+            if ($processorInformation['import_type'] === $source->getImportType()) {
                 return $processorInformation['processor'];
             }
         }
         throw new ImportServiceException(
-            __('Specified Import type "%1" is wrong.', $sourceData->getSource()->getSourceType())
+            __('Specified Import type "%1" is wrong.', $source->getSourceType())
         );
     }
 }

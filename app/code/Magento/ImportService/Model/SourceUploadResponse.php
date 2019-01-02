@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\ImportResponseInterface;
+use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 
-class ImportResponse extends AbstractModel implements ImportResponseInterface
+class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
 {
 
     /**
@@ -44,7 +44,7 @@ class ImportResponse extends AbstractModel implements ImportResponseInterface
 
     /**
      * @param $sourceId
-     * @return ImportResponse|mixed
+     * @return SourceUploadResponse|mixed
      */
     public function setSourceId($sourceId)
     {
@@ -53,7 +53,7 @@ class ImportResponse extends AbstractModel implements ImportResponseInterface
 
     /**
      * @param $status
-     * @return ImportResponse|mixed
+     * @return SourceUploadResponse|mixed
      */
     public function setStatus($status)
     {
@@ -62,28 +62,10 @@ class ImportResponse extends AbstractModel implements ImportResponseInterface
 
     /**
      * @param $error
-     * @return ImportResponse|mixed
+     * @return SourceUploadResponse|mixed
      */
     public function setError($error)
     {
         return $this->setData(self::ERROR, $error);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setCompleted()
-    {
-        $this->setStatus(self::STATUS_COMPLETED);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setFailed()
-    {
-        $this->setStatus(self::STATUS_FAILED);
-        return $this;
     }
 }

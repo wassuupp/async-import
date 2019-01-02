@@ -10,7 +10,7 @@ namespace Magento\ImportService\Api\Data;
 /**
  * Interface ImportResponseInterface
  */
-interface ImportResponseInterface
+interface SourceUploadResponseInterface
 {
     const STATUS_UPLOADED = 'uploaded';
 
