@@ -88,4 +88,19 @@ interface SourceInterface extends ExtensibleDataInterface
      * @return string
      */
     public function getCreatedAt();
+
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \Magento\ImportService\Api\Data\SourceExtensionInterface|null
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \Magento\ImportService\Api\Data\GroupExtensionInterface $extensionAttributes
+     * @return $this
+     */
+    public function setExtensionAttributes(\Magento\ImportService\Api\Data\SourceExtensionInterface $extensionAttributes);
 }
