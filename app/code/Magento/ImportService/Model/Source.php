@@ -109,7 +109,7 @@ class Source extends AbstractModel implements SourceInterface
     /**
      * {@inheritdoc}
      *
-     * @param \Magento\ImportService\Api\Data\GroupExtensionInterface $extensionAttributes
+     * @param \Magento\ImportService\Api\Data\SourceExtensionInterface $extensionAttributes
      * @return $this
      */
     public function setExtensionAttributes(\Magento\ImportService\Api\Data\SourceExtensionInterface $extensionAttributes)
