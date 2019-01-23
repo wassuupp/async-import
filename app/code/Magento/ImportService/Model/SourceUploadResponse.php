@@ -9,6 +9,7 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportService\Api\Data\SourceInterface;
 
 class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
 {
@@ -43,6 +44,16 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
     }
 
     /**
+     * Get source
+     *
+     * @return SourceInterface
+     */
+    public function getSource()
+    {
+        return $this->getData(self::SOURCE_MODEL);
+    }
+
+    /**
      * @param $sourceId
      * @return SourceUploadResponse|mixed
      */
@@ -67,5 +78,14 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
     public function setError($error)
     {
         return $this->setData(self::ERROR, $error);
+    }
+
+    /**
+     * @param SourceInterface $source
+     * @return mixed
+     */
+    public function setSource(SourceInterface $source)
+    {
+        return $this->setData(self::SOURCE_MODEL, $source);
     }
 }

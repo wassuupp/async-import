@@ -7,13 +7,13 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\AbstractExtensibleModel;
 use Magento\ImportService\Api\Data\SourceInterface;
 
 /**
  * Class Source
  */
-class Source extends AbstractModel implements SourceInterface
+class Source extends AbstractExtensibleModel implements SourceInterface
 {
 
     /**
