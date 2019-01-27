@@ -9,6 +9,7 @@ namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Filesystem\Io\File;
 use Magento\ImportService\Exception as ImportServiceException;
+use Magento\ImportService\Helper\FileSystem;
 
 /**
  * CSV files processor for asynchronous import
@@ -16,29 +17,27 @@ use Magento\ImportService\Exception as ImportServiceException;
 class ExternalFileProcessor implements SourceProcessorInterface
 {
     /**
-     * Magento Media directory
-     */
-    const DIR_MEDIA = BP . '/pub/media/';
-
-    /**
-     * The destination directory
-     */
-    const DIR_IMPORT_DESTINATION = 'import/';
-
-    /**
      * @var \Magento\Framework\Filesystem\Io\File
      */
     protected $fileSystemIo;
 
     /**
+     * @var \Magento\ImportService\Helper\FileSystem
+     */
+    protected $fileSystemHelper;
+
+    /**
      * LocalPathFileProcessor constructor
      *
      * @param File $fileSystemIo
+     * @param FileSystem $fileSystemHelper
      */
     public function __construct(
-        File $fileSystemIo
+        File $fileSystemIo,
+        FileSystem $fileSystemHelper
     ) {
         $this->fileSystemIo = $fileSystemIo;
+        $this->fileSystemHelper = $fileSystemHelper;
     }
 
     /**
@@ -50,8 +49,7 @@ class ExternalFileProcessor implements SourceProcessorInterface
         $fileName = uniqid();
 
         /** @var string $copyFileFullPath*/
-        $copyFileFullPath =  self::DIR_MEDIA
-            . self::DIR_IMPORT_DESTINATION
+        $copyFileFullPath =  $this->fileSystemHelper->getWorkingDir()
             . $fileName
             . '.'
             . $source->getSourceType();

@@ -21,21 +21,6 @@ class ExternalSourceImportTest extends WebapiAbstract
     const RESOURCE_PATH = '/V1/import/source';
 
     /**
-     * Magento Media directory
-     */
-    const DIR_MEDIA = BP . '/pub/media/';
-
-    /**
-     * The destination directory
-     */
-    const DIR_IMPORT_DESTINATION = 'import/';
-
-    /**
-     * The temporary directory that provides sample file for copying
-     */
-    const DIR_TMP_PROVIDER = 'tmp_import/';
-
-    /**
      * The tested file extension
      */
     const EXTERNAL_FILE_TYPE = 'csv';
@@ -51,6 +36,11 @@ class ExternalSourceImportTest extends WebapiAbstract
     protected $fileSystemIo;
 
     /**
+     * @var \Magento\ImportService\Helper\FileSystem
+     */
+    protected $fileSystemHelper;
+
+    /**
      * Sets Up the tests
      */
     public function setUp()
@@ -59,6 +49,7 @@ class ExternalSourceImportTest extends WebapiAbstract
         $objectManager = Bootstrap::getObjectManager();
 
         $this->fileSystemIo = $objectManager->create(\Magento\Framework\Filesystem\Io\File::class);
+        $this->fileSystemHelper = $objectManager->create(\Magento\ImportService\Helper\FileSystem::class);
     }
 
     /**
@@ -114,7 +105,7 @@ class ExternalSourceImportTest extends WebapiAbstract
          * @var string $import_data
          */
         $import_data = $storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)
-            . self::DIR_TMP_PROVIDER
+            . $this->fileSystemHelper::TEMPORARY_DIR
             . $sampleFileName;
 
         /** Make the Api call */
@@ -188,7 +179,8 @@ class ExternalSourceImportTest extends WebapiAbstract
      */
     private function pathProvider()
     {
-        $fullPathTmpDir =  self::DIR_MEDIA . self::DIR_TMP_PROVIDER;
+        /** @var string $fullPathTmpDir */
+        $fullPathTmpDir =  $this->fileSystemHelper->getTemporaryDir();
 
         $this->fileSystemIo->mkdir($fullPathTmpDir);
         $this->fileSystemIo->chmod($fullPathTmpDir, 0777, true);
@@ -203,8 +195,7 @@ class ExternalSourceImportTest extends WebapiAbstract
      */
     private function pathCopiedFile($source_id)
     {
-        return self::DIR_MEDIA
-            . self::DIR_IMPORT_DESTINATION
+        return $this->fileSystemHelper->getWorkingDir()
             . $source_id
             . '.'
             . self::EXTERNAL_FILE_TYPE;
