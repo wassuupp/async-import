@@ -5,6 +5,7 @@
  */
 namespace Magento\ImportService\Api;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\UrlInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
@@ -14,7 +15,7 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
 /**
  * Tests the import service by given external source.
  */
-class ExternalSourceImportTest extends WebapiAbstract
+class ExternalFileProcessorTest extends WebapiAbstract
 {
     const SERVICE_NAME = 'sourceRepositoryV1';
     const SERVICE_VERSION = 'V1';
@@ -31,14 +32,24 @@ class ExternalSourceImportTest extends WebapiAbstract
     const IMPORT_TYPE = 'external';
 
     /**
+     * The working directory name
+     */
+    const WORKING_DIR = 'importservice/';
+
+    /**
+     * The temporary directory name
+     */
+    const TEMPORARY_DIR = 'tmp_importservice/';
+
+    /**
      * @var \Magento\Framework\Filesystem\Io\File
      */
     protected $fileSystemIo;
 
     /**
-     * @var \Magento\ImportService\Helper\FileSystem
+     * @var \Magento\Framework\Filesystem
      */
-    protected $fileSystemHelper;
+    protected $fileSystem;
 
     /**
      * Sets Up the tests
@@ -49,7 +60,7 @@ class ExternalSourceImportTest extends WebapiAbstract
         $objectManager = Bootstrap::getObjectManager();
 
         $this->fileSystemIo = $objectManager->create(\Magento\Framework\Filesystem\Io\File::class);
-        $this->fileSystemHelper = $objectManager->create(\Magento\ImportService\Helper\FileSystem::class);
+        $this->fileSystem = $objectManager->create(\Magento\Framework\Filesystem::class);
     }
 
     /**
@@ -105,7 +116,7 @@ class ExternalSourceImportTest extends WebapiAbstract
          * @var string $import_data
          */
         $import_data = $storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)
-            . $this->fileSystemHelper::TEMPORARY_DIR
+            . self::TEMPORARY_DIR
             . $sampleFileName;
 
         /** Make the Api call */
@@ -174,28 +185,34 @@ class ExternalSourceImportTest extends WebapiAbstract
     }
 
     /**
-     * Gets the path to the temporary directory, creates the directory and gives open permissions
+     * Creates the temporary directory and gets the path to it
      * @return string
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     private function pathProvider()
     {
-        /** @var string $fullPathTmpDir */
-        $fullPathTmpDir =  $this->fileSystemHelper->getTemporaryDir();
+        /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
+        $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
 
-        $this->fileSystemIo->mkdir($fullPathTmpDir);
-        $this->fileSystemIo->chmod($fullPathTmpDir, 0777, true);
+        /** There should be no such directory, so it is expected that the working directory is created */
+        $writeInterface->create(self::TEMPORARY_DIR);
 
-        return $fullPathTmpDir;
+        return $writeInterface->getAbsolutePath(self::TEMPORARY_DIR);
     }
 
     /**
      * Gets the path to the copied file
      * @param string $source_id
      * @return string
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     private function pathCopiedFile($source_id)
     {
-        return $this->fileSystemHelper->getWorkingDir()
+        /** @var string $wordkingDirPath */
+        $wordkingDirPath = $this->fileSystem->getDirectoryWrite(DirectoryList::VAR_DIR)
+            ->getAbsolutePath(self::WORKING_DIR);
+
+        return $wordkingDirPath
             . $source_id
             . '.'
             . self::EXTERNAL_FILE_TYPE;

@@ -7,9 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
-use Magento\Framework\Filesystem\Io\File;
-use Magento\ImportService\Exception as ImportServiceException;
-use Magento\ImportService\Helper\FileSystem;
+use Magento\Framework\Filesystem;
+use Magento\Framework\App\Filesystem\DirectoryList;
 
 /**
  * CSV files processor for asynchronous import
@@ -17,27 +16,19 @@ use Magento\ImportService\Helper\FileSystem;
 class ExternalFileProcessor implements SourceProcessorInterface
 {
     /**
-     * @var \Magento\Framework\Filesystem\Io\File
+     * @var \Magento\Framework\Filesystem
      */
-    protected $fileSystemIo;
-
-    /**
-     * @var \Magento\ImportService\Helper\FileSystem
-     */
-    protected $fileSystemHelper;
+    protected $fileSystem;
 
     /**
      * LocalPathFileProcessor constructor
      *
-     * @param File $fileSystemIo
-     * @param FileSystem $fileSystemHelper
+     * @param FileSystem $fileSystem
      */
     public function __construct(
-        File $fileSystemIo,
-        FileSystem $fileSystemHelper
+        FileSystem $fileSystem
     ) {
-        $this->fileSystemIo = $fileSystemIo;
-        $this->fileSystemHelper = $fileSystemHelper;
+        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -45,26 +36,29 @@ class ExternalFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
+        /** @var string $workingDirectory */
+        $workingDirectory = 'importservice/';
+
         /** @var string $fileName */
         $fileName = uniqid();
 
+        /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
+        $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::VAR_DIR);
+
+        /** If the directory is not present, it will be created */
+        $writeInterface->create($workingDirectory);
+
         /** @var string $copyFileFullPath*/
-        $copyFileFullPath =  $this->fileSystemHelper->getWorkingDir()
+        $copyFileFullPath =  $writeInterface->getAbsolutePath($workingDirectory)
             . $fileName
             . '.'
             . $source->getSourceType();
 
-        if (!$this->fileSystemIo->cp($source->getImportData(), $copyFileFullPath)) {
-            /** @var array $lastError */
-            $lastError = error_get_last();
+        /** @var \Magento\Framework\Filesystem\Driver\File $driver */
+        $driver = $writeInterface->getDriver();
 
-            /** @var string $errorMessage */
-            $errorMessage = isset($lastError['message']) ? $lastError['message'] : '';
-
-            throw new ImportServiceException(
-                __('Cannot copy the remote file: %1', $errorMessage)
-            );
-        }
+        /** Attempt a copy, may throw \Magento\Framework\Exception\FileSystemException */
+        $driver->copy($source->getImportData(), $copyFileFullPath);
 
         /** Update source's import data */
         $source->setImportData($fileName);
