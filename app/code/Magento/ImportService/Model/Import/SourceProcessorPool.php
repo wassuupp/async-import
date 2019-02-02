@@ -15,6 +15,12 @@ use Magento\ImportService\Model\Import\Processor\SourceProcessorInterface;
  */
 class SourceProcessorPool
 {
+    /**
+     * Working directory
+     *
+     * @var string
+     */
+    const WORKING_DIR = 'importservice/';
 
     /**
      * @var array

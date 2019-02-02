@@ -9,6 +9,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\UrlInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportService\Model\Import\SourceProcessorPool;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
@@ -32,47 +33,18 @@ class ExternalFileProcessorTest extends WebapiAbstract
     const IMPORT_TYPE = 'external';
 
     /**
-     * The working directory name
-     */
-    const WORKING_DIR = 'importservice/';
-
-    /**
      * The temporary directory name
      */
     const TEMPORARY_DIR = 'tmp_importservice/';
-
-    /**
-     * @var \Magento\Framework\Filesystem\Io\File
-     */
-    protected $fileSystemIo;
-
-    /**
-     * @var \Magento\Framework\Filesystem
-     */
-    protected $fileSystem;
-
-    /**
-     * Sets Up the tests
-     */
-    public function setUp()
-    {
-        /** @var \Magento\Framework\ObjectManagerInterface  $objectManager */
-        $objectManager = Bootstrap::getObjectManager();
-
-        $this->fileSystemIo = $objectManager->create(\Magento\Framework\Filesystem\Io\File::class);
-        $this->fileSystem = $objectManager->create(\Magento\Framework\Filesystem::class);
-    }
 
     /**
      * Test Import Data not set
      */
     public function testImportDataNotSet()
     {
-        $import_data = null;
-
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
-            $this->makeRequestData($import_data)
+            $this->makeRequestData(null)
         );
 
         $this->assertEquals(SourceUploadResponseInterface::STATUS_FAILED, $result['status']);
@@ -81,7 +53,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
     }
 
     /**
-     * Test Import data not set file
+     * Test non reachable file
      */
     public function testUnreachableFile()
     {
@@ -105,24 +77,19 @@ class ExternalFileProcessorTest extends WebapiAbstract
         $sampleFileName = 'importservice-test-' . time() . '.' . self::EXTERNAL_FILE_TYPE;
         $sampleFileContent = 'ABCDEFGHabcdefgh0123456789';
 
-        /** Create file to be copied */
-        $this->fileSystemIo->write($this->pathProvider() . $sampleFileName, $sampleFileContent);
+        /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $mediaWriter */
+        $mediaWriter = $this->getWriteInterface(DirectoryList::MEDIA);
 
-        /** @var \Magento\Store\Model\StoreManagerInterface $storeManager */
-        $storeManager = Bootstrap::getObjectManager()->create(\Magento\Store\Model\StoreManagerInterface::class);
+        /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $varWriter */
+        $varWriter = $this->getWriteInterface(DirectoryList::VAR_DIR);
 
-        /**
-         * The external path to the file that should be copied
-         * @var string $import_data
-         */
-        $import_data = $storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)
-            . self::TEMPORARY_DIR
-            . $sampleFileName;
+        /** Create the test file that should be copied */
+        $mediaWriter->writeFile($mediaWriter->getAbsolutePath(self::TEMPORARY_DIR) . $sampleFileName, $sampleFileContent);
 
         /** Make the Api call */
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
-            $this->makeRequestData($import_data)
+            $this->makeRequestData($this->getExternalLink($sampleFileName))
         );
 
         /** Assert the response status and the source_id */
@@ -131,21 +98,27 @@ class ExternalFileProcessorTest extends WebapiAbstract
 
         if (isset($result['source']['import_data'])) {
 
-            /** @var $nameCopiedFile */
+            /** @var string $nameCopiedFile */
             $nameCopiedFile = $result['source']['import_data'];
+
+            /** @var string $pathCopiedFile */
+            $pathCopiedFile = $varWriter->getAbsolutePath(SourceProcessorPool::WORKING_DIR)
+                . $nameCopiedFile
+                . '.'
+                . self::EXTERNAL_FILE_TYPE;
 
             /** Assert that the content of the copied file matches the original content */
             $this->assertEquals(
                 strlen($sampleFileContent),
-                strlen($this->fileSystemIo->read($this->pathCopiedFile($nameCopiedFile)))
+                strlen($varWriter->readFile($pathCopiedFile))
             );
 
-            /** Remove copied file */
-            $this->fileSystemIo->rm($this->pathCopiedFile($nameCopiedFile));
+            /** Remove the file from the working directory */
+            $varWriter->getDriver()->deleteFile($pathCopiedFile);
         }
 
         /** Remove tmp dir */
-        $this->fileSystemIo->rmdir($this->pathProvider(), true);
+        $mediaWriter->delete($mediaWriter->getAbsolutePath(self::TEMPORARY_DIR));
     }
 
     /**
@@ -185,36 +158,31 @@ class ExternalFileProcessorTest extends WebapiAbstract
     }
 
     /**
-     * Creates the temporary directory and gets the path to it
+     * Gets the public link to the file to be copied
+     * @param $sampleFileName
      * @return string
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    private function pathProvider()
+    private function getExternalLink($sampleFileName)
     {
-        /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
-        $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
+        /** @var \Magento\Store\Model\StoreManagerInterface $storeManager */
+        $storeManager = Bootstrap::getObjectManager()->create(\Magento\Store\Model\StoreManagerInterface::class);
 
-        /** There should be no such directory, so it is expected that the working directory is created */
-        $writeInterface->create(self::TEMPORARY_DIR);
-
-        return $writeInterface->getAbsolutePath(self::TEMPORARY_DIR);
+        return $storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)
+            . self::TEMPORARY_DIR
+            . $sampleFileName;
     }
 
     /**
-     * Gets the path to the copied file
-     * @param string $source_id
-     * @return string
+     * Gets a Write object
+     * @param string $dir The directory to write to
+     * @return \Magento\Framework\Filesystem\Directory\WriteInterface
      * @throws \Magento\Framework\Exception\FileSystemException
      */
-    private function pathCopiedFile($source_id)
+    private function getWriteInterface($dir)
     {
-        /** @var string $wordkingDirPath */
-        $wordkingDirPath = $this->fileSystem->getDirectoryWrite(DirectoryList::VAR_DIR)
-            ->getAbsolutePath(self::WORKING_DIR);
+        $fileSystem = Bootstrap::getObjectManager()->create(\Magento\Framework\Filesystem::class);
 
-        return $wordkingDirPath
-            . $source_id
-            . '.'
-            . self::EXTERNAL_FILE_TYPE;
+        return $fileSystem->getDirectoryWrite($dir);
     }
 }

@@ -9,6 +9,7 @@ namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\ImportService\Model\Import\SourceProcessorPool;
 
 /**
  * CSV files processor for asynchronous import
@@ -37,7 +38,7 @@ class ExternalFileProcessor implements SourceProcessorInterface
     public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
         /** @var string $workingDirectory */
-        $workingDirectory = 'importservice/';
+        $workingDirectory = SourceProcessorPool::WORKING_DIR;
 
         /** @var string $fileName */
         $fileName = uniqid();
