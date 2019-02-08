@@ -9,12 +9,27 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
 
 /**
  * Class Source
  */
 class Source extends AbstractModel implements SourceInterface
 {
+    const CACHE_TAG = 'magento_import_service_source';
+
+    protected function _construct()
+    {
+        $this->_init(SourceResource::class);
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdentities()
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
+    }
 
     /**
      * @return int
