@@ -7,9 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
-use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Filesystem;
+use Magento\ImportService\Exception as ImportServiceException;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
+use Magento\ImportService\Model\Source\Validator;
 
 /**
  * CSV files processor for asynchronous import
@@ -22,14 +24,22 @@ class ExternalFileProcessor implements SourceProcessorInterface
     protected $fileSystem;
 
     /**
+     * @var \Magento\ImportService\Model\Source\Validator
+     */
+    protected $validator;
+
+    /**
      * LocalPathFileProcessor constructor
      *
      * @param FileSystem $fileSystem
+     * @param Validator $validator
      */
     public function __construct(
-        FileSystem $fileSystem
+        FileSystem $fileSystem,
+        Validator $validator
     ) {
         $this->fileSystem = $fileSystem;
+        $this->validator = $validator;
     }
 
     /**
@@ -37,11 +47,18 @@ class ExternalFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
+        /** Validate the $source */
+        if ($errors = $this->validator->validateRequest($source)) {
+            throw new ImportServiceException(
+                __('Invalid request: %1', implode(", ", $errors))
+            );
+        }
+
         /** @var string $workingDirectory */
         $workingDirectory = SourceProcessorPool::WORKING_DIR;
 
         /** @var string $fileName */
-        $fileName = uniqid();
+        $fileName =  uniqid() . '.' . $source->getSourceType();
 
         /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
         $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::VAR_DIR);
@@ -50,20 +67,21 @@ class ExternalFileProcessor implements SourceProcessorInterface
         $writeInterface->create($workingDirectory);
 
         /** @var string $copyFileFullPath*/
-        $copyFileFullPath =  $writeInterface->getAbsolutePath($workingDirectory)
-            . $fileName
-            . '.'
-            . $source->getSourceType();
-
-        /** @var \Magento\Framework\Filesystem\Driver\File $driver */
-        $driver = $writeInterface->getDriver();
+        $copyFileFullPath =  $writeInterface->getAbsolutePath($workingDirectory) . $fileName;
 
         /** Attempt a copy, may throw \Magento\Framework\Exception\FileSystemException */
-        $driver->copy($source->getImportData(), $copyFileFullPath);
+        $writeInterface->getDriver()->copy($source->getImportData(), $copyFileFullPath);
 
-        /** Update source's import data */
-        $source->setImportData($fileName);
+        /** Validate the copied file mime type */
+        if (!$this->validator->validateMimeType($copyFileFullPath)) {
+            $writeInterface->delete($copyFileFullPath);
 
-        return $response->setSource($source)->setStatus($response::STATUS_UPLOADED);
+            throw new ImportServiceException(
+                __('Invalid mime type, expected is one of: %1', implode(", ", $this->validator::EXPECTED_MIME_TYPES))
+            );
+        }
+
+        return $response->setSource($source->setImportData($fileName))
+            ->setStatus($response::STATUS_UPLOADED);
     }
 }

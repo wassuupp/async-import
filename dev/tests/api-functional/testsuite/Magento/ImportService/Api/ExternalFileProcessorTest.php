@@ -48,7 +48,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
         );
 
         $this->assertEquals(SourceUploadResponseInterface::STATUS_FAILED, $result['status']);
-        $this->assertRegExp('/Filename cannot be empty/', $result['error']);
+        $this->assertRegExp('/Invalid request/', $result['error']);
         $this->assertNull($result['source']);
     }
 
@@ -103,9 +103,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
 
             /** @var string $pathCopiedFile */
             $pathCopiedFile = $varWriter->getAbsolutePath(SourceProcessorPool::WORKING_DIR)
-                . $nameCopiedFile
-                . '.'
-                . self::EXTERNAL_FILE_TYPE;
+                . $nameCopiedFile;
 
             /** Assert that the content of the copied file matches the original content */
             $this->assertEquals(
