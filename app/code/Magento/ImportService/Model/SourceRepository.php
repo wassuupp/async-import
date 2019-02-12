@@ -65,6 +65,7 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
+     *
      * @throws CouldNotSaveException
      */
     public function save(SourceInterface $source)
@@ -80,6 +81,7 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
+     *
      * @throws NoSuchEntityException
      */
     public function getById($id)
@@ -95,6 +97,7 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
+     *
      * @throws CouldNotDeleteException
      */
     public function delete(SourceInterface $source)
@@ -111,6 +114,7 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
+     *
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException
      */

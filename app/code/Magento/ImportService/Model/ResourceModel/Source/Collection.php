@@ -16,6 +16,9 @@ use Magento\ImportService\Model\Source;
  */
 class Collection extends AbstractCollection
 {
+    /**
+     * Source collection constructor
+     */
     protected function _construct()
     {
         $this->_init(Source::class, SourceResourceModel::class);
