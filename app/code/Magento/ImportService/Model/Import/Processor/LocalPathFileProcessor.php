@@ -60,6 +60,8 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     private $source;
 
     /**
+     * LocalPathFileProcessor constructor
+     *
      * @param File $fileSystemIo
      * @param Filesystem $fileSystem
      * @param SourceTypesValidatorInterface $sourceTypesValidator
@@ -78,7 +80,11 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     }
 
     /**
-     *  {@inheritdoc}
+     * Uploads process
+     *
+     * @inheritdoc
+     * @throws FileSystemException
+     * @throws ImportServiceException
      */
     public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
     {
@@ -98,60 +104,77 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     }
 
     /**
+     * Saves source in DB
+     *
      * @return SourceInterface
      */
     private function saveSource()
     {
-        $this->source->setImportData($this->getNewFullName());
+        $this->source->setImportData($this->getNewFileName());
         $this->source->setStatus(SourceInterface::STATUS_UPLOADED);
 
         return $this->sourceRepository->save($this->source);
     }
 
     /**
+     * Saves file at the storage
+     *
      * @return string
      * @throws FileSystemException
      */
     private function saveFile()
     {
-        $filePath = $this->getDirectoryWrite()->getRelativePath($this->source->getImportData());
-        $this->directoryWrite->copyFile($filePath, $this->getNewFullName());
+        $this->directoryWrite->copyFile(
+            $this->source->getImportData(),
+            $this->getNewFileName()
+        );
 
-        return $this->getDirectoryWrite()->getAbsolutePath($this->getNewFullName());
+        return $this->getNewFileName();
     }
 
     /**
+     * Generates new file name
+     *
      * @return string
      */
-    private function getNewFullName()
+    private function getNewFileName()
     {
         if (!$this->newFileName) {
             $this->newFileName = self::IMPORT_SOURCE_FILE_PATH . '/'
                 . uniqid()
                 . '.' . $this->source->getSourceType();
         }
+
         return $this->newFileName;
     }
 
     /**
+     * Provides configured directoryWrite
+     *
      * @return WriteInterface
      * @throws FileSystemException
      */
     private function getDirectoryWrite()
     {
         if (!$this->directoryWrite) {
-            $this->directoryWrite = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);
+            $this->directoryWrite = $this->fileSystem
+                ->getDirectoryWrite(DirectoryList::ROOT);
         }
 
         return $this->directoryWrite;
     }
 
     /**
+     * Validates source
+     *
+     * @throws FileSystemException
      * @throws ImportServiceException
      */
     private function validateSource()
     {
-        if (!$this->fileSystemIo->read($this->source->getImportData())) {
+        $absoluteSourcePath = $this->getDirectoryWrite()
+            ->getAbsolutePath($this->source->getImportData());
+        if (!$this->fileSystemIo->read($absoluteSourcePath)) {
             throw new ImportServiceException(
                 __("Cannot read from file system. File not existed or cannot be read")
             );
@@ -160,6 +183,8 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     }
 
     /**
+     * Removes source
+     *
      * @param string $filename
      * @return bool
      * @throws FileSystemException
