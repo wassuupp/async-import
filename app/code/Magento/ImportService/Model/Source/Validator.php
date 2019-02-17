@@ -13,13 +13,9 @@ use Magento\Framework\File\Mime\Proxy as Mime;
 class Validator
 {
     /**
-     * The expected mime types for imported files
-     * @var array
+     * @var string[]
      */
-    const EXPECTED_MIME_TYPES = [
-        'text/plain',
-        'text/csv'
-    ];
+    protected $allowedMimeTypes;
 
     /**
      * @var \Magento\Framework\File\Mime\Proxy
@@ -27,12 +23,23 @@ class Validator
     protected $mime;
 
     /**
+     * @param string[] $allowedMimeTypes
      * @param Mime $mime
      */
     public function __construct(
+        array $allowedMimeTypes,
         Mime $mime
     ) {
+        $this->allowedMimeTypes = $allowedMimeTypes;
         $this->mime = $mime;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAllowedMimeTypes()
+    {
+        return $this->allowedMimeTypes;
     }
 
     /**
@@ -44,11 +51,11 @@ class Validator
         $errors = [];
 
         if (!$this->validateSourceType($source)) {
-            $errors[] = $source::SOURCE_TYPE . ' cannot be empty';
+            $errors[] = __('%1 cannot be empty', $source::SOURCE_TYPE);
         }
 
         if (!$this->validateImportData($source)) {
-            $errors[] = $source::IMPORT_DATA . ' cannot be empty';
+            $errors[] = __('%1 cannot be empty', $source::IMPORT_DATA);
         }
 
         if (count($errors) > 0) {
@@ -88,12 +95,12 @@ class Validator
      * @param string $absoluteFilePath
      * @return bool
      */
-    public function validateMimeType(string $absoluteFilePath)
+    public function validateMimeTypeForLocalFile(string $absoluteFilePath)
     {
         /** @var string $mimeType */
         $mimeType = $this->mime->getMimeType($absoluteFilePath);
 
-        if (!in_array($mimeType, self::EXPECTED_MIME_TYPES)) {
+        if (!in_array($mimeType, $this->allowedMimeTypes)) {
             return false;
         }
 

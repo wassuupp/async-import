@@ -57,15 +57,15 @@ class ExternalFileProcessorTest extends WebapiAbstract
      */
     public function testUnreachableFile()
     {
-        $import_data = 'http://doesnotexist.domain/does-not-exist.csv';
-
+        $sampleFileName = 'non-existing' . '.' . self::EXTERNAL_FILE_TYPE;
+        
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
-            $this->makeRequestData($import_data)
+            $this->makeRequestData($this->getExternalLink($sampleFileName))
         );
 
         $this->assertEquals(SourceUploadResponseInterface::STATUS_FAILED, $result['status']);
-        $this->assertRegExp('/failed to open stream/', $result['error']);
+        $this->assertRegExp('/does not exist./', $result['error']);
         $this->assertNull($result['source']);
     }
 
