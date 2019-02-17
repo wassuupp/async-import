@@ -10,7 +10,8 @@
     <preference for="Magento\ImportService\Api\SourceUploadInterface" type="Magento\ImportService\Model\SourceUpload" />
     <preference for="Magento\ImportService\Api\Data\SourceInterface" type="Magento\ImportService\Model\Source" />
     <preference for="Magento\ImportService\Api\Data\SourceUploadResponseInterface" type="Magento\ImportService\Model\SourceUploadResponse" />
-
+    <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
+                type="Magento\ImportService\Model\SourceRepository"/>
     <type name="Magento\ImportService\Model\Import\SourceProcessorPool">
         <arguments>
             <argument name="sourceProcessors" xsi:type="array">
@@ -25,5 +26,4 @@
             </argument>
         </arguments>
     </type>
-
 </config>
