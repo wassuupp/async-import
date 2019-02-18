@@ -6,6 +6,7 @@
 namespace Magento\ImportService\Model\Source;
 
 use Magento\Framework\File\Mime\Proxy as Mime;
+use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
 
 /**
  * Class Validator
@@ -23,15 +24,23 @@ class Validator
     protected $mime;
 
     /**
+     * @var \Magento\Framework\Filesystem\Driver\Http
+     */
+    protected $httpDriver;
+
+    /**
      * @param string[] $allowedMimeTypes
      * @param Mime $mime
+     * @param Http $httpDriver
      */
     public function __construct(
         array $allowedMimeTypes,
-        Mime $mime
+        Mime $mime,
+        Http $httpDriver
     ) {
         $this->allowedMimeTypes = $allowedMimeTypes;
         $this->mime = $mime;
+        $this->httpDriver = $httpDriver;
     }
 
     /**
@@ -105,5 +114,44 @@ class Validator
         }
 
         return true;
+    }
+
+    /**
+     * @param string $url
+     * @return bool
+     */
+    public function validateMimeTypeForRemoteFile(string $url)
+    {
+        /** @var array $stat */
+        $stat = $this->httpDriver->stat($this->getSourceLocation($url));
+
+        if (!isset($stat['type']) || !in_array($stat['type'], $this->getAllowedMimeTypes())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $url
+     * @return bool
+     * @throws \Magento\Framework\Exception\FileSystemException
+     */
+    public function checkIfRemoteFileExists($url)
+    {
+        if (!$this->httpDriver->isExists($this->getSourceLocation($url))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function getSourceLocation($url)
+    {
+        return preg_replace("(^https?://)", "", $url);
     }
 }

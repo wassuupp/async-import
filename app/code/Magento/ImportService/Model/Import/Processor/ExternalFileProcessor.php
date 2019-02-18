@@ -9,7 +9,6 @@ namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Driver\Http;
 use Magento\ImportService\Exception as ImportServiceException;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
 use Magento\ImportService\Model\Source\Validator;
@@ -25,11 +24,6 @@ class ExternalFileProcessor implements SourceProcessorInterface
     protected $fileSystem;
 
     /**
-     * @var \Magento\Framework\Filesystem\Driver\Http
-     */
-    protected $httpDriver;
-
-    /**
      * @var \Magento\ImportService\Model\Source\Validator
      */
     protected $validator;
@@ -38,16 +32,13 @@ class ExternalFileProcessor implements SourceProcessorInterface
      * LocalPathFileProcessor constructor
      *
      * @param FileSystem $fileSystem
-     * @param Http $httpDriver
      * @param Validator $validator
      */
     public function __construct(
         FileSystem $fileSystem,
-        Http $httpDriver,
         Validator $validator
     ) {
         $this->fileSystem = $fileSystem;
-        $this->httpDriver = $httpDriver;
         $this->validator = $validator;
     }
 
@@ -63,20 +54,15 @@ class ExternalFileProcessor implements SourceProcessorInterface
             );
         }
 
-        /** @var string $sourceLocation */
-        $sourceLocation = preg_replace("(^https?://)", "", $source->getImportData());
-
         /** Check if the domain exists and the file within that domain exists */
-        if (!$this->httpDriver->isExists($sourceLocation)) {
+        if (!$this->validator->checkIfRemoteFileExists($source->getImportData())) {
             throw new ImportServiceException(
                 __('Remote file %1 does not exist.', $source->getImportData())
             );
         }
 
         /** Validate the remote file content type */
-        $stat = $this->httpDriver->stat($sourceLocation);
-        if (isset($stat['type']) && !in_array($stat['type'], $this->validator->getAllowedMimeTypes())) {
-
+        if (!$this->validator->validateMimeTypeForRemoteFile($source->getImportData())) {
             throw new ImportServiceException(
                 __('Invalid mime type, expected is one of: %1', implode(", ", $this->validator->getAllowedMimeTypes()))
             );
