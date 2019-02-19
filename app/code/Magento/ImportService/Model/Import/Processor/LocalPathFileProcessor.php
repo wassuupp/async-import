@@ -14,6 +14,15 @@ use Magento\Framework\Filesystem\Io\File;
  */
 class LocalPathFileProcessor implements SourceProcessorInterface
 {
+    /**
+     * Import Type
+     */
+    const IMPORT_TYPE = 'local_path';
+
+    /**
+     * CSV Source Type
+     */
+    const SOURCE_TYPE_CSV = 'csv';
 
     /**
      * @var \Magento\Framework\Filesystem\Io\File
