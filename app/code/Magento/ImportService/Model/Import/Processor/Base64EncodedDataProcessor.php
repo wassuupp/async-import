@@ -34,7 +34,7 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
     /**
      * @var \Magento\Framework\Filesystem
      */
-    protected $filesystem;
+    private $filesystem;
 
     /**
      * LocalPathFileProcessor constructor.

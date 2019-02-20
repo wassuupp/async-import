@@ -27,7 +27,7 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      * @var \Magento\Framework\Filesystem\Io\File
      */
-    protected $fileSystemIo;
+    private $fileSystemIo;
 
     /**
      * LocalPathFileProcessor constructor.
