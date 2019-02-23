@@ -21,12 +21,12 @@ class ExternalFileProcessor implements SourceProcessorInterface
     /**
      * @var \Magento\Framework\Filesystem
      */
-    protected $fileSystem;
+    private $fileSystem;
 
     /**
      * @var \Magento\ImportService\Model\Source\Validator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * LocalPathFileProcessor constructor

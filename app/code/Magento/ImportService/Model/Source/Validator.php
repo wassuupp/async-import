@@ -16,17 +16,17 @@ class Validator
     /**
      * @var string[]
      */
-    protected $allowedMimeTypes;
+    private $allowedMimeTypes;
 
     /**
      * @var \Magento\Framework\File\Mime\Proxy
      */
-    protected $mime;
+    private $mime;
 
     /**
      * @var \Magento\Framework\Filesystem\Driver\Http
      */
-    protected $httpDriver;
+    private $httpDriver;
 
     /**
      * @param string[] $allowedMimeTypes
