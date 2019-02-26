@@ -23,6 +23,18 @@
                           xsi:type="object">Magento\ImportService\Model\Import\Processor\LocalPathFileProcessor\Proxy</item>
                     <item name="import_type" xsi:type="string">local_path</item>
                 </item>
+                <item name="external" xsi:type="array">
+                    <item name="processor" xsi:type="object">Magento\ImportService\Model\Import\Processor\ExternalFileProcessor\Proxy</item>
+                    <item name="import_type" xsi:type="string">external</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="\Magento\ImportService\Model\Source\Validator">
+        <arguments>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="plain" xsi:type="string">text/plain</item>
+                <item name="csv" xsi:type="string">text/csv</item>
             </argument>
         </arguments>
     </type>
