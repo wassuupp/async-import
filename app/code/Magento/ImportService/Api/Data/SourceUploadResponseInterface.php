@@ -24,6 +24,8 @@ interface SourceUploadResponseInterface
 
     const ERROR = 'error';
 
+    const SOURCE_MODEL = 'source';
+
     /**
      * Get file ID
      *
@@ -46,6 +48,13 @@ interface SourceUploadResponseInterface
     public function getError();
 
     /**
+     * Get source
+     *
+     * @return \Magento\ImportService\Api\Data\SourceInterface
+     */
+    public function getSource();
+
+    /**
      * @param $sourceId
      * @return mixed
      */
@@ -62,4 +71,10 @@ interface SourceUploadResponseInterface
      * @return mixed
      */
     public function setError($error);
+
+    /**
+     * @param \Magento\ImportService\Api\Data\SourceInterface $source
+     * @return mixed
+     */
+    public function setSource(\Magento\ImportService\Api\Data\SourceInterface $source);
 }
