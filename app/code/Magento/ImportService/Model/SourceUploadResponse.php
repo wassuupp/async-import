@@ -13,7 +13,6 @@ use Magento\ImportService\Api\Data\SourceInterface;
 
 class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
 {
-
     /**
      * Get file ID
      *

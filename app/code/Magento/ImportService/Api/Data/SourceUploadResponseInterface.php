@@ -12,12 +12,6 @@ namespace Magento\ImportService\Api\Data;
  */
 interface SourceUploadResponseInterface
 {
-    const STATUS_UPLOADED = 'uploaded';
-
-    const STATUS_COMPLETED = 'completed';
-
-    const STATUS_FAILED = 'failed';
-
     const SOURCE_ID = 'source_id';
 
     const STATUS = 'status';

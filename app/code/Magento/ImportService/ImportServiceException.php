@@ -8,6 +8,6 @@ namespace Magento\ImportService;
 /**
  * @api
  */
-class Exception extends \Magento\Framework\Exception\LocalizedException
+class ImportServiceException extends \Magento\Framework\Exception\LocalizedException
 {
 }
