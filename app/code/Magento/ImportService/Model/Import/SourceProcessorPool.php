@@ -47,12 +47,12 @@ class SourceProcessorPool
     public function getProcessor(SourceInterface $source)
     {
         foreach ($this->sourceProcessors as $key => $processorInformation) {
-            if ($processorInformation['import_type'] === $source->getImportType()) {
+            if ($processorInformation['import_type'] === $source->getImportType() && in_array($source->getSourceType(), $processorInformation['source_type'])) {
                 return $processorInformation['processor'];
             }
         }
         throw new ImportServiceException(
-            __('Specified Import type "%1" is wrong.', $source->getImportType())
+            __('Specified Import type "%1" or Source type "%2" is wrong.', $source->getImportType(), $source->getSourceType())
         );
     }
 }

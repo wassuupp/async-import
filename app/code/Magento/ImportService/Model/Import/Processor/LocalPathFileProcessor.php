@@ -25,6 +25,16 @@ use Magento\ImportService\Model\Import\SourceTypesValidatorInterface;
 class LocalPathFileProcessor implements SourceProcessorInterface
 {
     /**
+     * Import Type
+     */
+    const IMPORT_TYPE = 'local_path';
+
+    /**
+     * CSV Source Type
+     */
+    const SOURCE_TYPE_CSV = 'csv';
+  
+    /**
      * @var SourceTypesValidatorInterface
      */
     private $sourceTypesValidator;
@@ -32,7 +42,7 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      * @var File
      */
-    protected $fileSystemIo;
+    private $fileSystemIo;
 
     /**
      * @var Filesystem
