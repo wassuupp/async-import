@@ -20,6 +20,9 @@ interface SourceInterface extends ExtensibleDataInterface
     const IMPORT_DATA = 'import_data';
     const CREATED_AT = 'created_at';
     const STATUS = 'status';
+    const STATUS_UPLOADED = 'uploaded';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_FAILED = 'failed';
 
     /**
      * @return int

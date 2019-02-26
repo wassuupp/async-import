@@ -7,7 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import;
 
-use Magento\ImportService\Exception as ImportServiceException;
+use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\ImportServiceException;
 use Magento\ImportService\Model\Import\Processor\SourceProcessorInterface;
 
 /**
@@ -15,6 +16,12 @@ use Magento\ImportService\Model\Import\Processor\SourceProcessorInterface;
  */
 class SourceProcessorPool
 {
+    /**
+     * Working directory
+     *
+     * @var string
+     */
+    const WORKING_DIR = 'importservice/';
 
     /**
      * @var array
@@ -37,7 +44,7 @@ class SourceProcessorPool
      * @throws ImportServiceException
      * @return SourceProcessorInterface
      */
-    public function getProcessor(\Magento\ImportService\Api\Data\SourceInterface $source)
+    public function getProcessor(SourceInterface $source)
     {
         foreach ($this->sourceProcessors as $key => $processorInformation) {
             if ($processorInformation['import_type'] === $source->getImportType() && in_array($source->getSourceType(), $processorInformation['source_type'])) {
