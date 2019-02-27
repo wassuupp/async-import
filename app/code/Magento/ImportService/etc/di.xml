@@ -60,4 +60,8 @@
     </type>
     <preference for="Magento\ImportService\Model\Import\SourceTypesValidatorInterface"
                 type="Magento\ImportService\Model\Import\SourceTypesValidator"/>
+
+    <preference for="Magento\ImportService\Api\SourceStatusInterface" type="Magento\ImportService\Model\SourceStatus" />
+    <preference for="Magento\ImportService\Api\Data\SourceStatusResponseInterface" type="Magento\ImportService\Model\SourceStatusResponse" />
+    <preference for="Magento\ImportService\Api\Data\SourceStatusResponseItemInterface" type="Magento\ImportService\Model\SourceStatusResponseItem" />
 </config>
