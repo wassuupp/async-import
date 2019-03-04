@@ -7,17 +7,25 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
+use Magento\Framework\Filesystem\Io\File;
+use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
-use Magento\ImportService\Exception as ImportServiceException;
-use Magento\ImportService\Model\Import\SourceProcessorPool;
+use Magento\ImportService\Model\Import\SourceTypePool;
 use Magento\ImportService\Model\Source\Validator;
+use Magento\ImportService\ImportServiceException;
 
 /**
  * CSV files processor for asynchronous import
  */
-class ExternalFileProcessor implements SourceProcessorInterface
+class ExternalFileProcessor extends AbstractSourceProcessor
 {
+    /**
+     * Import Type
+     */
+    const IMPORT_TYPE = 'external';
+
     /**
      * @var \Magento\Framework\Filesystem
      */
@@ -31,15 +39,18 @@ class ExternalFileProcessor implements SourceProcessorInterface
     /**
      * LocalPathFileProcessor constructor
      *
-     * @param FileSystem $fileSystem
+     * @param Filesystem $fileSystem
      * @param Validator $validator
+     * @param SourceTypePool $sourceTypePool
      */
     public function __construct(
-        FileSystem $fileSystem,
-        Validator $validator
+        Filesystem $fileSystem,
+        Validator $validator,
+        SourceTypePool $sourceTypePool
     ) {
         $this->fileSystem = $fileSystem;
         $this->validator = $validator;
+        parent::__construct($sourceTypePool);
     }
 
     /**
@@ -68,25 +79,16 @@ class ExternalFileProcessor implements SourceProcessorInterface
             );
         }
 
-        /** @var string $workingDirectory */
-        $workingDirectory = SourceProcessorPool::WORKING_DIR;
-
-        /** @var string $fileName */
-        $fileName =  uniqid() . '.' . $source->getSourceType();
-
         /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
-        $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::VAR_DIR);
+        $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);
 
-        /** If the directory is not present, it will be created */
-        $writeInterface->create($workingDirectory);
+        /** read content from external link */
+        $content = $writeInterface->getDriver()->fileGetContents($source->getImportData());
 
-        /** @var string $copyFileFullPath*/
-        $copyFileFullPath =  $writeInterface->getAbsolutePath($workingDirectory) . $fileName;
+        /** Set downloaded data */
+        $source->setImportData($content);
 
-        /** Attempt a copy, may throw \Magento\Framework\Exception\FileSystemException */
-        $writeInterface->getDriver()->copy($source->getImportData(), $copyFileFullPath);
-
-        return $response->setSource($source->setImportData($fileName))
-            ->setStatus($response::STATUS_UPLOADED);
+        /** process source and get response details */
+        return parent::processUpload($source, $response);
     }
 }
