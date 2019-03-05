@@ -39,14 +39,14 @@ class ExternalFileProcessor extends AbstractSourceProcessor
     /**
      * LocalPathFileProcessor constructor
      *
+     * @param SourceTypePool $sourceTypePool
      * @param Filesystem $fileSystem
      * @param Validator $validator
-     * @param SourceTypePool $sourceTypePool
      */
     public function __construct(
+        SourceTypePool $sourceTypePool,
         Filesystem $fileSystem,
-        Validator $validator,
-        SourceTypePool $sourceTypePool
+        Validator $validator
     ) {
         $this->fileSystem = $fileSystem;
         $this->validator = $validator;
