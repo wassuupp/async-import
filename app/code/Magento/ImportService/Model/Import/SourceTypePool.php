@@ -39,9 +39,9 @@ class SourceTypePool
      */
     public function getSourceType(SourceInterface $source)
     {
-        foreach ($this->sourceTypes as $key => $sourceTypeInformation) {
+        foreach ($this->sourceTypes as $key => $object) {
             if ($source->getSourceType() == $key) {
-                return $sourceTypeInformation['processor'];
+                return $object;
             }
         }
         throw new ImportServiceException(

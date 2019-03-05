@@ -15,12 +15,16 @@
                 type="Magento\ImportService\Model\SourceUploadResponse" />
     <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
                 type="Magento\ImportService\Model\SourceRepository"/>
+    <virtualType name="Magento\ImportService\Model\Import\Type\Csv" type="Magento\ImportService\Model\Import\Type\SourceType">
+        <arguments>
+            <argument name="sourceType" xsi:type="string">csv</argument>
+            <argument name="mime" xsi:type="string">text/csv</argument>
+        </arguments>
+    </virtualType>
     <type name="Magento\ImportService\Model\Import\SourceTypePool">
         <arguments>
             <argument name="sourceTypes" xsi:type="array">
-                <item name="csv" xsi:type="array">
-                    <item name="processor" xsi:type="object">Magento\ImportService\Model\Import\Type\Csv</item>
-                </item>
+                <item name="csv" xsi:type="object">Magento\ImportService\Model\Import\Type\Csv</item>
             </argument>
         </arguments>
     </type>

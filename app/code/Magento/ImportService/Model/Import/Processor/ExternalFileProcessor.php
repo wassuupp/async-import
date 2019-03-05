@@ -19,7 +19,7 @@ use Magento\ImportService\ImportServiceException;
 /**
  * CSV files processor for asynchronous import
  */
-class ExternalFileProcessor extends AbstractSourceProcessor
+class ExternalFileProcessor implements SourceProcessorInterface
 {
     /**
      * Import Type
@@ -27,30 +27,35 @@ class ExternalFileProcessor extends AbstractSourceProcessor
     const IMPORT_TYPE = 'external';
 
     /**
-     * @var \Magento\Framework\Filesystem
+     * @var PersistentSourceProcessor
+     */
+    protected $persistantUploader;
+
+    /**
+     * @var Filesystem
      */
     private $fileSystem;
 
     /**
-     * @var \Magento\ImportService\Model\Source\Validator
+     * @var Validator
      */
     private $validator;
 
     /**
      * LocalPathFileProcessor constructor
      *
-     * @param SourceTypePool $sourceTypePool
+     * @param PersistentSourceProcessor $persistantUploader
      * @param Filesystem $fileSystem
      * @param Validator $validator
      */
     public function __construct(
-        SourceTypePool $sourceTypePool,
+        PersistentSourceProcessor $persistantUploader,
         Filesystem $fileSystem,
         Validator $validator
     ) {
+        $this->persistantUploader = $persistantUploader;
         $this->fileSystem = $fileSystem;
         $this->validator = $validator;
-        parent::__construct($sourceTypePool);
     }
 
     /**
@@ -89,6 +94,6 @@ class ExternalFileProcessor extends AbstractSourceProcessor
         $source->setImportData($content);
 
         /** process source and get response details */
-        return parent::processUpload($source, $response);
+        return $this->persistantUploader->processUpload($source, $response);
     }
 }

@@ -14,7 +14,7 @@ use Magento\ImportService\Model\Import\SourceTypePool;
 /**
  * Define the source type pool and process the request
  */
-abstract class AbstractSourceProcessor implements SourceProcessorInterface
+class PersistentSourceProcessor implements SourceProcessorInterface
 {
     /**
      * @var SourceTypePool

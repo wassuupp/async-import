@@ -15,12 +15,26 @@ use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 /**
  * Base64 encoded data processor for asynchronous import
  */
-class Base64EncodedDataProcessor extends AbstractSourceProcessor
+class Base64EncodedDataProcessor implements SourceProcessorInterface
 {
     /**
      * Import Type
      */
     const IMPORT_TYPE = 'base64_encoded_data';
+
+    /**
+     * @var PersistentSourceProcessor
+     */
+    protected $persistantUploader;
+
+    /**
+     * @param PersistentSourceProcessor $persistantUploader
+     */
+    public function __construct(
+        PersistentSourceProcessor $persistantUploader
+    ) {
+        $this->persistantUploader = $persistantUploader;
+    }
 
     /**
      *  {@inheritdoc}
@@ -34,6 +48,6 @@ class Base64EncodedDataProcessor extends AbstractSourceProcessor
         $source->setImportData($content);
 
         /** process source and get response details */
-        return parent::processUpload($source, $response);
+        return $this->persistantUploader->processUpload($source, $response);
     }
 }

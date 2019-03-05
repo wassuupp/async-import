@@ -14,20 +14,10 @@ use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 
 /**
- * CSV Source Operations
+ * Generic Source Type
  */
-class Csv implements SourceTypeInterface
+class SourceType implements SourceTypeInterface
 {
-    /**
-     * Source Type
-     */
-    const SOURCE_TYPE = 'csv';
-
-    /**
-     * Mime
-     */
-    const MIME = 'text/csv';
-
     /**
      * @var SourceRepositoryInterface
      */
@@ -44,31 +34,47 @@ class Csv implements SourceTypeInterface
     private $fileName;
 
     /**
+     * @var string
+     */
+    private $sourceType;
+
+    /**
+     * @var string
+     */
+    private $mime;
+
+    /**
      * CSV File Type constructor.
      *
      * @param SourceRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
+     * @param string $sourceType
+     * @param string $mime
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        $sourceType = null,
+        $mime = null
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->filesystem = $filesystem;
+        $this->sourceType = $sourceType;
+        $this->mime = $mime;
     }
 
     /**
-     * get file name with extension
+     * generate file name with source type
      *
      * @return string
      */
-    private function getFileName()
+    private function generateFileName()
     {
         if(is_null($this->fileName))
         {
             $this->fileName = uniqid()
             . '.'
-            . self::SOURCE_TYPE;
+            . $this->sourceType;
         }
 
         return $this->fileName;
@@ -84,7 +90,7 @@ class Csv implements SourceTypeInterface
     public function save(SourceInterface $source)
     {
         /** @var string $fileName */
-        $fileName = $this->getFileName();
+        $fileName = $this->generateFileName();
 
         /** @var string $contentFilePath */
         $contentFilePath =  SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $fileName;
@@ -101,7 +107,7 @@ class Csv implements SourceTypeInterface
             $errorMessage = isset($lastError['message']) ? $lastError['message'] : '';
 
             throw new ImportServiceException(
-                __('Cannot copy the remote file: %1', $errorMessage)
+                __('Cannot create file with given source: %1', $errorMessage)
             );
         }
 

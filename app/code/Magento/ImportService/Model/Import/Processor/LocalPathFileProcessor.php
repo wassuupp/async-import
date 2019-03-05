@@ -17,12 +17,17 @@ use Magento\ImportService\Model\Import\SourceTypePool;
 /**
  * CSV files processor for asynchronous import
  */
-class LocalPathFileProcessor extends AbstractSourceProcessor
+class LocalPathFileProcessor implements SourceProcessorInterface
 {
     /**
      * Import Type
      */
     const IMPORT_TYPE = 'local_path';
+
+    /**
+     * @var PersistentSourceProcessor
+     */
+    protected $persistantUploader;
 
     /**
      * @var File
@@ -37,18 +42,18 @@ class LocalPathFileProcessor extends AbstractSourceProcessor
     /**
      * LocalPathFileProcessor constructor
      *
+     * @param PersistentSourceProcessor $persistantUploader
      * @param File $fileSystemIo
      * @param Filesystem $fileSystem
-     * @param SourceTypePool $sourceTypePool
      */
     public function __construct(
+        PersistentSourceProcessor $persistantUploader,
         File $fileSystemIo,
-        Filesystem $fileSystem,
-        SourceTypePool $sourceTypePool
+        Filesystem $fileSystem
     ) {
+        $this->persistantUploader = $persistantUploader;
         $this->fileSystemIo = $fileSystemIo;
         $this->fileSystem = $fileSystem;
-        parent::__construct($sourceTypePool);
     }
 
     /**
@@ -69,6 +74,6 @@ class LocalPathFileProcessor extends AbstractSourceProcessor
         $source->setImportData($content);
 
         /** process source and get response details */
-        return parent::processUpload($source, $response);
+        return $this->persistantUploader->processUpload($source, $response);
     }
 }
