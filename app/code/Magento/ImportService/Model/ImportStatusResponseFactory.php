@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 /**
- * Factory class for \Magento\ImportService\Model\SourceStatusResponse
+ * Factory class for \Magento\ImportService\Model\ImportStatusResponse
  */
-class SourceStatusResponseFactory
+class ImportStatusResponseFactory
 {
     /**
      * Object Manager instance
@@ -32,7 +32,7 @@ class SourceStatusResponseFactory
      * @param \Magento\Framework\ObjectManagerInterface $objectManager
      * @param string $instanceName
      */
-    public function __construct(\Magento\Framework\ObjectManagerInterface $objectManager, $instanceName = '\\Magento\\ImportService\\Model\\SourceStatusResponse')
+    public function __construct(\Magento\Framework\ObjectManagerInterface $objectManager, $instanceName = '\\Magento\\ImportService\\Model\\ImportStatusResponse')
     {
         $this->_objectManager = $objectManager;
         $this->_instanceName = $instanceName;
@@ -42,7 +42,7 @@ class SourceStatusResponseFactory
      * Create class instance with specified parameters
      *
      * @param array $data
-     * @return \Magento\ImportService\Model\SourceStatusResponse
+     * @return \Magento\ImportService\Model\ImportStatusResponse
      */
     public function create(array $data = [])
     {
@@ -53,13 +53,13 @@ class SourceStatusResponseFactory
      * Create class instance with specified parameters
      *
      * @param string $error
-     * @return \Magento\ImportService\Model\SourceStatusResponse
+     * @return \Magento\ImportService\Model\ImportStatusResponse
      */
     public function createFailure(string $error = "")
     {
         $response = $this->_objectManager->create($this->_instanceName, []);
         $response->setError($error);
-        $response->setStatus(\Magento\ImportService\Api\Data\SourceStatusResponseInterface::STATUS_FAILED);
+        $response->setStatus(\Magento\ImportService\Api\Data\ImportStatusResponseInterface::STATUS_FAILED);
         return $response;
     }
 }

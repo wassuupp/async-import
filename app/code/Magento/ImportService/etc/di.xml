@@ -61,7 +61,7 @@
     <preference for="Magento\ImportService\Model\Import\SourceTypesValidatorInterface"
                 type="Magento\ImportService\Model\Import\SourceTypesValidator"/>
 
-    <preference for="Magento\ImportService\Api\SourceStatusInterface" type="Magento\ImportService\Model\SourceStatus" />
-    <preference for="Magento\ImportService\Api\Data\SourceStatusResponseInterface" type="Magento\ImportService\Model\SourceStatusResponse" />
-    <preference for="Magento\ImportService\Api\Data\SourceStatusResponseItemInterface" type="Magento\ImportService\Model\SourceStatusResponseItem" />
+    <preference for="Magento\ImportService\Api\ImportStatusInterface" type="Magento\ImportService\Model\ImportStatus" />
+    <preference for="Magento\ImportService\Api\Data\ImportStatusResponseInterface" type="Magento\ImportService\Model\ImportStatusResponse" />
+    <preference for="Magento\ImportService\Api\Data\ImportStatusResponseItemInterface" type="Magento\ImportService\Model\ImportStatusResponseItem" />
 </config>

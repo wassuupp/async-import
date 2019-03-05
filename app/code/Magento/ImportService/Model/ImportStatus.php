@@ -7,53 +7,43 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\SourceStatusInterface;
-use Magento\ImportService\Api\Data\SourceStatusResponseInterface;
-use Magento\ImportService\Model\SourceStatusResponseItemFactory;
-use Magento\Authorization\Model\UserContextInterface;
-use Magento\Catalog\Model\Product;
+use Magento\ImportService\Api\ImportStatusInterface;
+use Magento\ImportService\Api\Data\ImportStatusResponseInterface;
+use Magento\ImportService\Model\ImportStatusResponseItemFactory;
 
 /**
  * Class Import
  *
  * @package Magento\ImportService\Model
  */
-class SourceStatus implements SourceStatusInterface
+class ImportStatus implements ImportStatusInterface
 {
 	/**
-     * @var SourceStatusResponse
+     * @var ImportStatusResponse
      */
     private $responseFactory;
 
     /**
-     * @var SourceStatusResponseItem
+     * @var ImportStatusResponseItem
      */
     private $responseItemFactory;
 
     /**
-     * @var UserContextInterface
-     */
-    private $userContext;
-
-    /**
      * Status constructor.
-     * @param SourceStatusResponseFactory $responseFactory
-     * @param SourceStatusResponseItemFactory $responseItemFactory
-     * @param UserContextInterface $userContext
+     * @param ImportStatusResponseFactory $responseFactory
+     * @param ImportStatusResponseItemFactory $responseItemFactory
      */
     public function __construct(
-        SourceStatusResponseFactory $responseFactory,
-        SourceStatusResponseItemFactory $responseItemFactory,
-        UserContextInterface $userContext
+        ImportStatusResponseFactory $responseFactory,
+        ImportStatusResponseItemFactory $responseItemFactory
     ) {
         $this->responseFactory = $responseFactory;
         $this->responseItemFactory = $responseItemFactory;
-        $this->userContext = $userContext;
     }
 
     /**
      * @param string $uuid
-     * @return SourceStatusResponseFactory
+     * @return ImportStatusResponseFactory
      */
     public function execute(string $uuid)
     {
@@ -63,11 +53,11 @@ class SourceStatus implements SourceStatusInterface
         try
         {
             // Set the required response parameters with appropriate details
-            $response->setStatus(SourceStatusResponseInterface::STATUS_COMPLETED)
+            $response->setStatus(ImportStatusResponseInterface::STATUS_COMPLETED)
                 ->setUuid($uuid)
-                ->setEntityType(Product::ENTITY)
-                ->setUserId($this->userContext->getUserId())
-                ->setUserType($this->userContext->getUserType());
+                ->setEntityType('catalog_product')
+                ->setUserId(null)
+                ->setUserType(null);
 
             // Create sample response item object
             $item = $this->responseItemFactory->create();
@@ -78,8 +68,8 @@ class SourceStatus implements SourceStatusInterface
                 ->setErrorCode("")
                 ->setResultMessage("");
 
-            // Add sample response item object to response
-            $response->addItem($item);
+            // Set sample response items as an array
+            $response->setItems([$item]);
         } catch (\Exception $e) {
             $response = $this->responseFactory->createFailure($e->getMessage());
         }

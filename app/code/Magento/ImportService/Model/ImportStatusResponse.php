@@ -8,14 +8,14 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\SourceStatusResponseInterface;
+use Magento\ImportService\Api\Data\ImportStatusResponseInterface;
 
-class SourceStatusResponse extends AbstractModel implements SourceStatusResponseInterface
+class ImportStatusResponse extends AbstractModel implements ImportStatusResponseInterface
 {
     /**
      * Get status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -35,7 +35,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     /**
      * Get uuid
      *
-     * @return int|null
+     * @return int
      */
     public function getUuid()
     {
@@ -45,7 +45,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     /**
      * Get entity type
      *
-     * @return string|null
+     * @return string
      */
     public function getEntityType()
     {
@@ -55,7 +55,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     /**
      * Get user id
      *
-     * @return int|null
+     * @return int
      */
     public function getUserId()
     {
@@ -65,7 +65,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     /**
      * Get user type
      *
-     * @return int|null
+     * @return int
      */
     public function getUserType()
     {
@@ -75,7 +75,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     /**
      * Get items
      *
-     * @return int|null
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[]
      */
     public function getItems()
     {
@@ -83,7 +83,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $status
+     * @param string $status
      * @return $this
      */
     public function setStatus($status)
@@ -92,7 +92,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $error
+     * @param string $error
      * @return $this
      */
     public function setError($error)
@@ -101,7 +101,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $uuid
+     * @param int $uuid
      * @return $this
      */
     public function setUuid($uuid)
@@ -110,7 +110,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $entityType
+     * @param string $entityType
      * @return $this
      */
     public function setEntityType($entityType)
@@ -119,7 +119,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $userId
+     * @param int $userId
      * @return $this
      */
     public function setUserId($userId)
@@ -128,7 +128,7 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $userType
+     * @param int $userType
      * @return $this
      */
     public function setUserType($userType)
@@ -137,26 +137,11 @@ class SourceStatusResponse extends AbstractModel implements SourceStatusResponse
     }
 
     /**
-     * @param $items
+     * @param \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[] $items
      * @return $this
      */
     public function setItems($items)
     {
         return $this->setData(self::ITEMS, $items);
-    }
-
-    /**
-     * @param $item
-     * @return $this
-     */
-    public function addItem($item)
-    {
-        $items = $this->getItems();
-
-        if(is_null($items))
-            $items = [];
-        $items[] = $item;
-
-        return $this->setItems($items);
     }
 }

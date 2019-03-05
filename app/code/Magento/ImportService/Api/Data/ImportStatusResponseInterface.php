@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\ImportService\Api\Data;
 
 /**
- * Class SourceStatusResponse
+ * Class ImportStatusResponse
  */
-interface SourceStatusResponseInterface
+interface ImportStatusResponseInterface
 {
     const STATUS_PROCESSING = 'processing';
     const STATUS_COMPLETED = 'completed';
@@ -27,7 +27,7 @@ interface SourceStatusResponseInterface
     /**
      * Get status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus();
 
@@ -41,83 +41,77 @@ interface SourceStatusResponseInterface
     /**
      * Get uuid
      *
-     * @return int|null
+     * @return int
      */
     public function getUuid();
 
     /**
      * Get entity type
      *
-     * @return string|null
+     * @return string
      */
     public function getEntityType();
 
     /**
      * Retrieve current user ID
      *
-     * @return int|null
+     * @return int
      */
     public function getUserId();
 
     /**
      * Retrieve current user type
      *
-     * @return int|null
+     * @return int
      */
     public function getUserType();
 
     /**
      * Get import items status
      *
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface[]|null
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[]
      */
     public function getItems();
 
     /**
-     * @param $status
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param string $status
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setStatus($status);
 
     /**
-     * @param $error
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param string $error
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setError($error);
 
     /**
-     * @param $uuid
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param int $uuid
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setUuid($uuid);
 
     /**
-     * @param $entityType
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param string $entityType
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setEntityType($entityType);
 
     /**
-     * @param $userId
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param int $userId
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setUserId($userId);
 
     /**
-     * @param $userType
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param int $userType
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setUserType($userType);
 
     /**
-     * @param $items
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
+     * @param \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[] $items
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setItems($items);
-
-    /**
-     * @param $item
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseInterface
-     */
-    public function addItem($item);
 }

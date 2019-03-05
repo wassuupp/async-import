@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\ImportService\Api\Data;
 
 /**
- * Class SourceStatusResponseItem
+ * Class ImportStatusResponseItem
  */
-interface SourceStatusResponseItemInterface
+interface ImportStatusResponseItemInterface
 {
     const UUID = 'uuid';
     const STATUS = 'status';
@@ -63,37 +63,37 @@ interface SourceStatusResponseItemInterface
 
     /**
      * @param $uuid
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setUuid($uuid);
 
     /**
      * @param $status
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setStatus($status);
 
     /**
      * @param $serializedData
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setSerializedData($serializedData);
 
     /**
      * @param $resultSerializedData
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setResultSerializedData($resultSerializedData);
 
     /**
      * @param $errorCode
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setErrorCode($errorCode);
 
     /**
      * @param $resultMessage
-     * @return \Magento\ImportService\Api\Data\SourceStatusResponseItemInterface
+     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setResultMessage($resultMessage);
 }

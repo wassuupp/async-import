@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\SourceStatusResponseItemInterface;
+use Magento\ImportService\Api\Data\ImportStatusResponseItemInterface;
 
-class SourceStatusResponseItem extends AbstractModel implements SourceStatusResponseItemInterface
+class ImportStatusResponseItem extends AbstractModel implements ImportStatusResponseItemInterface
 {
     /**
      * Get uuid
