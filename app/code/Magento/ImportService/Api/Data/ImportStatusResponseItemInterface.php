@@ -22,28 +22,28 @@ interface ImportStatusResponseItemInterface
     /**
      * Get uuid
      *
-     * @return int|null
+     * @return int
      */
     public function getUuid();
 
     /**
      * Get status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus();
 
     /**
      * Get serialized data
      *
-     * @return string|null
+     * @return string
      */
     public function getSerializedData();
 
     /**
      * Get serialized data result
      *
-     * @return string|null
+     * @return string
      */
     public function getResultSerializedData();
 
@@ -57,42 +57,54 @@ interface ImportStatusResponseItemInterface
     /**
      * Get result message
      *
-     * @return string|null
+     * @return string
      */
     public function getResultMessage();
 
     /**
-     * @param $uuid
+     * Set uuid
+     *
+     * @param int $uuid
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setUuid($uuid);
 
     /**
-     * @param $status
+     * Set imported status
+     *
+     * @param string $status
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setStatus($status);
 
     /**
-     * @param $serializedData
+     * Set serialized data
+     *
+     * @param string $serializedData
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setSerializedData($serializedData);
 
     /**
-     * @param $resultSerializedData
+     * Set serialized result data
+     *
+     * @param string $resultSerializedData
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setResultSerializedData($resultSerializedData);
 
     /**
-     * @param $errorCode
+     * Set error code if occured
+     *
+     * @param string $errorCode
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setErrorCode($errorCode);
 
     /**
-     * @param $resultMessage
+     * Set result message for process
+     *
+     * @param string $resultMessage
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
      */
     public function setResultMessage($resultMessage);

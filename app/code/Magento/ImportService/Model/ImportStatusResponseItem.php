@@ -15,7 +15,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get uuid
      *
-     * @return int|null
+     * @return int
      */
     public function getUuid()
     {
@@ -25,7 +25,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -35,7 +35,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get serialized data
      *
-     * @return string|null
+     * @return string
      */
     public function getSerializedData()
     {
@@ -45,7 +45,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get serialized data result
      *
-     * @return string|null
+     * @return string
      */
     public function getResultSerializedData()
     {
@@ -65,7 +65,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get result message
      *
-     * @return string|null
+     * @return string
      */
     public function getResultMessage()
     {
@@ -73,7 +73,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     }
 
     /**
-     * @param $uuid
+     * Set uuid
+     *
+     * @param int $uuid
      * @return $this
      */
     public function setUuid($uuid)
@@ -82,7 +84,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     }
 
     /**
-     * @param $status
+     * Set imported status
+     *
+     * @param string $status
      * @return $this
      */
     public function setStatus($status)
@@ -91,7 +95,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     }
 
     /**
-     * @param $serializedData
+     * Set serialized data
+     *
+     * @param string $serializedData
      * @return $this
      */
     public function setSerializedData($serializedData)
@@ -100,7 +106,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     }
 
     /**
-     * @param $resultSerializedData
+     * Set serialized result data
+     *
+     * @param string $resultSerializedData
      * @return $this
      */
     public function setResultSerializedData($resultSerializedData)
@@ -109,7 +117,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     }
 
     /**
-     * @param $errorCode
+     * Set error code if occured
+     *
+     * @param string $errorCode
      * @return $this
      */
     public function setErrorCode($errorCode)
@@ -118,7 +128,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     }
 
     /**
-     * @param $resultMessage
+     * Set result message for process
+     *
+     * @param string $resultMessage
      * @return $this
      */
     public function setResultMessage($resultMessage)

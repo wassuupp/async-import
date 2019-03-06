@@ -13,10 +13,10 @@ namespace Magento\ImportService\Api;
 interface ImportStatusInterface
 {
     /**
-     * Get source status.
+     * Get import source status.
      *
-     * @param string $uuid
+     * @param int $uuid
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
-    public function execute(string $uuid);
+    public function execute(int $uuid);
 }

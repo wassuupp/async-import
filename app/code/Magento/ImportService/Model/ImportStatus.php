@@ -18,18 +18,23 @@ use Magento\ImportService\Model\ImportStatusResponseItemFactory;
  */
 class ImportStatus implements ImportStatusInterface
 {
-	/**
+    /**
+     * Import response factory instance
+     *
      * @var ImportStatusResponse
      */
     private $responseFactory;
 
     /**
+     * Import response item factory instance
+     *
      * @var ImportStatusResponseItem
      */
     private $responseItemFactory;
 
     /**
      * Status constructor.
+     *
      * @param ImportStatusResponseFactory $responseFactory
      * @param ImportStatusResponseItemFactory $responseItemFactory
      */
@@ -42,10 +47,12 @@ class ImportStatus implements ImportStatusInterface
     }
 
     /**
-     * @param string $uuid
+     * Get import source status.
+     *
+     * @param int $uuid
      * @return ImportStatusResponseFactory
      */
-    public function execute(string $uuid)
+    public function execute(int $uuid)
     {
         // Create new response object
         $response = $this->responseFactory->create();

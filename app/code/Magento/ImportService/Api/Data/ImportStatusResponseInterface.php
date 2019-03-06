@@ -32,7 +32,7 @@ interface ImportStatusResponseInterface
     public function getStatus();
 
     /**
-     * Get error
+     * Get error if there is any with import process
      *
      * @return string|null
      */
@@ -46,7 +46,7 @@ interface ImportStatusResponseInterface
     public function getUuid();
 
     /**
-     * Get entity type
+     * Get imported entity type
      *
      * @return string
      */
@@ -74,42 +74,56 @@ interface ImportStatusResponseInterface
     public function getItems();
 
     /**
+     * Set import process status
+     *
      * @param string $status
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setStatus($status);
 
     /**
+     * Set import process error if there is any
+     *
      * @param string $error
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setError($error);
 
     /**
+     * Set uuid
+     *
      * @param int $uuid
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setUuid($uuid);
 
     /**
+     * Set imported entity type
+     *
      * @param string $entityType
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setEntityType($entityType);
 
     /**
+     * Set user id
+     *
      * @param int $userId
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setUserId($userId);
 
     /**
+     * Set user type
+     *
      * @param int $userType
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */
     public function setUserType($userType);
 
     /**
+     * Set imported items
+     *
      * @param \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[] $items
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
      */

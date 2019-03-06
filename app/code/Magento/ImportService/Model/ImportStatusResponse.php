@@ -13,7 +13,7 @@ use Magento\ImportService\Api\Data\ImportStatusResponseInterface;
 class ImportStatusResponse extends AbstractModel implements ImportStatusResponseInterface
 {
     /**
-     * Get status
+     * Get import status
      *
      * @return string
      */
@@ -23,7 +23,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
-     * Get error
+     * Get error if there is any with import process
      *
      * @return string|null
      */
@@ -43,7 +43,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
-     * Get entity type
+     * Get imported entity type
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
-     * Get user id
+     * Retrieve current user ID
      *
      * @return int
      */
@@ -63,7 +63,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
-     * Get user type
+     * Retrieve current user type
      *
      * @return int
      */
@@ -73,7 +73,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
-     * Get items
+     * Get import items status
      *
      * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[]
      */
@@ -83,6 +83,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set import process status
+     *
      * @param string $status
      * @return $this
      */
@@ -92,6 +94,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set import process error if there is any
+     *
      * @param string $error
      * @return $this
      */
@@ -101,6 +105,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set uuid
+     *
      * @param int $uuid
      * @return $this
      */
@@ -110,6 +116,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set imported entity type
+     *
      * @param string $entityType
      * @return $this
      */
@@ -119,6 +127,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set user id
+     *
      * @param int $userId
      * @return $this
      */
@@ -128,6 +138,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set user type
+     *
      * @param int $userType
      * @return $this
      */
@@ -137,6 +149,8 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     }
 
     /**
+     * Set imported items
+     *
      * @param \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[] $items
      * @return $this
      */
