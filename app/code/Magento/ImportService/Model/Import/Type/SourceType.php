@@ -31,11 +31,6 @@ class SourceType implements SourceTypeInterface
     /**
      * @var string
      */
-    private $fileName;
-
-    /**
-     * @var string
-     */
     private $sourceType;
 
     /**
@@ -70,14 +65,7 @@ class SourceType implements SourceTypeInterface
      */
     private function generateFileName()
     {
-        if(is_null($this->fileName))
-        {
-            $this->fileName = uniqid()
-            . '.'
-            . $this->sourceType;
-        }
-
-        return $this->fileName;
+        return uniqid() . '.' . $this->sourceType;
     }
 
     /**
