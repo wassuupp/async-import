@@ -23,29 +23,12 @@ class PersistentSourceProcessor implements SourceProcessorInterface
     private $sourceTypePool;
 
     /**
-     * @var string
-     */
-    private $content;
-
-    /**
      * @param SourceTypePool $sourceTypePool
      */
     public function __construct(
         SourceTypePool $sourceTypePool
     ) {
         $this->sourceTypePool = $sourceTypePool;
-    }
-
-    /**
-     * Set processed content to save the source request
-     *
-     * @param string $content
-     * @return $this
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-        return $this;
     }
 
     /**
@@ -56,19 +39,11 @@ class PersistentSourceProcessor implements SourceProcessorInterface
      */
     public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
     {
-        if(is_null($this->content))
-        {
-            /** Throw error when content is null */
-            throw new ImportServiceException(
-                __('Invalid content, unable to upload source data.')
-            );
-        }
-
         /** @var \Magento\ImportService\Model\Import\Type\SourceTypeInterface $sourceType */
         $sourceType = $this->sourceTypePool->getSourceType($source);
 
         /** save processed content get updated source object */
-        $source = $sourceType->save($source, $this->content);
+        $source = $sourceType->save($source);
 
         /** return response with details */
         return $response->setSource($source)->setSourceId($source->getSourceId())->setStatus($source->getStatus());

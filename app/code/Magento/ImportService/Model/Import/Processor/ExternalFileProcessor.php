@@ -44,16 +44,16 @@ class ExternalFileProcessor implements SourceProcessorInterface
     /**
      * LocalPathFileProcessor constructor
      *
-     * @param PersistentSourceProcessorFactory $persistantUploaderFactory
+     * @param PersistentSourceProcessor $persistantUploader
      * @param Filesystem $fileSystem
      * @param Validator $validator
      */
     public function __construct(
-        PersistentSourceProcessorFactory $persistantUploaderFactory,
+        PersistentSourceProcessor $persistantUploader,
         Filesystem $fileSystem,
         Validator $validator
     ) {
-        $this->persistantUploader = $persistantUploaderFactory->create();
+        $this->persistantUploader = $persistantUploader;
         $this->fileSystem = $fileSystem;
         $this->validator = $validator;
     }
@@ -90,7 +90,10 @@ class ExternalFileProcessor implements SourceProcessorInterface
         /** read content from external link */
         $content = $writeInterface->getDriver()->fileGetContents($source->getImportData());
 
+        /** Set downloaded data */
+        $source->setImportData($content);
+
         /** process source and get response details */
-        return $this->persistantUploader->setContent($content)->processUpload($source, $response);
+        return $this->persistantUploader->processUpload($source, $response);
     }
 }

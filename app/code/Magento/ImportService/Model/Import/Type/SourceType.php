@@ -72,11 +72,10 @@ class SourceType implements SourceTypeInterface
      * save source content
      *
      * @param SourceInterface $source
-     * @param string $content
      * @throws ImportServiceException
      * @return SourceInterface
      */
-    public function save(SourceInterface $source, $content)
+    public function save(SourceInterface $source)
     {
         /** @var string $fileName */
         $fileName = $this->generateFileName();
@@ -87,7 +86,7 @@ class SourceType implements SourceTypeInterface
         /** @var Magento\Framework\Filesystem\Directory\Write $var */
         $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
 
-        if(!$var->writeFile($contentFilePath, $content))
+        if(!$var->writeFile($contentFilePath, $source->getImportData()))
         {
             /** @var array $lastError */
             $lastError = error_get_last();

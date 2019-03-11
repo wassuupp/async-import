@@ -28,12 +28,12 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
     private $persistantUploader;
 
     /**
-     * @param PersistentSourceProcessorFactory $persistantUploaderFactory
+     * @param PersistentSourceProcessor $persistantUploader
      */
     public function __construct(
-        PersistentSourceProcessorFactory $persistantUploaderFactory
+        PersistentSourceProcessor $persistantUploader
     ) {
-        $this->persistantUploader = $persistantUploaderFactory->create();
+        $this->persistantUploader = $persistantUploader;
     }
 
     /**
@@ -44,7 +44,10 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
         /** @var string $content */
         $content = base64_decode($source->getImportData());
 
+        /** Set downloaded data */
+        $source->setImportData($content);
+
         /** process source and get response details */
-        return $this->persistantUploader->setContent($content)->processUpload($source, $response);
+        return $this->persistantUploader->processUpload($source, $response);
     }
 }
