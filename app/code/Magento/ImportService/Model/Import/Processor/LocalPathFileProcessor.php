@@ -27,7 +27,7 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      * @var PersistentSourceProcessor
      */
-    protected $persistantUploader;
+    private $persistantUploader;
 
     /**
      * @var File
@@ -42,16 +42,16 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      * LocalPathFileProcessor constructor
      *
-     * @param PersistentSourceProcessor $persistantUploader
+     * @param PersistentSourceProcessorFactory $persistantUploaderFactory
      * @param File $fileSystemIo
      * @param Filesystem $fileSystem
      */
     public function __construct(
-        PersistentSourceProcessor $persistantUploader,
+        PersistentSourceProcessorFactory $persistantUploaderFactory,
         File $fileSystemIo,
         Filesystem $fileSystem
     ) {
-        $this->persistantUploader = $persistantUploader;
+        $this->persistantUploader = $persistantUploaderFactory->create();
         $this->fileSystemIo = $fileSystemIo;
         $this->fileSystem = $fileSystem;
     }
@@ -70,10 +70,7 @@ class LocalPathFileProcessor implements SourceProcessorInterface
         /** read content from system */
         $content = $this->fileSystemIo->read($absoluteSourcePath);
 
-        /** Set downloaded data */
-        $source->setImportData($content);
-
         /** process source and get response details */
-        return $this->persistantUploader->processUpload($source, $response);
+        return $this->persistantUploader->setContent($content)->processUpload($source, $response);
     }
 }

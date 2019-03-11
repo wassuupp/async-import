@@ -22,8 +22,9 @@ interface SourceTypeInterface
      * save source content
      *
      * @param SourceInterface $source
+     * @param string $content
      * @throws ImportServiceException
      * @return SourceInterface
      */
-    public function save(SourceInterface $source);
+    public function save(SourceInterface $source, $content);
 }
