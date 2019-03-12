@@ -16,7 +16,7 @@ use Magento\ImportService\Api\Data\SourceInterface;
 /**
  * Generic Source Type
  */
-class SourceType implements SourceTypeInterface
+class FileSourceType implements SourceTypeInterface
 {
     /**
      * @var SourceRepositoryInterface
