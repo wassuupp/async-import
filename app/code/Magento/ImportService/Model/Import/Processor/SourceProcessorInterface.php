@@ -17,9 +17,6 @@ use Magento\ImportService\ImportServiceException;
  */
 interface SourceProcessorInterface
 {
-    // todo discuss the name of constant
-    const IMPORT_SOURCE_FILE_PATH = "var/import";
-
     /**
      * @param SourceInterface $source
      * @param SourceUploadResponseInterface $response
