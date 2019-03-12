@@ -23,12 +23,12 @@ interface SourceRepositoryInterface
     public function save(SourceInterface $source);
 
     /**
-     * Provides source by ID
+     * Provides source by UUID
      *
-     * @param int $id
+     * @param string $uuid
      * @return \Magento\ImportService\Api\Data\SourceInterface
      */
-    public function getById($id);
+    public function getById($uuid);
 
     /**
      * Provides sources which match a specific criteria.

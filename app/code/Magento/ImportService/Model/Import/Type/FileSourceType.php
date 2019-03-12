@@ -78,7 +78,7 @@ class FileSourceType implements SourceTypeInterface
     public function save(SourceInterface $source)
     {
         /** @var string $fileName */
-        $fileName = $this->generateFileName();
+        $fileName = $source->getUuid();
 
         /** @var string $contentFilePath */
         $contentFilePath =  SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $fileName;

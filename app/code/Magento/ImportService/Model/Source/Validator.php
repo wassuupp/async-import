@@ -5,8 +5,10 @@
  */
 namespace Magento\ImportService\Model\Source;
 
-use Magento\Framework\File\Mime\Proxy as Mime;
-use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
+use Magento\Framework\File\Mime;
+use Magento\Framework\File\Mime;
+use Magento\Framework\Filesystem\Driver\Http;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class Validator
@@ -19,7 +21,7 @@ class Validator
     private $allowedMimeTypes;
 
     /**
-     * @var \Magento\Framework\File\Mime\Proxy
+     * @var \Magento\Framework\File\Mime
      */
     private $mime;
 
@@ -52,10 +54,10 @@ class Validator
     }
 
     /**
-     * @param \Magento\ImportService\Model\Source $source
+     * @param \Magento\ImportService\Api\Data\SourceInterface $source
      * @return array|null
      */
-    public function validateRequest(\Magento\ImportService\Model\Source $source)
+    public function validateRequest(\Magento\ImportService\Api\Data\SourceInterface $source)
     {
         $errors = [];
 
@@ -75,10 +77,10 @@ class Validator
     }
 
     /**
-     * @param \Magento\ImportService\Model\Source $source
+     * @param \Magento\ImportService\Api\Data\SourceInterface $source
      * @return bool
      */
-    public function validateSourceType(\Magento\ImportService\Model\Source $source)
+    public function validateSourceType(\Magento\ImportService\Api\Data\SourceInterface $source)
     {
         if (!$source->getSourceType()) {
             return false;
@@ -88,10 +90,10 @@ class Validator
     }
 
     /**
-     * @param \Magento\ImportService\Model\Source $source
+     * @param \Magento\ImportService\Api\Data\SourceInterface $source
      * @return bool
      */
-    public function validateImportData(\Magento\ImportService\Model\Source $source)
+    public function validateImportData(\Magento\ImportService\Api\Data\SourceInterface $source)
     {
         if (!$source->getImportData()) {
             return false;
@@ -153,5 +155,17 @@ class Validator
     private function getSourceLocation($url)
     {
         return preg_replace("(^https?://)", "", $url);
+    }
+
+    /**
+     * @param \Magento\ImportService\Api\Data\SourceInterface $source
+     * @return bool
+     */
+    public function validateUuid(\Magento\ImportService\Api\Data\SourceInterface $source)
+    {
+        if (!Uuid::isValid($source->getUuid())) {
+            return false;
+        }
+        return true;
     }
 }

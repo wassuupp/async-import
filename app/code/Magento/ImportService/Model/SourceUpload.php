@@ -10,6 +10,8 @@ namespace Magento\ImportService\Model;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
 use Magento\ImportService\Api\SourceUploadInterface;
+use Magento\Framework\DataObject\IdentityGeneratorInterface as IdentityGenerator;
+use Magento\ImportService\Model\Source\Validator;
 
 /**
  * Class SourceUpload
@@ -28,15 +30,31 @@ class SourceUpload implements SourceUploadInterface
     protected $responseFactory;
 
     /**
+     * @var IdentityGeneratorInterface
+     */
+    private $identityGenerator;
+
+    /**
+     * @var Validator
+     */
+    private $validator;
+
+    /**
      * @param SourceUploadResponseFactory $responseFactory
      * @param SourceProcessorPool $sourceProcessorPool
+     * @param IdentityGenerator $identityGenerator
+     * @param Validator $validator
      */
     public function __construct(
         SourceUploadResponseFactory $responseFactory,
-        SourceProcessorPool $sourceProcessorPool
+        SourceProcessorPool $sourceProcessorPool,
+        IdentityGenerator $identityGenerator,
+        Validator $validator
     ) {
         $this->sourceProcessorPool = $sourceProcessorPool;
         $this->responseFactory = $responseFactory;
+        $this->identityGenerator = $identityGenerator;
+        $this->validator = $validator;
     }
 
     /**
@@ -46,6 +64,10 @@ class SourceUpload implements SourceUploadInterface
     public function execute(SourceInterface $source)
     {
         try {
+            if (!$source->getUuid() || !$this->validator->validateUuid($source)) {
+                $source->setUuid($this->identityGenerator->generateId());
+            }
+
             $processor = $this->sourceProcessorPool->getProcessor($source);
             $response = $this->responseFactory->create();
             $processor->processUpload($source, $response);
