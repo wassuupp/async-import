@@ -54,7 +54,6 @@ class PersistentSourceProcessor implements SourceProcessorInterface
         $source->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', $this->dateTime->gmtTimestamp()));
         $source = $sourceType->save($source);
 
-
         /** return response with details */
         return $response->setSource($source)->setSourceId($source->getSourceId())->setStatus($source->getStatus());
     }
