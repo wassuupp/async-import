@@ -51,8 +51,9 @@ class PersistentSourceProcessor implements SourceProcessorInterface
         $sourceType = $this->sourceTypePool->getSourceType($source);
 
         /** save processed content get updated source object */
-        $source = $sourceType->save($source);
         $source->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', $this->dateTime->gmtTimestamp()));
+        $source = $sourceType->save($source);
+
 
         /** return response with details */
         return $response->setSource($source)->setSourceId($source->getSourceId())->setStatus($source->getStatus());
