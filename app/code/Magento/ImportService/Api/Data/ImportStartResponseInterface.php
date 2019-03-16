@@ -30,6 +30,7 @@ interface ImportStartResponseInterface
      * Set UUID
      *
      * @param string $uuid
+     * @return void
      */
     public function setUuid(string $uuid): void;
 
@@ -44,6 +45,7 @@ interface ImportStartResponseInterface
      * Set status
      *
      * @param string $status
+     * @return void
      */
     public function setStatus(string $status): void;
 
@@ -58,6 +60,7 @@ interface ImportStartResponseInterface
      * Set error
      *
      * @param string $error
+     * @return void
      */
     public function setError(string $error): void;
 }

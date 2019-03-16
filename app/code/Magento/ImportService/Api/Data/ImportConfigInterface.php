@@ -71,9 +71,9 @@ interface ImportConfigInterface extends ExtensibleDataInterface
     public function setImportImagesFileDir(string $importImagesFileDir): void;
 
     /**
-     * @return string
+     * @return int
      */
-    public function getAllowedErrorCount(): string;
+    public function getAllowedErrorCount(): int;
 
     /**
      * @param int $allowedErrorCount

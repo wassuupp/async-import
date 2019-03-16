@@ -81,9 +81,9 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getAllowedErrorCount(): string
+    public function getAllowedErrorCount(): int
     {
         return $this->getData(self::ALLOWED_ERROR_COUNT);
     }
