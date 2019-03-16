@@ -23,12 +23,20 @@ class PersistentSourceProcessor implements SourceProcessorInterface
     private $sourceTypePool;
 
     /**
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
+     */
+    protected $dateTime;
+
+    /**
      * @param SourceTypePool $sourceTypePool
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
      */
     public function __construct(
-        SourceTypePool $sourceTypePool
+        SourceTypePool $sourceTypePool,
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
     ) {
         $this->sourceTypePool = $sourceTypePool;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -44,6 +52,7 @@ class PersistentSourceProcessor implements SourceProcessorInterface
 
         /** save processed content get updated source object */
         $source = $sourceType->save($source);
+        $source->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', $this->dateTime->gmtTimestamp()));
 
         /** return response with details */
         return $response->setSource($source)->setSourceId($source->getSourceId())->setStatus($source->getStatus());
