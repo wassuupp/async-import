@@ -8,16 +8,16 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractExtensibleModel;
+use Magento\ImportService\Api\Data\ImportConfigExtensionInterface;
 use Magento\ImportService\Api\Data\ImportConfigInterface;
 
 /**
  * Class ImportConfig
- * @package Magento\ImportService\Model
  */
 class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterface
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getProfileUuid(): string
     {
@@ -25,7 +25,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $profileUuid
+     * @inheritdoc
      */
     public function setProfileUuid(string $profileUuid): void
     {
@@ -33,7 +33,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getBehaviour(): string
     {
@@ -41,7 +41,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $behaviour
+     * @inheritdoc
      */
     public function setBehaviour(string $behaviour): void
     {
@@ -49,7 +49,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getImportImageArchive(): string
     {
@@ -57,7 +57,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $importImageArchive
+     * @inheritdoc
      */
     public function setImportImageArchive(string $importImageArchive): void
     {
@@ -65,7 +65,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getImportImagesFileDir(): string
     {
@@ -73,7 +73,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $importImagesFileDir
+     * @inheritdoc
      */
     public function setImportImagesFileDir(string $importImagesFileDir): void
     {
@@ -81,7 +81,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return int
+     * @inheritdoc
      */
     public function getAllowedErrorCount(): int
     {
@@ -89,7 +89,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param int $allowedErrorCount
+     * @inheritdoc
      */
     public function setAllowedErrorCount(int $allowedErrorCount): void
     {
@@ -97,7 +97,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getValidationStrategy(): string
     {
@@ -105,7 +105,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $validationStrategy
+     * @inheritdoc
      */
     public function setValidationStrategy(string $validationStrategy): void
     {
@@ -113,7 +113,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getEmptyAttributeValueConstant(): string
     {
@@ -121,7 +121,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $emptyAttributeValueConstant
+     * @inheritdoc
      */
     public function setEmptyAttributeValueConstant(string $emptyAttributeValueConstant): void
     {
@@ -129,7 +129,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getCsvSeparator(): string
     {
@@ -137,7 +137,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $csvSeparator
+     * @inheritdoc
      */
     public function setCsvSeparator(string $csvSeparator): void
     {
@@ -145,7 +145,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getCsvEnclosure(): string
     {
@@ -153,7 +153,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $csvEnclosure
+     * @inheritdoc
      */
     public function setCsvEnclosure(string $csvEnclosure): void
     {
@@ -161,7 +161,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getCsvDelimiter(): string
     {
@@ -169,7 +169,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $csvDelimiter
+     * @inheritdoc
      */
     public function setCsvDelimiter(string $csvDelimiter): void
     {
@@ -177,7 +177,7 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getMultipleValueSeparator(): string
     {
@@ -185,10 +185,26 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     }
 
     /**
-     * @param string $multipleValueSeparator
+     * @inheritdoc
      */
     public function setMultipleValueSeparator(string $multipleValueSeparator): void
     {
         $this->setData(self::MULTIPLE_VALUE_SEPARATOR, $multipleValueSeparator);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getExtensionAttributes(): ImportConfigExtensionInterface
+    {
+        // TODO: Implement getExtensionAttributes() method.
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setExtensionAttributes(ImportConfigExtensionInterface $extension): void
+    {
+        // TODO: Implement setExtensionAttributes() method.
     }
 }

@@ -40,10 +40,6 @@ class ImportStart implements ImportStartInterface
     {
         $importStartResponse = $this->importStartResponseFactory->create();
 
-        $importStartResponse->setError('test');
-        $importStartResponse->setStatus('esrgsrtg');
-        $importStartResponse->setUuid('teaergvtdgbst');
-
         return $importStartResponse;
     }
 }

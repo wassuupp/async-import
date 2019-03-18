@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
+use Magento\ImportService\Api\Data\ImportConfigExtensionInterface;
 
 /**
  * Interface ImportConfigInterface
@@ -146,4 +147,15 @@ interface ImportConfigInterface extends ExtensibleDataInterface
      * @return void
      */
     public function setMultipleValueSeparator(string $multipleValueSeparator): void;
+
+    /**
+     * @return ImportConfigExtensionInterface
+     */
+    public function getExtensionAttributes(): ImportConfigExtensionInterface;
+
+    /**
+     * @param ImportConfigExtensionInterface $extension
+     * @return void
+     */
+    public function setExtensionAttributes(ImportConfigExtensionInterface $extension): void;
 }

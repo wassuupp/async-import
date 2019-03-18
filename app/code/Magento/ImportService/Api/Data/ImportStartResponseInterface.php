@@ -15,9 +15,9 @@ interface ImportStartResponseInterface
     const UUID = 'uuid';
     const STATUS = 'status';
     const ERROR = 'error';
-    const RUNNING = 'running';
-    const COMPLETED = 'completed';
-    const FAIL = 'fail';
+    const STATUS_RUNNING = 'running';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_FAIL = 'fail';
 
     /**
      * Get UUID
