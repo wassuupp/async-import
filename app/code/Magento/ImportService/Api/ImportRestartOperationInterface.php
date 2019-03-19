@@ -17,7 +17,7 @@ interface ImportRestartOperationInterface
      *
      * @param int $uuid
      * @param string $serializedData
-     * @return bool
+     * @return []
      */
     public function execute(int $uuid, string $serializedData);
 }

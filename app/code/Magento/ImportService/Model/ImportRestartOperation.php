@@ -21,15 +21,10 @@ class ImportRestartOperation implements ImportRestartOperationInterface
      *
      * @param int $uuid
      * @param string $serializedData
-     * @return bool
+     * @return []
      */
     public function execute(int $uuid, string $serializedData)
     {
-        try
-        {
-            return true;
-        } catch (\Exception $e) { }
-
-        return false;
+        return [];
     }
 }

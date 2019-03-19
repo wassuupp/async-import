@@ -22,7 +22,7 @@
     <route url="/V1/import/operation-id/:uuid" method="PUT">
         <service class="Magento\ImportService\Api\ImportRestartOperationInterface" method="execute"/>
         <resources>
-            <resource ref="Magento_ImportExport::import" />
+            <resource ref="Magento_ImportService::import" />
         </resources>
     </route>
 </routes>
