@@ -9,7 +9,8 @@ namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\ImportService\Exception as ImportServiceException;
+use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 
 /**
  * Base64 encoded data processor for asynchronous import
@@ -22,66 +23,31 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
     const IMPORT_TYPE = 'base64_encoded_data';
 
     /**
-     * CSV Source Type
+     * @var PersistentSourceProcessor
      */
-    const SOURCE_TYPE_CSV = 'csv';
+    private $persistantUploader;
 
     /**
-     * The destination directory
-     */
-    const DIR_IMPORT_DESTINATION = 'import/';
-
-    /**
-     * @var \Magento\Framework\Filesystem
-     */
-    private $filesystem;
-
-    /**
-     * LocalPathFileProcessor constructor.
-     * @param Filesystem $filesystem
+     * @param PersistentSourceProcessor $persistantUploader
      */
     public function __construct(
-        Filesystem $filesystem
+        PersistentSourceProcessor $persistantUploader
     ) {
-        $this->filesystem = $filesystem;
+        $this->persistantUploader = $persistantUploader;
     }
 
     /**
      *  {@inheritdoc}
      */
-    public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
+    public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
     {
-        /** @var string $fileName */
-        $fileName = rand();
-
-        /** @var string $contentFilePath */
-        $contentFilePath =  self::DIR_IMPORT_DESTINATION
-            . $fileName
-            . '.'
-            . $source->getSourceType();
-
         /** @var string $content */
         $content = base64_decode($source->getImportData());
 
-        /** @var Magento\Framework\Filesystem\Directory\Write $var */
-        $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
+        /** Set downloaded data */
+        $source->setImportData($content);
 
-        if(!$var->writeFile($contentFilePath, $content))
-        {
-            /** @var array $lastError */
-            $lastError = error_get_last();
-
-            /** @var string $errorMessage */
-            $errorMessage = isset($lastError['message']) ? $lastError['message'] : '';
-
-            throw new ImportServiceException(
-                __('Cannot copy the remote file: %1', $errorMessage)
-            );
-        }
-
-        /** Update source's import data */
-        $source->setImportData($fileName);
-
-        return $response->setSource($source)->setSourceId($fileName)->setStatus($response::STATUS_UPLOADED);
+        /** process source and get response details */
+        return $this->persistantUploader->processUpload($source, $response);
     }
 }
