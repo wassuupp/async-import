@@ -11,6 +11,7 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\Model\Import\SourceTypePool;
 use Magento\ImportService\ImportServiceException;
+use \Magento\Framework\Stdlib\DateTime\DateTime;
 
 /**
  * Define the source type pool and process the request
@@ -29,11 +30,11 @@ class PersistentSourceProcessor implements SourceProcessorInterface
 
     /**
      * @param SourceTypePool $sourceTypePool
-     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
+     * @param DateTime $dateTime
      */
     public function __construct(
         SourceTypePool $sourceTypePool,
-        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
+        DateTime $dateTime
     ) {
         $this->sourceTypePool = $sourceTypePool;
         $this->dateTime = $dateTime;
