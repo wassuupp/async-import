@@ -18,13 +18,40 @@
     <virtualType name="Magento\ImportService\Model\Import\Type\Csv" type="Magento\ImportService\Model\Import\Type\FileSourceType">
         <arguments>
             <argument name="sourceType" xsi:type="string">csv</argument>
-            <argument name="mime" xsi:type="string">text/csv</argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="plain" xsi:type="string">text/plain</item>
+                <item name="csv" xsi:type="string">text/csv</item>
+            </argument>
         </arguments>
     </virtualType>
     <type name="Magento\ImportService\Model\Import\SourceTypePool">
         <arguments>
             <argument name="sourceTypes" xsi:type="array">
                 <item name="csv" xsi:type="object">Magento\ImportService\Model\Import\Type\Csv</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ImportService\Model\Import\Processor\LocalPathFileProcessor">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RequestValidator</item>
+                <item name="local_file_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\LocalFileValidator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ImportService\Model\Import\Processor\Base64EncodedDataProcessor">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RequestValidator</item>
+                <item name="base64_file_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\Base64FileValidator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ImportService\Model\Import\Processor\ExternalFileProcessor">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RequestValidator</item>
+                <item name="external_file_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\ExternalFileValidator</item>
             </argument>
         </arguments>
     </type>
@@ -46,23 +73,6 @@
             </argument>
         </arguments>
     </type>
-    <type name="\Magento\ImportService\Model\Source\Validator">
-        <arguments>
-            <argument name="allowedMimeTypes" xsi:type="array">
-                <item name="plain" xsi:type="string">text/plain</item>
-                <item name="csv" xsi:type="string">text/csv</item>
-            </argument>
-        </arguments>
-    </type>
-    <type name="\Magento\ImportService\Model\Import\SourceTypesValidator">
-        <arguments>
-            <argument name="allowedMimeTypes" xsi:type="array">
-                <item name="csv" xsi:type="string">text/csv</item>
-            </argument>
-        </arguments>
-    </type>
-    <preference for="Magento\ImportService\Model\Import\SourceTypesValidatorInterface"
-                type="Magento\ImportService\Model\Import\SourceTypesValidator"/>
 
     <preference for="Magento\ImportService\Api\ImportStatusInterface" type="Magento\ImportService\Model\ImportStatus" />
     <preference for="Magento\ImportService\Api\Data\ImportStatusResponseInterface" type="Magento\ImportService\Model\ImportStatusResponse" />

@@ -13,7 +13,7 @@ use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
 use Magento\ImportService\Model\Import\SourceTypePool;
-use Magento\ImportService\Model\Source\Validator;
+use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
@@ -37,25 +37,25 @@ class ExternalFileProcessor implements SourceProcessorInterface
     private $fileSystem;
 
     /**
-     * @var Validator
+     * @var array
      */
-    private $validator;
+    private $validators;
 
     /**
      * LocalPathFileProcessor constructor
      *
      * @param PersistentSourceProcessor $persistantUploader
      * @param Filesystem $fileSystem
-     * @param Validator $validator
+     * @param ValidatorInterface[] $validators
      */
     public function __construct(
         PersistentSourceProcessor $persistantUploader,
         Filesystem $fileSystem,
-        Validator $validator
+        $validators = []
     ) {
         $this->persistantUploader = $persistantUploader;
         $this->fileSystem = $fileSystem;
-        $this->validator = $validator;
+        $this->validators = $validators;
     }
 
     /**
@@ -63,25 +63,16 @@ class ExternalFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
-        /** Validate the $source object */
-        if ($errors = $this->validator->validateRequest($source)) {
-            throw new ImportServiceException(
-                __('Invalid request: %1', implode(", ", $errors))
-            );
-        }
-
-        /** Check if the domain exists and the file within that domain exists */
-        if (!$this->validator->checkIfRemoteFileExists($source->getImportData())) {
-            throw new ImportServiceException(
-                __('Remote file %1 does not exist.', $source->getImportData())
-            );
-        }
-
-        /** Validate the remote file content type */
-        if (!$this->validator->validateMimeTypeForRemoteFile($source->getImportData())) {
-            throw new ImportServiceException(
-                __('Invalid mime type, expected is one of: %1', implode(", ", $this->validator->getAllowedMimeTypes()))
-            );
+        /** check for validations from validators */
+        foreach($this->validators as $validator)
+        {
+            /** throw exceptions if there is any */
+            if(count($errors = $validator->validate($source)))
+            {
+                throw new ImportServiceException(
+                    __('Invalid request: %1', implode(", ", $errors))
+                );
+            }
         }
 
         /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
