@@ -51,38 +51,6 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     /**
      * @inheritdoc
      */
-    public function getImportImageArchive(): string
-    {
-        return $this->getData(self::IMPORT_IMAGE_ARCHIVE);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setImportImageArchive(string $importImageArchive): void
-    {
-        $this->setData(self::IMPORT_IMAGE_ARCHIVE, $importImageArchive);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getImportImagesFileDir(): string
-    {
-        return $this->getData(self::IMPORT_IMAGES_FILE_DIR);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setImportImagesFileDir(string $importImagesFileDir): void
-    {
-        $this->setData(self::IMPORT_IMAGES_FILE_DIR, $importImagesFileDir);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getAllowedErrorCount(): int
     {
         return $this->getData(self::ALLOWED_ERROR_COUNT);
@@ -110,86 +78,6 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     public function setValidationStrategy(string $validationStrategy): void
     {
         $this->setData(self::VALIDATION_STRATEGY, $validationStrategy);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getEmptyAttributeValueConstant(): string
-    {
-        return $this->getData(self::EMPTY_ATTRIBUTE_VALUE_CONSTANT);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setEmptyAttributeValueConstant(string $emptyAttributeValueConstant): void
-    {
-        $this->setData(self::EMPTY_ATTRIBUTE_VALUE_CONSTANT, $emptyAttributeValueConstant);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getCsvSeparator(): string
-    {
-        return $this->getData(self::CSV_SEPARATOR);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setCsvSeparator(string $csvSeparator): void
-    {
-        $this->setData(self::CSV_SEPARATOR, $csvSeparator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getCsvEnclosure(): string
-    {
-        return $this->getData(self::CSV_ENCLOSURE);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setCsvEnclosure(string $csvEnclosure): void
-    {
-        $this->setData(self::CSV_ENCLOSURE, $csvEnclosure);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getCsvDelimiter(): string
-    {
-        return $this->getData(self::CSV_DELIMITER);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setCsvDelimiter(string $csvDelimiter): void
-    {
-        $this->setData(self::CSV_DELIMITER, $csvDelimiter);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getMultipleValueSeparator(): string
-    {
-        return $this->getData(self::MULTIPLE_VALUE_SEPARATOR);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setMultipleValueSeparator(string $multipleValueSeparator): void
-    {
-        $this->setData(self::MULTIPLE_VALUE_SEPARATOR, $multipleValueSeparator);
     }
 
     /**
