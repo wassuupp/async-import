@@ -23,16 +23,18 @@ class ImportStart implements ImportStartInterface
 
     /**
      * ImportStart constructor.
+     *
      * @param ImportStartResponseFactory $importStartResponseFactory
      */
     public function __construct(
         ImportStartResponseFactory $importStartResponseFactory
     ) {
-
         $this->importStartResponseFactory = $importStartResponseFactory;
     }
 
     /**
+     * Import start
+     *
      * @param ImportConfigInterface $importConfig
      * @return ImportStartResponseInterface
      */
