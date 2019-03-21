@@ -15,7 +15,7 @@ use Magento\ImportService\Api\Data\ImportConfigInterface;
 interface ImportStartInterface
 {
     /**
-     *
+     * Start import
      *
      * @param \Magento\ImportService\Api\Data\ImportConfigInterface $importConfig
      * @return \Magento\ImportService\Api\Data\ImportStartResponseInterface
