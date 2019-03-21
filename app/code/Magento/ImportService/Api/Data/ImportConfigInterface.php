@@ -72,5 +72,5 @@ interface ImportConfigInterface extends ExtensibleDataInterface
      * @param \Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extension
      * @return void
      */
-    public function setExtensionAttributes(\Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extension): void;
+    public function setExtensionAttributes(\Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extensionAttributes): void;
 }
