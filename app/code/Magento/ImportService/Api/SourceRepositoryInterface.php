@@ -28,7 +28,7 @@ interface SourceRepositoryInterface
      * @param string $uuid
      * @return \Magento\ImportService\Api\Data\SourceInterface
      */
-    public function getById($uuid);
+    public function getByUuid($uuid);
 
     /**
      * Provides sources which match a specific criteria.
@@ -47,10 +47,10 @@ interface SourceRepositoryInterface
     public function delete(\Magento\ImportService\Api\Data\SourceInterface $source);
 
     /**
-     * Deletes source by ID
+     * Deletes source by UUID
      *
-     * @param int $id
+     * @param string $uuid
      * @return bool
      */
-    public function deleteById($id);
+    public function deleteByUuid($uuid);
 }

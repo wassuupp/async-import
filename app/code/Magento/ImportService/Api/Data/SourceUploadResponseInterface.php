@@ -13,11 +13,8 @@ namespace Magento\ImportService\Api\Data;
 interface SourceUploadResponseInterface
 {
     const UUID = 'uuid';
-
     const STATUS = 'status';
-
     const ERROR = 'error';
-
     const SOURCE_MODEL = 'source';
 
     /**

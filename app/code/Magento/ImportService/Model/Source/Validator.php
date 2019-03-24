@@ -6,7 +6,6 @@
 namespace Magento\ImportService\Model\Source;
 
 use Magento\Framework\File\Mime;
-use Magento\Framework\File\Mime;
 use Magento\Framework\Filesystem\Driver\Http;
 use Ramsey\Uuid\Uuid;
 
