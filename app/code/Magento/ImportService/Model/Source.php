@@ -126,6 +126,14 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function setCreatedAt($date)
+    {
+        return $this->setData(self::CREATED_AT, $date);
+    }
+
+    /**
      * @inheritdoc
      */
     public function getExtensionAttributes()
