@@ -96,8 +96,7 @@ class FileSourceType implements SourceTypeInterface
         /** @var Magento\Framework\Filesystem\Directory\Write $var */
         $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
 
-        if(!$var->writeFile($contentFilePath, $source->getImportData()))
-        {
+        if(!$var->writeFile($contentFilePath, $source->getImportData())) {
             /** @var array $lastError */
             $lastError = error_get_last();
 

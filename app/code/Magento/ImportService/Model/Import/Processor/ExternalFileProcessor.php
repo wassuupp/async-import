@@ -72,8 +72,7 @@ class ExternalFileProcessor implements SourceProcessorInterface
         }
 
         /** throw errros if there is any */
-        if(count($errors))
-        {
+        if(count($errors)) {
             throw new ImportServiceException(
                 __('Invalid request: %1', implode(", ", $errors))
             );
