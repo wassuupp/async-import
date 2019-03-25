@@ -80,21 +80,17 @@ class MimeTypeValidator implements ValidatorInterface
         $mimeType = false;
 
         /** validate import source for remote url or local path */
-        if(filter_var($source->getImportData(), FILTER_VALIDATE_URL))
-        {
+        if(filter_var($source->getImportData(), FILTER_VALIDATE_URL)) {
             $externalSourceUrl = preg_replace("(^https?://)", "", $source->getImportData());
 
             /** check for file exists */
-            if($this->httpDriver->isExists($externalSourceUrl))
-            {
+            if($this->httpDriver->isExists($externalSourceUrl)) {
                 /** @var array $stat */
                 $stat = $this->httpDriver->stat($externalSourceUrl);
                 if (!isset($stat['type']))
                     $mimeType = $stat['type'];
             }
-        }
-        else // check for local path
-        {
+        } else {
             /** @var \Magento\Framework\Filesystem\Directory\Write $write */
             $write = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);
 
@@ -102,12 +98,12 @@ class MimeTypeValidator implements ValidatorInterface
             $absoluteFilePath = $write->getAbsolutePath($source->getImportData());
 
             /** check if file exist */
-            if($this->fileSystemIo->fileExists($absoluteFilePath))
+            if($this->fileSystemIo->fileExists($absoluteFilePath)) {
                 $mimeType = $this->mime->getMimeType($absoluteFilePath);
+            }
         }
 
-        if($mimeType)
-        {
+        if($mimeType) {
             if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
                 $errors[] = __('Invalid mime type: %1, expected is one of: %2', $mimeType, implode(", ", $this->sourceTypePool->getAllowedMimeTypes()));
             }

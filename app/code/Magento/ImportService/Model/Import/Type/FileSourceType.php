@@ -34,7 +34,7 @@ class FileSourceType implements SourceTypeInterface
     private $sourceType;
 
     /**
-     * @var string[]
+     * @var array
      */
     private $allowedMimeTypes;
 
@@ -44,7 +44,7 @@ class FileSourceType implements SourceTypeInterface
      * @param SourceRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
      * @param string $sourceType
-     * @param string[] $allowedMimeTypes
+     * @param array $allowedMimeTypes
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
@@ -71,7 +71,7 @@ class FileSourceType implements SourceTypeInterface
     /**
      * get all mime types
      *
-     * @return string[]
+     * @return array
      */
     public function getAllowedMimeTypes()
     {

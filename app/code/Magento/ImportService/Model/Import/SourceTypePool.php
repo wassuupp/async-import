@@ -34,7 +34,7 @@ class SourceTypePool
     /**
      * get all mime types
      *
-     * @return string[]
+     * @return array
      */
     public function getAllowedMimeTypes()
     {
