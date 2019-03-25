@@ -64,11 +64,9 @@ class ExternalFileProcessor implements SourceProcessorInterface
     public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
         /** check for validations from validators */
-        foreach($this->validators as $validator)
-        {
+        foreach($this->validators as $validator) {
             /** throw exceptions if there is any */
-            if(count($errors = $validator->validate($source)))
-            {
+            if(count($errors = $validator->validate($source))) {
                 throw new ImportServiceException(
                     __('Invalid request: %1', implode(", ", $errors))
                 );
