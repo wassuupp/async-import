@@ -7,22 +7,15 @@ namespace Magento\ImportService\Model\Source\Validator;
 
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\ImportServiceException;
-use Magento\Framework\File\Mime\Proxy as Mime;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\ImportService\Model\Import\SourceTypePool;
 
 /**
- * Class LocalFileValidator
+ * Class LocalPathValidator
  */
-class LocalFileValidator implements ValidatorInterface
+class LocalPathValidator implements ValidatorInterface
 {
-    /**
-     * @var Mime
-     */
-    private $mime;
-
     /**
      * @var File
      */
@@ -34,26 +27,15 @@ class LocalFileValidator implements ValidatorInterface
     private $fileSystem;
 
     /**
-     * @var SourceTypePool
-     */
-    private $sourceTypePool;
-
-    /**
-     * @param Mime $mime
      * @param File $fileSystemIo
      * @param Filesystem $fileSystem
-     * @param SourceTypePool $sourceTypePool
      */
     public function __construct(
-        Mime $mime,
         File $fileSystemIo,
-        Filesystem $fileSystem,
-        SourceTypePool $sourceTypePool
+        Filesystem $fileSystem
     ) {
-        $this->mime = $mime;
         $this->fileSystemIo = $fileSystemIo;
         $this->fileSystem = $fileSystem;
-        $this->sourceTypePool = $sourceTypePool;
     }
 
     /**
@@ -61,7 +43,7 @@ class LocalFileValidator implements ValidatorInterface
      *
      * @param SourceInterface $source
      * @throws ImportServiceException
-     * @return []
+     * @return array
      */
     public function validate(SourceInterface $source)
     {
@@ -76,14 +58,6 @@ class LocalFileValidator implements ValidatorInterface
         /** check if file exist */
         if(!$this->fileSystemIo->fileExists($absoluteFilePath)) {
             $errors[] = __('Local file %1 does not exist.', $source->getImportData());
-        }
-        else {
-            /** @var string $mimeType */
-            $mimeType = $this->mime->getMimeType($absoluteFilePath);
-
-            if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
-                $errors[] = __('Invalid mime type, expected is one of: %1', implode(", ", $this->sourceTypePool->getAllowedMimeTypes()));
-            }
         }
 
         return $errors;

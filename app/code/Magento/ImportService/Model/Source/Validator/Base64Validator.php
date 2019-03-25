@@ -9,27 +9,23 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
- * Class RequestValidator
+ * Class Base64Validator
  */
-class RequestValidator implements ValidatorInterface
+class Base64Validator implements ValidatorInterface
 {
     /**
      * return error messages in array
      *
      * @param SourceInterface $source
      * @throws ImportServiceException
-     * @return []
+     * @return array
      */
     public function validate(SourceInterface $source)
     {
         $errors = [];
 
-        if (!$source->getSourceType()) {
-            $errors[] = __('%1 cannot be empty', SourceInterface::SOURCE_TYPE);
-        }
-
-        if (!$source->getImportData()) {
-            $errors[] = __('%1 cannot be empty', SourceInterface::IMPORT_DATA);
+        if (!preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $source->getImportData())) {
+            $errors[] = __('Base64 import data string is invalid.');
         }
 
         return $errors;

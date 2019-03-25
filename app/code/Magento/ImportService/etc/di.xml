@@ -34,24 +34,26 @@
     <type name="Magento\ImportService\Model\Import\Processor\LocalPathFileProcessor">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RequestValidator</item>
-                <item name="local_file_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\LocalFileValidator</item>
+                <item name="source_request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\SourceRequestValidator</item>
+                <item name="local_path_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\LocalPathValidator</item>
+                <item name="mime_type_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\MimeTypeValidator</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\ImportService\Model\Import\Processor\Base64EncodedDataProcessor">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RequestValidator</item>
-                <item name="base64_file_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\Base64FileValidator</item>
+                <item name="source_request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\SourceRequestValidator</item>
+                <item name="base64_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\Base64Validator</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\ImportService\Model\Import\Processor\ExternalFileProcessor">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RequestValidator</item>
-                <item name="external_file_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\ExternalFileValidator</item>
+                <item name="source_request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\SourceRequestValidator</item>
+                <item name="remote_url_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RemoteUrlValidator</item>
+                <item name="mime_type_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\MimeTypeValidator</item>
             </argument>
         </arguments>
     </type>

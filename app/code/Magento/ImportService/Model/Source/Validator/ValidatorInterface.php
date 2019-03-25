@@ -20,7 +20,7 @@ interface ValidatorInterface
      *
      * @param SourceInterface $source
      * @throws ImportServiceException
-     * @return []
+     * @return array
      */
     public function validate(SourceInterface $source);
 }
