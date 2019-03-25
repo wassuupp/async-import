@@ -71,14 +71,20 @@ class LocalPathFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
     {
+        $errors = [];
+
         /** check for validations from validators */
         foreach($this->validators as $validator) {
-            /** throw exceptions if there is any */
-            if(count($errors = $validator->validate($source))) {
-                throw new ImportServiceException(
-                    __('Invalid request: %1', implode(", ", $errors))
-                );
-            }
+            /** collect errors */
+            $errors = array_merge($errors, $validator->validate($source));
+        }
+
+        /** throw errros if there is any */
+        if(count($errors))
+        {
+            throw new ImportServiceException(
+                __('Invalid request: %1', implode(", ", $errors))
+            );
         }
 
         /** @var \Magento\Framework\Filesystem\Directory\Write $write */
