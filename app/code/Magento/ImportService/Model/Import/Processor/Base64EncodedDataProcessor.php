@@ -30,20 +30,20 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
     private $persistantUploader;
 
     /**
-     * @var array
+     * @var ValidatorInterface
      */
-    private $validators;
+    private $validator;
 
     /**
      * @param PersistentSourceProcessor $persistantUploader
-     * @param ValidatorInterface[] $validators
+     * @param ValidatorInterface $validator
      */
     public function __construct(
         PersistentSourceProcessor $persistantUploader,
-        $validators = []
+        ValidatorInterface $validator
     ) {
         $this->persistantUploader = $persistantUploader;
-        $this->validators = $validators;
+        $this->validator = $validator;
     }
 
     /**
@@ -51,20 +51,8 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
      */
     public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
     {
-        $errors = [];
-
-        /** check for validations from validators */
-        foreach($this->validators as $validator) {
-            /** collect errors */
-            $errors = array_merge($errors, $validator->validate($source));
-        }
-
-        /** throw errros if there is any */
-        if(count($errors)) {
-            throw new ImportServiceException(
-                __('Invalid request: %1', implode(", ", $errors))
-            );
-        }
+        /** @var array $errors */
+        $errors = $this->validator->validate($source);
 
         /** @var string $content */
         $content = base64_decode($source->getImportData());

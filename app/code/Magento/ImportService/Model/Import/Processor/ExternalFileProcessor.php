@@ -37,25 +37,25 @@ class ExternalFileProcessor implements SourceProcessorInterface
     private $fileSystem;
 
     /**
-     * @var array
+     * @var ValidatorInterface
      */
-    private $validators;
+    private $validator;
 
     /**
      * LocalPathFileProcessor constructor
      *
      * @param PersistentSourceProcessor $persistantUploader
      * @param Filesystem $fileSystem
-     * @param ValidatorInterface[] $validators
+     * @param ValidatorInterface $validator
      */
     public function __construct(
         PersistentSourceProcessor $persistantUploader,
         Filesystem $fileSystem,
-        $validators = []
+        ValidatorInterface $validator
     ) {
         $this->persistantUploader = $persistantUploader;
         $this->fileSystem = $fileSystem;
-        $this->validators = $validators;
+        $this->validator = $validator;
     }
 
     /**
@@ -63,20 +63,8 @@ class ExternalFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(\Magento\ImportService\Api\Data\SourceInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
     {
-        $errors = [];
-
-        /** check for validations from validators */
-        foreach($this->validators as $validator) {
-            /** collect errors */
-            $errors = array_merge($errors, $validator->validate($source));
-        }
-
-        /** throw errros if there is any */
-        if(count($errors)) {
-            throw new ImportServiceException(
-                __('Invalid request: %1', implode(", ", $errors))
-            );
-        }
+        /** @var array $errors */
+        $errors = $this->validator->validate($source);
 
         /** @var \Magento\Framework\Filesystem\Directory\WriteInterface $writeInterface */
         $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);

@@ -42,9 +42,9 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     private $fileSystem;
 
     /**
-     * @var array
+     * @var ValidatorInterface
      */
-    private $validators;
+    private $validator;
 
     /**
      * LocalPathFileProcessor constructor
@@ -52,18 +52,18 @@ class LocalPathFileProcessor implements SourceProcessorInterface
      * @param PersistentSourceProcessor $persistantUploader
      * @param File $fileSystemIo
      * @param Filesystem $fileSystem
-     * @param ValidatorInterface[] $validators
+     * @param ValidatorInterface $validator
      */
     public function __construct(
         PersistentSourceProcessor $persistantUploader,
         File $fileSystemIo,
         Filesystem $fileSystem,
-        $validators = []
+        ValidatorInterface $validator
     ) {
         $this->persistantUploader = $persistantUploader;
         $this->fileSystemIo = $fileSystemIo;
         $this->fileSystem = $fileSystem;
-        $this->validators = $validators;
+        $this->validator = $validator;
     }
 
     /**
@@ -71,20 +71,8 @@ class LocalPathFileProcessor implements SourceProcessorInterface
      */
     public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
     {
-        $errors = [];
-
-        /** check for validations from validators */
-        foreach($this->validators as $validator) {
-            /** collect errors */
-            $errors = array_merge($errors, $validator->validate($source));
-        }
-
-        /** throw errros if there is any */
-        if(count($errors)) {
-            throw new ImportServiceException(
-                __('Invalid request: %1', implode(", ", $errors))
-            );
-        }
+        /** @var array $errors */
+        $errors = $this->validator->validate($source);
 
         /** @var \Magento\Framework\Filesystem\Directory\Write $write */
         $write = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);

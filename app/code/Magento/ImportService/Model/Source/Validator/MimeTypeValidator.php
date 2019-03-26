@@ -81,14 +81,19 @@ class MimeTypeValidator implements ValidatorInterface
 
         /** validate import source for remote url or local path */
         if(filter_var($source->getImportData(), FILTER_VALIDATE_URL)) {
-            $externalSourceUrl = preg_replace("(^https?://)", "", $source->getImportData());
+            /** check empty variable */
+            $importData = $source->getImportData();
 
-            /** check for file exists */
-            if($this->httpDriver->isExists($externalSourceUrl)) {
-                /** @var array $stat */
-                $stat = $this->httpDriver->stat($externalSourceUrl);
-                if (!isset($stat['type']))
-                    $mimeType = $stat['type'];
+            if(isset($importData) && $importData != "") {
+                $externalSourceUrl = preg_replace("(^https?://)", "", $importData);
+
+                /** check for file exists */
+                if($this->httpDriver->isExists($externalSourceUrl)) {
+                    /** @var array $stat */
+                    $stat = $this->httpDriver->stat($externalSourceUrl);
+                    if (!isset($stat['type']))
+                        $mimeType = $stat['type'];
+                }
             }
         } else {
             /** @var \Magento\Framework\Filesystem\Directory\Write $write */

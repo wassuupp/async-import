@@ -40,11 +40,16 @@ class RemoteUrlValidator implements ValidatorInterface
     {
         $errors = [];
 
-        $externalSourceUrl = preg_replace("(^https?://)", "", $source->getImportData());
+        /** check empty variable */
+        $importData = $source->getImportData();
 
-        /** check for file exists */
-        if(!$this->httpDriver->isExists($externalSourceUrl)) {
-            $errors[] = __('Remote file %1 does not exist.', $source->getImportData());
+        if(isset($importData) && $importData != "") {
+            $externalSourceUrl = preg_replace("(^https?://)", "", $importData);
+
+            /** check for file exists */
+            if(!$this->httpDriver->isExists($externalSourceUrl)) {
+                $errors[] = __('Remote file %1 does not exist.', $importData);
+            }
         }
 
         return $errors;
