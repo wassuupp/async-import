@@ -34,9 +34,9 @@ class FileSourceType implements SourceTypeInterface
     private $sourceType;
 
     /**
-     * @var string
+     * @var array
      */
-    private $mime;
+    private $allowedMimeTypes;
 
     /**
      * CSV File Type constructor.
@@ -44,18 +44,18 @@ class FileSourceType implements SourceTypeInterface
      * @param SourceRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
      * @param string $sourceType
-     * @param string $mime
+     * @param array $allowedMimeTypes
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         Filesystem $filesystem,
         $sourceType = null,
-        $mime = null
+        $allowedMimeTypes = []
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->filesystem = $filesystem;
         $this->sourceType = $sourceType;
-        $this->mime = $mime;
+        $this->allowedMimeTypes = $allowedMimeTypes;
     }
 
     /**
@@ -66,6 +66,16 @@ class FileSourceType implements SourceTypeInterface
     private function generateFileName()
     {
         return uniqid() . '.' . $this->sourceType;
+    }
+
+    /**
+     * get all mime types
+     *
+     * @return array
+     */
+    public function getAllowedMimeTypes()
+    {
+        return $this->allowedMimeTypes;
     }
 
     /**
@@ -86,8 +96,7 @@ class FileSourceType implements SourceTypeInterface
         /** @var Magento\Framework\Filesystem\Directory\Write $var */
         $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
 
-        if(!$var->writeFile($contentFilePath, $source->getImportData()))
-        {
+        if(!$var->writeFile($contentFilePath, $source->getImportData())) {
             /** @var array $lastError */
             $lastError = error_get_last();
 
