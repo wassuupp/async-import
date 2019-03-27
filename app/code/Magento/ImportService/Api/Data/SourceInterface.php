@@ -18,6 +18,7 @@ interface SourceInterface extends ExtensibleDataInterface
     const SOURCE_TYPE = 'source_type';
     const IMPORT_TYPE = 'import_type';
     const IMPORT_DATA = 'import_data';
+    const FORMAT = 'format';
     const CREATED_AT = 'created_at';
     const STATUS = 'status';
     const STATUS_UPLOADED = 'uploaded';
@@ -84,6 +85,21 @@ interface SourceInterface extends ExtensibleDataInterface
      * @return $this
      */
     public function setImportData($importData);
+
+    /**
+     * Retrieve Source Format
+     *
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
+     */
+    public function getFormat();
+
+    /**
+     * Set Source Format
+     *
+     * @param \Magento\ImportService\Api\Data\SourceFormatInterface $format
+     * @return $this
+     */
+    public function setFormat($format);
 
     /**
      * Retrieve Import data

@@ -11,6 +11,12 @@
                 type="Magento\ImportService\Model\SourceUpload" />
     <preference for="Magento\ImportService\Api\Data\SourceInterface"
                 type="Magento\ImportService\Model\Source" />
+    <preference for="Magento\ImportService\Api\Data\SourceFormatInterface"
+                type="Magento\ImportService\Model\SourceFormat" />
+    <preference for="Magento\ImportService\Api\Data\SourceFormatMappingInterface"
+                type="Magento\ImportService\Model\SourceFormatMapping" />
+    <preference for="Magento\ImportService\Api\Data\SourceFormatMappingValueInterface"
+                type="Magento\ImportService\Model\SourceFormatMappingValue" />
     <preference for="Magento\ImportService\Api\Data\SourceUploadResponseInterface"
                 type="Magento\ImportService\Model\SourceUploadResponse" />
     <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
