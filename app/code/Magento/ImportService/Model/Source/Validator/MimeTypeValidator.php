@@ -91,7 +91,7 @@ class MimeTypeValidator implements ValidatorInterface
                 if($this->httpDriver->isExists($externalSourceUrl)) {
                     /** @var array $stat */
                     $stat = $this->httpDriver->stat($externalSourceUrl);
-                    if (!isset($stat['type']))
+                    if (isset($stat['type']))
                         $mimeType = $stat['type'];
                 }
             }
@@ -109,7 +109,8 @@ class MimeTypeValidator implements ValidatorInterface
         }
 
         if($mimeType) {
-            if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
+        	$mimeType = trim(explode(";", $mimeType)[0]);
+        	if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
                 $errors[] = __('Invalid mime type: %1, expected is one of: %2', $mimeType, implode(", ", $this->sourceTypePool->getAllowedMimeTypes()));
             }
         }
