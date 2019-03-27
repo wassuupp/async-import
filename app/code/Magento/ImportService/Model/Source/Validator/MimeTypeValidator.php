@@ -91,8 +91,9 @@ class MimeTypeValidator implements ValidatorInterface
                 if($this->httpDriver->isExists($externalSourceUrl)) {
                     /** @var array $stat */
                     $stat = $this->httpDriver->stat($externalSourceUrl);
-                    if (isset($stat['type']))
+                    if (isset($stat['type'])) {
                         $mimeType = $stat['type'];
+                    }
                 }
             }
         } else {
