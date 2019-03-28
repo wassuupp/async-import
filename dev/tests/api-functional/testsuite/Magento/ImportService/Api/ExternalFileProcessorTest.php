@@ -140,17 +140,17 @@ class ExternalFileProcessorTest extends WebapiAbstract
     /**
      * Sets up the request array.
      *
-     * @param string $import_data
+     * @param string $importData
      *
      * @return array
      */
-    private function makeRequestData($import_data)
+    private function makeRequestData($importData)
     {
         return [
             'source' => [
                 SourceInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
                 SourceInterface::IMPORT_TYPE => ExternalFileProcessor::IMPORT_TYPE,
-                SourceInterface::IMPORT_DATA => $import_data
+                SourceInterface::IMPORT_DATA => $importData
             ]
         ];
     }
