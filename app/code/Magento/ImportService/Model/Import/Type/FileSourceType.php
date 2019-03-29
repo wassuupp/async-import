@@ -40,9 +40,9 @@ class FileSourceType implements SourceTypeInterface
     private $sourceType;
 
     /**
-     * @var string
+     * @var array
      */
-    private $mime;
+    private $allowedMimeTypes;
 
     /**
      * CSV File Type constructor.
@@ -51,20 +51,40 @@ class FileSourceType implements SourceTypeInterface
      * @param Filesystem $filesystem
      * @param IdentityGenerator $identityGenerator
      * @param string $sourceType
-     * @param string $mime
+     * @param array $allowedMimeTypes
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         Filesystem $filesystem,
         IdentityGenerator $identityGenerator,
         $sourceType = null,
-        $mime = null
+        $allowedMimeTypes = []
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->filesystem = $filesystem;
         $this->identityGenerator = $identityGenerator;
         $this->sourceType = $sourceType;
-        $this->mime = $mime;
+        $this->allowedMimeTypes = $allowedMimeTypes;
+    }
+
+    /**
+     * generate file name with source type
+     *
+     * @return string
+     */
+    private function generateFileName()
+    {
+        return uniqid() . '.' . $this->sourceType;
+    }
+
+    /**
+     * get all mime types
+     *
+     * @return array
+     */
+    public function getAllowedMimeTypes()
+    {
+        return $this->allowedMimeTypes;
     }
 
     /**
