@@ -27,6 +27,7 @@
             <argument name="allowedMimeTypes" xsi:type="array">
                 <item name="plain" xsi:type="string">text/plain</item>
                 <item name="csv" xsi:type="string">text/csv</item>
+                <item name="octet-stream" xsi:type="string">application/octet-stream</item>
             </argument>
         </arguments>
     </virtualType>

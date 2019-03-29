@@ -220,31 +220,33 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     {
         $formatJson = $this->getFormat();
 
-        /** get format json string and decode */
-        $formatJson = json_decode($formatJson, true);
+        if(isset($formatJson)) {
+            /** get format json string and decode */
+            $formatJson = json_decode($formatJson, true);
 
-        /** check for format mapping field, decode json string and convert into object */
-        if(isset($formatJson['mapping'])) {
-            $formatMapping = [];
-            foreach($formatJson['mapping'] as $mappingJson) {
-                $mappingJson = json_decode($mappingJson, true);
-                /** check for format mapping value field, decode json string and convert into object */
-            	if(isset($mappingJson['values_mapping'])) {
-            		$valuesMapping = [];
-            		foreach($mappingJson['values_mapping'] as $valuesJson) {
-            			$valuesJson = json_decode($valuesJson, true);
-                		$valuesMapping[] = $this->mappingValueFactory->create()->setData($valuesJson);
-            		}
-            		$mappingJson['values_mapping'] = $valuesMapping;
-            	}
-                $formatMapping[] = $this->mappingFactory->create()->setData($mappingJson);
+            /** check for format mapping field, decode json string and convert into object */
+            if(isset($formatJson['mapping'])) {
+                $formatMapping = [];
+                foreach($formatJson['mapping'] as $mappingJson) {
+                    $mappingJson = json_decode($mappingJson, true);
+                    /** check for format mapping value field, decode json string and convert into object */
+                	if(isset($mappingJson['values_mapping'])) {
+                		$valuesMapping = [];
+                		foreach($mappingJson['values_mapping'] as $valuesJson) {
+                			$valuesJson = json_decode($valuesJson, true);
+                    		$valuesMapping[] = $this->mappingValueFactory->create()->setData($valuesJson);
+                		}
+                		$mappingJson['values_mapping'] = $valuesMapping;
+                	}
+                    $formatMapping[] = $this->mappingFactory->create()->setData($mappingJson);
+                }
+                $formatJson['mapping'] = $formatMapping;
             }
-            $formatJson['mapping'] = $formatMapping;
-        }
 
-        /** set decoded json string and object to formatted source */
-        $format = $this->formatFactory->create()->setData($formatJson);
-        $this->setFormat($format);
+            /** set decoded json string and object to formatted source */
+            $format = $this->formatFactory->create()->setData($formatJson);
+            $this->setFormat($format);
+        }
 
         parent::afterLoad();
     }
@@ -257,27 +259,30 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         /** get format object */
         $format = $this->getFormat();
 
-        /** get list of mapping and convert it into json and set to format */
-        $formatMapping = $format->getMapping();
+        if(isset($format)) {
+            /** get list of mapping and convert it into json and set to format */
+            $formatMapping = $format->getMapping();
 
-        /** check for mapping exist or not*/
-        if(isset($formatMapping)) {
-	        foreach($formatMapping as &$mapping) {
-	            $valuesMapping = $mapping->getValuesMapping();
-        		/** check for mapping exist or not and convert it into json */
-	            if(isset($valuesMapping)) {
-	            	foreach($valuesMapping as &$values) {
-		            	$values = $values->toJson();
-		            }
-		            $mapping->setValuesMapping($valuesMapping);
-	            }
-	            $mapping = $mapping->toJson();
-	        }
-        	$format->setMapping($formatMapping);
+            /** check for mapping exist or not*/
+            if(isset($formatMapping)) {
+                foreach($formatMapping as &$mapping) {
+                    $valuesMapping = $mapping->getValuesMapping();
+                    /** check for mapping exist or not and convert it into json */
+                    if(isset($valuesMapping)) {
+                        foreach($valuesMapping as &$values) {
+                            $values = $values->toJson();
+                        }
+                        $mapping->setValuesMapping($valuesMapping);
+                    }
+                    $mapping = $mapping->toJson();
+                }
+                $format->setMapping($formatMapping);
+            }
+
+            /** set format json string to format field */
+            $this->setFormat($format->toJson());
         }
 
-        /** set format json string to format field */
-        $this->setFormat($format->toJson());
         parent::beforeSave();
     }
 }
