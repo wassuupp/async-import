@@ -18,6 +18,11 @@ interface SourceFormatInterface
     const MULTIPLE_VALUE_SEPARATOR = 'multiple_value_separator';
     const MAPPING = 'mapping';
 
+    const DEFAULT_CSV_SEPARATOR = ',';
+    const DEFAULT_CSV_ENCLOSURE = '"';
+    const DEFAULT_CSV_DELIMITER = ',';
+    const DEFAULT_MULTIPLE_VALUE_SEPARATOR = '|';
+
     /**
      * @return string
      */

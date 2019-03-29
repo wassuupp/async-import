@@ -13,6 +13,7 @@ use Magento\Framework\Model\AbstractExtensibleModel;
 use Magento\ImportService\Api\Data\SourceExtensionInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
+use Magento\ImportService\Api\Data\SourceFormatInterface;
 use Magento\ImportService\Model\SourceFormatFactory as FormatFactory;
 use Magento\ImportService\Model\SourceFormatMappingFactory as MappingFactory;
 use Magento\ImportService\Model\SourceFormatMappingValueFactory as MappingValueFactory;
@@ -259,29 +260,38 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         /** get format object */
         $format = $this->getFormat();
 
-        if(isset($format)) {
-            /** get list of mapping and convert it into json and set to format */
-            $formatMapping = $format->getMapping();
-
-            /** check for mapping exist or not*/
-            if(isset($formatMapping)) {
-                foreach($formatMapping as &$mapping) {
-                    $valuesMapping = $mapping->getValuesMapping();
-                    /** check for mapping exist or not and convert it into json */
-                    if(isset($valuesMapping)) {
-                        foreach($valuesMapping as &$values) {
-                            $values = $values->toJson();
-                        }
-                        $mapping->setValuesMapping($valuesMapping);
-                    }
-                    $mapping = $mapping->toJson();
-                }
-                $format->setMapping($formatMapping);
-            }
-
-            /** set format json string to format field */
-            $this->setFormat($format->toJson());
+        if(!isset($format)) {
+            $data = [
+                SourceFormatInterface::CSV_SEPARATOR => SourceFormatInterface::DEFAULT_CSV_SEPARATOR,
+                SourceFormatInterface::CSV_ENCLOSURE => SourceFormatInterface::DEFAULT_CSV_ENCLOSURE,
+                SourceFormatInterface::CSV_DELIMITER => SourceFormatInterface::DEFAULT_CSV_DELIMITER,
+                SourceFormatInterface::MULTIPLE_VALUE_SEPARATOR => SourceFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR
+            ];
+            /** create format object and set default values */
+            $format = $this->formatFactory->create()->setData($data);
         }
+
+        /** get list of mapping and convert it into json and set to format */
+        $formatMapping = $format->getMapping();
+
+        /** check for mapping exist or not*/
+        if(isset($formatMapping)) {
+            foreach($formatMapping as &$mapping) {
+                $valuesMapping = $mapping->getValuesMapping();
+                /** check for mapping exist or not and convert it into json */
+                if(isset($valuesMapping)) {
+                    foreach($valuesMapping as &$values) {
+                        $values = $values->toJson();
+                    }
+                    $mapping->setValuesMapping($valuesMapping);
+                }
+                $mapping = $mapping->toJson();
+            }
+            $format->setMapping($formatMapping);
+        }
+
+        /** set format json string to format field */
+        $this->setFormat($format->toJson());
 
         parent::beforeSave();
     }
