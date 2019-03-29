@@ -10,8 +10,6 @@ namespace Magento\ImportService\Model;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
 use Magento\ImportService\Api\SourceUploadInterface;
-use Magento\ImportService\Model\Source\Validator;
-use Magento\ImportService\ImportServiceException;
 
 /**
  * Class SourceUpload
@@ -30,23 +28,17 @@ class SourceUpload implements SourceUploadInterface
     protected $responseFactory;
 
     /**
-     * @var Validator
-     */
-    private $validator;
-
-    /**
      * @param SourceUploadResponseFactory $responseFactory
      * @param SourceProcessorPool $sourceProcessorPool
-     * @param Validator $validator
+
      */
     public function __construct(
         SourceUploadResponseFactory $responseFactory,
-        SourceProcessorPool $sourceProcessorPool,
-        Validator $validator
+        SourceProcessorPool $sourceProcessorPool
+
     ) {
         $this->sourceProcessorPool = $sourceProcessorPool;
         $this->responseFactory = $responseFactory;
-        $this->validator = $validator;
     }
 
     /**
@@ -56,12 +48,6 @@ class SourceUpload implements SourceUploadInterface
     public function execute(SourceInterface $source)
     {
         try {
-            if ($source->getUuid() && !$this->validator->validateUuid($source)) {
-                throw new ImportServiceException(
-                    __('The uuid %1 is not valid.', $source->getUuid())
-                );
-            }
-
             $processor = $this->sourceProcessorPool->getProcessor($source);
             $response = $this->responseFactory->create();
             $processor->processUpload($source, $response);
