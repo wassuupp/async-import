@@ -68,13 +68,13 @@ class FileSourceType implements SourceTypeInterface
     }
 
     /**
-     * generate file name with source type
+     * Get file source type
      *
      * @return string
      */
-    private function generateFileName()
+    private function getFileExtension()
     {
-        return uniqid() . '.' . $this->sourceType;
+        return '.' . $this->sourceType;
     }
 
     /**
@@ -100,7 +100,7 @@ class FileSourceType implements SourceTypeInterface
         $uuid = $source->getUuid() ?: $this->identityGenerator->generateId();
 
         /** @var string $fileName */
-        $fileName = $uuid;
+        $fileName = $uuid . $this->getFileExtension();
 
         /** @var string $contentFilePath */
         $contentFilePath =  SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $fileName;

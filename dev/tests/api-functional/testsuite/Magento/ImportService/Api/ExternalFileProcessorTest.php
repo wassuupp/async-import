@@ -243,7 +243,9 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function getPathToCopiedFile($nameCopiedFile)
     {
         return $this->varWriter->getAbsolutePath(SourceTypeInterface::IMPORT_SOURCE_FILE_PATH)
-            . $nameCopiedFile;
+            . $nameCopiedFile
+            . '.'
+            . self::EXTERNAL_FILE_TYPE;
     }
     /**
      * @param string $pathCopiedFile
