@@ -19,22 +19,6 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     /**
      * @inheritdoc
      */
-    public function getProfileUuid(): string
-    {
-        return $this->getData(self::PROFILE_UUID);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setProfileUuid(string $profileUuid): void
-    {
-        $this->setData(self::PROFILE_UUID, $profileUuid);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getBehaviour(): string
     {
         return $this->getData(self::BEHAVIOUR);
@@ -78,6 +62,35 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     public function setValidationStrategy(string $validationStrategy): void
     {
         $this->setData(self::VALIDATION_STRATEGY, $validationStrategy);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getImportImageArchive(): string
+    {
+        return $this->getData(self::IMPORT_IMAGE_ARCHIVE);
+    }
+    /**
+     * @inheritdoc
+     */
+    public function setImportImageArchive(string $importImageArchive): void
+    {
+        $this->setData(self::IMPORT_IMAGE_ARCHIVE, $importImageArchive);
+    }
+    /**
+     * @inheritdoc
+     */
+    public function getImportImagesFileDir(): string
+    {
+        return $this->getData(self::IMPORT_IMAGES_FILE_DIR);
+    }
+    /**
+     * @inheritdoc
+     */
+    public function setImportImagesFileDir(string $importImagesFileDir): void
+    {
+        $this->setData(self::IMPORT_IMAGES_FILE_DIR, $importImagesFileDir);
     }
 
     /**

@@ -14,21 +14,11 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  */
 interface ImportConfigInterface extends ExtensibleDataInterface
 {
-    const PROFILE_UUID = 'profile_uuid';
     const BEHAVIOUR = 'behaviour';
     const ALLOWED_ERROR_COUNT = 'allowed_error_count';
     const VALIDATION_STRATEGY = 'validation_strategy';
-
-    /**
-     * @return string
-     */
-    public function getProfileUuid(): string;
-
-    /**
-     * @param string $profileUuid
-     * @return void
-     */
-    public function setProfileUuid(string $profileUuid): void;
+    const IMPORT_IMAGE_ARCHIVE = 'import_image_archive';
+    const IMPORT_IMAGES_FILE_DIR = 'import_images_file_dir';
 
     /**
      * @return string
@@ -62,6 +52,25 @@ interface ImportConfigInterface extends ExtensibleDataInterface
      * @return void
      */
     public function setValidationStrategy(string $validationStrategy): void;
+
+    /**
+     * @return string
+     */
+    public function getImportImageArchive(): string;
+    /**
+     * @param string $importImageArchive
+     * @return void
+     */
+    public function setImportImageArchive(string $importImageArchive): void;
+    /**
+     * @return string
+     */
+    public function getImportImagesFileDir(): string;
+    /**
+     * @param string $importImagesFileDir
+     * @return void
+     */
+    public function setImportImagesFileDir(string $importImagesFileDir): void;
 
     /**
      * @return \Magento\ImportService\Api\Data\ImportConfigExtensionInterface
