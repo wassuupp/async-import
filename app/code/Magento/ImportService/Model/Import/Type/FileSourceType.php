@@ -14,7 +14,7 @@ use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 
 /**
- * Generic Source Type
+ * Generic Source Type.
  */
 class FileSourceType implements SourceTypeInterface
 {
@@ -39,8 +39,6 @@ class FileSourceType implements SourceTypeInterface
     private $allowedMimeTypes;
 
     /**
-     * CSV File Type constructor.
-     *
      * @param SourceRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
      * @param string $sourceType
@@ -59,7 +57,7 @@ class FileSourceType implements SourceTypeInterface
     }
 
     /**
-     * generate file name with source type
+     * Generate file name with source type.
      *
      * @return string
      */
@@ -69,7 +67,7 @@ class FileSourceType implements SourceTypeInterface
     }
 
     /**
-     * get all mime types
+     * Get all mime types.
      *
      * @return array
      */
@@ -79,7 +77,7 @@ class FileSourceType implements SourceTypeInterface
     }
 
     /**
-     * save source content
+     * Save source content.
      *
      * @param SourceInterface $source
      * @throws ImportServiceException
@@ -93,7 +91,6 @@ class FileSourceType implements SourceTypeInterface
         /** @var string $contentFilePath */
         $contentFilePath =  SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $fileName;
 
-        /** @var Magento\Framework\Filesystem\Directory\Write $var */
         $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
 
         if(!$var->writeFile($contentFilePath, $source->getImportData())) {
