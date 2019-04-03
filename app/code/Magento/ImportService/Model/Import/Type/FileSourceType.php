@@ -14,7 +14,7 @@ use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 
 /**
- * Generic Source Type
+ * Generic Source Type.
  */
 class FileSourceType implements SourceTypeInterface
 {
@@ -34,32 +34,30 @@ class FileSourceType implements SourceTypeInterface
     private $sourceType;
 
     /**
-     * @var string
+     * @var array
      */
-    private $mime;
+    private $allowedMimeTypes;
 
     /**
-     * CSV File Type constructor.
-     *
      * @param SourceRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
      * @param string $sourceType
-     * @param string $mime
+     * @param array $allowedMimeTypes
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         Filesystem $filesystem,
         $sourceType = null,
-        $mime = null
+        $allowedMimeTypes = []
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->filesystem = $filesystem;
         $this->sourceType = $sourceType;
-        $this->mime = $mime;
+        $this->allowedMimeTypes = $allowedMimeTypes;
     }
 
     /**
-     * generate file name with source type
+     * Generate file name with source type.
      *
      * @return string
      */
@@ -69,7 +67,17 @@ class FileSourceType implements SourceTypeInterface
     }
 
     /**
-     * save source content
+     * Get all mime types.
+     *
+     * @return array
+     */
+    public function getAllowedMimeTypes()
+    {
+        return $this->allowedMimeTypes;
+    }
+
+    /**
+     * Save source content.
      *
      * @param SourceInterface $source
      * @throws ImportServiceException
@@ -83,11 +91,9 @@ class FileSourceType implements SourceTypeInterface
         /** @var string $contentFilePath */
         $contentFilePath =  SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $fileName;
 
-        /** @var Magento\Framework\Filesystem\Directory\Write $var */
         $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
 
-        if(!$var->writeFile($contentFilePath, $source->getImportData()))
-        {
+        if(!$var->writeFile($contentFilePath, $source->getImportData())) {
             /** @var array $lastError */
             $lastError = error_get_last();
 

@@ -3,13 +3,14 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magento\ImportService\Api;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\UrlInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportService\Model\Import\SourceProcessorPool;
+use Magento\ImportService\Model\Import\Processor\ExternalFileProcessor;
+use Magento\ImportService\Model\Import\Type\SourceTypeInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
@@ -28,17 +29,12 @@ class ExternalFileProcessorTest extends WebapiAbstract
     const EXTERNAL_FILE_TYPE = 'csv';
 
     /**
-     * The type of import
-     */
-    const IMPORT_TYPE = 'external';
-
-    /**
      * The temporary directory name
      */
     const TEMPORARY_DIR = 'tmp_importservice/';
 
     /**
-     * Test Import Data not set
+     * Test Import Data not set.
      */
     public function testImportDataNotSet()
     {
@@ -47,30 +43,30 @@ class ExternalFileProcessorTest extends WebapiAbstract
             $this->makeRequestData(null)
         );
 
-        $this->assertEquals(SourceUploadResponseInterface::STATUS_FAILED, $result['status']);
+        $this->assertEquals(SourceInterface::STATUS_FAILED, $result['status']);
         $this->assertRegExp('/Invalid request/', $result['error']);
         $this->assertNull($result['source']);
     }
 
     /**
-     * Test non reachable file
+     * Test non reachable file.
      */
     public function testUnreachableFile()
     {
         $sampleFileName = 'non-existing' . '.' . self::EXTERNAL_FILE_TYPE;
-        
+
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
             $this->makeRequestData($this->getExternalLink($sampleFileName))
         );
 
-        $this->assertEquals(SourceUploadResponseInterface::STATUS_FAILED, $result['status']);
+        $this->assertEquals(SourceInterface::STATUS_FAILED, $result['status']);
         $this->assertRegExp('/does not exist./', $result['error']);
         $this->assertNull($result['source']);
     }
 
     /**
-     * Test reachable file
+     * Test reachable file.
      */
     public function testReachableFile()
     {
@@ -84,7 +80,10 @@ class ExternalFileProcessorTest extends WebapiAbstract
         $varWriter = $this->getWriteInterface(DirectoryList::VAR_DIR);
 
         /** Create the test file that should be copied */
-        $mediaWriter->writeFile($mediaWriter->getAbsolutePath(self::TEMPORARY_DIR) . $sampleFileName, $sampleFileContent);
+        $mediaWriter->writeFile(
+            $mediaWriter->getAbsolutePath(self::TEMPORARY_DIR) . $sampleFileName,
+            $sampleFileContent
+        );
 
         /** Make the Api call */
         $result = $this->_webApiCall(
@@ -93,17 +92,14 @@ class ExternalFileProcessorTest extends WebapiAbstract
         );
 
         /** Assert the response status and the source_id */
-        $this->assertEquals(SourceUploadResponseInterface::STATUS_UPLOADED, $result['status']);
+        $this->assertEquals(SourceInterface::STATUS_UPLOADED, $result['status']);
         $this->assertNotNull($result['source']['import_data']);
 
         if (isset($result['source']['import_data'])) {
-
-            /** @var string $nameCopiedFile */
-            $nameCopiedFile = $result['source']['import_data'];
+            $contentFilePath = SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $result['source']['import_data'];
 
             /** @var string $pathCopiedFile */
-            $pathCopiedFile = $varWriter->getAbsolutePath(SourceProcessorPool::WORKING_DIR)
-                . $nameCopiedFile;
+            $pathCopiedFile = $varWriter->getAbsolutePath($contentFilePath);
 
             /** Assert that the content of the copied file matches the original content */
             $this->assertEquals(
@@ -120,7 +116,8 @@ class ExternalFileProcessorTest extends WebapiAbstract
     }
 
     /**
-     * Sets up the service info
+     * Sets up the service info.
+     *
      * @return array
      */
     private function makeServiceInfo()
@@ -141,25 +138,29 @@ class ExternalFileProcessorTest extends WebapiAbstract
     }
 
     /**
-     * Sets up the request array
-     * @param string $import_data
+     * Sets up the request array.
+     *
+     * @param string $importData
+     *
      * @return array
      */
-    private function makeRequestData($import_data)
+    private function makeRequestData($importData)
     {
-        return ['source' => [
+        return [
+            'source' => [
                 SourceInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
-                SourceInterface::IMPORT_TYPE => self::IMPORT_TYPE,
-                SourceInterface::IMPORT_DATA => $import_data
+                SourceInterface::IMPORT_TYPE => ExternalFileProcessor::IMPORT_TYPE,
+                SourceInterface::IMPORT_DATA => $importData
             ]
         ];
     }
 
     /**
      * Gets the public link to the file to be copied
+     *
      * @param $sampleFileName
+     *
      * @return string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     private function getExternalLink($sampleFileName)
     {
@@ -172,10 +173,11 @@ class ExternalFileProcessorTest extends WebapiAbstract
     }
 
     /**
-     * Gets a Write object
-     * @param string $dir The directory to write to
+     * Gets a Write object.
+     *
+     * @param string $dir The directory to write to.
+     *
      * @return \Magento\Framework\Filesystem\Directory\WriteInterface
-     * @throws \Magento\Framework\Exception\FileSystemException
      */
     private function getWriteInterface($dir)
     {

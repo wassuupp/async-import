@@ -17,10 +17,14 @@ use Magento\ImportService\Api\ImportRestartOperationInterface;
 class ImportRestartOperation implements ImportRestartOperationInterface
 {
     /**
-     * @inheritdoc
+     * Restart failed operation.
+     *
+     * @param int $uuid
+     * @param string $serializedData
+     * @return void
      */
-    public function execute(int $uuid, string $serializedData)
+    public function execute(int $uuid, string $serializedData): void
     {
-        return [];
+        return;
     }
 }
