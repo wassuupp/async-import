@@ -25,4 +25,10 @@
             <resource ref="Magento_ImportService::import" />
         </resources>
     </route>
+    <route url="/V1/import/source/:id" method="GET">
+        <service class="Magento\ImportService\Api\SourceRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Magento_ImportService::import" />
+        </resources>
+    </route>
 </routes>
