@@ -18,7 +18,7 @@ interface SourceFormatMappingValueInterface
     /**
      * @return string
      */
-    public function getOldValue();
+    public function getOldValue(): string;
 
     /**
      * Set Old Value
@@ -26,12 +26,12 @@ interface SourceFormatMappingValueInterface
      * @param string $oldValue
      * @return $this
      */
-    public function setOldValue($oldValue);
+    public function setOldValue(string $oldValue): SourceFormatMappingValueInterface;
 
     /**
      * @return string
      */
-    public function getNewValue();
+    public function getNewValue(): string;
 
     /**
      * Set New Value
@@ -39,5 +39,5 @@ interface SourceFormatMappingValueInterface
      * @param string $newValue
      * @return $this
      */
-    public function setNewValue($newValue);
+    public function setNewValue(string $newValue): SourceFormatMappingValueInterface;
 }

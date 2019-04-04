@@ -18,7 +18,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function getCsvSeparator()
+    public function getCsvSeparator(): string
     {
         return $this->getData(self::CSV_SEPARATOR);
     }
@@ -26,7 +26,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setCsvSeparator($csvSeparator)
+    public function setCsvSeparator(string $csvSeparator): SourceFormatInterface
     {
         return $this->setData(self::CSV_SEPARATOR, $csvSeparator);
     }
@@ -34,7 +34,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function getCsvEnclosure()
+    public function getCsvEnclosure(): string
     {
         return $this->getData(self::CSV_ENCLOSURE);
     }
@@ -42,7 +42,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setCsvEnclosure($csvEnclosure)
+    public function setCsvEnclosure(string $csvEnclosure): SourceFormatInterface
     {
         return $this->setData(self::CSV_ENCLOSURE, $csvEnclosure);
     }
@@ -50,7 +50,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function getCsvDelimiter()
+    public function getCsvDelimiter(): string
     {
         return $this->getData(self::CSV_DELIMITER);
     }
@@ -58,7 +58,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setCsvDelimiter($csvDelimiter)
+    public function setCsvDelimiter(string $csvDelimiter): SourceFormatInterface
     {
         return $this->setData(self::CSV_DELIMITER, $csvDelimiter);
     }
@@ -66,7 +66,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function getMultipleValueSeparator()
+    public function getMultipleValueSeparator(): string
     {
         return $this->getData(self::MULTIPLE_VALUE_SEPARATOR);
     }
@@ -74,7 +74,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setMultipleValueSeparator($multipleValueSeparator)
+    public function setMultipleValueSeparator(string $multipleValueSeparator): SourceFormatInterface
     {
         return $this->setData(self::MULTIPLE_VALUE_SEPARATOR, $multipleValueSeparator);
     }
@@ -82,7 +82,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function getMapping()
+    public function getMapping(): array
     {
         return $this->getData(self::MAPPING);
     }
@@ -90,7 +90,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setMapping($mapping)
+    public function setMapping(array $mapping): SourceFormatInterface
     {
         return $this->setData(self::MAPPING, $mapping);
     }

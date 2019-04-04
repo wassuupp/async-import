@@ -21,7 +21,7 @@ interface SourceFormatMappingInterface
     /**
      * @return string
      */
-    public function getSourceAttribute();
+    public function getSourceAttribute(): string;
 
     /**
      * Set Source Attribute
@@ -29,12 +29,12 @@ interface SourceFormatMappingInterface
      * @param string $sourceAttribute
      * @return $this
      */
-    public function setSourceAttribute($sourceAttribute);
+    public function setSourceAttribute(string $sourceAttribute): SourceFormatMappingInterface;
 
     /**
      * @return string
      */
-    public function getDestinationAttribute();
+    public function getDestinationAttribute(): string;
 
     /**
      * Set destination attribute
@@ -42,12 +42,12 @@ interface SourceFormatMappingInterface
      * @param string $destinationAttribute
      * @return $this
      */
-    public function setDestinationAttribute($destinationAttribute);
+    public function setDestinationAttribute(string $destinationAttribute): SourceFormatMappingInterface;
 
     /**
      * @return string
      */
-    public function getProcessingRules();
+    public function getProcessingRules(): string;
 
     /**
      * Set processing rules
@@ -55,12 +55,12 @@ interface SourceFormatMappingInterface
      * @param string $processingRules
      * @return $this
      */
-    public function setProcessingRules($processingRules);
+    public function setProcessingRules(string $processingRules): SourceFormatMappingInterface;
 
     /**
      * @return string
      */
-    public function getTaxonomy();
+    public function getTaxonomy(): string;
 
     /**
      * Set taxonomy
@@ -68,12 +68,12 @@ interface SourceFormatMappingInterface
      * @param string $taxonomy
      * @return $this
      */
-    public function setTaxonomy($taxonomy);
+    public function setTaxonomy(string $taxonomy): SourceFormatMappingInterface;
 
     /**
      * @return \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[]
      */
-    public function getValuesMapping();
+    public function getValuesMapping(): array;
 
     /**
      * Set Value Mapping
@@ -81,5 +81,5 @@ interface SourceFormatMappingInterface
      * @param \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[] $valuesMapping
      * @return $this
      */
-    public function setValuesMapping($valuesMapping);
+    public function setValuesMapping(array $valuesMapping): SourceFormatMappingInterface;
 }

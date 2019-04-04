@@ -97,7 +97,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getSourceId()
+    public function getSourceId(): int
     {
         return $this->getData(self::ENTITY_ID);
     }
@@ -105,7 +105,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getSourceType()
+    public function getSourceType(): string
     {
         return $this->getData(self::SOURCE_TYPE);
     }
@@ -113,7 +113,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setSourceType($sourceType)
+    public function setSourceType(string $sourceType): SourceInterface
     {
         return $this->setData(self::SOURCE_TYPE, $sourceType);
     }
@@ -121,7 +121,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getImportType()
+    public function getImportType(): string
     {
         return $this->getData(self::IMPORT_TYPE);
     }
@@ -129,7 +129,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setImportType($importType)
+    public function setImportType(string $importType): SourceInterface
     {
         return $this->setData(self::IMPORT_TYPE, $importType);
     }
@@ -137,7 +137,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->getData(self::STATUS);
     }
@@ -145,7 +145,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setStatus($status)
+    public function setStatus(string $status): SourceInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -153,7 +153,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getImportData()
+    public function getImportData(): string
     {
         return $this->getData(self::IMPORT_DATA);
     }
@@ -161,7 +161,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setImportData($importData)
+    public function setImportData(string $importData): SourceInterface
     {
         return $this->setData(self::IMPORT_DATA, $importData);
     }
@@ -169,7 +169,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getFormat()
+    public function getFormat(): SourceFormatInterface
     {
         return $this->getData(self::FORMAT);
     }
@@ -177,7 +177,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setFormat($format)
+    public function setFormat(SourceFormatInterface $format): SourceInterface
     {
         return $this->setData(self::FORMAT, $format);
     }
@@ -185,7 +185,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->getData(self::CREATED_AT);
     }
@@ -193,7 +193,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setCreatedAt($date)
+    public function setCreatedAt(string $date): SourceInterface
     {
         return $this->setData(self::CREATED_AT, $date);
     }

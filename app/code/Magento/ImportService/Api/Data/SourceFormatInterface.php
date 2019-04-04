@@ -26,65 +26,65 @@ interface SourceFormatInterface
     /**
      * @return string
      */
-    public function getCsvSeparator();
+    public function getCsvSeparator(): string;
 
     /**
      * Set CSV Separator
      *
      * @param string $csvSeparator
-     * @return $this
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
      */
-    public function setCsvSeparator($csvSeparator);
+    public function setCsvSeparator(string $csvSeparator): SourceFormatInterface;
 
     /**
      * @return string
      */
-    public function getCsvEnclosure();
+    public function getCsvEnclosure(): string;
 
     /**
      * Set CSV Enclosure
      *
      * @param string $csvEnclosure
-     * @return $this
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
      */
-    public function setCsvEnclosure($csvEnclosure);
+    public function setCsvEnclosure(string $csvEnclosure): SourceFormatInterface;
 
     /**
      * @return string
      */
-    public function getCsvDelimiter();
+    public function getCsvDelimiter(): string;
 
     /**
      * Set CSV Delimiter
      *
      * @param string $csvDelimiter
-     * @return $this
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
      */
-    public function setCsvDelimiter($csvDelimiter);
+    public function setCsvDelimiter(string $csvDelimiter): SourceFormatInterface;
 
     /**
      * @return string
      */
-    public function getMultipleValueSeparator();
+    public function getMultipleValueSeparator(): string;
 
     /**
      * Set Multiple Value Separator
      *
      * @param string $multipleValueSeparator
-     * @return $this
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
      */
-    public function setMultipleValueSeparator($multipleValueSeparator);
+    public function setMultipleValueSeparator(string $multipleValueSeparator): SourceFormatInterface;
 
     /**
      * @return \Magento\ImportService\Api\Data\SourceFormatMappingInterface[]
      */
-    public function getMapping();
+    public function getMapping(): array;
 
     /**
      * Set multiple mapping
      *
      * @param \Magento\ImportService\Api\Data\SourceFormatMappingInterface[] $mapping
-     * @return $this
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
      */
-    public function setMapping($mapping);
+    public function setMapping(array $mapping): SourceFormatInterface;
 }
