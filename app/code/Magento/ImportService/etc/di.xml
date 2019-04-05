@@ -90,10 +90,15 @@
             </argument>
         </arguments>
     </type>
-
     <preference for="Magento\ImportService\Api\ImportStatusInterface" type="Magento\ImportService\Model\ImportStatus" />
     <preference for="Magento\ImportService\Api\Data\ImportStatusResponseInterface" type="Magento\ImportService\Model\ImportStatusResponse" />
     <preference for="Magento\ImportService\Api\Data\ImportStatusResponseItemInterface" type="Magento\ImportService\Model\ImportStatusResponseItem" />
-
-    <preference for="Magento\ImportService\Api\ImportRestartOperationInterface" type="Magento\ImportService\Model\ImportRestartOperation"/>
+    <preference for="Magento\ImportService\Api\ImportStartInterface"
+                type="Magento\ImportService\Model\ImportStart" />
+    <preference for="Magento\ImportService\Api\Data\ImportStartResponseInterface"
+                type="Magento\ImportService\Model\ImportStartResponse" />
+    <preference for="Magento\ImportService\Api\Data\ImportConfigInterface"
+                type="Magento\ImportService\Model\ImportConfig" />
+    <preference for="Magento\ImportService\Api\ImportRestartOperationInterface"
+                type="Magento\ImportService\Model\ImportRestartOperation"/>
 </config>
