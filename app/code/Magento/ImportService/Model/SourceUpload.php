@@ -30,12 +30,10 @@ class SourceUpload implements SourceUploadInterface
     /**
      * @param SourceUploadResponseFactory $responseFactory
      * @param SourceProcessorPool $sourceProcessorPool
-
      */
     public function __construct(
         SourceUploadResponseFactory $responseFactory,
         SourceProcessorPool $sourceProcessorPool
-
     ) {
         $this->sourceProcessorPool = $sourceProcessorPool;
         $this->responseFactory = $responseFactory;
