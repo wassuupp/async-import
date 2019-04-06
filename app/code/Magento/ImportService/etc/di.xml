@@ -44,6 +44,7 @@
                 <item name="source_request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\SourceRequestValidator</item>
                 <item name="local_path_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\LocalPathValidator</item>
                 <item name="mime_type_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\MimeTypeValidator</item>
+                <item name="uuid_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\UuidValidator</item>
             </argument>
         </arguments>
     </virtualType>
@@ -57,6 +58,7 @@
             <argument name="validators" xsi:type="array">
                 <item name="source_request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\SourceRequestValidator</item>
                 <item name="base64_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\Base64Validator</item>
+                <item name="uuid_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\UuidValidator</item>
             </argument>
         </arguments>
     </virtualType>
@@ -71,6 +73,7 @@
                 <item name="source_request_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\SourceRequestValidator</item>
                 <item name="remote_url_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\RemoteUrlValidator</item>
                 <item name="mime_type_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\MimeTypeValidator</item>
+                <item name="uuid_validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\UuidValidator</item>
             </argument>
         </arguments>
     </virtualType>
@@ -97,10 +100,15 @@
             </argument>
         </arguments>
     </type>
-
     <preference for="Magento\ImportService\Api\ImportStatusInterface" type="Magento\ImportService\Model\ImportStatus" />
     <preference for="Magento\ImportService\Api\Data\ImportStatusResponseInterface" type="Magento\ImportService\Model\ImportStatusResponse" />
     <preference for="Magento\ImportService\Api\Data\ImportStatusResponseItemInterface" type="Magento\ImportService\Model\ImportStatusResponseItem" />
-
-    <preference for="Magento\ImportService\Api\ImportRestartOperationInterface" type="Magento\ImportService\Model\ImportRestartOperation"/>
+    <preference for="Magento\ImportService\Api\ImportStartInterface"
+                type="Magento\ImportService\Model\ImportStart" />
+    <preference for="Magento\ImportService\Api\Data\ImportStartResponseInterface"
+                type="Magento\ImportService\Model\ImportStartResponse" />
+    <preference for="Magento\ImportService\Api\Data\ImportConfigInterface"
+                type="Magento\ImportService\Model\ImportConfig" />
+    <preference for="Magento\ImportService\Api\ImportRestartOperationInterface"
+                type="Magento\ImportService\Model\ImportRestartOperation"/>
 </config>

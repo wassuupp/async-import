@@ -15,7 +15,8 @@ use Magento\ImportService\Api\Data\SourceFormatInterface;
  */
 interface SourceInterface extends ExtensibleDataInterface
 {
-    const ENTITY_ID = 'source_id';
+    const ENTITY_ID = 'entity_id';
+    const UUID = 'uuid';
     const SOURCE_TYPE = 'source_type';
     const IMPORT_TYPE = 'import_type';
     const IMPORT_DATA = 'import_data';
@@ -27,9 +28,19 @@ interface SourceInterface extends ExtensibleDataInterface
     const STATUS_FAILED = 'failed';
 
     /**
-     * @return int
+     * Retrieve source uuid
+     *
+     * @return string
      */
-    public function getSourceId(): int;
+    public function getUuid(): string;
+
+    /**
+     * Set data source uuid
+     *
+     * @param string $uuid
+     * @return $this
+     */
+    public function setUuid(string $uuid): SourceInterface;
 
     /**
      * Retrieve data source type

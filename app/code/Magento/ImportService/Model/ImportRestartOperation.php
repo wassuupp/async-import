@@ -17,7 +17,7 @@ use Magento\ImportService\Api\ImportRestartOperationInterface;
 class ImportRestartOperation implements ImportRestartOperationInterface
 {
     /**
-     * restart failed operation.
+     * Restart failed operation.
      *
      * @param int $uuid
      * @param string $serializedData
