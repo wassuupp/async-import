@@ -24,9 +24,9 @@ interface SourceFormatInterface
     const DEFAULT_MULTIPLE_VALUE_SEPARATOR = '|';
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCsvSeparator(): string;
+    public function getCsvSeparator(): ?string;
 
     /**
      * Set CSV Separator
@@ -37,9 +37,9 @@ interface SourceFormatInterface
     public function setCsvSeparator(string $csvSeparator): SourceFormatInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCsvEnclosure(): string;
+    public function getCsvEnclosure(): ?string;
 
     /**
      * Set CSV Enclosure
@@ -50,9 +50,9 @@ interface SourceFormatInterface
     public function setCsvEnclosure(string $csvEnclosure): SourceFormatInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCsvDelimiter(): string;
+    public function getCsvDelimiter(): ?string;
 
     /**
      * Set CSV Delimiter
@@ -63,9 +63,9 @@ interface SourceFormatInterface
     public function setCsvDelimiter(string $csvDelimiter): SourceFormatInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMultipleValueSeparator(): string;
+    public function getMultipleValueSeparator(): ?string;
 
     /**
      * Set Multiple Value Separator
@@ -76,9 +76,9 @@ interface SourceFormatInterface
     public function setMultipleValueSeparator(string $multipleValueSeparator): SourceFormatInterface;
 
     /**
-     * @return \Magento\ImportService\Api\Data\SourceFormatMappingInterface[]
+     * @return \Magento\ImportService\Api\Data\SourceFormatMappingInterface[]|null
      */
-    public function getMapping(): array;
+    public function getMapping(): ?array;
 
     /**
      * Set multiple mapping

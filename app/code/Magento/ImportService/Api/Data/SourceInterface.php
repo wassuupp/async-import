@@ -30,9 +30,9 @@ interface SourceInterface extends ExtensibleDataInterface
     /**
      * Retrieve source uuid
      *
-     * @return string
+     * @return string|null
      */
-    public function getUuid(): string;
+    public function getUuid(): ?string;
 
     /**
      * Set data source uuid
@@ -101,9 +101,9 @@ interface SourceInterface extends ExtensibleDataInterface
     /**
      * Retrieve Source Format
      *
-     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
+     * @return \Magento\ImportService\Api\Data\SourceFormatInterface|null
      */
-    public function getFormat(): SourceFormatInterface;
+    public function getFormat(): ?SourceFormatInterface;
 
     /**
      * Set Source Format

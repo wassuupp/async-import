@@ -19,9 +19,9 @@ interface SourceFormatMappingInterface
     const VALUES_MAPPING = 'values_mapping';
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSourceAttribute(): string;
+    public function getSourceAttribute(): ?string;
 
     /**
      * Set Source Attribute
@@ -32,9 +32,9 @@ interface SourceFormatMappingInterface
     public function setSourceAttribute(string $sourceAttribute): SourceFormatMappingInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDestinationAttribute(): string;
+    public function getDestinationAttribute(): ?string;
 
     /**
      * Set destination attribute
@@ -45,9 +45,9 @@ interface SourceFormatMappingInterface
     public function setDestinationAttribute(string $destinationAttribute): SourceFormatMappingInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProcessingRules(): string;
+    public function getProcessingRules(): ?string;
 
     /**
      * Set processing rules
@@ -58,9 +58,9 @@ interface SourceFormatMappingInterface
     public function setProcessingRules(string $processingRules): SourceFormatMappingInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTaxonomy(): string;
+    public function getTaxonomy(): ?string;
 
     /**
      * Set taxonomy
@@ -71,9 +71,9 @@ interface SourceFormatMappingInterface
     public function setTaxonomy(string $taxonomy): SourceFormatMappingInterface;
 
     /**
-     * @return \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[]
+     * @return \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[]|null
      */
-    public function getValuesMapping(): array;
+    public function getValuesMapping(): ?array;
 
     /**
      * Set Value Mapping

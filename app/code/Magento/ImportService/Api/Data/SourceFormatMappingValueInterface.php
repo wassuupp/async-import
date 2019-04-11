@@ -16,9 +16,9 @@ interface SourceFormatMappingValueInterface
     const NEW_VALUE = 'new_value';
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOldValue(): string;
+    public function getOldValue(): ?string;
 
     /**
      * Set Old Value
@@ -29,9 +29,9 @@ interface SourceFormatMappingValueInterface
     public function setOldValue(string $oldValue): SourceFormatMappingValueInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNewValue(): string;
+    public function getNewValue(): ?string;
 
     /**
      * Set New Value

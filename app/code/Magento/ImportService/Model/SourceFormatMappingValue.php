@@ -18,7 +18,7 @@ class SourceFormatMappingValue extends AbstractModel implements SourceFormatMapp
     /**
      * @inheritDoc
      */
-    public function getOldValue(): string
+    public function getOldValue(): ?string
     {
         return $this->getData(self::OLD_VALUE);
     }
@@ -34,7 +34,7 @@ class SourceFormatMappingValue extends AbstractModel implements SourceFormatMapp
     /**
      * @inheritDoc
      */
-    public function getNewValue(): string
+    public function getNewValue(): ?string
     {
         return $this->getData(self::NEW_VALUE);
     }

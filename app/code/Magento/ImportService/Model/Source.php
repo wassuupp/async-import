@@ -97,7 +97,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getUuid(): string
+    public function getUuid(): ?string
     {
         return $this->getData(self::UUID);
     }
@@ -177,7 +177,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getFormat(): SourceFormatInterface
+    public function getFormat(): ?SourceFormatInterface
     {
         return $this->getData(self::FORMAT);
     }
@@ -227,7 +227,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
      */
     public function afterLoad()
     {
-        $formatJson = $this->getFormat();
+        $formatJson = $this->getData('format');
 
         if(isset($formatJson)) {
             /** get format json string and decode */
@@ -268,6 +268,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         /** get format object */
         $format = $this->getFormat();
 
+
         if(!isset($format)) {
             $data = [
                 SourceFormatInterface::CSV_SEPARATOR => SourceFormatInterface::DEFAULT_CSV_SEPARATOR,
@@ -299,7 +300,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         }
 
         /** set format json string to format field */
-        $this->setFormat($format->toJson());
+        $this->setData('format', $format->toJson());
 
         parent::beforeSave();
     }

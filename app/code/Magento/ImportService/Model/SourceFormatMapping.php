@@ -18,7 +18,7 @@ class SourceFormatMapping extends AbstractModel implements SourceFormatMappingIn
     /**
      * @inheritDoc
      */
-    public function getSourceAttribute(): string
+    public function getSourceAttribute(): ?string
     {
         return $this->getData(self::SOURCE_ATTRIBUTE);
     }
@@ -34,7 +34,7 @@ class SourceFormatMapping extends AbstractModel implements SourceFormatMappingIn
     /**
      * @inheritDoc
      */
-    public function getDestinationAttribute(): string
+    public function getDestinationAttribute(): ?string
     {
         return $this->getData(self::DESTINATION_ATTRIBUTE);
     }
@@ -50,7 +50,7 @@ class SourceFormatMapping extends AbstractModel implements SourceFormatMappingIn
     /**
      * @inheritDoc
      */
-    public function getProcessingRules(): string
+    public function getProcessingRules(): ?string
     {
         return $this->getData(self::PROCESSING_RULES);
     }
@@ -66,7 +66,7 @@ class SourceFormatMapping extends AbstractModel implements SourceFormatMappingIn
     /**
      * @inheritDoc
      */
-    public function getTaxonomy(): string
+    public function getTaxonomy(): ?string
     {
         return $this->getData(self::TAXONOMY);
     }
@@ -82,7 +82,7 @@ class SourceFormatMapping extends AbstractModel implements SourceFormatMappingIn
     /**
      * @inheritDoc
      */
-    public function getValuesMapping(): array
+    public function getValuesMapping(): ?array
     {
         return $this->getData(self::VALUES_MAPPING);
     }
