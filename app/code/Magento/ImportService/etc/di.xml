@@ -9,6 +9,8 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\ImportService\Api\SourceUploadInterface"
                 type="Magento\ImportService\Model\SourceUpload" />
+    <preference for="Magento\ImportService\Api\SourceUpdateInterface"
+                type="Magento\ImportService\Model\SourceUpdate" />
     <preference for="Magento\ImportService\Api\Data\SourceInterface"
                 type="Magento\ImportService\Model\Source" />
     <preference for="Magento\ImportService\Api\Data\SourceFormatInterface"
@@ -19,6 +21,8 @@
                 type="Magento\ImportService\Model\SourceFormatMappingValue" />
     <preference for="Magento\ImportService\Api\Data\SourceUploadResponseInterface"
                 type="Magento\ImportService\Model\SourceUploadResponse" />
+    <preference for="Magento\ImportService\Api\Data\SourceUpdateResponseInterface"
+                type="Magento\ImportService\Model\SourceUpdateResponse" />
     <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
                 type="Magento\ImportService\Model\SourceRepository"/>
     <virtualType name="Magento\ImportService\Model\Import\Type\Csv" type="Magento\ImportService\Model\Import\Type\FileSourceType">
