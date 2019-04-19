@@ -10,6 +10,7 @@ namespace Magento\ImportService\Model;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchResultsInterface;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
@@ -46,21 +47,29 @@ class SourceRepository implements SourceRepositoryInterface
     private $searchResultsFactory;
 
     /**
+     * @var CollectionProcessorInterface
+     */
+    private $collectionProcessor;
+
+    /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
      * @param SourceCollectionFactory $sourceCollectionFactory
      * @param SearchResultsInterfaceFactory $searchResultsFactory
+     * @param CollectionProcessorInterface $collectionProcessor
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
         SourceCollectionFactory $sourceCollectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory
+        SearchResultsInterfaceFactory $searchResultsFactory,
+        CollectionProcessorInterface $collectionProcessor
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
         $this->sourceCollectionFactory    = $sourceCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
+        $this->collectionProcessor = $collectionProcessor;
     }
 
     /**
@@ -129,41 +138,42 @@ class SourceRepository implements SourceRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $criteria)
     {
-        /** @var SearchResultsInterface $searchResults */
+        /** @var \Magento\ImportService\Model\ResourceModel\Source\Collection $collection */
+        $collection = $this->sourceCollectionFactory->create();
+
+        $this->collectionProcessor->process($criteria, $collection);
+
+        $sources = [];
+        foreach($collection as $item) {
+            /** get list of mapping and convert it into json and set to format */
+            $format = $item->getFormat();
+            $formatMapping = $format->getMapping();
+            /** check for mapping exist or not*/
+            if(isset($formatMapping)) {
+                $mappingArray = [];
+                foreach($formatMapping as $mapping) {
+                    $valuesMapping = $mapping->getValuesMapping();
+                    /** check for mapping exist or not and convert it into json */
+                    if(isset($valuesMapping)) {
+                        $valuesMappingArray = [];
+                        foreach($valuesMapping as $values) {
+                            $valuesMappingArray[] = $values->toArray();
+                        }
+                        $mapping->setData('values_mapping', $valuesMappingArray);
+                    }
+                    $mappingArray[] = $mapping->toArray();
+                }
+                $format->setData('mapping', $mappingArray);
+            }
+            $item->setData('format', $format->toArray());
+            $sources[] = $item->toArray();
+        }
+
+        /** @var Data\PageSearchResultsInterface $searchResults */
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        $sourceCollection = $this->sourceCollectionFactory->create();
-        foreach ($criteria->getFilterGroups() as $filterGroup) {
-            $fields = [];
-            $conditions = [];
-            foreach ($filterGroup->getFilters() as $filter) {
-                $condition = $filter->getConditionType() ? $filter->getConditionType() : 'eq';
-                $fields[] = $filter->getField();
-                $conditions[] = [$condition => $filter->getValue()];
-            }
-            if ($fields) {
-                $sourceCollection->addFieldToFilter($fields, $conditions);
-            }
-        }
-        $searchResults->setTotalCount($sourceCollection->getSize());
-        $sortOrders = $criteria->getSortOrders();
-        if ($sortOrders) {
-            /** @var SortOrder $sortOrder */
-            foreach ($sortOrders as $sortOrder) {
-                $sourceCollection->addOrder(
-                    $sortOrder->getField(),
-                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? 'ASC' : 'DESC'
-                );
-            }
-        }
-        $sourceCollection->setCurPage($criteria->getCurrentPage());
-        $sourceCollection->setPageSize($criteria->getPageSize());
-        $sources = [];
-        foreach ($sourceCollection as $sourceModel) {
-            $sources[] = $sourceModel;
-        }
         $searchResults->setItems($sources);
-
+        $searchResults->setTotalCount($collection->getSize());
         return $searchResults;
     }
 }
