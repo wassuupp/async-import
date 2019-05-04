@@ -47,10 +47,12 @@ interface SourceRepositoryInterface
     public function delete(\Magento\ImportService\Api\Data\SourceInterface $source);
 
     /**
-     * Deletes source by UUID
+     * Delete the source by uuid. If source is not found do nothing
      *
      * @param string $uuid
      * @return bool
+     * @throws \Magento\Framework\Exception\CouldNotDeleteException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function deleteByUuid($uuid);
+    public function deleteByUuid(string $uuid): bool;
 }
