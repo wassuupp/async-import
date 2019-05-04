@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Api;
 
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\ImportService\Api\Data\SourceInterface;
 
 /**
@@ -23,12 +24,13 @@ interface SourceRepositoryInterface
     public function save(SourceInterface $source);
 
     /**
-     * Provides source by UUID
+     * Get source data by given uuid
      *
      * @param string $uuid
      * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getByUuid($uuid);
+    public function getByUuid(string $uuid): SourceInterface;
 
     /**
      * Provides sources which match a specific criteria.

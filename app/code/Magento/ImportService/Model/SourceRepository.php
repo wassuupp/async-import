@@ -19,6 +19,7 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\GetInterface;
 
 /**
  * Class SourceRepository
@@ -46,21 +47,29 @@ class SourceRepository implements SourceRepositoryInterface
     private $searchResultsFactory;
 
     /**
+     * @var GetInterface
+     */
+    private $commandGet;
+
+    /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
      * @param SourceCollectionFactory $sourceCollectionFactory
      * @param SearchResultsInterfaceFactory $searchResultsFactory
+     * @param GetInterface $commandGet
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
         SourceCollectionFactory $sourceCollectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory
+        SearchResultsInterfaceFactory $searchResultsFactory,
+        GetInterface $commandGet
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
         $this->sourceCollectionFactory    = $sourceCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
+        $this->commandGet = $commandGet;
     }
 
     /**
@@ -81,19 +90,10 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws NoSuchEntityException
      */
-    public function getByUuid($uuid)
+    public function getByUuid(string $uuid): SourceInterface
     {
-        /** @var \Magento\ImportService\Api\Data\SourceInterface $source */
-        $source = $this->sourceFactory->create();
-        $this->sourceResourceModel->load($source, $uuid, $source::UUID);
-        if (!$source->getUuid()) {
-            throw new NoSuchEntityException(__('Source with uuid "%1" does not exist.', $uuid));
-        }
-
-        return $source;
+        return $this->commandGet->execute($uuid);
     }
 
     /**
