@@ -20,6 +20,7 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\GetListInterface;
 
 /**
  * Class SourceRepository
@@ -52,24 +53,32 @@ class SourceRepository implements SourceRepositoryInterface
     private $collectionProcessor;
 
     /**
+     * @var GetListInterface
+     */
+    private $commandGetList;
+
+    /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
      * @param SourceCollectionFactory $sourceCollectionFactory
      * @param SearchResultsInterfaceFactory $searchResultsFactory
      * @param CollectionProcessorInterface $collectionProcessor
+     * @param GetListInterface $commandGetList
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
         SourceCollectionFactory $sourceCollectionFactory,
         SearchResultsInterfaceFactory $searchResultsFactory,
-        CollectionProcessorInterface $collectionProcessor
+        CollectionProcessorInterface $collectionProcessor,
+        GetListInterface $commandGetList
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
         $this->sourceCollectionFactory    = $sourceCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
+        $this->commandGetList = $commandGetList;
     }
 
     /**
@@ -136,44 +145,8 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getList(SearchCriteriaInterface $criteria)
+    public function getList(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface
     {
-        /** @var \Magento\ImportService\Model\ResourceModel\Source\Collection $collection */
-        $collection = $this->sourceCollectionFactory->create();
-
-        $this->collectionProcessor->process($criteria, $collection);
-
-        $sources = [];
-        foreach($collection as $item) {
-            /** get list of mapping and convert it into json and set to format */
-            $format = $item->getFormat();
-            $formatMapping = $format->getMapping();
-            /** check for mapping exist or not*/
-            if(isset($formatMapping)) {
-                $mappingArray = [];
-                foreach($formatMapping as $mapping) {
-                    $valuesMapping = $mapping->getValuesMapping();
-                    /** check for mapping exist or not and convert it into json */
-                    if(isset($valuesMapping)) {
-                        $valuesMappingArray = [];
-                        foreach($valuesMapping as $values) {
-                            $valuesMappingArray[] = $values->toArray();
-                        }
-                        $mapping->setData('values_mapping', $valuesMappingArray);
-                    }
-                    $mappingArray[] = $mapping->toArray();
-                }
-                $format->setData('mapping', $mappingArray);
-            }
-            $item->setData('format', $format->toArray());
-            $sources[] = $item->toArray();
-        }
-
-        /** @var Data\PageSearchResultsInterface $searchResults */
-        $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-        $searchResults->setItems($sources);
-        $searchResults->setTotalCount($collection->getSize());
-        return $searchResults;
+        return $this->commandGetList->execute($searchCriteria);
     }
 }
