@@ -19,6 +19,7 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\SaveInterface;
 
 /**
  * Class SourceRepository
@@ -46,37 +47,37 @@ class SourceRepository implements SourceRepositoryInterface
     private $searchResultsFactory;
 
     /**
+     * @var SaveInterface
+     */
+    private $commandSave;
+
+    /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
      * @param SourceCollectionFactory $sourceCollectionFactory
      * @param SearchResultsInterfaceFactory $searchResultsFactory
+     * @param SaveInterface $commandSave
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
         SourceCollectionFactory $sourceCollectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory
+        SearchResultsInterfaceFactory $searchResultsFactory,
+        SaveInterface $commandSave
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
         $this->sourceCollectionFactory    = $sourceCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
+        $this->commandSave = $commandSave;
     }
 
     /**
      * @inheritdoc
-     *
-     * @throws CouldNotSaveException
      */
-    public function save(SourceInterface $source)
+    public function save(SourceInterface $source): SourceInterface
     {
-        try {
-            $this->sourceResourceModel->save($source);
-        } catch (\Exception $e) {
-            throw new CouldNotSaveException(__($e->getMessage()));
-        }
-
-        return $source;
+        return $this->commandSave->execute($source);
     }
 
     /**

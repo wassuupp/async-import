@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Api;
 
 use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\Framework\Exception\CouldNotSaveException;
 
 /**
  * Interface SourceRepositoryInterface
@@ -15,12 +16,13 @@ use Magento\ImportService\Api\Data\SourceInterface;
 interface SourceRepositoryInterface
 {
     /**
-     * Saves source
+     * Save source data
      *
      * @param \Magento\ImportService\Api\Data\SourceInterface $source
      * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
-    public function save(SourceInterface $source);
+    public function save(SourceInterface $source): SourceInterface;
 
     /**
      * Provides source by UUID
