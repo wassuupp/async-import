@@ -54,5 +54,5 @@ interface SourceRepositoryInterface
      * @throws \Magento\Framework\Exception\CouldNotDeleteException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function deleteByUuid(string $uuid);
+    public function deleteByUuid(string $uuid): void;
 }
