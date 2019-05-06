@@ -19,6 +19,7 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
 
 /**
  * Class SourceRepository
@@ -46,21 +47,29 @@ class SourceRepository implements SourceRepositoryInterface
     private $searchResultsFactory;
 
     /**
+     * @var DeleteByUuidInterface
+     */
+    private $commandDeleteByUuid;
+
+    /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
      * @param SourceCollectionFactory $sourceCollectionFactory
      * @param SearchResultsInterfaceFactory $searchResultsFactory
+     * @param DeleteByUuidInterface $commandDeleteByUuid
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
         SourceCollectionFactory $sourceCollectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory
+        SearchResultsInterfaceFactory $searchResultsFactory,
+        DeleteByUuidInterface $commandDeleteByUuid
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
         $this->sourceCollectionFactory    = $sourceCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
+        $this->commandDeleteByUuid = $commandDeleteByUuid;
     }
 
     /**
@@ -115,13 +124,10 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws CouldNotDeleteException
-     * @throws NoSuchEntityException
      */
-    public function deleteByUuid($uuid)
+    public function deleteByUuid(string $uuid)
     {
-        return $this->delete($this->getByUuid($uuid));
+        $this->commandDeleteByUuid->execute($uuid);
     }
 
     /**
