@@ -43,7 +43,7 @@ class DeleteByUuid implements DeleteByUuidInterface
     /**
      * @inheritdoc
      */
-    public function execute(string $uuid): bool
+    public function execute(string $uuid)
     {
         /** @var SourceInterface $source */
         $source = $this->sourceFactory->create();
@@ -66,7 +66,5 @@ class DeleteByUuid implements DeleteByUuidInterface
         } catch (\Exception $e) {
             throw new CouldNotDeleteException(__($e->getMessage()));
         }
-
-        return true;
     }
 }

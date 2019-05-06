@@ -125,9 +125,9 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function deleteByUuid(string $uuid): bool
+    public function deleteByUuid(string $uuid)
     {
-        return $this->commandDeleteByUuid->execute($uuid);
+        $this->commandDeleteByUuid->execute($uuid);
     }
 
     /**

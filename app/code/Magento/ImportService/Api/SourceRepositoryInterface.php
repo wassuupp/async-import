@@ -50,9 +50,9 @@ interface SourceRepositoryInterface
      * Delete the source by uuid. If source is not found, NoSuchEntityException is thrown
      *
      * @param string $uuid
-     * @return bool
+     * @return void
      * @throws \Magento\Framework\Exception\CouldNotDeleteException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function deleteByUuid(string $uuid): bool;
+    public function deleteByUuid(string $uuid);
 }

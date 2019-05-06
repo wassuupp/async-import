@@ -23,9 +23,9 @@ interface DeleteByUuidInterface
      * Delete the source by uuid. If source is not found do nothing
      *
      * @param string $uuid
-     * @return bool
+     * @return void
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException
      */
-    public function execute(string $uuid): bool;
+    public function execute(string $uuid);
 }
