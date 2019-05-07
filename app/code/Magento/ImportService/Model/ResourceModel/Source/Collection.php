@@ -34,6 +34,6 @@ class Collection extends AbstractCollection
         foreach($this as &$item) {
             $item->decorate();
         }
-        return parent::_afterLoad();;
+        return parent::_afterLoad();
     }
 }
