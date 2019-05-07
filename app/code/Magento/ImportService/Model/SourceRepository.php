@@ -8,9 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -18,7 +16,7 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
-use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
 
 /**
@@ -37,16 +35,11 @@ class SourceRepository implements SourceRepositoryInterface
     private $sourceResourceModel;
 
     /**
-     * @var SourceCollectionFactory
+     * @var GetListInterface
      */
-    private $sourceCollectionFactory;
+    private $commandGetList;
 
-    /**
-     * @var SearchResultsInterfaceFactory
-     */
-    private $searchResultsFactory;
-
-    /**
+    /*
      * @var DeleteByUuidInterface
      */
     private $commandDeleteByUuid;
@@ -54,21 +47,18 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
-     * @param SourceCollectionFactory $sourceCollectionFactory
-     * @param SearchResultsInterfaceFactory $searchResultsFactory
+     * @param GetListInterface $commandGetList
      * @param DeleteByUuidInterface $commandDeleteByUuid
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
-        SourceCollectionFactory $sourceCollectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory,
+        GetListInterface $commandGetList,
         DeleteByUuidInterface $commandDeleteByUuid
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
-        $this->sourceCollectionFactory    = $sourceCollectionFactory;
-        $this->searchResultsFactory = $searchResultsFactory;
+        $this->commandGetList = $commandGetList;
         $this->commandDeleteByUuid = $commandDeleteByUuid;
     }
 
@@ -125,7 +115,7 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function deleteByUuid(string $uuid)
+    public function deleteByUuid(string $uuid): void
     {
         $this->commandDeleteByUuid->execute($uuid);
     }
@@ -133,43 +123,8 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getList(SearchCriteriaInterface $criteria)
+    public function getList(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface
     {
-        /** @var SearchResultsInterface $searchResults */
-        $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-        $sourceCollection = $this->sourceCollectionFactory->create();
-        foreach ($criteria->getFilterGroups() as $filterGroup) {
-            $fields = [];
-            $conditions = [];
-            foreach ($filterGroup->getFilters() as $filter) {
-                $condition = $filter->getConditionType() ? $filter->getConditionType() : 'eq';
-                $fields[] = $filter->getField();
-                $conditions[] = [$condition => $filter->getValue()];
-            }
-            if ($fields) {
-                $sourceCollection->addFieldToFilter($fields, $conditions);
-            }
-        }
-        $searchResults->setTotalCount($sourceCollection->getSize());
-        $sortOrders = $criteria->getSortOrders();
-        if ($sortOrders) {
-            /** @var SortOrder $sortOrder */
-            foreach ($sortOrders as $sortOrder) {
-                $sourceCollection->addOrder(
-                    $sortOrder->getField(),
-                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? 'ASC' : 'DESC'
-                );
-            }
-        }
-        $sourceCollection->setCurPage($criteria->getCurrentPage());
-        $sourceCollection->setPageSize($criteria->getPageSize());
-        $sources = [];
-        foreach ($sourceCollection as $sourceModel) {
-            $sources[] = $sourceModel;
-        }
-        $searchResults->setItems($sources);
-
-        return $searchResults;
+        return $this->commandGetList->execute($searchCriteria);
     }
 }

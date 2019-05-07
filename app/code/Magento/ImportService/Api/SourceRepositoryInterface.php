@@ -7,6 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Api;
 
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResultsInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
 
 /**
@@ -31,12 +33,12 @@ interface SourceRepositoryInterface
     public function getByUuid($uuid);
 
     /**
-     * Provides sources which match a specific criteria.
+     * Find sources by given search criteria. Search criteria is not required.
      *
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
+     * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
      * @return \Magento\Framework\Api\SearchResultsInterface
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria);
+    public function getList(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface;
 
     /**
      * Deletes source
