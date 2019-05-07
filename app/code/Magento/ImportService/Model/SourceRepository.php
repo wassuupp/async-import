@@ -21,6 +21,7 @@ use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
+use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
 
 /**
  * Class SourceRepository
@@ -57,6 +58,11 @@ class SourceRepository implements SourceRepositoryInterface
      */
     private $commandGetList;
 
+    /*
+     * @var DeleteByUuidInterface
+     */
+    private $commandDeleteByUuid;
+
     /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
@@ -64,6 +70,7 @@ class SourceRepository implements SourceRepositoryInterface
      * @param SearchResultsInterfaceFactory $searchResultsFactory
      * @param CollectionProcessorInterface $collectionProcessor
      * @param GetListInterface $commandGetList
+     * @param DeleteByUuidInterface $commandDeleteByUuid
      */
     public function __construct(
         SourceFactory $sourceFactory,
@@ -71,7 +78,8 @@ class SourceRepository implements SourceRepositoryInterface
         SourceCollectionFactory $sourceCollectionFactory,
         SearchResultsInterfaceFactory $searchResultsFactory,
         CollectionProcessorInterface $collectionProcessor,
-        GetListInterface $commandGetList
+        GetListInterface $commandGetList,
+        DeleteByUuidInterface $commandDeleteByUuid
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
@@ -79,6 +87,7 @@ class SourceRepository implements SourceRepositoryInterface
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
         $this->commandGetList = $commandGetList;
+        $this->commandDeleteByUuid = $commandDeleteByUuid;
     }
 
     /**
@@ -133,13 +142,10 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws CouldNotDeleteException
-     * @throws NoSuchEntityException
      */
-    public function deleteByUuid($uuid)
+    public function deleteByUuid(string $uuid): void
     {
-        return $this->delete($this->getByUuid($uuid));
+        $this->commandDeleteByUuid->execute($uuid);
     }
 
     /**

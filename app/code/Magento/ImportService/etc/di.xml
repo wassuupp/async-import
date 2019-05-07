@@ -22,6 +22,7 @@
     <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
                 type="Magento\ImportService\Model\SourceRepository"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetListInterface" type="Magento\ImportService\Model\Source\Command\GetList"/>
+    <preference for="Magento\ImportService\Model\Source\Command\DeleteByUuidInterface" type="Magento\ImportService\Model\Source\Command\DeleteByUuid"/>
     <virtualType name="Magento\ImportService\Model\Import\Type\Csv" type="Magento\ImportService\Model\Import\Type\FileSourceType">
         <arguments>
             <argument name="sourceType" xsi:type="string">csv</argument>
