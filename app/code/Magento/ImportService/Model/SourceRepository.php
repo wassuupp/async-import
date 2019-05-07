@@ -8,10 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -19,7 +16,6 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
-use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
 
@@ -39,21 +35,6 @@ class SourceRepository implements SourceRepositoryInterface
     private $sourceResourceModel;
 
     /**
-     * @var SourceCollectionFactory
-     */
-    private $sourceCollectionFactory;
-
-    /**
-     * @var SearchResultsInterfaceFactory
-     */
-    private $searchResultsFactory;
-
-    /**
-     * @var CollectionProcessorInterface
-     */
-    private $collectionProcessor;
-
-    /**
      * @var GetListInterface
      */
     private $commandGetList;
@@ -66,26 +47,17 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @param SourceFactory $sourceFactory
      * @param SourceResourceModel $sourceResourceModel
-     * @param SourceCollectionFactory $sourceCollectionFactory
-     * @param SearchResultsInterfaceFactory $searchResultsFactory
-     * @param CollectionProcessorInterface $collectionProcessor
      * @param GetListInterface $commandGetList
      * @param DeleteByUuidInterface $commandDeleteByUuid
      */
     public function __construct(
         SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
-        SourceCollectionFactory $sourceCollectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory,
-        CollectionProcessorInterface $collectionProcessor,
         GetListInterface $commandGetList,
         DeleteByUuidInterface $commandDeleteByUuid
     ) {
         $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
-        $this->sourceCollectionFactory    = $sourceCollectionFactory;
-        $this->searchResultsFactory = $searchResultsFactory;
-        $this->collectionProcessor = $collectionProcessor;
         $this->commandGetList = $commandGetList;
         $this->commandDeleteByUuid = $commandDeleteByUuid;
     }
