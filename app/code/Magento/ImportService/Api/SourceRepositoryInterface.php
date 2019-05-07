@@ -33,7 +33,7 @@ interface SourceRepositoryInterface
     public function getByUuid($uuid);
 
     /**
-     * Find sources by given search criteria. Search criteria is not required because load all sources is useful case
+     * Find sources by given search criteria. Search criteria is not required.
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
      * @return \Magento\Framework\Api\SearchResultsInterface
