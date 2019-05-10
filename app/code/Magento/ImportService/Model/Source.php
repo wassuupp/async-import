@@ -227,6 +227,15 @@ class Source extends AbstractExtensibleModel implements SourceInterface
      */
     public function afterLoad()
     {
+        $this->decorate();
+        parent::afterLoad();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function decorate()
+    {
         $formatJson = $this->getData('format');
 
         if(isset($formatJson)) {
@@ -239,14 +248,14 @@ class Source extends AbstractExtensibleModel implements SourceInterface
                 foreach($formatJson['mapping'] as $mappingJson) {
                     $mappingJson = json_decode($mappingJson, true);
                     /** check for format mapping value field, decode json string and convert into object */
-                	if(isset($mappingJson['values_mapping'])) {
-                		$valuesMapping = [];
-                		foreach($mappingJson['values_mapping'] as $valuesJson) {
-                			$valuesJson = json_decode($valuesJson, true);
-                    		$valuesMapping[] = $this->mappingValueFactory->create()->setData($valuesJson);
-                		}
-                		$mappingJson['values_mapping'] = $valuesMapping;
-                	}
+                    if(isset($mappingJson['values_mapping'])) {
+                        $valuesMapping = [];
+                        foreach($mappingJson['values_mapping'] as $valuesJson) {
+                            $valuesJson = json_decode($valuesJson, true);
+                            $valuesMapping[] = $this->mappingValueFactory->create()->setData($valuesJson);
+                        }
+                        $mappingJson['values_mapping'] = $valuesMapping;
+                    }
                     $formatMapping[] = $this->mappingFactory->create()->setData($mappingJson);
                 }
                 $formatJson['mapping'] = $formatMapping;
@@ -254,10 +263,10 @@ class Source extends AbstractExtensibleModel implements SourceInterface
 
             /** set decoded json string and object to formatted source */
             $format = $this->formatFactory->create()->setData($formatJson);
-            $this->setFormat($format);
+            $this->setData('format', $format);
         }
 
-        parent::afterLoad();
+        return $this;
     }
 
     /**
