@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Api;
 
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
 use Magento\ImportService\Api\Data\SourceInterface;
