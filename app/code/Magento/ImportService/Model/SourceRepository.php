@@ -11,11 +11,12 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
+use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\GetInterface;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
 
@@ -24,11 +25,6 @@ use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
  */
 class SourceRepository implements SourceRepositoryInterface
 {
-    /**
-     * @var SourceFactory
-     */
-    private $sourceFactory;
-
     /**
      * @var SourceResourceModel
      */
@@ -45,21 +41,26 @@ class SourceRepository implements SourceRepositoryInterface
     private $commandDeleteByUuid;
 
     /**
-     * @param SourceFactory $sourceFactory
+     * @var GetInterface
+     */
+    private $commandGet;
+
+    /**
      * @param SourceResourceModel $sourceResourceModel
      * @param GetListInterface $commandGetList
      * @param DeleteByUuidInterface $commandDeleteByUuid
+     * @param GetInterface $commandGet
      */
     public function __construct(
-        SourceFactory $sourceFactory,
         SourceResourceModel $sourceResourceModel,
         GetListInterface $commandGetList,
-        DeleteByUuidInterface $commandDeleteByUuid
+        DeleteByUuidInterface $commandDeleteByUuid,
+        GetInterface $commandGet
     ) {
-        $this->sourceFactory        = $sourceFactory;
         $this->sourceResourceModel  = $sourceResourceModel;
         $this->commandGetList = $commandGetList;
         $this->commandDeleteByUuid = $commandDeleteByUuid;
+        $this->commandGet = $commandGet;
     }
 
     /**
@@ -80,19 +81,10 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws NoSuchEntityException
      */
-    public function getByUuid($uuid)
+    public function getByUuid(string $uuid): SourceInterface
     {
-        /** @var \Magento\ImportService\Api\Data\SourceInterface $source */
-        $source = $this->sourceFactory->create();
-        $this->sourceResourceModel->load($source, $uuid, $source::UUID);
-        if (!$source->getUuid()) {
-            throw new NoSuchEntityException(__('Source with uuid "%1" does not exist.', $uuid));
-        }
-
-        return $source;
+        return $this->commandGet->execute($uuid);
     }
 
     /**

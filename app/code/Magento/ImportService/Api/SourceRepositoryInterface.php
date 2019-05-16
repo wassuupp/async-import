@@ -25,12 +25,13 @@ interface SourceRepositoryInterface
     public function save(SourceInterface $source);
 
     /**
-     * Provides source by UUID
+     * Get source data by given uuid
      *
      * @param string $uuid
      * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getByUuid($uuid);
+    public function getByUuid(string $uuid): SourceInterface;
 
     /**
      * Find sources by given search criteria. Search criteria is not required.
