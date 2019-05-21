@@ -21,6 +21,7 @@
                 type="Magento\ImportService\Model\SourceUploadResponse" />
     <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
                 type="Magento\ImportService\Model\SourceRepository"/>
+    <preference for="Magento\ImportService\Model\Source\Command\SaveInterface" type="Magento\ImportService\Model\Source\Command\Save"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetInterface" type="Magento\ImportService\Model\Source\Command\Get"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetListInterface" type="Magento\ImportService\Model\Source\Command\GetList"/>
     <preference for="Magento\ImportService\Model\Source\Command\DeleteByUuidInterface" type="Magento\ImportService\Model\Source\Command\DeleteByUuid"/>

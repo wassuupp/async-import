@@ -17,12 +17,13 @@ use Magento\ImportService\Api\Data\SourceInterface;
 interface SourceRepositoryInterface
 {
     /**
-     * Saves source
+     * Save source data
      *
      * @param \Magento\ImportService\Api\Data\SourceInterface $source
      * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
-    public function save(SourceInterface $source);
+    public function save(SourceInterface $source): SourceInterface;
 
     /**
      * Get source data by given uuid

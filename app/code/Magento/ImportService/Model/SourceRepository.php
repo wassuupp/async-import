@@ -10,12 +10,10 @@ namespace Magento\ImportService\Model;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
-use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory as SourceCollectionFactory;
+use Magento\ImportService\Model\Source\Command\SaveInterface;
 use Magento\ImportService\Model\Source\Command\GetInterface;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
@@ -46,18 +44,26 @@ class SourceRepository implements SourceRepositoryInterface
     private $commandGet;
 
     /**
+     * @var SaveInterface
+     */
+    private $commandSave;
+
+    /**
      * @param SourceResourceModel $sourceResourceModel
+     * @param SaveInterface $commandSave
      * @param GetListInterface $commandGetList
      * @param DeleteByUuidInterface $commandDeleteByUuid
      * @param GetInterface $commandGet
      */
     public function __construct(
         SourceResourceModel $sourceResourceModel,
+        SaveInterface $commandSave,
         GetListInterface $commandGetList,
         DeleteByUuidInterface $commandDeleteByUuid,
         GetInterface $commandGet
     ) {
         $this->sourceResourceModel  = $sourceResourceModel;
+        $this->commandSave = $commandSave;
         $this->commandGetList = $commandGetList;
         $this->commandDeleteByUuid = $commandDeleteByUuid;
         $this->commandGet = $commandGet;
@@ -65,18 +71,10 @@ class SourceRepository implements SourceRepositoryInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws CouldNotSaveException
      */
-    public function save(SourceInterface $source)
+    public function save(SourceInterface $source): SourceInterface
     {
-        try {
-            $this->sourceResourceModel->save($source);
-        } catch (\Exception $e) {
-            throw new CouldNotSaveException(__($e->getMessage()));
-        }
-
-        return $source;
+        return $this->commandSave->execute($source);
     }
 
     /**
@@ -95,7 +93,7 @@ class SourceRepository implements SourceRepositoryInterface
     public function delete(SourceInterface $source)
     {
         try {
-            /** @var AbstractModel|SourceInterface $source */
+            /** @var \Magento\Framework\Model\AbstractModel|SourceInterface $source */
             $this->sourceResourceModel->delete($source);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__($exception->getMessage()));
