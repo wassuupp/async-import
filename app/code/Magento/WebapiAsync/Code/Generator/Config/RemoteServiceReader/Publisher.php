@@ -53,9 +53,14 @@ class Publisher implements \Magento\Framework\Config\ReaderInterface
                         'amqp' => [
                             'name'     => 'amqp',
                             'exchange' => 'magento',
-                            'disabled' => false,
+                            'disabled' => true,
                         ],
-                    ],
+                        'db' => [
+                            'name'     => 'db',
+                            'exchange' => 'magento',
+                            'disabled' => true,
+                        ]
+                    ]
                 ];
         }
 

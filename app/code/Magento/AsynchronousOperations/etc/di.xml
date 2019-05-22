@@ -88,7 +88,7 @@
             <argument name="publishers" xsi:type="array">
                 <item name="async" xsi:type="array">
                     <item name="amqp" xsi:type="object">Magento\AsynchronousOperations\Model\MassPublisher</item>
-                    <item name="db" xsi:type="object">Magento\AsynchronousOperations\Model\MassPublisher</item>
+                    <item name="db" xsi:type="object">Magento\AsynchronousOperations\Model\MassDbPublisher</item>
                 </item>
             </argument>
         </arguments>
