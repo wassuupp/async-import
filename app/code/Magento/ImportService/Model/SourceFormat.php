@@ -79,19 +79,4 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
         return $this->setData(self::MULTIPLE_VALUE_SEPARATOR, $multipleValueSeparator);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getMapping(): ?array
-    {
-        return $this->getData(self::MAPPING);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setMapping(array $mapping): SourceFormatInterface
-    {
-        return $this->setData(self::MAPPING, $mapping);
-    }
 }
