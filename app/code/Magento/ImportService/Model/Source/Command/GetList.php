@@ -79,26 +79,7 @@ class GetList implements GetListInterface
             /** get format object, check for null and convert object into array */
             $format = $item->getFormat();
             if(isset($format)) {
-                /** get format mapping object array, check for null and convert object into array */
-                $formatMapping = $format->getMapping();
-                if(isset($formatMapping)) {
-                    $mappingArray = [];
-                    foreach($formatMapping as $mapping) {
-                        /** get value mapping object array, check for null and convert object into array */
-                        $valuesMapping = $mapping->getValuesMapping();
-                        if(isset($valuesMapping)) {
-                            $valuesMappingArray = [];
-                            foreach($valuesMapping as $values) {
-                                $valuesMappingArray[] = $values->toArray();
-                            }
-                            /** set converted array into object field */
-                            $mapping->setData('values_mapping', $valuesMappingArray);
-                        }
-                        $mappingArray[] = $mapping->toArray();
-                    }
-                    /** set converted array into object field */
-                    $format->setData('mapping', $mappingArray);
-                }
+
                 /** set converted array into object field */
                 $item->setData('format', $format->toArray());
             }

@@ -15,8 +15,6 @@ use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
 use Magento\ImportService\Api\Data\SourceFormatInterface;
 use Magento\ImportService\Model\SourceFormatFactory as FormatFactory;
-use Magento\ImportService\Model\SourceFormatMappingFactory as MappingFactory;
-use Magento\ImportService\Model\SourceFormatMappingValueFactory as MappingValueFactory;
 
 /**
  * Class Source
@@ -33,27 +31,11 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     private $formatFactory;
 
     /**
-     * Source format mapping factory
-     *
-     * @var MappingFactory
-     */
-    private $mappingFactory;
-
-    /**
-     * Source format mapping value factory
-     *
-     * @var MappingValueFactory
-     */
-    private $mappingValueFactory;
-
-    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param ExtensionAttributesFactory $extensionFactory
      * @param AttributeValueFactory $customAttributeFactory
      * @param FormatFactory $formatFactory
-     * @param MappingFactory $mappingFactory
-     * @param MappingValueFactory $mappingValueFactory
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param array $data
@@ -64,15 +46,11 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         ExtensionAttributesFactory $extensionFactory,
         AttributeValueFactory $customAttributeFactory,
         FormatFactory $formatFactory,
-        MappingFactory $mappingFactory,
-        MappingValueFactory $mappingValueFactory,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->formatFactory = $formatFactory;
-        $this->mappingFactory = $mappingFactory;
-        $this->mappingValueFactory = $mappingValueFactory;
         parent::__construct($context, $registry, $extensionFactory, $customAttributeFactory, $resource, $resourceCollection, $data);
     }
 
@@ -239,27 +217,9 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         $formatJson = $this->getData('format');
 
         if(isset($formatJson)) {
+
             /** get format json string and decode */
             $formatJson = json_decode($formatJson, true);
-
-            /** check for format mapping field, decode json string and convert into object */
-            if(isset($formatJson['mapping'])) {
-                $formatMapping = [];
-                foreach($formatJson['mapping'] as $mappingJson) {
-                    $mappingJson = json_decode($mappingJson, true);
-                    /** check for format mapping value field, decode json string and convert into object */
-                    if(isset($mappingJson['values_mapping'])) {
-                        $valuesMapping = [];
-                        foreach($mappingJson['values_mapping'] as $valuesJson) {
-                            $valuesJson = json_decode($valuesJson, true);
-                            $valuesMapping[] = $this->mappingValueFactory->create()->setData($valuesJson);
-                        }
-                        $mappingJson['values_mapping'] = $valuesMapping;
-                    }
-                    $formatMapping[] = $this->mappingFactory->create()->setData($mappingJson);
-                }
-                $formatJson['mapping'] = $formatMapping;
-            }
 
             /** set decoded json string and object to formatted source */
             $format = $this->formatFactory->create()->setData($formatJson);
@@ -277,7 +237,6 @@ class Source extends AbstractExtensibleModel implements SourceInterface
         /** get format object */
         $format = $this->getFormat();
 
-
         if(!isset($format)) {
             $data = [
                 SourceFormatInterface::CSV_SEPARATOR => SourceFormatInterface::DEFAULT_CSV_SEPARATOR,
@@ -287,25 +246,6 @@ class Source extends AbstractExtensibleModel implements SourceInterface
             ];
             /** create format object and set default values */
             $format = $this->formatFactory->create()->setData($data);
-        }
-
-        /** get list of mapping and convert it into json and set to format */
-        $formatMapping = $format->getMapping();
-
-        /** check for mapping exist or not*/
-        if(isset($formatMapping)) {
-            foreach($formatMapping as &$mapping) {
-                $valuesMapping = $mapping->getValuesMapping();
-                /** check for mapping exist or not and convert it into json */
-                if(isset($valuesMapping)) {
-                    foreach($valuesMapping as &$values) {
-                        $values = $values->toJson();
-                    }
-                    $mapping->setValuesMapping($valuesMapping);
-                }
-                $mapping = $mapping->toJson();
-            }
-            $format->setMapping($formatMapping);
         }
 
         /** set format json string to format field */
