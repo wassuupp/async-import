@@ -9,14 +9,18 @@ namespace Magento\ImportService\Model;
 
 use Magento\ImportService\Api\Data\SourceInterface;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
-use Magento\ImportService\Api\SourceUploadInterface;
+use Magento\ImportService\Api\SourceCsvUploadInterface;
 use Magento\ImportService\Model\Import\Type\FileSourceType;
 
 /**
- * Class SourceUpload
+ * Class SourceCsvUpload
  */
-class SourceUpload implements SourceUploadInterface
+class SourceCsvUpload implements SourceCsvUploadInterface
 {
+    /**
+     * const SOURCE_TYPE
+     */
+    const SOURCE_TYPE = "csv";
 
     /**
      * @var SourceProcessorPool
@@ -41,14 +45,13 @@ class SourceUpload implements SourceUploadInterface
     }
 
     /**
-     * @param string $sourceType
      * @param SourceInterface $source
      * @return SourceUploadResponseFactory
      */
-    public function execute(string $sourceType, SourceInterface $source)
+    public function execute(SourceInterface $source)
     {
         try {
-            $source->setSourceType($sourceType);
+            $source->setSourceType(self::SOURCE_TYPE);
             $processor = $this->sourceProcessorPool->getProcessor($source);
             $response = $this->responseFactory->create();
             $processor->processUpload($source, $response);
