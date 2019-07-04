@@ -12,14 +12,13 @@ use Magento\ImportService\Api\Data\SourceInterface;
 /**
  * Class ImportProcessor
  */
-interface SourceUploadInterface
+interface SourceCsvUploadInterface
 {
     /**
      * Upload source.
      *
-     * @param string $sourceType
      * @param \Magento\ImportService\Api\Data\SourceInterface $source
      * @return \Magento\ImportService\Api\Data\SourceUploadResponseInterface
      */
-    public function execute(string $sourceType, SourceInterface $source);
+    public function execute(SourceInterface $source);
 }
