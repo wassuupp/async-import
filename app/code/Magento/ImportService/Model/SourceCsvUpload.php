@@ -12,7 +12,7 @@ use Magento\ImportService\Model\Import\SourceProcessorPool;
 use Magento\ImportService\Api\SourceCsvUploadInterface;
 
 /**
- * Class SourceUpload
+ * Class SourceCsvUpload
  */
 class SourceCsvUpload implements SourceCsvUploadInterface
 {
