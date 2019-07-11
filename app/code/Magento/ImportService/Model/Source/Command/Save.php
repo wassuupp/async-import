@@ -4,10 +4,13 @@
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
+
 namespace Magento\ImportService\Model\Source\Command;
+
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
+
 /**
  * @inheritdoc
  */
@@ -17,6 +20,7 @@ class Save implements SaveInterface
      * @var SourceResourceModel
      */
     private $sourceResource;
+
     /**
      * @param SourceResourceModel $sourceResource
      */
@@ -25,6 +29,7 @@ class Save implements SaveInterface
     ) {
         $this->sourceResource = $sourceResource;
     }
+
     /**
      * @inheritdoc
      */
