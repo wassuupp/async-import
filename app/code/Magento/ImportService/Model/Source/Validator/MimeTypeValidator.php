@@ -5,7 +5,7 @@
  */
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
 use Magento\ImportService\Model\Import\SourceTypePool;
@@ -68,11 +68,11 @@ class MimeTypeValidator implements ValidatorInterface
     /**
      * return error messages in array
      *
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @throws ImportServiceException
      * @return array
      */
-    public function validate(SourceInterface $source)
+    public function validate(SourceCsvInterface $source)
     {
         $errors = [];
 

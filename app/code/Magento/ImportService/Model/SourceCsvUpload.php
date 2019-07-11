@@ -7,16 +7,16 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
 use Magento\ImportService\Api\SourceCsvUploadInterface;
-use Magento\ImportService\Model\Import\Type\FileSourceType;
 
 /**
- * Class SourceCsvUpload
+ * Class SourceUpload
  */
 class SourceCsvUpload implements SourceCsvUploadInterface
 {
+
     /**
      * const SOURCE_TYPE
      */
@@ -45,10 +45,10 @@ class SourceCsvUpload implements SourceCsvUploadInterface
     }
 
     /**
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @return SourceUploadResponseFactory
      */
-    public function execute(SourceInterface $source)
+    public function execute(SourceCsvInterface $source)
     {
         try {
             $source->setSourceType(self::SOURCE_TYPE);

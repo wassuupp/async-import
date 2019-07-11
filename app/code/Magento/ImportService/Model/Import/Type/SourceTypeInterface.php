@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Type;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
@@ -21,9 +21,9 @@ interface SourceTypeInterface
     /**
      * save source content
      *
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @throws ImportServiceException
-     * @return SourceInterface
+     * @return SourceCsvInterface
      */
-    public function save(SourceInterface $source);
+    public function save(SourceCsvInterface $source);
 }

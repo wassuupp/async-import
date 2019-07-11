@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Api\Data;
 
 /**
- * Interface ImportResponseInterface
+ * Interface SourceUploadResponseInterface
  */
 interface SourceUploadResponseInterface
 {
@@ -41,7 +41,7 @@ interface SourceUploadResponseInterface
     /**
      * Get source
      *
-     * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @return \Magento\ImportService\Api\Data\SourceCsvInterface
      */
     public function getSource();
 
@@ -64,8 +64,8 @@ interface SourceUploadResponseInterface
     public function setError($error);
 
     /**
-     * @param \Magento\ImportService\Api\Data\SourceInterface $source
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
      * @return mixed
      */
-    public function setSource(\Magento\ImportService\Api\Data\SourceInterface $source);
+    public function setSource(\Magento\ImportService\Api\Data\SourceCsvInterface $source);
 }

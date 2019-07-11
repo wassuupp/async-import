@@ -7,18 +7,18 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Api;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 
 /**
- * Class ImportProcessor
+ * Class SourceCsvUploadInterface
  */
 interface SourceCsvUploadInterface
 {
     /**
      * Upload source.
      *
-     * @param \Magento\ImportService\Api\Data\SourceInterface $source
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
      * @return \Magento\ImportService\Api\Data\SourceUploadResponseInterface
      */
-    public function execute(SourceInterface $source);
+    public function execute(SourceCsvInterface $source);
 }

@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
@@ -18,9 +18,9 @@ interface ValidatorInterface
     /**
      * return error messages in array
      *
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @throws ImportServiceException
      * @return bool
      */
-    public function validate(SourceInterface $source);
+    public function validate(SourceCsvInterface $source);
 }

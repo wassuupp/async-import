@@ -10,8 +10,8 @@ namespace Magento\ImportService\Model\Import\Type;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\ImportService\ImportServiceException;
-use Magento\ImportService\Api\SourceRepositoryInterface;
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\SourceCsvRepositoryInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\Framework\DataObject\IdentityGeneratorInterface as IdentityGenerator;
 
 /**
@@ -20,7 +20,7 @@ use Magento\Framework\DataObject\IdentityGeneratorInterface as IdentityGenerator
 class FileSourceType implements SourceTypeInterface
 {
     /**
-     * @var SourceRepositoryInterface
+     * @var SourceCsvRepositoryInterface
      */
     private $sourceRepository;
 
@@ -47,14 +47,14 @@ class FileSourceType implements SourceTypeInterface
     /**
      * CSV File Type constructor.
      *
-     * @param SourceRepositoryInterface $sourceRepository
+     * @param SourceCsvRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
      * @param IdentityGenerator $identityGenerator
      * @param string $sourceType
      * @param array $allowedMimeTypes
      */
     public function __construct(
-        SourceRepositoryInterface $sourceRepository,
+        SourceCsvRepositoryInterface $sourceRepository,
         Filesystem $filesystem,
         IdentityGenerator $identityGenerator,
         $sourceType = null,
@@ -90,11 +90,11 @@ class FileSourceType implements SourceTypeInterface
     /**
      * save source content
      *
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @throws ImportServiceException
-     * @return SourceInterface
+     * @return SourceCsvInterface
      */
-    public function save(SourceInterface $source)
+    public function save(SourceCsvInterface $source)
     {
         /** @var string $uuid */
         $uuid = $source->getUuid() ?: $this->identityGenerator->generateId();
@@ -121,7 +121,7 @@ class FileSourceType implements SourceTypeInterface
         }
 
         /** set updated data to source */
-        $source->setImportData($fileName)->setUuid($uuid)->setStatus(SourceInterface::STATUS_UPLOADED);
+        $source->setImportData($fileName)->setUuid($uuid)->setStatus(SourceCsvInterface::STATUS_UPLOADED);
 
         /** save processed source with status */
         $source = $this->sourceRepository->save($source);

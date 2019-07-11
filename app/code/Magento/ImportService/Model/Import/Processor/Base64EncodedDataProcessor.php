@@ -9,7 +9,7 @@ namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 use Magento\ImportService\ImportServiceException;
@@ -49,7 +49,7 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
     /**
      *  {@inheritdoc}
      */
-    public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
+    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response)
     {
         $this->validator->validate($source);
 
