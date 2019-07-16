@@ -10,16 +10,16 @@ namespace Magento\ImportService\Model;
 use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\Model\AbstractExtensibleModel;
-use Magento\ImportService\Api\Data\SourceExtensionInterface;
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvExtensionInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
-use Magento\ImportService\Api\Data\SourceFormatInterface;
-use Magento\ImportService\Model\SourceFormatFactory as FormatFactory;
+use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
+use Magento\ImportService\Model\SourceCsvFormatFactory as FormatFactory;
 
 /**
  * Class Source
  */
-class Source extends AbstractExtensibleModel implements SourceInterface
+class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
 {
     const CACHE_TAG = 'magento_import_service_source';
 
@@ -83,7 +83,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setUuid(string $uuid): SourceInterface
+    public function setUuid(string $uuid): SourceCsvInterface
     {
         return $this->setData(self::UUID, $uuid);
     }
@@ -99,7 +99,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setSourceType(string $sourceType): SourceInterface
+    public function setSourceType(string $sourceType): SourceCsvInterface
     {
         return $this->setData(self::SOURCE_TYPE, $sourceType);
     }
@@ -115,7 +115,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setImportType(string $importType): SourceInterface
+    public function setImportType(string $importType): SourceCsvInterface
     {
         return $this->setData(self::IMPORT_TYPE, $importType);
     }
@@ -131,7 +131,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setStatus(string $status): SourceInterface
+    public function setStatus(string $status): SourceCsvInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -147,7 +147,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setImportData(string $importData): SourceInterface
+    public function setImportData(string $importData): SourceCsvInterface
     {
         return $this->setData(self::IMPORT_DATA, $importData);
     }
@@ -155,7 +155,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function getFormat(): ?SourceFormatInterface
+    public function getFormat(): ?SourceCsvFormatInterface
     {
         return $this->getData(self::FORMAT);
     }
@@ -163,7 +163,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setFormat(SourceFormatInterface $format): SourceInterface
+    public function setFormat(SourceCsvFormatInterface $format): SourceCsvInterface
     {
         return $this->setData(self::FORMAT, $format);
     }
@@ -179,7 +179,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * @inheritDoc
      */
-    public function setCreatedAt(string $date): SourceInterface
+    public function setCreatedAt(string $date): SourceCsvInterface
     {
         return $this->setData(self::CREATED_AT, $date);
     }
@@ -195,7 +195,7 @@ class Source extends AbstractExtensibleModel implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function setExtensionAttributes(SourceExtensionInterface $extensionAttributes)
+    public function setExtensionAttributes(SourceCsvExtensionInterface $extensionAttributes)
     {
         return $this->_setExtensionAttributes($extensionAttributes);
     }
@@ -239,10 +239,10 @@ class Source extends AbstractExtensibleModel implements SourceInterface
 
         if(!isset($format)) {
             $data = [
-                SourceFormatInterface::CSV_SEPARATOR => SourceFormatInterface::DEFAULT_CSV_SEPARATOR,
-                SourceFormatInterface::CSV_ENCLOSURE => SourceFormatInterface::DEFAULT_CSV_ENCLOSURE,
-                SourceFormatInterface::CSV_DELIMITER => SourceFormatInterface::DEFAULT_CSV_DELIMITER,
-                SourceFormatInterface::MULTIPLE_VALUE_SEPARATOR => SourceFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR
+                SourceCsvFormatInterface::CSV_SEPARATOR => SourceCsvFormatInterface::DEFAULT_CSV_SEPARATOR,
+                SourceCsvFormatInterface::CSV_ENCLOSURE => SourceCsvFormatInterface::DEFAULT_CSV_ENCLOSURE,
+                SourceCsvFormatInterface::CSV_DELIMITER => SourceCsvFormatInterface::DEFAULT_CSV_DELIMITER,
+                SourceCsvFormatInterface::MULTIPLE_VALUE_SEPARATOR => SourceCsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR
             ];
             /** create format object and set default values */
             $format = $this->formatFactory->create()->setData($data);

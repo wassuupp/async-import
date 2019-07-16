@@ -10,18 +10,19 @@ namespace Magento\ImportService\Model;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\ImportService\Api\Data\SourceInterface;
-use Magento\ImportService\Api\SourceRepositoryInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportService\Api\SourceCsvRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\Source\Command\SaveInterface;
 use Magento\ImportService\Model\Source\Command\GetInterface;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
+use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 
 /**
  * Class SourceRepository
  */
-class SourceRepository implements SourceRepositoryInterface
+class SourceCsvRepository implements SourceCsvRepositoryInterface
 {
     /**
      * @var SourceResourceModel
@@ -72,7 +73,7 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function save(SourceInterface $source): SourceInterface
+    public function save(SourceCsvInterface $source): SourceCsvInterface
     {
         return $this->commandSave->execute($source);
     }
@@ -80,26 +81,9 @@ class SourceRepository implements SourceRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getByUuid(string $uuid): SourceInterface
+    public function getByUuid(string $uuid): SourceCsvInterface
     {
         return $this->commandGet->execute($uuid);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @throws CouldNotDeleteException
-     */
-    public function delete(SourceInterface $source)
-    {
-        try {
-            /** @var \Magento\Framework\Model\AbstractModel|SourceInterface $source */
-            $this->sourceResourceModel->delete($source);
-        } catch (\Exception $exception) {
-            throw new CouldNotDeleteException(__($exception->getMessage()));
-        }
-
-        return true;
     }
 
     /**

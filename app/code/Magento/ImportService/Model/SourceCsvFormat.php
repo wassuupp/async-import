@@ -8,12 +8,12 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\SourceFormatInterface;
+use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
 
 /**
  * Class SourceFormat
  */
-class SourceFormat extends AbstractModel implements SourceFormatInterface
+class SourceCsvFormat extends AbstractModel implements SourceCsvFormatInterface
 {
     /**
      * @inheritDoc
@@ -26,7 +26,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setCsvSeparator(string $csvSeparator): SourceFormatInterface
+    public function setCsvSeparator(string $csvSeparator): SourceCsvFormatInterface
     {
         return $this->setData(self::CSV_SEPARATOR, $csvSeparator);
     }
@@ -42,7 +42,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setCsvEnclosure(string $csvEnclosure): SourceFormatInterface
+    public function setCsvEnclosure(string $csvEnclosure): SourceCsvFormatInterface
     {
         return $this->setData(self::CSV_ENCLOSURE, $csvEnclosure);
     }
@@ -58,7 +58,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setCsvDelimiter(string $csvDelimiter): SourceFormatInterface
+    public function setCsvDelimiter(string $csvDelimiter): SourceCsvFormatInterface
     {
         return $this->setData(self::CSV_DELIMITER, $csvDelimiter);
     }
@@ -74,7 +74,7 @@ class SourceFormat extends AbstractModel implements SourceFormatInterface
     /**
      * @inheritDoc
      */
-    public function setMultipleValueSeparator(string $multipleValueSeparator): SourceFormatInterface
+    public function setMultipleValueSeparator(string $multipleValueSeparator): SourceCsvFormatInterface
     {
         return $this->setData(self::MULTIPLE_VALUE_SEPARATOR, $multipleValueSeparator);
     }

@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\ImportService\Model\Import\Type\SourceTypeInterface;
 
@@ -53,7 +53,7 @@ class SourceTypePool
      * @throws ImportServiceException
      * @return SourceTypeInterface
      */
-    public function getSourceType(SourceInterface $source)
+    public function getSourceType(SourceCsvInterface $source)
     {
         foreach ($this->sourceTypes as $key => $object) {
             if ($source->getSourceType() == $key) {

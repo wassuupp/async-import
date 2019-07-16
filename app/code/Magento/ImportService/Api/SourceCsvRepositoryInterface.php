@@ -9,30 +9,30 @@ namespace Magento\ImportService\Api;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 
 /**
- * Interface SourceRepositoryInterface
+ * Interface SourceCsvRepositoryInterface
  */
-interface SourceRepositoryInterface
+interface SourceCsvRepositoryInterface
 {
     /**
      * Save source data
      *
-     * @param \Magento\ImportService\Api\Data\SourceInterface $source
-     * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
+     * @return \Magento\ImportService\Api\Data\SourceCsvInterface
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
-    public function save(SourceInterface $source): SourceInterface;
+    public function save(SourceCsvInterface $source): SourceCsvInterface;
 
     /**
      * Get source data by given uuid
      *
      * @param string $uuid
-     * @return \Magento\ImportService\Api\Data\SourceInterface
+     * @return \Magento\ImportService\Api\Data\SourceCsvInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getByUuid(string $uuid): SourceInterface;
+    public function getByUuid(string $uuid): SourceCsvInterface;
 
     /**
      * Find sources by given search criteria. Search criteria is not required.
@@ -41,14 +41,6 @@ interface SourceRepositoryInterface
      * @return \Magento\Framework\Api\SearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface;
-
-    /**
-     * Deletes source
-     *
-     * @param \Magento\ImportService\Api\Data\SourceInterface $source
-     * @return bool
-     */
-    public function delete(\Magento\ImportService\Api\Data\SourceInterface $source);
 
     /**
      * Delete the source by uuid. If source is not found, NoSuchEntityException is thrown

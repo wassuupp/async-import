@@ -7,7 +7,7 @@ namespace Magento\ImportService\Api;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\UrlInterface;
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\Import\Type\SourceTypeInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
@@ -58,7 +58,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             $this->makeServiceInfo(),
             $this->makeRequestData(null)
         );
-        $this->assertEquals(SourceInterface::STATUS_FAILED, $result['status']);
+        $this->assertEquals(SourceCsvInterface::STATUS_FAILED, $result['status']);
         $this->assertRegExp('/Invalid request/', $result['error']);
     }
     /**
@@ -72,7 +72,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             $this->makeServiceInfo(),
             $this->makeRequestData($this->getExternalLink($sampleFileName))
         );
-        $this->assertEquals(SourceInterface::STATUS_FAILED, $result['status']);
+        $this->assertEquals(SourceCsvInterface::STATUS_FAILED, $result['status']);
         $this->assertRegExp('/does not exist./', $result['error']);
     }
     /**
@@ -93,7 +93,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             $this->makeRequestData($this->getExternalLink($sampleFileName))
         );
         /** Assert the response status and the source_id */
-        $this->assertEquals(SourceInterface::STATUS_UPLOADED, $result['status']);
+        $this->assertEquals(SourceCsvInterface::STATUS_UPLOADED, $result['status']);
         $this->assertNotNull($result['uuid']);
         if (isset($result['uuid'])) {
             /** @var string $nameCopiedFile */
@@ -136,7 +136,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             )
         );
         /** Assert the response status and the source_id */
-        $this->assertEquals(SourceInterface::STATUS_UPLOADED, $result['status']);
+        $this->assertEquals(SourceCsvInterface::STATUS_UPLOADED, $result['status']);
         $this->assertEquals($desiredUuid, $result['uuid']);
         if (isset($result['uuid'])) {
             /** @var string $nameCopiedFile */
@@ -176,9 +176,9 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function makeRequestData($import_data)
     {
         return ['source' => [
-            SourceInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
-            SourceInterface::IMPORT_TYPE => self::IMPORT_TYPE,
-            SourceInterface::IMPORT_DATA => $import_data
+            SourceCsvInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
+            SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
+            SourceCsvInterface::IMPORT_DATA => $import_data
         ]
         ];
     }
@@ -191,10 +191,10 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function makeRequestDataWithUuid($import_data, $uuid)
     {
         return ['source' => [
-            SourceInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
-            SourceInterface::IMPORT_TYPE => self::IMPORT_TYPE,
-            SourceInterface::IMPORT_DATA => $import_data,
-            SourceInterface::UUID => $uuid
+            SourceCsvInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
+            SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
+            SourceCsvInterface::IMPORT_DATA => $import_data,
+            SourceCsvInterface::UUID => $uuid
         ]
         ];
     }
@@ -280,9 +280,9 @@ class ExternalFileProcessorTest extends WebapiAbstract
      */
     private function removeDatabaseEntry($uuid)
     {
-        /** @var \Magento\ImportService\Api\SourceRepositoryInterface $repository */
+        /** @var \Magento\ImportService\Api\SourceCsvRepositoryInterface $repository */
         $repository = Bootstrap::getObjectManager()
-            ->create(\Magento\ImportService\Api\SourceRepositoryInterface::class);
+            ->create(\Magento\ImportService\Api\SourceCsvRepositoryInterface::class);
 
         $repository->deleteByUuid($uuid);
     }

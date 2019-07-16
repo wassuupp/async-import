@@ -32,19 +32,19 @@
         </resources>
     </route>
     <route url="/V1/import/source/:uuid" method="GET">
-        <service class="Magento\ImportService\Api\SourceRepositoryInterface" method="getByUuid"/>
+        <service class="Magento\ImportService\Api\SourceCsvRepositoryInterface" method="getByUuid"/>
         <resources>
             <resource ref="Magento_ImportService::import" />
         </resources>
     </route>
     <route url="/V1/import/sources" method="GET">
-        <service class="Magento\ImportService\Api\SourceRepositoryInterface" method="getList"/>
+        <service class="Magento\ImportService\Api\SourceCsvRepositoryInterface" method="getList"/>
 		<resources>
             <resource ref="Magento_ImportService::import" />
         </resources>
     </route>
     <route url="/V1/import/source/:uuid" method="DELETE">
-        <service class="Magento\ImportService\Api\SourceRepositoryInterface" method="deleteByUuid"/>
+        <service class="Magento\ImportService\Api\SourceCsvRepositoryInterface" method="deleteByUuid"/>
         <resources>
             <resource ref="Magento_ImportService::import" />
         </resources>

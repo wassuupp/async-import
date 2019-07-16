@@ -9,18 +9,18 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\ImportService\Api\SourceCsvUploadInterface"
                 type="Magento\ImportService\Model\SourceCsvUpload" />
-    <preference for="Magento\ImportService\Api\Data\SourceInterface"
-                type="Magento\ImportService\Model\Source" />
-    <preference for="Magento\ImportService\Api\Data\SourceFormatInterface"
-                type="Magento\ImportService\Model\SourceFormat" />
+    <preference for="Magento\ImportService\Api\SourceCsvRepositoryInterface"
+                type="Magento\ImportService\Model\SourceCsvRepository" />
+    <preference for="Magento\ImportService\Api\Data\SourceCsvInterface"
+                type="Magento\ImportService\Model\SourceCsv" />
+    <preference for="Magento\ImportService\Api\Data\SourceCsvFormatInterface"
+                type="Magento\ImportService\Model\SourceCsvFormat" />
     <preference for="Magento\ImportService\Api\Data\SourceFormatMappingInterface"
                 type="Magento\ImportService\Model\SourceFormatMapping" />
     <preference for="Magento\ImportService\Api\Data\SourceFormatMappingValueInterface"
                 type="Magento\ImportService\Model\SourceFormatMappingValue" />
     <preference for="Magento\ImportService\Api\Data\SourceUploadResponseInterface"
                 type="Magento\ImportService\Model\SourceUploadResponse" />
-    <preference for="Magento\ImportService\Api\SourceRepositoryInterface"
-                type="Magento\ImportService\Model\SourceRepository"/>
     <preference for="Magento\ImportService\Model\Source\Command\SaveInterface" type="Magento\ImportService\Model\Source\Command\Save"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetInterface" type="Magento\ImportService\Model\Source\Command\Get"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetListInterface" type="Magento\ImportService\Model\Source\Command\GetList"/>

@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Filesystem\Io\File;
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
@@ -69,7 +69,7 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      *  {@inheritdoc}
      */
-    public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response)
+    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response)
     {
         $this->validator->validate($source);
 

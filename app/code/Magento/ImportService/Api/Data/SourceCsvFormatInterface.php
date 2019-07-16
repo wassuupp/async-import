@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\ImportService\Api\Data;
 
 /**
- * Interface SourceFormatInterface
+ * Interface SourceCsvFormatInterface
  */
-interface SourceFormatInterface
+interface SourceCsvFormatInterface
 {
     const CSV_SEPARATOR = 'csv_separator';
     const CSV_ENCLOSURE = 'csv_enclosure';
@@ -31,9 +31,9 @@ interface SourceFormatInterface
      * Set CSV Separator
      *
      * @param string $csvSeparator
-     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
+     * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
-    public function setCsvSeparator(string $csvSeparator): SourceFormatInterface;
+    public function setCsvSeparator(string $csvSeparator): SourceCsvFormatInterface;
 
     /**
      * @return string|null
@@ -44,9 +44,9 @@ interface SourceFormatInterface
      * Set CSV Enclosure
      *
      * @param string $csvEnclosure
-     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
+     * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
-    public function setCsvEnclosure(string $csvEnclosure): SourceFormatInterface;
+    public function setCsvEnclosure(string $csvEnclosure): SourceCsvFormatInterface;
 
     /**
      * @return string|null
@@ -57,9 +57,9 @@ interface SourceFormatInterface
      * Set CSV Delimiter
      *
      * @param string $csvDelimiter
-     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
+     * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
-    public function setCsvDelimiter(string $csvDelimiter): SourceFormatInterface;
+    public function setCsvDelimiter(string $csvDelimiter): SourceCsvFormatInterface;
 
     /**
      * @return string|null
@@ -70,8 +70,8 @@ interface SourceFormatInterface
      * Set Multiple Value Separator
      *
      * @param string $multipleValueSeparator
-     * @return \Magento\ImportService\Api\Data\SourceFormatInterface
+     * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
-    public function setMultipleValueSeparator(string $multipleValueSeparator): SourceFormatInterface;
+    public function setMultipleValueSeparator(string $multipleValueSeparator): SourceCsvFormatInterface;
 
 }
