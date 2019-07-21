@@ -8,18 +8,17 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\ImportService\Api\Data\SourceInterface;
-use Magento\ImportService\Api\SourceUpdateInterface;
+use Magento\ImportService\Api\SourceCsvUpdateInterface;
 use Magento\ImportService\Api\SourceRepositoryInterface;
 use Magento\ImportService\ImportServiceException;
-use Magento\ImportService\Api\Data\SourceUpdateResponseInterface;
 
 /**
- * Class SourceUpdate
+ * Class SourceCsvUpdate
  */
-class SourceUpdate implements SourceUpdateInterface
+class SourceCsvUpdate implements SourceCsvUpdateInterface
 {
     /**
-     * @var SourceUpdateResponse
+     * @var SourceUploadResponseFactory
      */
     protected $responseFactory;
 
@@ -29,11 +28,11 @@ class SourceUpdate implements SourceUpdateInterface
     protected $sourceRepository;
 
     /**
-     * @param SourceUpdateResponseFactory $responseFactory,
+     * @param SourceUploadResponseFactory $responseFactory,
      * @param SourceRepositoryInterface $sourceRepository
      */
     public function __construct(
-        SourceUpdateResponseFactory $responseFactory,
+        SourceUploadResponseFactory $responseFactory,
         SourceRepositoryInterface $sourceRepository
     ) {
         $this->responseFactory = $responseFactory;
@@ -43,33 +42,35 @@ class SourceUpdate implements SourceUpdateInterface
     /**
      * Update source.
      *
-     * @param string $sourceType
      * @param string $uuid
      * @param \Magento\ImportService\Api\Data\SourceInterface $source
-     * @return \Magento\ImportService\Api\Data\SourceUpdateResponseInterface
+     * @return SourceUploadResponseFactory
      */
-    public function execute(string $sourceType, string $uuid, SourceInterface $source)
+    public function execute(string $uuid, SourceInterface $source)
     {
         $response = $this->responseFactory->create();
 
         try {
             $object = $this->sourceRepository->getByUuid($uuid);
             if($object->getId()) {
-                if($object->getSourceType() != $sourceType) {
+                if($object->getSourceType() != "csv") {
                     throw new ImportServiceException(
-                        __('Specified Source type "%1" is wrong.', $sourceType)
+                        __('Specified Source type "%1" is wrong.', 'csv')
                     );
                 }
                 $object->setFormat($source->getFormat());
                 $this->sourceRepository->save($object);
+                $source = $this->sourceRepository->getByUuid($uuid);
+                $response->setSource($source)->setUuid($source->getUuid())->setStatus($source->getStatus());
+
             } else {
                 throw new ImportServiceException(
                     __('Specified uuid "%1" does not exist.', $uuid)
                 );
             }
-            $response->setStatus(SourceUpdateResponseInterface::STATUS_SUCCESS)->setMessage((string)__('Source updated successfully with provided parameters.'));
+
         } catch (ImportServiceException $e) {
-            $response->setStatus(SourceUpdateResponseInterface::STATUS_FAILED)->setMessage($e->getMessage());
+            $response = $this->responseFactory->createFailure($e->getMessage());
         }
 
         return $response;
