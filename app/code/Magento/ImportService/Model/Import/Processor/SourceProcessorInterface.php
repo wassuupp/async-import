@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\ImportServiceException;
 
@@ -18,10 +18,10 @@ use Magento\ImportService\ImportServiceException;
 interface SourceProcessorInterface
 {
     /**
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @param SourceUploadResponseInterface $response
      * @throws ImportServiceException
      * @return SourceUploadResponseInterface
      */
-    public function processUpload(SourceInterface $source, SourceUploadResponseInterface $response);
+    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response);
 }

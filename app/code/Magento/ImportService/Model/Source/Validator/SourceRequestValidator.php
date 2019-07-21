@@ -5,7 +5,7 @@
  */
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
@@ -16,20 +16,20 @@ class SourceRequestValidator implements ValidatorInterface
     /**
      * return error messages in array
      *
-     * @param SourceInterface $source
+     * @param SourceCsvInterface $source
      * @throws ImportServiceException
      * @return array
      */
-    public function validate(SourceInterface $source)
+    public function validate(SourceCsvInterface $source)
     {
         $errors = [];
 
         if (!$source->getSourceType()) {
-            $errors[] = __('%1 cannot be empty', SourceInterface::SOURCE_TYPE);
+            $errors[] = __('%1 cannot be empty', SourceCsvInterface::SOURCE_TYPE);
         }
 
         if (!$source->getImportData()) {
-            $errors[] = __('%1 cannot be empty', SourceInterface::IMPORT_DATA);
+            $errors[] = __('%1 cannot be empty', SourceCsvInterface::IMPORT_DATA);
         }
 
         return $errors;

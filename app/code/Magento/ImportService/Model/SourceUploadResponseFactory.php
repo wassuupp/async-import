@@ -59,7 +59,7 @@ class SourceUploadResponseFactory
     {
         $response = $this->_objectManager->create($this->_instanceName, []);
         $response->setError($error);
-        $response->setStatus(\Magento\ImportService\Api\Data\SourceInterface::STATUS_FAILED);
+        $response->setStatus(\Magento\ImportService\Api\Data\SourceCsvInterface::STATUS_FAILED);
         return $response;
     }
 }

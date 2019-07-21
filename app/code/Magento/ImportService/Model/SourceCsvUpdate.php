@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Api\SourceCsvUpdateInterface;
-use Magento\ImportService\Api\SourceRepositoryInterface;
+use Magento\ImportService\Api\SourceCsvRepositoryInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
@@ -23,17 +23,17 @@ class SourceCsvUpdate implements SourceCsvUpdateInterface
     protected $responseFactory;
 
     /**
-     * @var SourceRepositoryInterface
+     * @var SourceCsvRepositoryInterface
      */
     protected $sourceRepository;
 
     /**
      * @param SourceUploadResponseFactory $responseFactory,
-     * @param SourceRepositoryInterface $sourceRepository
+     * @param SourceCsvRepositoryInterface $sourceRepository
      */
     public function __construct(
         SourceUploadResponseFactory $responseFactory,
-        SourceRepositoryInterface $sourceRepository
+        SourceCsvRepositoryInterface $sourceRepository
     ) {
         $this->responseFactory = $responseFactory;
         $this->sourceRepository = $sourceRepository;
@@ -43,10 +43,10 @@ class SourceCsvUpdate implements SourceCsvUpdateInterface
      * Update source.
      *
      * @param string $uuid
-     * @param \Magento\ImportService\Api\Data\SourceInterface $source
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
      * @return SourceUploadResponseFactory
      */
-    public function execute(string $uuid, SourceInterface $source)
+    public function execute(string $uuid, SourceCsvInterface $source)
     {
         $response = $this->responseFactory->create();
 

@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Api;
 
-use Magento\ImportService\Api\Data\SourceInterface;
+use Magento\ImportService\Api\Data\SourceCsvInterface;
 
 /**
  * Class SourceCsvUpdateInterface
@@ -18,8 +18,8 @@ interface SourceCsvUpdateInterface
      * Update source.
      *
      * @param string $uuid
-     * @param \Magento\ImportService\Api\Data\SourceInterface $source
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
      * @return \Magento\ImportService\Api\Data\SourceUploadResponseInterface
      */
-    public function execute(string $uuid, SourceInterface $source);
+    public function execute(string $uuid, SourceCsvInterface $source);
 }
