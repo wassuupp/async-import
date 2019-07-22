@@ -73,6 +73,16 @@ interface ImportConfigInterface extends ExtensibleDataInterface
     public function setImportImagesFileDir(string $importImagesFileDir): void;
 
     /**
+     * @return ImportConfigMappingInterface
+     */
+    public function getMapping(): ImportConfigMappingInterface;
+
+    /**
+     * @param ImportConfigMappingInterface $mapping
+     */
+    public function setMapping(ImportConfigMappingInterface $mapping): void;
+
+    /**
      * @return \Magento\ImportService\Api\Data\ImportConfigExtensionInterface
      */
     public function getExtensionAttributes(): \Magento\ImportService\Api\Data\ImportConfigExtensionInterface;
