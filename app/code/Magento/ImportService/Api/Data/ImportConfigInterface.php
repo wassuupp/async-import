@@ -19,6 +19,7 @@ interface ImportConfigInterface extends ExtensibleDataInterface
     const VALIDATION_STRATEGY = 'validation_strategy';
     const IMPORT_IMAGE_ARCHIVE = 'import_image_archive';
     const IMPORT_IMAGES_FILE_DIR = 'import_images_file_dir';
+    const MAPPING = 'mapping';
 
     /**
      * @return string
