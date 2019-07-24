@@ -53,9 +53,9 @@ class SourceCsvUpdate implements SourceCsvUpdateInterface
         try {
             $object = $this->sourceRepository->getByUuid($uuid);
             if($object->getId()) {
-                if($object->getSourceType() != "csv") {
+                if($object->getSourceType() != SourceCsvInterface::CSV_SOURCE_TYPE) {
                     throw new ImportServiceException(
-                        __('Specified Source type "%1" is wrong.', 'csv')
+                        __('Specified Source type "%1" is wrong.', SourceCsvInterface::CSV_SOURCE_TYPE)
                     );
                 }
                 $object->setFormat($source->getFormat());
