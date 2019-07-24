@@ -18,11 +18,6 @@ class SourceCsvUpload implements SourceCsvUploadInterface
 {
 
     /**
-     * const SOURCE_TYPE
-     */
-    const SOURCE_TYPE = "csv";
-
-    /**
      * @var SourceProcessorPool
      */
     protected $sourceProcessorPool;
@@ -51,7 +46,7 @@ class SourceCsvUpload implements SourceCsvUploadInterface
     public function execute(SourceCsvInterface $source)
     {
         try {
-            $source->setSourceType(self::SOURCE_TYPE);
+            $source->setSourceType(SourceCsvInterface::CSV_SOURCE_TYPE);
             $processor = $this->sourceProcessorPool->getProcessor($source);
             $response = $this->responseFactory->create();
             $processor->processUpload($source, $response);

@@ -15,6 +15,12 @@ use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
  */
 interface SourceCsvInterface extends ExtensibleDataInterface
 {
+
+    /**
+     * const CSV_SOURCE_TYPE
+     */
+    const CSV_SOURCE_TYPE = "csv";
+
     const ENTITY_ID = 'entity_id';
     const UUID = 'uuid';
     const SOURCE_TYPE = 'source_type';
