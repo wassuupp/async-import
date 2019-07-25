@@ -8,8 +8,8 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractExtensibleModel;
-use Magento\ImportService\Api\Data\ImportConfigExtensionInterface;
-use Magento\ImportService\Api\Data\ImportConfigInterface;
+use Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface;
+use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
 
 /**
  * Class ImportConfig

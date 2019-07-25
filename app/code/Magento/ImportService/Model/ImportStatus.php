@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\ImportStatusInterface;
-use Magento\ImportService\Api\Data\ImportStatusResponseInterface;
-use Magento\ImportService\Model\ImportStatusResponseItemFactory;
+use Magento\ImportServiceApi\Api\ImportStatusInterface;
+use Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface;
+use Magento\ImportServiceApi\Model\ImportStatusResponseItemFactory;
 
 /**
  * Class Import

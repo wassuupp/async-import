@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface;
 
 /**
  * Class SourceFormat

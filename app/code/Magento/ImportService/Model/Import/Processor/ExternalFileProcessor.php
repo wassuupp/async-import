@@ -7,14 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
-use Magento\Framework\Filesystem\Io\File;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
-use Magento\ImportService\Model\Import\SourceTypePool;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
-use Magento\ImportService\ImportServiceException;
 
 /**
  * CSV files processor for asynchronous import
@@ -61,7 +58,7 @@ class ExternalFileProcessor implements SourceProcessorInterface
     /**
      *  {@inheritdoc}
      */
-    public function processUpload(\Magento\ImportService\Api\Data\SourceCsvInterface $source, \Magento\ImportService\Api\Data\SourceUploadResponseInterface $response)
+    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response)
     {
         $this->validator->validate($source);
 

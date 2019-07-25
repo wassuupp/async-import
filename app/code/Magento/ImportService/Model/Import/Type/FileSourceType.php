@@ -10,8 +10,8 @@ namespace Magento\ImportService\Model\Import\Type;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\ImportService\ImportServiceException;
-use Magento\ImportService\Api\SourceCsvRepositoryInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\Framework\DataObject\IdentityGeneratorInterface as IdentityGenerator;
 
 /**

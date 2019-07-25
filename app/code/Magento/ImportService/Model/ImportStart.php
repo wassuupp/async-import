@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\Data\ImportConfigInterface;
-use Magento\ImportService\Api\Data\ImportStartResponseInterface;
-use Magento\ImportService\Api\ImportStartInterface;
+use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
+use Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface;
+use Magento\ImportServiceApi\Api\ImportStartInterface;
 
 /**
  * Class ImportStart

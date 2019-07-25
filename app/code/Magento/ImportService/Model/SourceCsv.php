@@ -10,10 +10,10 @@ namespace Magento\ImportService\Model;
 use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\Model\AbstractExtensibleModel;
-use Magento\ImportService\Api\Data\SourceCsvExtensionInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
-use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface;
 use Magento\ImportService\Model\SourceCsvFormatFactory as FormatFactory;
 
 /**

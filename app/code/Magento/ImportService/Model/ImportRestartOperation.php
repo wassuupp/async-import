@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\ImportRestartOperationInterface;
+use Magento\ImportServiceApi\Api\ImportRestartOperationInterface;
 
 /**
  * Class ImportRestartOperation

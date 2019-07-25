@@ -8,14 +8,14 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 /**
  * Save source data command
  *
  * Separate command interface to which Repository proxies initial Save call
  *
- * @see \Magento\ImportService\Api\SourceCsvRepositoryInterface
+ * @see \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface
  */
 interface SaveInterface
 {

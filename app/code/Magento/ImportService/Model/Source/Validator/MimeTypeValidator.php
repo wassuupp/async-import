@@ -5,7 +5,7 @@
  */
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
 use Magento\ImportService\Model\Import\SourceTypePool;
