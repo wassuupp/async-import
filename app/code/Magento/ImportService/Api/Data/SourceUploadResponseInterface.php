@@ -39,13 +39,6 @@ interface SourceUploadResponseInterface
     public function getError();
 
     /**
-     * Get source
-     *
-     * @return \Magento\ImportService\Api\Data\SourceCsvInterface
-     */
-    public function getSource();
-
-    /**
      * @param $uuid
      * @return mixed
      */
@@ -63,9 +56,4 @@ interface SourceUploadResponseInterface
      */
     public function setError($error);
 
-    /**
-     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
-     * @return mixed
-     */
-    public function setSource(\Magento\ImportService\Api\Data\SourceCsvInterface $source);
 }

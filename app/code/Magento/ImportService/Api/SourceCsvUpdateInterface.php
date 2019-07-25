@@ -18,8 +18,8 @@ interface SourceCsvUpdateInterface
      * Update source.
      *
      * @param string $uuid
-     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $sourceInput
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
      * @return \Magento\ImportService\Api\Data\SourceUploadResponseInterface
      */
-    public function execute(string $uuid, SourceCsvInterface $sourceInput);
+    public function execute(string $uuid, SourceCsvInterface $source);
 }
