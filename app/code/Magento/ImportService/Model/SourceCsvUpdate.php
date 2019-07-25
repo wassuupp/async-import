@@ -43,25 +43,25 @@ class SourceCsvUpdate implements SourceCsvUpdateInterface
      * Update source.
      *
      * @param string $uuid
-     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $sourceInput
+     * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
      * @return SourceUploadResponseFactory
      */
-    public function execute(string $uuid, SourceCsvInterface $sourceInput)
+    public function execute(string $uuid, SourceCsvInterface $source)
     {
         $response = $this->responseFactory->create();
 
         try {
-            $source = $this->sourceRepository->getByUuid($uuid);
-            if($source->getId()) {
-                if($source->getSourceType() != SourceCsvInterface::CSV_SOURCE_TYPE) {
+            $sourceToUpdate = $this->sourceRepository->getByUuid($uuid);
+            if($sourceToUpdate->getId()) {
+                if($sourceToUpdate->getSourceType() != SourceCsvInterface::CSV_SOURCE_TYPE) {
                     throw new ImportServiceException(
                         __('Specified Source type "%1" is wrong.', SourceCsvInterface::CSV_SOURCE_TYPE)
                     );
                 }
-                $source->setFormat($sourceInput->getFormat());
-                $this->sourceRepository->save($source);
+                $sourceToUpdate->setFormat($source->getFormat());
+                $this->sourceRepository->save($sourceToUpdate);
                 $source = $this->sourceRepository->getByUuid($uuid);
-                $response->setSource($source)->setUuid($source->getUuid())->setStatus($source->getStatus());
+                $response->setUuid($source->getUuid())->setStatus($source->getStatus());
 
             } else {
                 throw new ImportServiceException(
