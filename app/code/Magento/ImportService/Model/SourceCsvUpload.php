@@ -7,17 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-<<<<<<< HEAD
 use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Model\Import\SourceProcessorPool;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportServiceApi\Api\SourceCsvUploadInterface;
-use Magento\ImportServiceApi\Model\SourceUploadResponseFactory;
-=======
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportService\Api\SourceCsvUploadInterface;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
->>>>>>> 2.3-asynchronous-import-module
+use Magento\ImportServiceApi\Model\SourceUploadResponseFactory;
 
 /**
  * Class SourceCsvUpload
