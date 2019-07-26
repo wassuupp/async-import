@@ -8,8 +8,8 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\ImportService\Model\Import\SourceTypePool;
 

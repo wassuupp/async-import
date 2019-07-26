@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 
 /**

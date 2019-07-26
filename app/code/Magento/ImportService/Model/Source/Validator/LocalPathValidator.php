@@ -10,7 +10,7 @@ namespace Magento\ImportService\Model\Source\Validator;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\ValidatorException;
 use Magento\Framework\Filesystem\Directory\Write;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;

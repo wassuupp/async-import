@@ -11,8 +11,8 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 
 /**
@@ -66,6 +66,7 @@ class ExternalFileProcessor implements SourceProcessorInterface
         SourceCsvInterface $source,
         SourceUploadResponseInterface $response
     ): SourceUploadResponseInterface {
+
         $this->validator->validate($source);
         /** @var WriteInterface $writeInterface */
         $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);

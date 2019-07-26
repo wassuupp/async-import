@@ -9,8 +9,8 @@ namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterfaceFactory;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterfaceFactory;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 
 /**

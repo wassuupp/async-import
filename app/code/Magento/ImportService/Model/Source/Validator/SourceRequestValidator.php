@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 /**
  * Class SourceRequestValidator

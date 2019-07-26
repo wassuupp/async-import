@@ -15,9 +15,9 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
 use Magento\Framework\Serialize\SerializerInterface;
-use Magento\ImportService\Api\Data\SourceCsvExtensionInterface;
-use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
 use Magento\ImportService\Model\SourceCsvFormatFactory as FormatFactory;
 

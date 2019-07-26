@@ -9,11 +9,12 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportService\Api\SourceCsvRepositoryInterface;
-use Magento\ImportService\Api\SourceCsvUpdateInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
+use Magento\ImportServiceApi\Api\SourceCsvUpdateInterface;
 use Magento\ImportService\ImportServiceException;
+use Magento\ImportServiceApi\Model\SourceUploadResponseFactory;
 
 /**
  * Class SourceCsvUpdate

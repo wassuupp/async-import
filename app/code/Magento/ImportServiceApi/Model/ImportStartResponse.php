@@ -5,9 +5,9 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model;
+namespace Magento\ImportServiceApi\Model;
 
-use Magento\ImportService\Api\Data\ImportStartResponseInterface;
+use Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface;
 
 /**
  * Class ImportStartResponse
@@ -39,7 +39,6 @@ class ImportStartResponse implements ImportStartResponseInterface
 
     /**
      * @param string $uuid
-     *
      * @return void
      */
     public function setUuid(string $uuid): void
@@ -57,7 +56,6 @@ class ImportStartResponse implements ImportStartResponseInterface
 
     /**
      * @param string $status
-     *
      * @return void
      */
     public function setStatus(string $status): void
@@ -75,7 +73,6 @@ class ImportStartResponse implements ImportStartResponseInterface
 
     /**
      * @param string $error
-     *
      * @return void
      */
     public function setError(string $error): void

@@ -9,15 +9,14 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\Api\SourceCsvRepositoryInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\Source\Command\SaveInterface;
 use Magento\ImportService\Model\Source\Command\GetInterface;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 
 /**
  * Class SourceRepository

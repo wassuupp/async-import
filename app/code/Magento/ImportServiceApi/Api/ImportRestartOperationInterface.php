@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api;
+namespace Magento\ImportServiceApi\Api;
 
 /**
  * Class ImportRestartOperation
@@ -13,11 +13,10 @@ namespace Magento\ImportService\Api;
 interface ImportRestartOperationInterface
 {
     /**
-     * Restart failed operation.
+     * restart failed operation.
      *
      * @param int $uuid
      * @param string $serializedData
-     *
      * @return void
      */
     public function execute(int $uuid, string $serializedData): void;

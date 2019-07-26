@@ -2,11 +2,10 @@
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection,PhpFullyQualifiedNameUsageInspection
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
@@ -15,11 +14,11 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  */
 interface ImportConfigInterface extends ExtensibleDataInterface
 {
-    public const BEHAVIOUR = 'behaviour';
-    public const ALLOWED_ERROR_COUNT = 'allowed_error_count';
-    public const VALIDATION_STRATEGY = 'validation_strategy';
-    public const IMPORT_IMAGE_ARCHIVE = 'import_image_archive';
-    public const IMPORT_IMAGES_FILE_DIR = 'import_images_file_dir';
+    const BEHAVIOUR = 'behaviour';
+    const ALLOWED_ERROR_COUNT = 'allowed_error_count';
+    const VALIDATION_STRATEGY = 'validation_strategy';
+    const IMPORT_IMAGE_ARCHIVE = 'import_image_archive';
+    const IMPORT_IMAGES_FILE_DIR = 'import_images_file_dir';
 
     /**
      * @return string
@@ -28,7 +27,6 @@ interface ImportConfigInterface extends ExtensibleDataInterface
 
     /**
      * @param string $behaviour
-     *
      * @return void
      */
     public function setBehaviour(string $behaviour): void;
@@ -40,7 +38,6 @@ interface ImportConfigInterface extends ExtensibleDataInterface
 
     /**
      * @param int $allowedErrorCount
-     *
      * @return void
      */
     public function setAllowedErrorCount(int $allowedErrorCount): void;
@@ -52,7 +49,6 @@ interface ImportConfigInterface extends ExtensibleDataInterface
 
     /**
      * @param string $validationStrategy
-     *
      * @return void
      */
     public function setValidationStrategy(string $validationStrategy): void;
@@ -61,37 +57,29 @@ interface ImportConfigInterface extends ExtensibleDataInterface
      * @return string
      */
     public function getImportImageArchive(): string;
-
     /**
      * @param string $importImageArchive
-     *
      * @return void
      */
     public function setImportImageArchive(string $importImageArchive): void;
-
     /**
      * @return string
      */
     public function getImportImagesFileDir(): string;
-
     /**
      * @param string $importImagesFileDir
-     *
      * @return void
      */
     public function setImportImagesFileDir(string $importImagesFileDir): void;
 
     /**
-     * @return \Magento\ImportService\Api\Data\ImportConfigExtensionInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface
      */
-    public function getExtensionAttributes(): \Magento\ImportService\Api\Data\ImportConfigExtensionInterface;
+    public function getExtensionAttributes(): \Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface;
 
     /**
-     * @param \Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extensionAttributes
-     *
+     * @param \Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface $extension
      * @return void
      */
-    public function setExtensionAttributes(
-        \Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extensionAttributes
-    ): void;
+    public function setExtensionAttributes(\Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface $extensionAttributes): void;
 }

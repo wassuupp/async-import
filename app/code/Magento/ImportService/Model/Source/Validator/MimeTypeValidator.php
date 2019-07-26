@@ -15,7 +15,7 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\Write;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\Import\SourceTypePool;
 
 /**

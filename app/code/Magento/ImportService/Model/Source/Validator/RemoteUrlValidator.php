@@ -9,7 +9,7 @@ namespace Magento\ImportService\Model\Source\Validator;
 
 use Magento\Framework\Filesystem\Driver\Http as HttpDriver;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 /**
  * Class RemoteUrlValidator
