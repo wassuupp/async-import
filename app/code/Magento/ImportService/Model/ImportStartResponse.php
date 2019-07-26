@@ -39,6 +39,7 @@ class ImportStartResponse implements ImportStartResponseInterface
 
     /**
      * @param string $uuid
+     *
      * @return void
      */
     public function setUuid(string $uuid): void
@@ -56,6 +57,7 @@ class ImportStartResponse implements ImportStartResponseInterface
 
     /**
      * @param string $status
+     *
      * @return void
      */
     public function setStatus(string $status): void
@@ -73,6 +75,7 @@ class ImportStartResponse implements ImportStartResponseInterface
 
     /**
      * @param string $error
+     *
      * @return void
      */
     public function setError(string $error): void

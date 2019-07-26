@@ -23,6 +23,7 @@ interface GetInterface
      * Get source data by given uuid
      *
      * @param string $uuid
+     *
      * @return SourceCsvInterface
      * @throws NoSuchEntityException
      */

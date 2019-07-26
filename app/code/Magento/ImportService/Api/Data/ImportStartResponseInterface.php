@@ -2,6 +2,7 @@
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
+ * @noinspection PhpUnnecessaryFullyQualifiedNameInspection,PhpFullyQualifiedNameUsageInspection
  */
 declare(strict_types=1);
 
@@ -12,12 +13,12 @@ namespace Magento\ImportService\Api\Data;
  */
 interface ImportStartResponseInterface
 {
-    const UUID = 'uuid';
-    const STATUS = 'status';
-    const ERROR = 'error';
-    const STATUS_RUNNING = 'running';
-    const STATUS_COMPLETED = 'completed';
-    const STATUS_FAIL = 'fail';
+    public const UUID = 'uuid';
+    public const STATUS = 'status';
+    public const ERROR = 'error';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_FAIL = 'fail';
 
     /**
      * Get UUID
@@ -30,6 +31,7 @@ interface ImportStartResponseInterface
      * Set UUID
      *
      * @param string $uuid
+     *
      * @return void
      */
     public function setUuid(string $uuid): void;
@@ -45,6 +47,7 @@ interface ImportStartResponseInterface
      * Set status
      *
      * @param string $status
+     *
      * @return void
      */
     public function setStatus(string $status): void;
@@ -60,6 +63,7 @@ interface ImportStartResponseInterface
      * Set error
      *
      * @param string $error
+     *
      * @return void
      */
     public function setError(string $error): void;

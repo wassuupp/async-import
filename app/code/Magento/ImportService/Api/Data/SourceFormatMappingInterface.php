@@ -2,6 +2,7 @@
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
+ * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
  */
 declare(strict_types=1);
 
@@ -12,11 +13,11 @@ namespace Magento\ImportService\Api\Data;
  */
 interface SourceFormatMappingInterface
 {
-    const SOURCE_ATTRIBUTE = 'source_attribute';
-    const DESTINATION_ATTRIBUTE = 'destination_attribute';
-    const PROCESSING_RULES = 'processing_rules';
-    const TAXONOMY = 'taxonomy';
-    const VALUES_MAPPING = 'values_mapping';
+    public const SOURCE_ATTRIBUTE = 'source_attribute';
+    public const DESTINATION_ATTRIBUTE = 'destination_attribute';
+    public const PROCESSING_RULES = 'processing_rules';
+    public const TAXONOMY = 'taxonomy';
+    public const VALUES_MAPPING = 'values_mapping';
 
     /**
      * @return string|null
@@ -27,6 +28,7 @@ interface SourceFormatMappingInterface
      * Set Source Attribute
      *
      * @param string $sourceAttribute
+     *
      * @return $this
      */
     public function setSourceAttribute(string $sourceAttribute): SourceFormatMappingInterface;
@@ -40,6 +42,7 @@ interface SourceFormatMappingInterface
      * Set destination attribute
      *
      * @param string $destinationAttribute
+     *
      * @return $this
      */
     public function setDestinationAttribute(string $destinationAttribute): SourceFormatMappingInterface;
@@ -53,6 +56,7 @@ interface SourceFormatMappingInterface
      * Set processing rules
      *
      * @param string $processingRules
+     *
      * @return $this
      */
     public function setProcessingRules(string $processingRules): SourceFormatMappingInterface;
@@ -66,6 +70,7 @@ interface SourceFormatMappingInterface
      * Set taxonomy
      *
      * @param string $taxonomy
+     *
      * @return $this
      */
     public function setTaxonomy(string $taxonomy): SourceFormatMappingInterface;
@@ -79,6 +84,7 @@ interface SourceFormatMappingInterface
      * Set Value Mapping
      *
      * @param \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[] $valuesMapping
+     *
      * @return $this
      */
     public function setValuesMapping(array $valuesMapping): SourceFormatMappingInterface;
