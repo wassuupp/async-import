@@ -7,10 +7,10 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Source\Command;
 
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\ImportService\Model\ResourceModel\Source\Collection;
 use Magento\ImportService\Model\ResourceModel\Source\CollectionFactory;
@@ -75,10 +75,10 @@ class GetList implements GetListInterface
         /** build item array for search result */
         $sources = [];
 
-        foreach($collection as $item) {
+        foreach ($collection as $item) {
             /** get format object, check for null and convert object into array */
             $format = $item->getFormat();
-            if(isset($format)) {
+            if (isset($format)) {
 
                 /** set converted array into object field */
                 $item->setData('format', $format->toArray());
@@ -86,11 +86,12 @@ class GetList implements GetListInterface
             $sources[] = $item->toArray();
         }
 
-        /** @var SearchResultsInterfaceFactory $searchResult */
+        /** @var SearchResultsInterface $searchResult */
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setItems($sources);
         $searchResult->setTotalCount(count($sources));
         $searchResult->setSearchCriteria($searchCriteria);
+
         return $searchResult;
     }
 }

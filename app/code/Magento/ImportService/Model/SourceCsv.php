@@ -9,11 +9,16 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Api\ExtensionAttributesFactory;
+use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\AbstractExtensibleModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Magento\Framework\Registry;
+use Magento\Framework\Serialize\SerializerInterface;
 use Magento\ImportService\Api\Data\SourceCsvExtensionInterface;
+use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
 use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
-use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
 use Magento\ImportService\Model\SourceCsvFormatFactory as FormatFactory;
 
 /**
@@ -21,7 +26,7 @@ use Magento\ImportService\Model\SourceCsvFormatFactory as FormatFactory;
  */
 class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
 {
-    const CACHE_TAG = 'magento_import_service_source';
+    public const CACHE_TAG = 'magento_import_service_source';
 
     /**
      * Source format factory
@@ -31,27 +36,43 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     private $formatFactory;
 
     /**
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
+     * @param Context $context
+     * @param Registry $registry
      * @param ExtensionAttributesFactory $extensionFactory
      * @param AttributeValueFactory $customAttributeFactory
      * @param FormatFactory $formatFactory
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
+     * @param SerializerInterface $serializer
+     * @param AbstractResource $resource
+     * @param AbstractDb $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
+        Context $context,
+        Registry $registry,
         ExtensionAttributesFactory $extensionFactory,
         AttributeValueFactory $customAttributeFactory,
         FormatFactory $formatFactory,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        SerializerInterface $serializer,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->formatFactory = $formatFactory;
-        parent::__construct($context, $registry, $extensionFactory, $customAttributeFactory, $resource, $resourceCollection, $data);
+        parent::__construct(
+            $context,
+            $registry,
+            $extensionFactory,
+            $customAttributeFactory,
+            $resource,
+            $resourceCollection,
+            $data
+        );
+        $this->serializer = $serializer;
     }
 
     /**
@@ -67,7 +88,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
      *
      * @return array
      */
-    public function getIdentities()
+    public function getIdentities(): array
     {
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
@@ -187,7 +208,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritdoc
      */
-    public function getExtensionAttributes()
+    public function getExtensionAttributes(): ?SourceCsvExtensionInterface
     {
         return $this->_getExtensionAttributes();
     }
@@ -195,8 +216,9 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * {@inheritdoc}
      */
-    public function setExtensionAttributes(SourceCsvExtensionInterface $extensionAttributes)
-    {
+    public function setExtensionAttributes(
+        SourceCsvExtensionInterface $extensionAttributes
+    ): SourceCsvInterface {
         return $this->_setExtensionAttributes($extensionAttributes);
     }
 
@@ -216,10 +238,10 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     {
         $formatJson = $this->getData('format');
 
-        if(isset($formatJson)) {
+        if (isset($formatJson)) {
 
             /** get format json string and decode */
-            $formatJson = json_decode($formatJson, true);
+            $formatJson = $this->serializer->unserialize($formatJson);
 
             /** set decoded json string and object to formatted source */
             $format = $this->formatFactory->create()->setData($formatJson);
@@ -237,7 +259,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
         /** get format object */
         $format = $this->getFormat();
 
-        if(!isset($format)) {
+        if (!isset($format)) {
             $data = [
                 SourceCsvFormatInterface::CSV_SEPARATOR => SourceCsvFormatInterface::DEFAULT_CSV_SEPARATOR,
                 SourceCsvFormatInterface::CSV_ENCLOSURE => SourceCsvFormatInterface::DEFAULT_CSV_ENCLOSURE,

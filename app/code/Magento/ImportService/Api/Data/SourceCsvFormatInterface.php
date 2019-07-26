@@ -2,6 +2,7 @@
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
+ * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
  */
 declare(strict_types=1);
 
@@ -12,15 +13,15 @@ namespace Magento\ImportService\Api\Data;
  */
 interface SourceCsvFormatInterface
 {
-    const CSV_SEPARATOR = 'csv_separator';
-    const CSV_ENCLOSURE = 'csv_enclosure';
-    const CSV_DELIMITER = 'csv_delimiter';
-    const MULTIPLE_VALUE_SEPARATOR = 'multiple_value_separator';
+    public const CSV_SEPARATOR = 'csv_separator';
+    public const CSV_ENCLOSURE = 'csv_enclosure';
+    public const CSV_DELIMITER = 'csv_delimiter';
+    public const MULTIPLE_VALUE_SEPARATOR = 'multiple_value_separator';
 
-    const DEFAULT_CSV_SEPARATOR = ',';
-    const DEFAULT_CSV_ENCLOSURE = '"';
-    const DEFAULT_CSV_DELIMITER = ',';
-    const DEFAULT_MULTIPLE_VALUE_SEPARATOR = '|';
+    public const DEFAULT_CSV_SEPARATOR = ',';
+    public const DEFAULT_CSV_ENCLOSURE = '"';
+    public const DEFAULT_CSV_DELIMITER = ',';
+    public const DEFAULT_MULTIPLE_VALUE_SEPARATOR = '|';
 
     /**
      * @return string|null
@@ -31,6 +32,7 @@ interface SourceCsvFormatInterface
      * Set CSV Separator
      *
      * @param string $csvSeparator
+     *
      * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
     public function setCsvSeparator(string $csvSeparator): SourceCsvFormatInterface;
@@ -44,6 +46,7 @@ interface SourceCsvFormatInterface
      * Set CSV Enclosure
      *
      * @param string $csvEnclosure
+     *
      * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
     public function setCsvEnclosure(string $csvEnclosure): SourceCsvFormatInterface;
@@ -57,6 +60,7 @@ interface SourceCsvFormatInterface
      * Set CSV Delimiter
      *
      * @param string $csvDelimiter
+     *
      * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
     public function setCsvDelimiter(string $csvDelimiter): SourceCsvFormatInterface;
@@ -70,6 +74,7 @@ interface SourceCsvFormatInterface
      * Set Multiple Value Separator
      *
      * @param string $multipleValueSeparator
+     *
      * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface
      */
     public function setMultipleValueSeparator(string $multipleValueSeparator): SourceCsvFormatInterface;

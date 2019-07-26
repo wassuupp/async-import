@@ -23,6 +23,7 @@ interface GetListInterface
      * Find sources by given search criteria. Search criteria is not required because load all sources is useful case
      *
      * @param SearchCriteriaInterface|null $searchCriteria
+     *
      * @return SearchResultsInterface
      */
     public function execute(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface;

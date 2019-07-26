@@ -20,6 +20,7 @@ interface SourceCsvRepositoryInterface
      * Save source data
      *
      * @param \Magento\ImportService\Api\Data\SourceCsvInterface $source
+     *
      * @return \Magento\ImportService\Api\Data\SourceCsvInterface
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
@@ -29,6 +30,7 @@ interface SourceCsvRepositoryInterface
      * Get source data by given uuid
      *
      * @param string $uuid
+     *
      * @return \Magento\ImportService\Api\Data\SourceCsvInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
@@ -38,6 +40,7 @@ interface SourceCsvRepositoryInterface
      * Find sources by given search criteria. Search criteria is not required.
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
+     *
      * @return \Magento\Framework\Api\SearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface;
@@ -46,6 +49,7 @@ interface SourceCsvRepositoryInterface
      * Delete the source by uuid. If source is not found, NoSuchEntityException is thrown
      *
      * @param string $uuid
+     *
      * @return void
      * @throws \Magento\Framework\Exception\CouldNotDeleteException
      * @throws \Magento\Framework\Exception\NoSuchEntityException

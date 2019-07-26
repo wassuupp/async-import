@@ -9,8 +9,10 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
 
+/**
+ * Class SourceUploadResponse
+ */
 class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
 {
     /**
@@ -18,7 +20,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      *
      * @return string
      */
-    public function getUuid()
+    public function getUuid(): string
     {
         return $this->getData(self::UUID);
     }
@@ -28,43 +30,47 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->getData(self::STATUS);
     }
 
     /**
      * Get error
+     *
      * @return string
      */
-    public function getError()
+    public function getError(): string
     {
         return $this->getData(self::ERROR);
     }
 
     /**
-     * @param $uuid
+     * @param string $uuid
+     *
      * @return SourceUploadResponse|mixed
      */
-    public function setUuid($uuid)
+    public function setUuid(string $uuid): SourceUploadResponseInterface
     {
         return $this->setData(self::UUID, $uuid);
     }
 
     /**
-     * @param $status
-     * @return SourceUploadResponse|mixed
+     * @param string $status
+     *
+     * @return SourceUploadResponse
      */
-    public function setStatus($status)
+    public function setStatus(string $status): SourceUploadResponseInterface
     {
         return $this->setData(self::STATUS, $status);
     }
 
     /**
      * @param $error
-     * @return SourceUploadResponse|mixed
+     *
+     * @return SourceUploadResponse
      */
-    public function setError($error)
+    public function setError(string $error): SourceUploadResponseInterface
     {
         return $this->setData(self::ERROR, $error);
     }

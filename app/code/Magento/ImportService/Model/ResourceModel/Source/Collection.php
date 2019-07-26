@@ -31,9 +31,10 @@ class Collection extends AbstractCollection
      */
     protected function _afterLoad()
     {
-        foreach($this as &$item) {
+        foreach ($this as &$item) {
             $item->decorate();
         }
+
         return parent::_afterLoad();
     }
 }

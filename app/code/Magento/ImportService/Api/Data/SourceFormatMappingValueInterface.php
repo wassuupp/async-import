@@ -12,8 +12,8 @@ namespace Magento\ImportService\Api\Data;
  */
 interface SourceFormatMappingValueInterface
 {
-    const OLD_VALUE = 'old_value';
-    const NEW_VALUE = 'new_value';
+    public const OLD_VALUE = 'old_value';
+    public const NEW_VALUE = 'new_value';
 
     /**
      * @return string|null
@@ -24,6 +24,7 @@ interface SourceFormatMappingValueInterface
      * Set Old Value
      *
      * @param string $oldValue
+     *
      * @return $this
      */
     public function setOldValue(string $oldValue): SourceFormatMappingValueInterface;
@@ -37,6 +38,7 @@ interface SourceFormatMappingValueInterface
      * Set New Value
      *
      * @param string $newValue
+     *
      * @return $this
      */
     public function setNewValue(string $newValue): SourceFormatMappingValueInterface;

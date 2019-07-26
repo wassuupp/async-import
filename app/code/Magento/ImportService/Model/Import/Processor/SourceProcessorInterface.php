@@ -21,7 +21,11 @@ interface SourceProcessorInterface
      * @param SourceCsvInterface $source
      * @param SourceUploadResponseInterface $response
      * @throws ImportServiceException
+     *
      * @return SourceUploadResponseInterface
      */
-    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response);
+    public function processUpload(
+        SourceCsvInterface $source,
+        SourceUploadResponseInterface $response
+    ): SourceUploadResponseInterface;
 }
