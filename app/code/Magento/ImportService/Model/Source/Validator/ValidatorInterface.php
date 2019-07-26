@@ -16,10 +16,11 @@ use Magento\ImportService\ImportServiceException;
 interface ValidatorInterface
 {
     /**
-     * return error messages in array
+     * Return error messages in array
      *
      * @param SourceCsvInterface $source
      * @throws ImportServiceException
+     *
      * @return bool
      */
     public function validate(SourceCsvInterface $source);

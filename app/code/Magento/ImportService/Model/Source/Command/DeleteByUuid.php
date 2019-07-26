@@ -18,7 +18,7 @@ use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
  */
 class DeleteByUuid implements DeleteByUuidInterface
 {
-	/**
+    /**
      * @var SourceCsvInterfaceFactory
      */
     private $sourceFactory;
@@ -43,7 +43,7 @@ class DeleteByUuid implements DeleteByUuidInterface
     /**
      * @inheritdoc
      */
-    public function execute(string $uuid)
+    public function execute(string $uuid): void
     {
         /** @var SourceCsvInterface $source */
         $source = $this->sourceFactory->create();

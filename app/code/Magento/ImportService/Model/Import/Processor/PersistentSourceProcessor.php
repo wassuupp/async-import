@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
+use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportService\Model\Import\SourceTypePool;
 use Magento\ImportService\ImportServiceException;
-use \Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\ImportService\Model\Import\SourceTypePool;
 
 /**
  * Define the source type pool and process the request
@@ -24,9 +24,9 @@ class PersistentSourceProcessor implements SourceProcessorInterface
     private $sourceTypePool;
 
     /**
-     * @var \Magento\Framework\Stdlib\DateTime\DateTime
+     * @var DateTime
      */
-    protected $dateTime;
+    private $dateTime;
 
     /**
      * @param SourceTypePool $sourceTypePool
@@ -43,14 +43,14 @@ class PersistentSourceProcessor implements SourceProcessorInterface
     /**
      * {@inheritdoc}
      *
+     * @return SourceUploadResponseInterface
      * @throws ImportServiceException
-     * @return SourceTypeInterface
      */
-    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response)
-    {
-        /** @var \Magento\ImportService\Model\Import\Type\SourceTypeInterface $sourceType */
+    public function processUpload(
+        SourceCsvInterface $source,
+        SourceUploadResponseInterface $response
+    ): SourceUploadResponseInterface {
         $sourceType = $this->sourceTypePool->getSourceType($source);
-
         /** save processed content get updated source object */
         $source->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', $this->dateTime->gmtTimestamp()));
         $source = $sourceType->save($source);

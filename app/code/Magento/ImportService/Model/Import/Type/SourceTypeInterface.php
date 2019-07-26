@@ -16,14 +16,15 @@ use Magento\ImportService\ImportServiceException;
 interface SourceTypeInterface
 {
     // todo discuss the name of constant
-    const IMPORT_SOURCE_FILE_PATH = "import/";
+    public const IMPORT_SOURCE_FILE_PATH = 'import/';
 
     /**
      * save source content
      *
      * @param SourceCsvInterface $source
      * @throws ImportServiceException
+     *
      * @return SourceCsvInterface
      */
-    public function save(SourceCsvInterface $source);
+    public function save(SourceCsvInterface $source): SourceCsvInterface;
 }

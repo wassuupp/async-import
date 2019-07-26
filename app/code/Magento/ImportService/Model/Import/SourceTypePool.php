@@ -16,7 +16,7 @@ use Magento\ImportService\Model\Import\Type\SourceTypeInterface;
  */
 class SourceTypePool
 {
-	/**
+    /**
      * @var array
      */
     private $sourceTypes;
@@ -26,17 +26,17 @@ class SourceTypePool
      *
      * @param SourceTypeInterface[] $sourceTypes
      */
-    public function __construct($sourceTypes = [])
+    public function __construct(array $sourceTypes = [])
     {
         $this->sourceTypes = $sourceTypes;
     }
 
     /**
-     * get all mime types
+     * Get all mime types
      *
      * @return array
      */
-    public function getAllowedMimeTypes()
+    public function getAllowedMimeTypes(): array
     {
         $allowedMimeTypes = [];
 
@@ -48,15 +48,18 @@ class SourceTypePool
     }
 
     /**
-     * {@inheritdoc}
+     * Provides source type
+     *
+     * @param SourceCsvInterface $source
+     *
+     * @return SourceTypeInterface
      *
      * @throws ImportServiceException
-     * @return SourceTypeInterface
      */
-    public function getSourceType(SourceCsvInterface $source)
+    public function getSourceType(SourceCsvInterface $source): SourceTypeInterface
     {
         foreach ($this->sourceTypes as $key => $object) {
-            if ($source->getSourceType() == $key) {
+            if ($source->getSourceType() === $key) {
                 return $object;
             }
         }

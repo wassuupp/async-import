@@ -7,11 +7,14 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\ValidatorException;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\Write;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\Filesystem;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 
 /**
@@ -22,12 +25,12 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      * Import Type
      */
-    const IMPORT_TYPE = 'local_path';
+    public const IMPORT_TYPE = 'local_path';
 
     /**
      * @var PersistentSourceProcessor
      */
-    private $persistantUploader;
+    private $persistentUploader;
 
     /**
      * @var File
@@ -47,18 +50,18 @@ class LocalPathFileProcessor implements SourceProcessorInterface
     /**
      * LocalPathFileProcessor constructor
      *
-     * @param PersistentSourceProcessor $persistantUploader
+     * @param PersistentSourceProcessor $persistentUploader
      * @param File $fileSystemIo
      * @param Filesystem $fileSystem
      * @param ValidatorInterface $validator
      */
     public function __construct(
-        PersistentSourceProcessor $persistantUploader,
+        PersistentSourceProcessor $persistentUploader,
         File $fileSystemIo,
         Filesystem $fileSystem,
         ValidatorInterface $validator
     ) {
-        $this->persistantUploader = $persistantUploader;
+        $this->persistentUploader = $persistentUploader;
         $this->fileSystemIo = $fileSystemIo;
         $this->fileSystem = $fileSystem;
         $this->validator = $validator;
@@ -66,24 +69,25 @@ class LocalPathFileProcessor implements SourceProcessorInterface
 
     /**
      *  {@inheritdoc}
+     *
+     * @throws FileSystemException
+     * @throws ValidatorException
      */
-    public function processUpload(SourceCsvInterface $source, SourceUploadResponseInterface $response)
-    {
+    public function processUpload(
+        SourceCsvInterface $source,
+        SourceUploadResponseInterface $response
+    ): SourceUploadResponseInterface {
         $this->validator->validate($source);
-
-        /** @var \Magento\Framework\Filesystem\Directory\Write $write */
+        /** @var Write $write */
         $write = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);
-
         /** create absolute path */
         $absoluteSourcePath = $write->getAbsolutePath($source->getImportData());
-
         /** read content from system */
         $content = $this->fileSystemIo->read($absoluteSourcePath);
-
         /** Set downloaded data */
         $source->setImportData($content);
 
         /** process source and get response details */
-        return $this->persistantUploader->processUpload($source, $response);
+        return $this->persistentUploader->processUpload($source, $response);
     }
 }

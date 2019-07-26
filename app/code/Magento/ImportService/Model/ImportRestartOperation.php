@@ -21,6 +21,7 @@ class ImportRestartOperation implements ImportRestartOperationInterface
      *
      * @param int $uuid
      * @param string $serializedData
+     *
      * @return void
      */
     public function execute(int $uuid, string $serializedData): void

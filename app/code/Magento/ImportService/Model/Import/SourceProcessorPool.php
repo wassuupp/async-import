@@ -26,18 +26,20 @@ class SourceProcessorPool
      *
      * @param SourceProcessorInterface[] $sourceProcessors
      */
-    public function __construct($sourceProcessors = [])
+    public function __construct(array $sourceProcessors = [])
     {
         $this->sourceProcessors = $sourceProcessors;
     }
 
     /**
-     * {@inheritdoc}
+     * Provides processor
      *
-     * @throws ImportServiceException
+     * @param SourceCsvInterface $source
+     *
      * @return SourceProcessorInterface
+     * @throws ImportServiceException
      */
-    public function getProcessor(SourceCsvInterface $source)
+    public function getProcessor(SourceCsvInterface $source): SourceProcessorInterface
     {
         foreach ($this->sourceProcessors as $key => $processorInformation) {
             if ($processorInformation['import_type'] === $source->getImportType()) {

@@ -3,12 +3,13 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+declare(strict_types=1);
+
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\ImportService\ImportServiceException;
+use Magento\Framework\Filesystem\Driver\Http as HttpDriver;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
-use Magento\ImportService\Model\Import\SourceTypePool;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 /**
  * Class RemoteUrlValidator
@@ -16,7 +17,7 @@ use Magento\ImportService\Model\Import\SourceTypePool;
 class RemoteUrlValidator implements ValidatorInterface
 {
     /**
-     * @var \Magento\Framework\Filesystem\Driver\Http
+     * @var HttpDriver
      */
     private $httpDriver;
 
@@ -30,10 +31,10 @@ class RemoteUrlValidator implements ValidatorInterface
     }
 
     /**
-     * return error messages in array
+     * Return error messages in array
      *
      * @param SourceCsvInterface $source
-     * @throws ImportServiceException
+     *
      * @return array
      */
     public function validate(SourceCsvInterface $source)
@@ -43,11 +44,11 @@ class RemoteUrlValidator implements ValidatorInterface
         /** check empty variable */
         $importData = $source->getImportData();
 
-        if(isset($importData) && $importData != "") {
-            $externalSourceUrl = preg_replace("(^https?://)", "", $importData);
+        if (isset($importData) && $importData !== '') {
+            $externalSourceUrl = preg_replace('(^https?://)', '', $importData);
 
             /** check for file exists */
-            if(!$this->httpDriver->isExists($externalSourceUrl)) {
+            if (!$this->httpDriver->isExists($externalSourceUrl)) {
                 $errors[] = __('Remote file %1 does not exist.', $importData);
             }
         }

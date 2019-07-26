@@ -1,0 +1,72 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\ImportServiceApi\Model;
+
+use Magento\Framework\Model\AbstractModel;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+
+class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
+{
+    /**
+     * Get file UUID
+     *
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->getData(self::UUID);
+    }
+
+    /**
+     * Get file status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->getData(self::STATUS);
+    }
+
+    /**
+     * Get error
+     * @return string
+     */
+    public function getError()
+    {
+        return $this->getData(self::ERROR);
+    }
+
+    /**
+     * @param $uuid
+     * @return SourceUploadResponse|mixed
+     */
+    public function setUuid($uuid)
+    {
+        return $this->setData(self::UUID, $uuid);
+    }
+
+    /**
+     * @param $status
+     * @return SourceUploadResponse|mixed
+     */
+    public function setStatus($status)
+    {
+        return $this->setData(self::STATUS, $status);
+    }
+
+    /**
+     * @param $error
+     * @return SourceUploadResponse|mixed
+     */
+    public function setError($error)
+    {
+        return $this->setData(self::ERROR, $error);
+    }
+
+}

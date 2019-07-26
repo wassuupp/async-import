@@ -15,7 +15,7 @@ use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
  */
 class Source extends AbstractDb
 {
-    const TABLE_NAME = 'import_service_source';
+    public const TABLE_NAME = 'import_service_source';
 
     protected function _construct()
     {

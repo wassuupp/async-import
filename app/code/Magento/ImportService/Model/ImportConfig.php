@@ -96,15 +96,15 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     /**
      * @inheritdoc
      */
-    public function getExtensionAttributes(): \Magento\ImportService\Api\Data\ImportConfigExtensionInterface
+    public function getExtensionAttributes(): ImportConfigExtensionInterface
     {
-        $this->_getExtensionAttributes();
+        return $this->_getExtensionAttributes();
     }
 
     /**
      * @inheritdoc
      */
-    public function setExtensionAttributes(\Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extensionAttributes): void
+    public function setExtensionAttributes(ImportConfigExtensionInterface $extensionAttributes): void
     {
         $this->_setExtensionAttributes($extensionAttributes);
     }
