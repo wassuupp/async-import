@@ -19,10 +19,11 @@
     <preference for="Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface"
                 type="Magento\ImportService\Model\SourceCsvFormat" />
 
-    <preference for="Magento\ImportServiceApi\Api\Data\SourceFormatMappingInterface"
-                type="Magento\ImportService\Model\SourceFormatMapping" />
-    <preference for="Magento\ImportServiceApi\Api\Data\SourceFormatMappingValueInterface"
-                type="Magento\ImportService\Model\SourceFormatMappingValue" />
+    <preference for="Magento\ImportServiceApi\Api\Data\ImportMappingInterface"
+                type="Magento\ImportService\Model\ImportMapping" />
+
+    <preference for="Magento\ImportServiceApi\Api\Data\ImportProcessingRuleInterface"
+                type="Magento\ImportService\Model\ImportProcessingRule" />
     <preference for="Magento\ImportService\Model\Source\Command\SaveInterface" type="Magento\ImportService\Model\Source\Command\Save"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetInterface" type="Magento\ImportService\Model\Source\Command\Get"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetListInterface" type="Magento\ImportService\Model\Source\Command\GetList"/>

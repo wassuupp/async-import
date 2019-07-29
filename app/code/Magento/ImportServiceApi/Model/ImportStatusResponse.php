@@ -17,7 +17,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->getData(self::STATUS);
     }
@@ -27,7 +27,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return string|null
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->getData(self::ERROR);
     }
@@ -37,7 +37,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return int
      */
-    public function getUuid()
+    public function getUuid(): string
     {
         return $this->getData(self::UUID);
     }
@@ -47,7 +47,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return string
      */
-    public function getEntityType()
+    public function getEntityType(): ?string
     {
         return $this->getData(self::ENTITY_TYPE);
     }
@@ -57,7 +57,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return int
      */
-    public function getUserId()
+    public function getUserId(): ?int
     {
         return $this->getData(self::USER_ID);
     }
@@ -67,7 +67,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return int
      */
-    public function getUserType()
+    public function getUserType(): ?int
     {
         return $this->getData(self::USER_TYPE);
     }
@@ -77,7 +77,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->getData(self::ITEMS);
     }
@@ -88,7 +88,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param string $status
      * @return $this
      */
-    public function setStatus($status)
+    public function setStatus(string $status): ImportStatusResponseInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -99,7 +99,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param string $error
      * @return $this
      */
-    public function setError($error)
+    public function setError(string $error): ImportStatusResponseInterface
     {
         return $this->setData(self::ERROR, $error);
     }
@@ -110,7 +110,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param int $uuid
      * @return $this
      */
-    public function setUuid($uuid)
+    public function setUuid(string $uuid): ImportStatusResponseInterface
     {
         return $this->setData(self::UUID, $uuid);
     }
@@ -121,7 +121,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param string $entityType
      * @return $this
      */
-    public function setEntityType($entityType)
+    public function setEntityType(string $entityType): ImportStatusResponseInterface
     {
         return $this->setData(self::ENTITY_TYPE, $entityType);
     }
@@ -132,7 +132,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param int $userId
      * @return $this
      */
-    public function setUserId($userId)
+    public function setUserId(?int $userId): ImportStatusResponseInterface
     {
         return $this->setData(self::USER_ID, $userId);
     }
@@ -143,7 +143,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param int $userType
      * @return $this
      */
-    public function setUserType($userType)
+    public function setUserType(?int $userType): ImportStatusResponseInterface
     {
         return $this->setData(self::USER_TYPE, $userType);
     }
@@ -154,7 +154,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
      * @param \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface[] $items
      * @return $this
      */
-    public function setItems($items)
+    public function setItems(array $items): ImportStatusResponseInterface
     {
         return $this->setData(self::ITEMS, $items);
     }

@@ -18,6 +18,7 @@ interface ImportStartInterface
      * Start import
      *
      * @param \Magento\ImportServiceApi\Api\Data\ImportConfigInterface $importConfig
+     *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface
      */
     public function execute(ImportConfigInterface $importConfig);

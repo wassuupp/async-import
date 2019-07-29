@@ -17,7 +17,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return int
      */
-    public function getUuid()
+    public function getUuid(): string;
     {
         return $this->getData(self::UUID);
     }
@@ -27,7 +27,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string;
     {
         return $this->getData(self::STATUS);
     }
@@ -37,7 +37,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getSerializedData()
+    public function getSerializedData(): string;
     {
         return $this->getData(self::SERIALIZED_DATA);
     }
@@ -47,7 +47,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getResultSerializedData()
+    public function getResultSerializedData(): string;
     {
         return $this->getData(self::RESULT_SERIALIZED_DATA);
     }
@@ -57,7 +57,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string|null
      */
-    public function getErrorCode()
+    public function getErrorCode(): ?string;
     {
         return $this->getData(self::ERROR_CODE);
     }
@@ -67,7 +67,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getResultMessage()
+    public function getResultMessage(): string;
     {
         return $this->getData(self::RESULT_MESSAGE);
     }
@@ -75,10 +75,10 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Set uuid
      *
-     * @param int $uuid
+     * @param string $uuid
      * @return $this
      */
-    public function setUuid($uuid)
+    public function setUuid(string $uuid): ImportStatusResponseItemInterface;
     {
         return $this->setData(self::UUID, $uuid);
     }
@@ -89,7 +89,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $status
      * @return $this
      */
-    public function setStatus($status)
+    public function setStatus(string $status): ImportStatusResponseItemInterface;
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -100,7 +100,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $serializedData
      * @return $this
      */
-    public function setSerializedData($serializedData)
+    public function setSerializedData(string $serializedData): ImportStatusResponseItemInterface;
     {
         return $this->setData(self::SERIALIZED_DATA, $serializedData);
     }
@@ -111,7 +111,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $resultSerializedData
      * @return $this
      */
-    public function setResultSerializedData($resultSerializedData)
+    public function setResultSerializedData(string $resultSerializedData): ImportStatusResponseItemInterface;
     {
         return $this->setData(self::RESULT_SERIALIZED_DATA, $resultSerializedData);
     }
@@ -122,7 +122,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $errorCode
      * @return $this
      */
-    public function setErrorCode($errorCode)
+    public function setErrorCode(string $errorCode): ImportStatusResponseItemInterface;
     {
         return $this->setData(self::ERROR_CODE, $errorCode);
     }
@@ -133,7 +133,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $resultMessage
      * @return $this
      */
-    public function setResultMessage($resultMessage)
+    public function setResultMessage(string $resultMessage): ImportStatusResponseItemInterface;
     {
         return $this->setData(self::RESULT_MESSAGE, $resultMessage);
     }

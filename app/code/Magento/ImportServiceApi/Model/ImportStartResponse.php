@@ -32,7 +32,7 @@ class ImportStartResponse implements ImportStartResponseInterface
     /**
      * @return string
      */
-    public function getUuid(): string
+    public function getUuid(): ?string
     {
         return $this->uuid;
     }
@@ -49,7 +49,7 @@ class ImportStartResponse implements ImportStartResponseInterface
     /**
      * @return string
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -66,7 +66,7 @@ class ImportStartResponse implements ImportStartResponseInterface
     /**
      * @return string
      */
-    public function getError(): string
+    public function getError(): ?string
     {
         return $this->error;
     }
