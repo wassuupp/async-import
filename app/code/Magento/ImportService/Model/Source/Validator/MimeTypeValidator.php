@@ -3,16 +3,20 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+declare(strict_types=1);
+
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\ImportServiceException;
-use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
-use Magento\ImportService\Model\Import\SourceTypePool;
-use Magento\Framework\File\Mime\Proxy as Mime;
-use Magento\Framework\Filesystem\Io\File;
-use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\ValidatorException;
+use Magento\Framework\File\Mime\Proxy as Mime;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\Write;
+use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
+use Magento\Framework\Filesystem\Io\File;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportService\Model\Import\SourceTypePool;
 
 /**
  * Class MimeTypeValidator
@@ -66,11 +70,13 @@ class MimeTypeValidator implements ValidatorInterface
     }
 
     /**
-     * return error messages in array
+     * Return error messages in array
      *
      * @param SourceCsvInterface $source
-     * @throws ImportServiceException
+     *
      * @return array
+     * @throws FileSystemException
+     * @throws ValidatorException
      */
     public function validate(SourceCsvInterface $source)
     {
@@ -80,15 +86,15 @@ class MimeTypeValidator implements ValidatorInterface
         $mimeType = false;
 
         /** validate import source for remote url or local path */
-        if(filter_var($source->getImportData(), FILTER_VALIDATE_URL)) {
+        if (filter_var($source->getImportData(), FILTER_VALIDATE_URL)) {
             /** check empty variable */
             $importData = $source->getImportData();
 
-            if(isset($importData) && $importData != "") {
-                $externalSourceUrl = preg_replace("(^https?://)", "", $importData);
+            if (isset($importData) && $importData !== '') {
+                $externalSourceUrl = preg_replace('(^https?://)', '', $importData);
 
                 /** check for file exists */
-                if($this->httpDriver->isExists($externalSourceUrl)) {
+                if ($this->httpDriver->isExists($externalSourceUrl)) {
                     /** @var array $stat */
                     $stat = $this->httpDriver->stat($externalSourceUrl);
                     if (isset($stat['type'])) {
@@ -97,22 +103,26 @@ class MimeTypeValidator implements ValidatorInterface
                 }
             }
         } else {
-            /** @var \Magento\Framework\Filesystem\Directory\Write $write */
+            /** @var Write $write */
             $write = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);
 
             /** create absolute path */
             $absoluteFilePath = $write->getAbsolutePath($source->getImportData());
 
             /** check if file exist */
-            if($this->fileSystemIo->fileExists($absoluteFilePath)) {
+            if ($this->fileSystemIo->fileExists($absoluteFilePath)) {
                 $mimeType = $this->mime->getMimeType($absoluteFilePath);
             }
         }
 
-        if($mimeType) {
-        	$mimeType = trim(explode(";", $mimeType)[0]);
-        	if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
-                $errors[] = __('Invalid mime type: %1, expected is one of: %2', $mimeType, implode(", ", $this->sourceTypePool->getAllowedMimeTypes()));
+        if ($mimeType) {
+            $mimeType = trim(explode(";", $mimeType)[0]);
+            if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
+                $errors[] = __(
+                    'Invalid mime type: %1, expected is one of: %2',
+                    $mimeType,
+                    implode(', ', $this->sourceTypePool->getAllowedMimeTypes())
+                );
             }
         }
 

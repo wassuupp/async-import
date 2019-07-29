@@ -15,7 +15,7 @@ use Magento\Framework\Api\SearchResultsInterface;
  *
  * Separate command interface to which repository proxies initial GetList call
  *
- * @see \Magento\ImportService\Api\SourceCsvRepositoryInterface
+ * @see \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface
  */
 interface GetListInterface
 {
@@ -23,6 +23,7 @@ interface GetListInterface
      * Find sources by given search criteria. Search criteria is not required because load all sources is useful case
      *
      * @param SearchCriteriaInterface|null $searchCriteria
+     *
      * @return SearchResultsInterface
      */
     public function execute(SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface;

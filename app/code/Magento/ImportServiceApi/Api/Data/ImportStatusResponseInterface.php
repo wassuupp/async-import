@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 /**
  * Class ImportStatusResponse
@@ -69,7 +69,7 @@ interface ImportStatusResponseInterface
     /**
      * Get import items status
      *
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[]
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface[]
      */
     public function getItems();
 
@@ -77,7 +77,7 @@ interface ImportStatusResponseInterface
      * Set import process status
      *
      * @param string $status
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setStatus($status);
 
@@ -85,7 +85,7 @@ interface ImportStatusResponseInterface
      * Set import process error if there is any
      *
      * @param string $error
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setError($error);
 
@@ -93,7 +93,7 @@ interface ImportStatusResponseInterface
      * Set uuid
      *
      * @param int $uuid
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setUuid($uuid);
 
@@ -101,7 +101,7 @@ interface ImportStatusResponseInterface
      * Set imported entity type
      *
      * @param string $entityType
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setEntityType($entityType);
 
@@ -109,7 +109,7 @@ interface ImportStatusResponseInterface
      * Set user id
      *
      * @param int $userId
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setUserId($userId);
 
@@ -117,15 +117,15 @@ interface ImportStatusResponseInterface
      * Set user type
      *
      * @param int $userType
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setUserType($userType);
 
     /**
      * Set imported items
      *
-     * @param \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[] $items
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @param \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface[] $items
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function setItems($items);
 }

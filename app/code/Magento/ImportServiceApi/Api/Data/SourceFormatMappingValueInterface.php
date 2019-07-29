@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 /**
  * Interface SourceFormatMappingValueInterface

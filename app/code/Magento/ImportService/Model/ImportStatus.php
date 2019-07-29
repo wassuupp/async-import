@@ -7,9 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\ImportStatusInterface;
-use Magento\ImportService\Api\Data\ImportStatusResponseInterface;
-use Magento\ImportService\Model\ImportStatusResponseItemFactory;
+use Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface;
+use Magento\ImportServiceApi\Api\ImportStatusInterface;
 
 /**
  * Class Import
@@ -50,32 +49,27 @@ class ImportStatus implements ImportStatusInterface
      * Get import source status.
      *
      * @param string $uuid
-     * @return ImportStatusResponseFactory
+     *
+     * @return ImportStatusResponse
      */
-    public function execute(string $uuid)
+    public function execute(string $uuid): ImportStatusResponseInterface
     {
-        // Create new response object
         $response = $this->responseFactory->create();
-
-        try
-        {
-            // Set the required response parameters with appropriate details
+        try {
             $response->setStatus(ImportStatusResponseInterface::STATUS_COMPLETED)
                 ->setUuid($uuid)
                 ->setEntityType('catalog_product')
                 ->setUserId(null)
                 ->setUserType(null);
 
-            // Create sample response item object
             $item = $this->responseItemFactory->create();
             $item->setUuid($uuid)
-                ->setStatus("")
-                ->setSerializedData("")
-                ->setResultSerializedData("")
-                ->setErrorCode("")
-                ->setResultMessage("");
+                ->setStatus('')
+                ->setSerializedData('')
+                ->setResultSerializedData('')
+                ->setErrorCode('')
+                ->setResultMessage('');
 
-            // Set sample response items as an array
             $response->setItems([$item]);
         } catch (\Exception $e) {
             $response = $this->responseFactory->createFailure($e->getMessage());

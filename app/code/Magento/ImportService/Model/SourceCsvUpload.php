@@ -7,9 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\SourceCsvUploadInterface;
 use Magento\ImportService\Model\Import\SourceProcessorPool;
-use Magento\ImportService\Api\SourceCsvUploadInterface;
+use Magento\ImportServiceApi\Model\SourceUploadResponseFactory;
 
 /**
  * Class SourceCsvUpload
@@ -18,19 +20,14 @@ class SourceCsvUpload implements SourceCsvUploadInterface
 {
 
     /**
-     * const SOURCE_TYPE
-     */
-    const SOURCE_TYPE = "csv";
-
-    /**
      * @var SourceProcessorPool
      */
-    protected $sourceProcessorPool;
+    private $sourceProcessorPool;
 
     /**
      * @var SourceUploadResponse
      */
-    protected $responseFactory;
+    private $responseFactory;
 
     /**
      * @param SourceUploadResponseFactory $responseFactory
@@ -46,18 +43,20 @@ class SourceCsvUpload implements SourceCsvUploadInterface
 
     /**
      * @param SourceCsvInterface $source
-     * @return SourceUploadResponseFactory
+     *
+     * @return SourceUploadResponse
      */
-    public function execute(SourceCsvInterface $source)
+    public function execute(SourceCsvInterface $source): SourceUploadResponseInterface
     {
         try {
-            $source->setSourceType(self::SOURCE_TYPE);
+            $source->setSourceType(SourceCsvInterface::CSV_SOURCE_TYPE);
             $processor = $this->sourceProcessorPool->getProcessor($source);
             $response = $this->responseFactory->create();
             $processor->processUpload($source, $response);
         } catch (\Exception $e) {
             $response = $this->responseFactory->createFailure($e->getMessage());
         }
+
         return $response;
     }
 }

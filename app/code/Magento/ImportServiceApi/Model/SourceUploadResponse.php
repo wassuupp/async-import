@@ -5,11 +5,11 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model;
+namespace Magento\ImportServiceApi\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
 {
@@ -43,16 +43,6 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
     }
 
     /**
-     * Get source
-     *
-     * @return SourceCsvInterface
-     */
-    public function getSource()
-    {
-        return $this->getData(self::SOURCE_MODEL);
-    }
-
-    /**
      * @param $uuid
      * @return SourceUploadResponse|mixed
      */
@@ -79,12 +69,4 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
         return $this->setData(self::ERROR, $error);
     }
 
-    /**
-     * @param SourceCsvInterface $source
-     * @return mixed
-     */
-    public function setSource(SourceCsvInterface $source)
-    {
-        return $this->setData(self::SOURCE_MODEL, $source);
-    }
 }

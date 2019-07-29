@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\ImportService\Api\Data\ImportConfigInterface;
-use Magento\ImportService\Api\Data\ImportStartResponseInterface;
-use Magento\ImportService\Api\ImportStartInterface;
+use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
+use Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface;
+use Magento\ImportServiceApi\Api\ImportStartInterface;
 
 /**
  * Class ImportStart
@@ -36,12 +36,11 @@ class ImportStart implements ImportStartInterface
      * Import start
      *
      * @param ImportConfigInterface $importConfig
+     *
      * @return ImportStartResponseInterface
      */
-    public function execute(ImportConfigInterface $importConfig)
+    public function execute(ImportConfigInterface $importConfig): ImportStartResponseInterface
     {
-        $importStartResponse = $this->importStartResponseFactory->create();
-
-        return $importStartResponse;
+        return $this->importStartResponseFactory->create();
     }
 }

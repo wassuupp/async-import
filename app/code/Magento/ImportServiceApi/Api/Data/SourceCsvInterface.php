@@ -5,16 +5,22 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
-use Magento\ImportService\Api\Data\SourceCsvFormatInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface;
 
 /**
- * Interface SourceInterface
+ * Interface SourceCsvInterface
  */
 interface SourceCsvInterface extends ExtensibleDataInterface
 {
+
+    /**
+     * const CSV_SOURCE_TYPE
+     */
+    const CSV_SOURCE_TYPE = "csv";
+
     const ENTITY_ID = 'entity_id';
     const UUID = 'uuid';
     const SOURCE_TYPE = 'source_type';
@@ -101,14 +107,14 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     /**
      * Retrieve Source Format
      *
-     * @return \Magento\ImportService\Api\Data\SourceCsvFormatInterface|null
+     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface|null
      */
     public function getFormat(): ?SourceCsvFormatInterface;
 
     /**
      * Set Source Format
      *
-     * @param \Magento\ImportService\Api\Data\SourceCsvFormatInterface $format
+     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface $format
      * @return $this
      */
     public function setFormat(SourceCsvFormatInterface $format): SourceCsvInterface;
@@ -131,15 +137,15 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \Magento\ImportService\Api\Data\SourceCsvExtensionInterface|null
+     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface|null
      */
     public function getExtensionAttributes();
 
     /**
      * Set an extension attributes object.
      *
-     * @param \Magento\ImportService\Api\Data\SourceCsvExtensionInterface $extensionAttributes
+     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
      * @return $this
      */
-    public function setExtensionAttributes(\Magento\ImportService\Api\Data\SourceCsvExtensionInterface $extensionAttributes);
+    public function setExtensionAttributes(\Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes);
 }

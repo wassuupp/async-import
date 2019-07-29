@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
@@ -84,13 +84,13 @@ interface ImportConfigInterface extends ExtensibleDataInterface
     public function setMapping(ImportConfigMappingInterface $mapping): void;
 
     /**
-     * @return \Magento\ImportService\Api\Data\ImportConfigExtensionInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface
      */
-    public function getExtensionAttributes(): \Magento\ImportService\Api\Data\ImportConfigExtensionInterface;
+    public function getExtensionAttributes(): \Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface;
 
     /**
-     * @param \Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extension
+     * @param \Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface $extension
      * @return void
      */
-    public function setExtensionAttributes(\Magento\ImportService\Api\Data\ImportConfigExtensionInterface $extensionAttributes): void;
+    public function setExtensionAttributes(\Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface $extensionAttributes): void;
 }

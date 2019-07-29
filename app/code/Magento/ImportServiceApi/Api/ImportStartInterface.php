@@ -5,9 +5,9 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api;
+namespace Magento\ImportServiceApi\Api;
 
-use Magento\ImportService\Api\Data\ImportConfigInterface;
+use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
 
 /**
  * ImportStartInterface interface
@@ -17,8 +17,8 @@ interface ImportStartInterface
     /**
      * Start import
      *
-     * @param \Magento\ImportService\Api\Data\ImportConfigInterface $importConfig
-     * @return \Magento\ImportService\Api\Data\ImportStartResponseInterface
+     * @param \Magento\ImportServiceApi\Api\Data\ImportConfigInterface $importConfig
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface
      */
     public function execute(ImportConfigInterface $importConfig);
 }

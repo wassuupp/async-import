@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 /**
  * Class ImportStatusResponseItem
@@ -65,7 +65,7 @@ interface ImportStatusResponseItemInterface
      * Set uuid
      *
      * @param int $uuid
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface
      */
     public function setUuid($uuid);
 
@@ -73,7 +73,7 @@ interface ImportStatusResponseItemInterface
      * Set imported status
      *
      * @param string $status
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface
      */
     public function setStatus($status);
 
@@ -81,7 +81,7 @@ interface ImportStatusResponseItemInterface
      * Set serialized data
      *
      * @param string $serializedData
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface
      */
     public function setSerializedData($serializedData);
 
@@ -89,7 +89,7 @@ interface ImportStatusResponseItemInterface
      * Set serialized result data
      *
      * @param string $resultSerializedData
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface
      */
     public function setResultSerializedData($resultSerializedData);
 
@@ -97,7 +97,7 @@ interface ImportStatusResponseItemInterface
      * Set error code if occured
      *
      * @param string $errorCode
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface
      */
     public function setErrorCode($errorCode);
 
@@ -105,7 +105,7 @@ interface ImportStatusResponseItemInterface
      * Set result message for process
      *
      * @param string $resultMessage
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface
      */
     public function setResultMessage($resultMessage);
 }

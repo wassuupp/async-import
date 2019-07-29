@@ -5,10 +5,10 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model;
+namespace Magento\ImportServiceApi\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\ImportStatusResponseInterface;
+use Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface;
 
 class ImportStatusResponse extends AbstractModel implements ImportStatusResponseInterface
 {
@@ -75,7 +75,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Get import items status
      *
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[]
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface[]
      */
     public function getItems()
     {
@@ -151,7 +151,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Set imported items
      *
-     * @param \Magento\ImportService\Api\Data\ImportStatusResponseItemInterface[] $items
+     * @param \Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface[] $items
      * @return $this
      */
     public function setItems($items)

@@ -5,10 +5,10 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model;
+namespace Magento\ImportServiceApi\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Magento\ImportService\Api\Data\ImportStatusResponseItemInterface;
+use Magento\ImportServiceApi\Api\Data\ImportStatusResponseItemInterface;
 
 class ImportStatusResponseItem extends AbstractModel implements ImportStatusResponseItemInterface
 {

@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api\Data;
+namespace Magento\ImportServiceApi\Api\Data;
 
 /**
  * Interface SourceFormatMappingInterface
@@ -71,14 +71,14 @@ interface SourceFormatMappingInterface
     public function setTaxonomy(string $taxonomy): SourceFormatMappingInterface;
 
     /**
-     * @return \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[]|null
+     * @return \Magento\ImportServiceApi\Api\Data\SourceFormatMappingValueInterface[]|null
      */
     public function getValuesMapping(): ?array;
 
     /**
      * Set Value Mapping
      *
-     * @param \Magento\ImportService\Api\Data\SourceFormatMappingValueInterface[] $valuesMapping
+     * @param \Magento\ImportServiceApi\Api\Data\SourceFormatMappingValueInterface[] $valuesMapping
      * @return $this
      */
     public function setValuesMapping(array $valuesMapping): SourceFormatMappingInterface;

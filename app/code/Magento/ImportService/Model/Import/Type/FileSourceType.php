@@ -7,12 +7,16 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Type;
 
-use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\ImportService\ImportServiceException;
-use Magento\ImportService\Api\SourceCsvRepositoryInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
 use Magento\Framework\DataObject\IdentityGeneratorInterface as IdentityGenerator;
+use Magento\Framework\DataObject\IdentityGeneratorInterface;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Filesystem;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
+use Magento\ImportService\ImportServiceException;
 
 /**
  * Generic Source Type
@@ -57,8 +61,8 @@ class FileSourceType implements SourceTypeInterface
         SourceCsvRepositoryInterface $sourceRepository,
         Filesystem $filesystem,
         IdentityGenerator $identityGenerator,
-        $sourceType = null,
-        $allowedMimeTypes = []
+        string $sourceType = null,
+        array $allowedMimeTypes = []
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->filesystem = $filesystem;
@@ -72,7 +76,7 @@ class FileSourceType implements SourceTypeInterface
      *
      * @return string
      */
-    private function getFileExtension()
+    private function getFileExtension(): string
     {
         return '.' . $this->sourceType;
     }
@@ -82,51 +86,37 @@ class FileSourceType implements SourceTypeInterface
      *
      * @return array
      */
-    public function getAllowedMimeTypes()
+    public function getAllowedMimeTypes(): array
     {
         return $this->allowedMimeTypes;
     }
 
     /**
-     * save source content
+     * Save source content
      *
      * @param SourceCsvInterface $source
-     * @throws ImportServiceException
+     *
      * @return SourceCsvInterface
+     * @throws FileSystemException
+     * @throws ImportServiceException
+     * @throws CouldNotSaveException
+     * @throws NoSuchEntityException
      */
-    public function save(SourceCsvInterface $source)
+    public function save(SourceCsvInterface $source): SourceCsvInterface
     {
-        /** @var string $uuid */
         $uuid = $source->getUuid() ?: $this->identityGenerator->generateId();
-
-        /** @var string $fileName */
         $fileName = $uuid . $this->getFileExtension();
-
-        /** @var string $contentFilePath */
         $contentFilePath =  SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $fileName;
-
-        /** @var Magento\Framework\Filesystem\Directory\Write $var */
-        $var = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
-
-        if (!$var->writeFile($contentFilePath, $source->getImportData())) {
-            /** @var array $lastError */
+        $varDirectory = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
+        if (!$varDirectory->writeFile($contentFilePath, $source->getImportData())) {
             $lastError = error_get_last();
-
-            /** @var string $errorMessage */
-            $errorMessage = isset($lastError['message']) ? $lastError['message'] : '';
-
+            $errorMessage = $lastError['message'] ?? '';
             throw new ImportServiceException(
                 __('Cannot create file with given source: %1', $errorMessage)
             );
         }
-
-        /** set updated data to source */
         $source->setImportData($fileName)->setUuid($uuid)->setStatus(SourceCsvInterface::STATUS_UPLOADED);
-
-        /** save processed source with status */
         $source = $this->sourceRepository->save($source);
-
-        /** load to build the object */
         $source = $this->sourceRepository->getByUuid($source->getUuid());
 
         return $source;

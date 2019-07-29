@@ -3,10 +3,11 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+declare(strict_types=1);
+
 namespace Magento\ImportService\Model\Source\Validator;
 
-use Magento\ImportService\Api\Data\SourceCsvInterface;
-use Magento\ImportService\ImportServiceException;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 /**
  * Class SourceRequestValidator
@@ -14,10 +15,10 @@ use Magento\ImportService\ImportServiceException;
 class SourceRequestValidator implements ValidatorInterface
 {
     /**
-     * return error messages in array
+     * Return error messages in array
      *
      * @param SourceCsvInterface $source
-     * @throws ImportServiceException
+     *
      * @return array
      */
     public function validate(SourceCsvInterface $source)

@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Api;
+namespace Magento\ImportServiceApi\Api;
 
 /**
  * Class ImportStatus
@@ -16,7 +16,7 @@ interface ImportStatusInterface
      * Get import source status.
      *
      * @param string $uuid
-     * @return \Magento\ImportService\Api\Data\ImportStatusResponseInterface
+     * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
     public function execute(string $uuid);
 }
