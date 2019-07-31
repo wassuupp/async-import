@@ -50,14 +50,14 @@ interface ImportProcessingRuleInterface extends ExtensibleDataInterface
     /**
      * Retrieve function arguments
      *
-     * @return mixed|null
+     * @return array|null
      */
     public function getArgs(): ?array;
 
     /**
      * Set function arguments
      *
-     * @param mixed $args
+     * @param array $args
      * @return void
      */
     public function setArgs(array $args): void;

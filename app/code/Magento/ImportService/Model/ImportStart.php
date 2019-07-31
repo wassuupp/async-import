@@ -42,10 +42,6 @@ class ImportStart implements ImportStartInterface
      */
     public function execute(ImportConfigInterface $importConfig): ImportStartResponseInterface
     {
-
-
-
-
         return $this->importStartResponseFactory->create();
     }
 }
