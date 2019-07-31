@@ -121,4 +121,16 @@ class FileSourceType implements SourceTypeInterface
 
         return $source;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAbsolutePathToFile(SourceCsvInterface $source)
+    {
+        /** @var string $contentFilePath */
+        $contentFilePath = SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $source->getImportData();
+        /** @var \Magento\Framework\Filesystem\Directory\Write $var */
+        $dirReader = $this->filesystem->getDirectoryRead(DirectoryList::VAR_DIR);
+        return $dirReader->getAbsolutePath($contentFilePath);
+    }
 }

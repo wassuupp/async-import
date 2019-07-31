@@ -107,6 +107,9 @@
             </argument>
         </arguments>
     </type>
+
+    <preference for="Magento\ImportService\Model\Import\Command\StartInterface"
+                type="Magento\ImportService\Model\Import\Command\Start"/>
     <preference for="Magento\ImportServiceApi\Api\ImportStatusInterface"
                 type="Magento\ImportService\Model\ImportStatus" />
     <preference for="Magento\ImportServiceApi\Api\ImportStartInterface"
@@ -115,4 +118,12 @@
                 type="Magento\ImportService\Model\ImportConfig" />
     <preference for="Magento\ImportServiceApi\Api\ImportRestartOperationInterface"
                 type="Magento\ImportService\Model\ImportRestartOperation"/>
+
+    <type name="Magento\ImportService\Model\Source\ReaderPool">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="csv" xsi:type="object">Magento\ImportService\Model\Import\Reader\CsvFactory</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
