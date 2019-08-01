@@ -81,7 +81,7 @@ interface ImportStatusResponseInterface
      *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
-    public function setStatus(string $status): ImportStatusResponseInterface;;
+    public function setStatus(string $status): ImportStatusResponseInterface;
 
     /**
      * Set import process error if there is any
@@ -90,7 +90,7 @@ interface ImportStatusResponseInterface
      *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
-    public function setError(string $error): ImportStatusResponseInterface;;
+    public function setError(string $error): ImportStatusResponseInterface;
 
     /**
      * Set uuid
@@ -135,5 +135,5 @@ interface ImportStatusResponseInterface
      *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
-    public function setItems(array $items): ImportStatusResponseInterface;;
+    public function setItems(array $items): ImportStatusResponseInterface;
 }

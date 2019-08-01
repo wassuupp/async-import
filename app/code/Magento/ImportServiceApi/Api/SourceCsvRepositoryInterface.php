@@ -21,8 +21,8 @@ interface SourceCsvRepositoryInterface
     /**
      * Save source data
      *
-     * @param SourceCsvInterface $source
-     * @return SourceCsvInterface
+     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvInterface $source
+     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvInterface
      * @throws CouldNotSaveException
      */
     public function save(SourceCsvInterface $source): SourceCsvInterface;
@@ -31,7 +31,7 @@ interface SourceCsvRepositoryInterface
      * Get source data by given uuid
      *
      * @param string $uuid
-     * @return SourceCsvInterface
+     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvInterface
      * @throws NoSuchEntityException
      */
     public function getByUuid(string $uuid): SourceCsvInterface;
