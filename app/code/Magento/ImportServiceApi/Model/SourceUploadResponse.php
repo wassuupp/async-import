@@ -18,7 +18,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      *
      * @return string
      */
-    public function getUuid(): string
+    public function getUuid(): ?string
     {
         return $this->getData(self::UUID);
     }
