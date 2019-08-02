@@ -117,4 +117,22 @@ interface ImportMappingInterface extends ExtensibleDataInterface
      * @return void
      */
     public function setProcessingRules(?array $processingRules): void;
+
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \Magento\ImportServiceApi\Api\Data\ImportMappingExtensionInterface|null
+     */
+    public function getExtensionAttributes(): ?ImportMappingExtensionInterface;
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \Magento\ImportServiceApi\Api\Data\ImportMappingExtensionInterface $extensionAttributes
+     *
+     * @return $this
+     */
+    public function setExtensionAttributes(
+        \Magento\ImportServiceApi\Api\Data\ImportMappingExtensionInterface $extensionAttributes
+    ): ImportMappingInterface;
 }

@@ -7,13 +7,15 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model;
 
-use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\AbstractExtensibleModel;
 use Magento\ImportServiceApi\Api\Data\ImportMappingInterface;
+use Magento\ImportServiceApi\Api\Data\ImportMappingExtensionInterface;
+
 
 /**
  * Class SourceFormatMapping
  */
-class ImportMapping extends AbstractModel implements ImportMappingInterface
+class ImportMapping extends AbstractExtensibleModel implements ImportMappingInterface
 {
     /**
      * @inheritDoc
@@ -125,5 +127,22 @@ class ImportMapping extends AbstractModel implements ImportMappingInterface
     public function setProcessingRules(?array $processingRules): void
     {
         $this->setData(self::PROCESSING_RULES, $processingRules);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getExtensionAttributes(): ?ImportMappingExtensionInterface
+    {
+        return $this->_getExtensionAttributes();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setExtensionAttributes(
+        ImportMappingExtensionInterface $extensionAttributes
+    ): ImportMappingInterface {
+        return $this->_setExtensionAttributes($extensionAttributes);
     }
 }

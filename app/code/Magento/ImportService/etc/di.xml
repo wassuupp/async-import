@@ -24,6 +24,9 @@
 
     <preference for="Magento\ImportServiceApi\Api\Data\ImportProcessingRuleInterface"
                 type="Magento\ImportService\Model\ImportProcessingRule" />
+    <preference for="Magento\ImportServiceApi\Api\Data\ImportProcessingRuleArgumentInterface"
+                type="Magento\ImportService\Model\ImportProcessingRuleArgument" />
+
     <preference for="Magento\ImportService\Model\Source\Command\SaveInterface" type="Magento\ImportService\Model\Source\Command\Save"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetInterface" type="Magento\ImportService\Model\Source\Command\Get"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetListInterface" type="Magento\ImportService\Model\Source\Command\GetList"/>

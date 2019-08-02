@@ -7,7 +7,7 @@ namespace Magento\ImportService\Api;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\UrlInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\Import\Type\SourceTypeInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
@@ -19,7 +19,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
 {
     const SERVICE_NAME = 'sourceRepositoryV1';
     const SERVICE_VERSION = 'V1';
-    const RESOURCE_PATH = '/V1/import/source';
+    const RESOURCE_PATH = '/V1/import/source/csv';
     /**
      * The tested file extension
      */
@@ -49,18 +49,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
         $this->varWriter = $this->getWriteInterface(DirectoryList::VAR_DIR);
         $this->mediaWriter = $this->getWriteInterface(DirectoryList::MEDIA);
     }
-    /**
-     * Test Import Data not set
-     */
-    public function testImportDataNotSet()
-    {
-        $result = $this->_webApiCall(
-            $this->makeServiceInfo(),
-            $this->makeRequestData(null)
-        );
-        $this->assertEquals(SourceCsvInterface::STATUS_FAILED, $result['status']);
-        $this->assertRegExp('/Invalid request/', $result['error']);
-    }
+
     /**
      * Test non reachable file
      */
@@ -87,6 +76,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             $this->mediaWriter->getAbsolutePath(self::TEMPORARY_DIR) . $sampleFileName,
             $sampleFileContent
         );
+
         /** Make the Api call */
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
@@ -176,7 +166,6 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function makeRequestData($import_data)
     {
         return ['source' => [
-            SourceCsvInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
             SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
             SourceCsvInterface::IMPORT_DATA => $import_data
         ]
@@ -191,7 +180,6 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function makeRequestDataWithUuid($import_data, $uuid)
     {
         return ['source' => [
-            SourceCsvInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
             SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
             SourceCsvInterface::IMPORT_DATA => $import_data,
             SourceCsvInterface::UUID => $uuid
@@ -280,9 +268,9 @@ class ExternalFileProcessorTest extends WebapiAbstract
      */
     private function removeDatabaseEntry($uuid)
     {
-        /** @var \Magento\ImportService\Api\SourceCsvRepositoryInterface $repository */
+        /** @var \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface $repository */
         $repository = Bootstrap::getObjectManager()
-            ->create(\Magento\ImportService\Api\SourceCsvRepositoryInterface::class);
+            ->create(\Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface::class);
 
         $repository->deleteByUuid($uuid);
     }

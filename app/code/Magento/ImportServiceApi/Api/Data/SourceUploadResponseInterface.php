@@ -20,9 +20,9 @@ interface SourceUploadResponseInterface
     /**
      * Get file UUID
      *
-     * @return string
+     * @return string|null
      */
-    public function getUuid(): string;
+    public function getUuid(): ?string;
 
     /**
      * Get file status

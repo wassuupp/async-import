@@ -50,15 +50,33 @@ interface ImportProcessingRuleInterface extends ExtensibleDataInterface
     /**
      * Retrieve function arguments
      *
-     * @return mixed|null
+     * @return \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleArgumentInterface[]|null
      */
     public function getArgs(): ?array;
 
     /**
      * Set function arguments
      *
-     * @param mixed $args
+     * @param \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleArgumentInterface[] $args
      * @return void
      */
-    public function setArgs(array $args): void;
+    public function setArgs(?array $args): void;
+
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleExtensionInterface|null
+     */
+    public function getExtensionAttributes(): ?ImportProcessingRuleExtensionInterface;
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleExtensionInterface $extensionAttributes
+     *
+     * @return $this
+     */
+    public function setExtensionAttributes(
+        \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleExtensionInterface $extensionAttributes
+    ): ImportProcessingRuleInterface;
 }
