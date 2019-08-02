@@ -82,16 +82,16 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     public function setImportType(string $importType): SourceCsvInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus(): string;
+    public function getStatus(): ?string;
 
     /**
-     * @param string $status
+     * @param string|null $status
      *
      * @return $this
      */
-    public function setStatus(string $status): SourceCsvInterface;
+    public function setStatus(?string $status): SourceCsvInterface;
 
     /**
      * Retrieve Import data
@@ -128,18 +128,18 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     /**
      * Retrieve Import data
      *
-     * @return string
+     * @return string|null
      */
-    public function getCreatedAt(): string;
+    public function getCreatedAt(): ?string;
 
     /**
      * Set Import date
      *
-     * @param string $date
+     * @param string|null $date
      *
      * @return SourceCsvInterface
      */
-    public function setCreatedAt(string $date): SourceCsvInterface;
+    public function setCreatedAt(?string $date): SourceCsvInterface;
 
     /**
      * Retrieve existing extension attributes object or create a new one.
