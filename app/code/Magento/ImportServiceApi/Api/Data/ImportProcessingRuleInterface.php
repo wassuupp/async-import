@@ -11,6 +11,9 @@ namespace Magento\ImportServiceApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
+/**
+ * Interface ImportProcessingRuleInterface
+ */
 interface ImportProcessingRuleInterface extends ExtensibleDataInterface
 {
     public const SORT = 'sort';

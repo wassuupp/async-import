@@ -20,14 +20,14 @@ class ImportStatus implements ImportStatusInterface
     /**
      * Import response factory instance
      *
-     * @var \Magento\ImportServiceApi\Model\ImportStatusResponseFactory
+     * @var ImportStatusResponseFactory
      */
     private $responseFactory;
 
     /**
      * Import response item factory instance
      *
-     * @var \Magento\ImportServiceApi\Model\ImportStatusResponseItemFactory
+     * @var ImportStatusResponseItemFactory
      */
     private $responseItemFactory;
 

@@ -16,7 +16,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
     /**
      * Get file UUID
      *
-     * @return string
+     * @return string|null
      */
     public function getUuid(): ?string
     {
@@ -35,7 +35,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
 
     /**
      * Get error
-     * @return string
+     * @return string|null
      */
     public function getError(): ?string
     {
