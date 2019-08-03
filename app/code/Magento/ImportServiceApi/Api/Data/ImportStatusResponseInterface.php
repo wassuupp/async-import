@@ -49,7 +49,7 @@ interface ImportStatusResponseInterface
     /**
      * Get imported entity type
      *
-     * @return string
+     * @return string|null
      */
     public function getEntityType(): ?string;
 
