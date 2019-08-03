@@ -15,7 +15,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get uuid
      *
-     * @return int
+     * @return string
      */
     public function getUuid(): string
     {
