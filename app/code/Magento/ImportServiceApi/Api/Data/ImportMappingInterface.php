@@ -28,7 +28,7 @@ interface ImportMappingInterface extends ExtensibleDataInterface
     /**
      * Retrieve name for internal use
      *
-     * @return string
+     * @return string|null
      */
     public function getName(): ?string;
 
