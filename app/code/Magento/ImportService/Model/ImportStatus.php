@@ -9,33 +9,33 @@ namespace Magento\ImportService\Model;
 
 use Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface;
 use Magento\ImportServiceApi\Api\ImportStatusInterface;
+use Magento\ImportServiceApi\Model\ImportStatusResponseFactory;
+use Magento\ImportServiceApi\Model\ImportStatusResponseItemFactory;
 
 /**
  * Class Import
- *
- * @package Magento\ImportService\Model
  */
 class ImportStatus implements ImportStatusInterface
 {
     /**
      * Import response factory instance
      *
-     * @var ImportStatusResponse
+     * @var ImportStatusResponseFactory
      */
     private $responseFactory;
 
     /**
      * Import response item factory instance
      *
-     * @var ImportStatusResponseItem
+     * @var ImportStatusResponseItemFactory
      */
     private $responseItemFactory;
 
     /**
      * Status constructor.
      *
-     * @param ImportStatusResponseFactory $responseFactory
-     * @param ImportStatusResponseItemFactory $responseItemFactory
+     * @param \Magento\ImportServiceApi\Model\ImportStatusResponseFactory $responseFactory
+     * @param \Magento\ImportServiceApi\Model\ImportStatusResponseItemFactory $responseItemFactory
      */
     public function __construct(
         ImportStatusResponseFactory $responseFactory,
@@ -50,7 +50,7 @@ class ImportStatus implements ImportStatusInterface
      *
      * @param string $uuid
      *
-     * @return ImportStatusResponse
+     * @return ImportStatusResponseInterface
      */
     public function execute(string $uuid): ImportStatusResponseInterface
     {

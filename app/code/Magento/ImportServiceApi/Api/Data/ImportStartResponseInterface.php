@@ -12,24 +12,25 @@ namespace Magento\ImportServiceApi\Api\Data;
  */
 interface ImportStartResponseInterface
 {
-    const UUID = 'uuid';
-    const STATUS = 'status';
-    const ERROR = 'error';
-    const STATUS_RUNNING = 'running';
-    const STATUS_COMPLETED = 'completed';
-    const STATUS_FAIL = 'fail';
+    public const UUID = 'uuid';
+    public const STATUS = 'status';
+    public const ERROR = 'error';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_FAIL = 'fail';
 
     /**
      * Get UUID
      *
-     * @return string
+     * @return string|null
      */
-    public function getUuid(): string;
+    public function getUuid(): ?string;
 
     /**
      * Set UUID
      *
      * @param string $uuid
+     *
      * @return void
      */
     public function setUuid(string $uuid): void;
@@ -39,12 +40,13 @@ interface ImportStartResponseInterface
      *
      * @return string
      */
-    public function getStatus(): string;
+    public function getStatus(): ?string;
 
     /**
      * Set status
      *
      * @param string $status
+     *
      * @return void
      */
     public function setStatus(string $status): void;
@@ -54,12 +56,13 @@ interface ImportStartResponseInterface
      *
      * @return string
      */
-    public function getError(): string;
+    public function getError(): ?string;
 
     /**
      * Set error
      *
      * @param string $error
+     *
      * @return void
      */
     public function setError(string $error): void;

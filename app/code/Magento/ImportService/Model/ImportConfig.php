@@ -10,26 +10,44 @@ namespace Magento\ImportService\Model;
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Magento\ImportServiceApi\Api\Data\ImportConfigExtensionInterface;
 use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
+use Magento\ImportServiceApi\Api\Data\ImportMappingInterface;
 
 /**
  * Class ImportConfig
  */
 class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterface
 {
+
     /**
      * @inheritdoc
      */
-    public function getBehaviour(): string
+    public function getImportType(): string
     {
-        return $this->getData(self::BEHAVIOUR);
+        return $this->getData(self::IMPORT_TYPE);
     }
 
     /**
      * @inheritdoc
      */
-    public function setBehaviour(string $behaviour): void
+    public function setImportType(string $importType): void
     {
-        $this->setData(self::BEHAVIOUR, $behaviour);
+        $this->setData(self::IMPORT_TYPE, $importType);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getImportStrategy(): string
+    {
+        return $this->getData(self::IMPORT_STRATEGY);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setImportStrategy(string $importStrategy): void
+    {
+        $this->setData(self::IMPORT_STRATEGY, $importStrategy);
     }
 
     /**
@@ -85,12 +103,29 @@ class ImportConfig extends AbstractExtensibleModel implements ImportConfigInterf
     {
         return $this->getData(self::IMPORT_IMAGES_FILE_DIR);
     }
+
     /**
      * @inheritdoc
      */
     public function setImportImagesFileDir(string $importImagesFileDir): void
     {
         $this->setData(self::IMPORT_IMAGES_FILE_DIR, $importImagesFileDir);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getMapping(): ?array
+    {
+        return $this->getData(self::MAPPING);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setMapping(?array $importMapping): void
+    {
+        $this->setData(self::MAPPING, $importMapping);
     }
 
     /**

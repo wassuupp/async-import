@@ -10,6 +10,7 @@ namespace Magento\ImportService\Model;
 use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
 use Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface;
 use Magento\ImportServiceApi\Api\ImportStartInterface;
+use Magento\ImportServiceApi\Model\ImportStartResponseFactory;
 
 /**
  * Class ImportStart

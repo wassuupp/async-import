@@ -7,7 +7,7 @@ namespace Magento\ImportService\Api;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\UrlInterface;
-use Magento\ImportService\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportService\Model\Import\Type\SourceTypeInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
@@ -17,9 +17,9 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class ExternalFileProcessorTest extends WebapiAbstract
 {
-    const SERVICE_NAME = 'sourceRepositoryV1';
+    const SERVICE_NAME = 'importServiceApiSourceCsvUploadV1';
     const SERVICE_VERSION = 'V1';
-    const RESOURCE_PATH = '/V1/import/source';
+    const RESOURCE_PATH = '/V1/import/source/csv';
     /**
      * The tested file extension
      */
@@ -49,25 +49,13 @@ class ExternalFileProcessorTest extends WebapiAbstract
         $this->varWriter = $this->getWriteInterface(DirectoryList::VAR_DIR);
         $this->mediaWriter = $this->getWriteInterface(DirectoryList::MEDIA);
     }
-    /**
-     * Test Import Data not set
-     */
-    public function testImportDataNotSet()
-    {
-        $result = $this->_webApiCall(
-            $this->makeServiceInfo(),
-            $this->makeRequestData(null)
-        );
-        $this->assertEquals(SourceCsvInterface::STATUS_FAILED, $result['status']);
-        $this->assertRegExp('/Invalid request/', $result['error']);
-    }
+
     /**
      * Test non reachable file
      */
     public function testUnreachableFile()
     {
         $sampleFileName = 'non-existing' . '.' . self::EXTERNAL_FILE_TYPE;
-
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
             $this->makeRequestData($this->getExternalLink($sampleFileName))
@@ -87,6 +75,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             $this->mediaWriter->getAbsolutePath(self::TEMPORARY_DIR) . $sampleFileName,
             $sampleFileContent
         );
+
         /** Make the Api call */
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
@@ -163,7 +152,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             'soap' => [
                 'service' => self::SERVICE_NAME,
                 'serviceVersion' => self::SERVICE_VERSION,
-                'operation' => self::SERVICE_NAME . 'Save',
+                'operation' => self::SERVICE_NAME . 'Execute',
             ],
         ];
         return $serviceInfo;
@@ -176,9 +165,11 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function makeRequestData($import_data)
     {
         return ['source' => [
-            SourceCsvInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
             SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
-            SourceCsvInterface::IMPORT_DATA => $import_data
+            SourceCsvInterface::IMPORT_DATA => $import_data,
+            SourceCsvInterface::SOURCE_TYPE => SourceCsvInterface::CSV_SOURCE_TYPE,
+            SourceCsvInterface::STATUS => null,
+            SourceCsvInterface::CREATED_AT => null
         ]
         ];
     }
@@ -191,10 +182,12 @@ class ExternalFileProcessorTest extends WebapiAbstract
     private function makeRequestDataWithUuid($import_data, $uuid)
     {
         return ['source' => [
-            SourceCsvInterface::SOURCE_TYPE => self::EXTERNAL_FILE_TYPE,
             SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
             SourceCsvInterface::IMPORT_DATA => $import_data,
-            SourceCsvInterface::UUID => $uuid
+            SourceCsvInterface::SOURCE_TYPE => SourceCsvInterface::CSV_SOURCE_TYPE,
+            SourceCsvInterface::UUID => $uuid,
+            SourceCsvInterface::STATUS => null,
+            SourceCsvInterface::CREATED_AT => null
         ]
         ];
     }
@@ -280,9 +273,9 @@ class ExternalFileProcessorTest extends WebapiAbstract
      */
     private function removeDatabaseEntry($uuid)
     {
-        /** @var \Magento\ImportService\Api\SourceCsvRepositoryInterface $repository */
+        /** @var \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface $repository */
         $repository = Bootstrap::getObjectManager()
-            ->create(\Magento\ImportService\Api\SourceCsvRepositoryInterface::class);
+            ->create(\Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface::class);
 
         $repository->deleteByUuid($uuid);
     }

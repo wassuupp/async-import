@@ -16,9 +16,9 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
     /**
      * Get file UUID
      *
-     * @return string
+     * @return string|null
      */
-    public function getUuid()
+    public function getUuid(): ?string
     {
         return $this->getData(self::UUID);
     }
@@ -28,16 +28,16 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->getData(self::STATUS);
     }
 
     /**
      * Get error
-     * @return string
+     * @return string|null
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->getData(self::ERROR);
     }
@@ -46,7 +46,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      * @param $uuid
      * @return SourceUploadResponse|mixed
      */
-    public function setUuid($uuid)
+    public function setUuid(string $uuid): SourceUploadResponseInterface
     {
         return $this->setData(self::UUID, $uuid);
     }
@@ -55,7 +55,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      * @param $status
      * @return SourceUploadResponse|mixed
      */
-    public function setStatus($status)
+    public function setStatus(string $status): SourceUploadResponseInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -64,7 +64,7 @@ class SourceUploadResponse extends AbstractModel implements SourceUploadResponse
      * @param $error
      * @return SourceUploadResponse|mixed
      */
-    public function setError($error)
+    public function setError(string $error): SourceUploadResponseInterface
     {
         return $this->setData(self::ERROR, $error);
     }
