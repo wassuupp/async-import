@@ -10,9 +10,11 @@ namespace Magento\ImportServiceApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
+/**
+ * Interface ImportMappingInterface
+ */
 interface ImportMappingInterface extends ExtensibleDataInterface
 {
-
     public const SOURCE_NAME_PREFIX = 'source';
     public const TARGET_NAME_PREFIX = 'target';
 
@@ -26,7 +28,7 @@ interface ImportMappingInterface extends ExtensibleDataInterface
     /**
      * Retrieve name for internal use
      *
-     * @return string
+     * @return string|null
      */
     public function getName(): ?string;
 
@@ -74,14 +76,14 @@ interface ImportMappingInterface extends ExtensibleDataInterface
      * which was set manually to this field (static data will be rewrited by
      * data from source_path if exist)
      *
-     * @return mixed|null
+     * @return string|null
      */
     public function getSourceValue(): ?string;
 
     /**
      * Set data from source_path or some static data
      *
-     * @param mixed $sourceValue
+     * @param string $sourceValue
      * @return void
      */
     public function setSourceValue(string $sourceValue): void;
@@ -91,14 +93,14 @@ interface ImportMappingInterface extends ExtensibleDataInterface
      * which was set manually to this field (static data will be rewrited by
      * data from source_path if exist)
      *
-     * @return mixed|null
+     * @return string|null
      */
     public function getTargetValue(): ?string;
 
     /**
      * Set processed data or some static data to target_path
      *
-     * @param mixed $targetValue
+     * @param string $targetValue
      * @return void
      */
     public function setTargetValue(string $targetValue): void;

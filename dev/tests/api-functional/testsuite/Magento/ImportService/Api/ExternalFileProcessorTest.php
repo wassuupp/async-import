@@ -17,7 +17,7 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class ExternalFileProcessorTest extends WebapiAbstract
 {
-    const SERVICE_NAME = 'sourceRepositoryV1';
+    const SERVICE_NAME = 'importServiceApiSourceCsvUploadV1';
     const SERVICE_VERSION = 'V1';
     const RESOURCE_PATH = '/V1/import/source/csv';
     /**
@@ -56,7 +56,6 @@ class ExternalFileProcessorTest extends WebapiAbstract
     public function testUnreachableFile()
     {
         $sampleFileName = 'non-existing' . '.' . self::EXTERNAL_FILE_TYPE;
-
         $result = $this->_webApiCall(
             $this->makeServiceInfo(),
             $this->makeRequestData($this->getExternalLink($sampleFileName))
@@ -153,7 +152,7 @@ class ExternalFileProcessorTest extends WebapiAbstract
             'soap' => [
                 'service' => self::SERVICE_NAME,
                 'serviceVersion' => self::SERVICE_VERSION,
-                'operation' => self::SERVICE_NAME . 'Save',
+                'operation' => self::SERVICE_NAME . 'Execute',
             ],
         ];
         return $serviceInfo;
@@ -167,7 +166,10 @@ class ExternalFileProcessorTest extends WebapiAbstract
     {
         return ['source' => [
             SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
-            SourceCsvInterface::IMPORT_DATA => $import_data
+            SourceCsvInterface::IMPORT_DATA => $import_data,
+            SourceCsvInterface::SOURCE_TYPE => SourceCsvInterface::CSV_SOURCE_TYPE,
+            SourceCsvInterface::STATUS => null,
+            SourceCsvInterface::CREATED_AT => null
         ]
         ];
     }
@@ -182,7 +184,10 @@ class ExternalFileProcessorTest extends WebapiAbstract
         return ['source' => [
             SourceCsvInterface::IMPORT_TYPE => self::IMPORT_TYPE,
             SourceCsvInterface::IMPORT_DATA => $import_data,
-            SourceCsvInterface::UUID => $uuid
+            SourceCsvInterface::SOURCE_TYPE => SourceCsvInterface::CSV_SOURCE_TYPE,
+            SourceCsvInterface::UUID => $uuid,
+            SourceCsvInterface::STATUS => null,
+            SourceCsvInterface::CREATED_AT => null
         ]
         ];
     }

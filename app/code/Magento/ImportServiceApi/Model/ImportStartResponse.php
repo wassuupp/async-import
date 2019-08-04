@@ -30,7 +30,7 @@ class ImportStartResponse implements ImportStartResponseInterface
     private $error;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getUuid(): ?string
     {
@@ -47,7 +47,7 @@ class ImportStartResponse implements ImportStartResponseInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getStatus(): ?string
     {
@@ -64,7 +64,7 @@ class ImportStartResponse implements ImportStartResponseInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getError(): ?string
     {

@@ -15,9 +15,9 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
     /**
      * Get uuid
      *
-     * @return int
+     * @return string
      */
-    public function getUuid(): string;
+    public function getUuid(): string
     {
         return $this->getData(self::UUID);
     }
@@ -27,7 +27,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getStatus(): string;
+    public function getStatus(): string
     {
         return $this->getData(self::STATUS);
     }
@@ -37,7 +37,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getSerializedData(): string;
+    public function getSerializedData(): string
     {
         return $this->getData(self::SERIALIZED_DATA);
     }
@@ -47,7 +47,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getResultSerializedData(): string;
+    public function getResultSerializedData(): string
     {
         return $this->getData(self::RESULT_SERIALIZED_DATA);
     }
@@ -57,7 +57,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string|null
      */
-    public function getErrorCode(): ?string;
+    public function getErrorCode(): ?string
     {
         return $this->getData(self::ERROR_CODE);
     }
@@ -67,7 +67,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      *
      * @return string
      */
-    public function getResultMessage(): string;
+    public function getResultMessage(): string
     {
         return $this->getData(self::RESULT_MESSAGE);
     }
@@ -78,7 +78,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $uuid
      * @return $this
      */
-    public function setUuid(string $uuid): ImportStatusResponseItemInterface;
+    public function setUuid(string $uuid): ImportStatusResponseItemInterface
     {
         return $this->setData(self::UUID, $uuid);
     }
@@ -89,7 +89,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $status
      * @return $this
      */
-    public function setStatus(string $status): ImportStatusResponseItemInterface;
+    public function setStatus(string $status): ImportStatusResponseItemInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -100,7 +100,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $serializedData
      * @return $this
      */
-    public function setSerializedData(string $serializedData): ImportStatusResponseItemInterface;
+    public function setSerializedData(string $serializedData): ImportStatusResponseItemInterface
     {
         return $this->setData(self::SERIALIZED_DATA, $serializedData);
     }
@@ -111,7 +111,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $resultSerializedData
      * @return $this
      */
-    public function setResultSerializedData(string $resultSerializedData): ImportStatusResponseItemInterface;
+    public function setResultSerializedData(string $resultSerializedData): ImportStatusResponseItemInterface
     {
         return $this->setData(self::RESULT_SERIALIZED_DATA, $resultSerializedData);
     }
@@ -122,7 +122,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $errorCode
      * @return $this
      */
-    public function setErrorCode(string $errorCode): ImportStatusResponseItemInterface;
+    public function setErrorCode(string $errorCode): ImportStatusResponseItemInterface
     {
         return $this->setData(self::ERROR_CODE, $errorCode);
     }
@@ -133,7 +133,7 @@ class ImportStatusResponseItem extends AbstractModel implements ImportStatusResp
      * @param string $resultMessage
      * @return $this
      */
-    public function setResultMessage(string $resultMessage): ImportStatusResponseItemInterface;
+    public function setResultMessage(string $resultMessage): ImportStatusResponseItemInterface
     {
         return $this->setData(self::RESULT_MESSAGE, $resultMessage);
     }

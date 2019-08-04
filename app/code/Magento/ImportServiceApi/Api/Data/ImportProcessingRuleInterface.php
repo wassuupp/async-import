@@ -11,6 +11,9 @@ namespace Magento\ImportServiceApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
+/**
+ * Interface ImportProcessingRuleInterface
+ */
 interface ImportProcessingRuleInterface extends ExtensibleDataInterface
 {
     public const SORT = 'sort';
@@ -57,7 +60,7 @@ interface ImportProcessingRuleInterface extends ExtensibleDataInterface
     /**
      * Set function arguments
      *
-     * @param \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleArgumentInterface[] $args
+     * @param \Magento\ImportServiceApi\Api\Data\ImportProcessingRuleArgumentInterface[]|null $args
      * @return void
      */
     public function setArgs(?array $args): void;

@@ -49,7 +49,7 @@ interface ImportStatusResponseInterface
     /**
      * Get imported entity type
      *
-     * @return string
+     * @return string|null
      */
     public function getEntityType(): ?string;
 
@@ -113,7 +113,7 @@ interface ImportStatusResponseInterface
     /**
      * Set user id
      *
-     * @param int:null $userId
+     * @param int|null $userId
      *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */
@@ -122,7 +122,7 @@ interface ImportStatusResponseInterface
     /**
      * Set user type
      *
-     * @param int $userType
+     * @param int|null $userType
      *
      * @return \Magento\ImportServiceApi\Api\Data\ImportStatusResponseInterface
      */

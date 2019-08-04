@@ -144,7 +144,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->getData(self::STATUS);
     }
@@ -152,7 +152,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setStatus(string $status): SourceCsvInterface
+    public function setStatus(?string $status): SourceCsvInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -192,7 +192,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?string
     {
         return $this->getData(self::CREATED_AT);
     }
@@ -200,7 +200,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setCreatedAt(string $date): SourceCsvInterface
+    public function setCreatedAt(?string $date): SourceCsvInterface
     {
         return $this->setData(self::CREATED_AT, $date);
     }

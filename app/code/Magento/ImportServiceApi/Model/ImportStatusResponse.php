@@ -35,7 +35,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Get uuid
      *
-     * @return int
+     * @return string
      */
     public function getUuid(): string
     {
@@ -45,7 +45,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Get imported entity type
      *
-     * @return string
+     * @return string|null
      */
     public function getEntityType(): ?string
     {
@@ -55,7 +55,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Retrieve current user ID
      *
-     * @return int
+     * @return int|null
      */
     public function getUserId(): ?int
     {
@@ -65,7 +65,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Retrieve current user type
      *
-     * @return int
+     * @return int|null
      */
     public function getUserType(): ?int
     {
@@ -129,7 +129,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Set user id
      *
-     * @param int $userId
+     * @param int|null $userId
      * @return $this
      */
     public function setUserId(?int $userId): ImportStatusResponseInterface
@@ -140,7 +140,7 @@ class ImportStatusResponse extends AbstractModel implements ImportStatusResponse
     /**
      * Set user type
      *
-     * @param int $userType
+     * @param int|null $userType
      * @return $this
      */
     public function setUserType(?int $userType): ImportStatusResponseInterface

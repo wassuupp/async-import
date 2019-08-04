@@ -22,7 +22,7 @@ interface ImportStartResponseInterface
     /**
      * Get UUID
      *
-     * @return string
+     * @return string|null
      */
     public function getUuid(): ?string;
 

@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace Magento\ImportServiceApi\Api\Data;
 
+/**
+ * Interface ImportProcessingRuleArgumentInterface
+ */
 interface ImportProcessingRuleArgumentInterface
 {
     public const VALUE = 'value';
