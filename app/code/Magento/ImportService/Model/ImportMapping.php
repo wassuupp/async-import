@@ -13,7 +13,7 @@ use Magento\ImportServiceApi\Api\Data\ImportMappingExtensionInterface;
 
 
 /**
- * Class SourceFormatMapping
+ * Class ImportMapping
  */
 class ImportMapping extends AbstractExtensibleModel implements ImportMappingInterface
 {

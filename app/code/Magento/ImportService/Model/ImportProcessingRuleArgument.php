@@ -10,7 +10,7 @@ namespace Magento\ImportService\Model;
 use Magento\ImportServiceApi\Api\Data\ImportProcessingRuleArgumentInterface;
 
 /**
- * Class SourceFormatMapping
+ * Class ImportProcessingRuleArgument
  */
 class ImportProcessingRuleArgument implements ImportProcessingRuleArgumentInterface
 {

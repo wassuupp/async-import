@@ -32,6 +32,9 @@ class Processor implements ProcessorInterface
         ImportStartResponse $importResponse
     ): ImportStartResponse{
 
+        /**
+         * @TODO implement import to storage. Dummy class for now
+         */
         return $importResponse;
 
     }
