@@ -11,10 +11,6 @@ use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
 use Magento\ImportServiceApi\Api\Data\ImportStartResponseInterface;
 use Magento\ImportServiceApi\Api\ImportStartInterface;
 use Magento\ImportServiceApi\Model\ImportStartResponseFactory;
-/**
- * @TODO Create more generic way for repository, source is type based, but repository itself are generic no matter which type is used and also check chain executors
- */
-use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
 use Magento\ImportService\Model\Import\Command\StartInterface as ImportRunner;
 
 /**
@@ -22,11 +18,6 @@ use Magento\ImportService\Model\Import\Command\StartInterface as ImportRunner;
  */
 class ImportStart implements ImportStartInterface
 {
-
-    /**
-     * @var SourceCsvRepositoryInterface
-     */
-    private $sourceRepository;
 
     /**
      * @var ImportStartResponseFactory
@@ -45,12 +36,10 @@ class ImportStart implements ImportStartInterface
      * @param ImportStartResponseFactory $importStartResponseFactory
      */
     public function __construct(
-        SourceCsvRepositoryInterface $sourceRepository,
         ImportStartResponseFactory $importStartResponseFactory,
         ImportRunner $importRunner
     ) {
         $this->importStartResponseFactory = $importStartResponseFactory;
-        $this->sourceRepository = $sourceRepository;
         $this->importRunner = $importRunner;
     }
 
@@ -65,12 +54,11 @@ class ImportStart implements ImportStartInterface
     public function execute(string $uuid, ImportConfigInterface $importConfig): ImportStartResponseInterface
     {
         $importResponse = $this->importStartResponseFactory->create();
-        $source = $this->sourceRepository->getByUuid($uuid);
 
         /**
          * @TODO add correct error handling
          */
-        $importResponse = $this->importRunner->execute($source, $importConfig, $importResponse);
+        $importResponse = $this->importRunner->execute($uuid, $importConfig, $importResponse);
         return $importResponse;
     }
 }

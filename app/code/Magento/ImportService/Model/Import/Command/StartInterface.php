@@ -10,11 +10,14 @@ interface StartInterface
 {
 
     /**
-     * @param SourceCsvInterface $source
-     * @param ImportConfigInterface $importConfig
+     * Start Import interface
      *
+     * @param string $uuid
+     * @param ImportConfigInterface $importConfig
+     * @param ImportStartResponse $importResponse
+
      * @return ImportStartResponseFactory
      */
-    public function execute(SourceCsvInterface $source, ImportConfigInterface $importConfig, ImportStartResponse $importResponse);
+    public function execute(string $uuid, ImportConfigInterface $importConfig, ImportStartResponse $importResponse);
 
 }

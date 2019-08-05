@@ -16,6 +16,10 @@ use Magento\ImportService\Model\Import\Mapping\ProcessSourceItemMappingFactory a
 use Magento\ImportService\Model\Import\Mapping\ApplyProcessingRules;
 use Magento\ImportServiceApi\Model\ImportStartResponse;
 use Magento\ImportService\Model\Import\Storage\Processor as ImportProcessor;
+/**
+ * @TODO Create more generic way for repository, source is type based, but repository itself are generic no matter which type is used and also check chain executors
+ */
+use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
 
 /**
  * Class Start
@@ -54,6 +58,11 @@ class Start implements StartInterface
     private $importProcessor;
 
     /**
+     * @var SourceCsvRepositoryInterface
+     */
+    private $sourceRepository;
+
+    /**
      * Start constructor.
      *
      * @param CsvReader $csvReader
@@ -64,7 +73,8 @@ class Start implements StartInterface
         CsvPathResolver $csvPathResolver,
         ItemMappingProcessorFactory $itemMappingProcessor,
         ApplyProcessingRules $applyProcessingRules,
-        ImportProcessor $importProcessor
+        ImportProcessor $importProcessor,
+        SourceCsvRepositoryInterface $sourceRepository
     ) {
         $this->csvReader = $csvReader;
         $this->readerPool = $readerPool;
@@ -75,10 +85,13 @@ class Start implements StartInterface
         $this->csvPathResolver = $csvPathResolver;
         $this->applyProcessingRules = $applyProcessingRules;
         $this->importProcessor = $importProcessor;
+        $this->sourceRepository = $sourceRepository;
     }
 
-    public function execute(SourceCsvInterface $source, ImportConfigInterface $importConfig, ImportStartResponse $importResponse)
+    public function execute(string $uuid, ImportConfigInterface $importConfig, ImportStartResponse $importResponse)
     {
+
+        $source = $this->sourceRepository->getByUuid($uuid);
 
         $reader = $this->readerPool->getReader($source);
         $reader->rewind();
