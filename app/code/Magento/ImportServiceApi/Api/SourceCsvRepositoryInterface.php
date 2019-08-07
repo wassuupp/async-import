@@ -9,7 +9,7 @@ namespace Magento\ImportServiceApi\Api;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
@@ -21,20 +21,20 @@ interface SourceCsvRepositoryInterface
     /**
      * Save source data
      *
-     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvInterface $source
-     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvInterface
+     * @param \Magento\ImportServiceApi\Api\Data\SourceInterface $source
+     * @return \Magento\ImportServiceApi\Api\Data\SourceInterface
      * @throws CouldNotSaveException
      */
-    public function save(SourceCsvInterface $source): SourceCsvInterface;
+    public function save(SourceInterface $source): SourceInterface;
 
     /**
      * Get source data by given uuid
      *
      * @param string $uuid
-     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvInterface
+     * @return \Magento\ImportServiceApi\Api\Data\SourceInterface
      * @throws NoSuchEntityException
      */
-    public function getByUuid(string $uuid): SourceCsvInterface;
+    public function getByUuid(string $uuid): SourceInterface;
 
     /**
      * Find sources by given search criteria. Search criteria is not required.

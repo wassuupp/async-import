@@ -9,7 +9,7 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\Data\SourceInterface;
 use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 use Magento\ImportService\Model\Source\Command\SaveInterface;
@@ -72,7 +72,7 @@ class SourceCsvRepository implements SourceCsvRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function save(SourceCsvInterface $source): SourceCsvInterface
+    public function save(SourceInterface $source): SourceInterface
     {
         return $this->commandSave->execute($source);
     }
@@ -80,7 +80,7 @@ class SourceCsvRepository implements SourceCsvRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getByUuid(string $uuid): SourceCsvInterface
+    public function getByUuid(string $uuid): SourceInterface
     {
         return $this->commandGet->execute($uuid);
     }
