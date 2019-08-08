@@ -63,7 +63,7 @@ class SourceCsvUpload implements SourceCsvUploadInterface
             $sourceFactory->setData($source->getData());
             $sourceFactory->setFormat($source->getFormat()->toArray());
 
-            $processor->processUpload($source, $response);
+            $processor->processUpload($sourceFactory, $response);
         } catch (\Exception $e) {
             $response = $this->responseFactory->createFailure($e->getMessage());
         }
