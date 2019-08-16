@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Source;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\ImportService\Model\Import\SourceTypePool;
 use Magento\ImportService\Model\Source\ReaderInterface;
@@ -45,7 +45,7 @@ class ReaderPool
      * @throws ImportServiceException
      * @return ReaderInterface
      */
-    public function getReader(SourceCsvInterface $source)
+    public function getReader(SourceBuilderInterface $source)
     {
         $sourceType = $this->sourceTypePool->getSourceType($source);
         $filePath = $sourceType->getAbsolutePathToFile($source);

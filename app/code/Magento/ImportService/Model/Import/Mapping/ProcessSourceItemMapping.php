@@ -16,6 +16,13 @@ class ProcessSourceItemMapping
     private $mapping;
     private $processor;
 
+    /**
+     * ProcessSourceItemMapping constructor.
+     *
+     * @param array $data
+     * @param array $mapping
+     * @param null $processor
+     */
     public function __construct(
         $data = [],
         $mapping = [],
@@ -26,9 +33,13 @@ class ProcessSourceItemMapping
         $this->processor = $processor;
     }
 
+    /**
+     * Process mapping
+     *
+     * @return array
+     */
     public function process()
     {
-
         $mapping = [];
         foreach ($this->mapping as $fieldMappingSource) {
             $fieldMapping = clone $fieldMappingSource;
@@ -42,6 +53,5 @@ class ProcessSourceItemMapping
         }
 
         return $mapping;
-
     }
 }

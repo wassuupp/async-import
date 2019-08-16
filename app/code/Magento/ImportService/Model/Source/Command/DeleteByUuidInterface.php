@@ -15,7 +15,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
  *
  * Separate command interface to which Repository proxies initial Delete call
  *
- * @see \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface
+ * @see \Magento\ImportServiceApi\Api\SourceRepositoryInterface
  */
 interface DeleteByUuidInterface
 {

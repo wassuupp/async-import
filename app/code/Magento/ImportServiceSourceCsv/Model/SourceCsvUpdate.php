@@ -5,16 +5,17 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model;
+namespace Magento\ImportServiceSourceCsv\Model;
 
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
-use Magento\ImportServiceApi\Api\SourceCsvUpdateInterface;
+use Magento\ImportServiceApi\Api\SourceRepositoryInterface;
+use Magento\ImportServiceSourceCsvApi\Api\SourceCsvUpdateInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\ImportServiceApi\Model\SourceUploadResponseFactory;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 
 /**
  * Class SourceCsvUpdate
@@ -27,20 +28,30 @@ class SourceCsvUpdate implements SourceCsvUpdateInterface
     private $responseFactory;
 
     /**
-     * @var SourceCsvRepositoryInterface
+     * @var SourceRepositoryInterface
      */
     private $sourceRepository;
 
     /**
-     * @param SourceUploadResponseFactory $responseFactory,
-     * @param SourceCsvRepositoryInterface $sourceRepository
+     * @var SourceBuilderInterface
+     */
+    private $sourceBuilder;
+
+    /**
+     * SourceCsvUpdate constructor.
+     *
+     * @param SourceUploadResponseFactory $responseFactory
+     * @param SourceRepositoryInterface $sourceRepository
+     * @param SourceBuilderInterface $sourceBuilder
      */
     public function __construct(
         SourceUploadResponseFactory $responseFactory,
-        SourceCsvRepositoryInterface $sourceRepository
+        SourceRepositoryInterface $sourceRepository,
+        SourceBuilderInterface $sourceBuilder
     ) {
         $this->responseFactory = $responseFactory;
         $this->sourceRepository = $sourceRepository;
+        $this->sourceBuilder = $sourceBuilder;
     }
 
     /**
@@ -65,8 +76,12 @@ class SourceCsvUpdate implements SourceCsvUpdateInterface
                         __('Specified Source type "%1" is wrong.', SourceCsvInterface::CSV_SOURCE_TYPE)
                     );
                 }
-                $sourceToUpdate->setFormat($source->getFormat());
-                $this->sourceRepository->save($sourceToUpdate);
+
+                if ($source->getFormat()){
+                    $sourceToUpdate->setFormat($source->getFormat()->toArray());
+                    $this->sourceRepository->save($sourceToUpdate);
+                }
+
                 $source = $this->sourceRepository->getByUuid($uuid);
                 $response->setUuid($source->getUuid())->setStatus($source->getStatus());
             } else {

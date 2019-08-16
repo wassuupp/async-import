@@ -7,19 +7,14 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Command;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
-use Magento\ImportService\Model\Import\Reader\CsvFactory as CsvReader;
 use Magento\ImportService\Model\Source\ReaderPool;
-use Magento\ImportService\Model\Source\Resolver\CsvPath as CsvPathResolver;
+use Magento\ImportServiceSourceCsv\Model\Source\Resolver\CsvPath as CsvPathResolver;
 use Magento\ImportService\Model\Import\Mapping\ProcessSourceItemMappingFactory as ItemMappingProcessorFactory;
 use Magento\ImportService\Model\Import\Mapping\ApplyProcessingRules;
 use Magento\ImportServiceApi\Model\ImportStartResponse;
-use Magento\ImportService\Model\Import\Storage\Processor as ImportProcessor;
-/**
- * @TODO Create more generic way for repository, source is type based, but repository itself are generic no matter which type is used and also check chain executors
- */
-use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
+use Magento\ImportServiceApi\Api\SourceRepositoryInterface;
+use Magento\ImportService\Model\Import\ExchangeRepository;
 
 /**
  * Class Start
@@ -31,11 +26,6 @@ class Start implements StartInterface
      * @var ReaderPool
      */
     private $readerPool;
-
-    /**
-     * @var CsvReader
-     */
-    private $csvReader;
 
     /**
      * @var CsvPathResolver
@@ -53,30 +43,32 @@ class Start implements StartInterface
     private $applyProcessingRules;
 
     /**
-     * @var ImportProcessor
-     */
-    private $importProcessor;
-
-    /**
-     * @var SourceCsvRepositoryInterface
+     * @var SourceRepositoryInterface
      */
     private $sourceRepository;
 
     /**
+     * @var ExchangeRepository
+     */
+    private $exchangeRepository;
+
+    /**
      * Start constructor.
      *
-     * @param CsvReader $csvReader
+     * @param ReaderPool $readerPool
+     * @param CsvPathResolver $csvPathResolver
+     * @param ItemMappingProcessorFactory $itemMappingProcessor
+     * @param ApplyProcessingRules $applyProcessingRules
+     * @param SourceRepositoryInterface $sourceRepository
      */
     public function __construct(
-        CsvReader $csvReader,
         ReaderPool $readerPool,
         CsvPathResolver $csvPathResolver,
         ItemMappingProcessorFactory $itemMappingProcessor,
         ApplyProcessingRules $applyProcessingRules,
-        ImportProcessor $importProcessor,
-        SourceCsvRepositoryInterface $sourceRepository
+        SourceRepositoryInterface $sourceRepository,
+        ExchangeRepository $exchangeRepository
     ) {
-        $this->csvReader = $csvReader;
         $this->readerPool = $readerPool;
         $this->itemMappingProcessor = $itemMappingProcessor;
         /**
@@ -84,23 +76,20 @@ class Start implements StartInterface
          */
         $this->csvPathResolver = $csvPathResolver;
         $this->applyProcessingRules = $applyProcessingRules;
-        $this->importProcessor = $importProcessor;
         $this->sourceRepository = $sourceRepository;
+        $this->exchangeRepository = $exchangeRepository;
     }
 
     public function execute(string $uuid, ImportConfigInterface $importConfig, ImportStartResponse $importResponse)
     {
-
         $source = $this->sourceRepository->getByUuid($uuid);
 
         $reader = $this->readerPool->getReader($source);
         $reader->rewind();
 
         $mappingItemsList = [];
-
         /** @var array $sourceItem */
         foreach ($reader as $sourceItem) {
-
             $processSourceItemFactory = $this->itemMappingProcessor->create([
                 'data' => $sourceItem,
                 'mapping' => $importConfig->getMapping(),
@@ -108,11 +97,10 @@ class Start implements StartInterface
             ]);
             $mappedItem = $processSourceItemFactory->process();
             $mappingItemsList[] = $this->applyProcessingRules->execute($mappedItem);
-
-
         }
 
-        $importResponse = $this->importProcessor->process($mappingItemsList, $importConfig, $source, $importResponse);
+        $exchangeProcessor = $this->exchangeRepository->getExchangeProcessor();
+        $importResponse = $exchangeProcessor->process($mappingItemsList, $importConfig, $source, $importResponse);
         return $importResponse;
 
     }

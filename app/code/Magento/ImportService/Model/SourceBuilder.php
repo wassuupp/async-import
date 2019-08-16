@@ -15,26 +15,15 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
 use Magento\Framework\Serialize\SerializerInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResource;
-use Magento\ImportService\Model\SourceCsvFormatFactory as FormatFactory;
 
 /**
  * Class Source
  */
-class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
+class SourceBuilder extends AbstractExtensibleModel implements SourceBuilderInterface
 {
-    public const CACHE_TAG = 'magento_import_service_source';
-
-    /**
-     * Source format factory
-     *
-     * @var FormatFactory
-     */
-    private $formatFactory;
-
     /**
      * @var SerializerInterface
      */
@@ -45,7 +34,6 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
      * @param Registry $registry
      * @param ExtensionAttributesFactory $extensionFactory
      * @param AttributeValueFactory $customAttributeFactory
-     * @param FormatFactory $formatFactory
      * @param SerializerInterface $serializer
      * @param AbstractResource $resource
      * @param AbstractDb $resourceCollection
@@ -56,13 +44,11 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
         Registry $registry,
         ExtensionAttributesFactory $extensionFactory,
         AttributeValueFactory $customAttributeFactory,
-        FormatFactory $formatFactory,
         SerializerInterface $serializer,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
     ) {
-        $this->formatFactory = $formatFactory;
         parent::__construct(
             $context,
             $registry,
@@ -84,16 +70,6 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     }
 
     /**
-     * Get unique page cache identities
-     *
-     * @return array
-     */
-    public function getIdentities(): array
-    {
-        return [self::CACHE_TAG . '_' . $this->getId()];
-    }
-
-    /**
      * @inheritDoc
      */
     public function getUuid(): ?string
@@ -104,7 +80,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setUuid(string $uuid): SourceCsvInterface
+    public function setUuid(string $uuid): SourceBuilderInterface
     {
         return $this->setData(self::UUID, $uuid);
     }
@@ -120,7 +96,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setSourceType(string $sourceType): SourceCsvInterface
+    public function setSourceType(string $sourceType): SourceBuilderInterface
     {
         return $this->setData(self::SOURCE_TYPE, $sourceType);
     }
@@ -136,7 +112,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setImportType(string $importType): SourceCsvInterface
+    public function setImportType(string $importType): SourceBuilderInterface
     {
         return $this->setData(self::IMPORT_TYPE, $importType);
     }
@@ -152,7 +128,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setStatus(?string $status): SourceCsvInterface
+    public function setStatus(?string $status): SourceBuilderInterface
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -168,7 +144,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setImportData(string $importData): SourceCsvInterface
+    public function setImportData(string $importData): SourceBuilderInterface
     {
         return $this->setData(self::IMPORT_DATA, $importData);
     }
@@ -176,7 +152,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function getFormat(): ?SourceCsvFormatInterface
+    public function getFormat(): ?array
     {
         return $this->getData(self::FORMAT);
     }
@@ -184,7 +160,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setFormat(SourceCsvFormatInterface $format): SourceCsvInterface
+    public function setFormat(array $format): SourceBuilderInterface
     {
         return $this->setData(self::FORMAT, $format);
     }
@@ -200,7 +176,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritDoc
      */
-    public function setCreatedAt(?string $date): SourceCsvInterface
+    public function setCreatedAt(?string $date): SourceBuilderInterface
     {
         return $this->setData(self::CREATED_AT, $date);
     }
@@ -208,7 +184,7 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
     /**
      * @inheritdoc
      */
-    public function getExtensionAttributes(): ?SourceCsvExtensionInterface
+    public function getExtensionAttributes(): ?SourceBuilderExtensionInterface
     {
         return $this->_getExtensionAttributes();
     }
@@ -217,8 +193,8 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
      * {@inheritdoc}
      */
     public function setExtensionAttributes(
-        SourceCsvExtensionInterface $extensionAttributes
-    ): SourceCsvInterface {
+        SourceBuilderExtensionInterface $extensionAttributes
+    ): SourceBuilderInterface {
         return $this->_setExtensionAttributes($extensionAttributes);
     }
 
@@ -241,11 +217,11 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
         if (isset($formatJson)) {
 
             /** get format json string and decode */
-            $formatJson = $this->serializer->unserialize($formatJson);
+            $formatArray = $this->serializer->unserialize($formatJson);
 
             /** set decoded json string and object to formatted source */
-            $format = $this->formatFactory->create()->setData($formatJson);
-            $this->setData('format', $format);
+            $this->setData('format', $formatArray);
+
         }
 
         return $this;
@@ -256,22 +232,8 @@ class SourceCsv extends AbstractExtensibleModel implements SourceCsvInterface
      */
     public function beforeSave()
     {
-        /** get format object */
-        $format = $this->getFormat();
-
-        if (!isset($format)) {
-            $data = [
-                SourceCsvFormatInterface::CSV_SEPARATOR => SourceCsvFormatInterface::DEFAULT_CSV_SEPARATOR,
-                SourceCsvFormatInterface::CSV_ENCLOSURE => SourceCsvFormatInterface::DEFAULT_CSV_ENCLOSURE,
-                SourceCsvFormatInterface::CSV_DELIMITER => SourceCsvFormatInterface::DEFAULT_CSV_DELIMITER,
-                SourceCsvFormatInterface::MULTIPLE_VALUE_SEPARATOR => SourceCsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR
-            ];
-            /** create format object and set default values */
-            $format = $this->formatFactory->create()->setData($data);
-        }
-
         /** set format json string to format field */
-        $this->setData('format', $format->toJson());
+        $this->setData('format', $this->serializer->serialize($this->getFormat()));
 
         parent::beforeSave();
     }

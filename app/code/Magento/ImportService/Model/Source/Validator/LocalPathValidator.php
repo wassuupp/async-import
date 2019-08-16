@@ -10,7 +10,7 @@ namespace Magento\ImportService\Model\Source\Validator;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\ValidatorException;
 use Magento\Framework\Filesystem\Directory\Write;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -45,13 +45,13 @@ class LocalPathValidator implements ValidatorInterface
     /**
      * Return error messages in array
      *
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      *
      * @return array
      * @throws FileSystemException
      * @throws ValidatorException
      */
-    public function validate(SourceCsvInterface $source)
+    public function validate(SourceBuilderInterface $source)
     {
         $errors = [];
 

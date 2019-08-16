@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportServiceApi\Api\Data;
+namespace Magento\ImportServiceSourceCsvApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
@@ -112,14 +112,14 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     /**
      * Retrieve Source Format
      *
-     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface|null
+     * @return \Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvFormatInterface|null
      */
     public function getFormat(): ?SourceCsvFormatInterface;
 
     /**
      * Set Source Format
      *
-     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface $format
+     * @param \Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvFormatInterface $format
      *
      * @return $this
      */
@@ -144,18 +144,18 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface|null
+     * @return \Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvExtensionInterface|null
      */
     public function getExtensionAttributes(): ?SourceCsvExtensionInterface;
 
     /**
      * Set an extension attributes object.
      *
-     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
+     * @param \Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
      *
      * @return $this
      */
     public function setExtensionAttributes(
-        \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
+        \Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
     ): SourceCsvInterface;
 }

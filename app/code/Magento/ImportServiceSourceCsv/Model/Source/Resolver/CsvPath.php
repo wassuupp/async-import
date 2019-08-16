@@ -5,9 +5,10 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model\Source\Resolver;
+namespace Magento\ImportServiceSourceCsv\Model\Source\Resolver;
 
 use Magento\Framework\Stdlib\ArrayManager;
+use Magento\ImportService\Model\Source\Resolver\PathResolverInterface;
 
 class CsvPath implements PathResolverInterface
 {

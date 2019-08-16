@@ -31,9 +31,8 @@ class ImportStart implements ImportStartInterface
 
     /**
      * ImportStart constructor.
-     *
-     * @param SourceCsvRepositoryInterface $sourceRepository
      * @param ImportStartResponseFactory $importStartResponseFactory
+     * @param ImportRunner $importRunner
      */
     public function __construct(
         ImportStartResponseFactory $importStartResponseFactory,

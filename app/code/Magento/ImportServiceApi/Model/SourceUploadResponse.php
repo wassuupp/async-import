@@ -9,7 +9,6 @@ namespace Magento\ImportServiceApi\Model;
 
 use Magento\Framework\Model\AbstractModel;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 
 class SourceUploadResponse extends AbstractModel implements SourceUploadResponseInterface
 {

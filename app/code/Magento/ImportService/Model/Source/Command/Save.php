@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 
 /**
@@ -33,7 +33,7 @@ class Save implements SaveInterface
     /**
      * @inheritdoc
      */
-    public function execute(SourceCsvInterface $source): SourceCsvInterface
+    public function execute(SourceBuilderInterface $source): SourceBuilderInterface
     {
         try {
             $this->sourceResource->save($source);

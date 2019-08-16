@@ -8,8 +8,8 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterfaceFactory;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterfaceFactory;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 
 /**
@@ -18,7 +18,7 @@ use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 class Get implements GetInterface
 {
     /**
-     * @var SourceCsvInterfaceFactory
+     * @var SourceBuilderInterfaceFactory
      */
     private $sourceFactory;
 
@@ -28,11 +28,11 @@ class Get implements GetInterface
     private $sourceResource;
 
     /**
-     * @param SourceCsvInterfaceFactory $sourceFactory
+     * @param SourceBuilderInterfaceFactory $sourceFactory
      * @param SourceResourceModel $sourceResource
      */
     public function __construct(
-        SourceCsvInterfaceFactory $sourceFactory,
+        SourceBuilderInterfaceFactory $sourceFactory,
         SourceResourceModel $sourceResource
     ) {
         $this->sourceFactory = $sourceFactory;
@@ -42,11 +42,11 @@ class Get implements GetInterface
     /**
      * @inheritdoc
      */
-    public function execute(string $uuid): SourceCsvInterface
+    public function execute(string $uuid): SourceBuilderInterface
     {
-        /** @var SourceCsvInterface $source */
+        /** @var SourceBuilderInterface $source */
         $source = $this->sourceFactory->create();
-        $this->sourceResource->load($source, $uuid, SourceCsvInterface::UUID);
+        $this->sourceResource->load($source, $uuid, SourceBuilderInterface::UUID);
 
         if (null === $source->getUuid()) {
             throw new NoSuchEntityException(__('Source with uuid "%value" does not exist.', ['value' => $uuid]));

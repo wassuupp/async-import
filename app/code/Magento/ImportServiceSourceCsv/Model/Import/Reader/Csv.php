@@ -5,14 +5,14 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model\Import\Reader;
+namespace Magento\ImportServiceSourceCsv\Model\Import\Reader;
 
 use Magento\ImportExport\Model\Import\AbstractEntity;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\Framework\Stdlib\ArrayManager;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\Model\Source\ReaderAbstract;
 use Magento\ImportService\Model\Source\ReaderInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterfaceFactory as SourceCsvFactory;
+use Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceSourceCsvApi\Api\Data\SourceCsvFormatInterface;
 
 /**
  * CSV Reader Implementation
@@ -75,28 +75,19 @@ class Csv extends ReaderAbstract implements ReaderInterface
     private $filesystem;
 
     /**
-     * @var SourceCsvFactory
-     */
-    private $sourceCsvFactory;
-
-    /**
-     * @var \Magento\ImportServiceApi\Api\Data\SourceCsvInterface
+     * @var SourceCsvInterface
      */
     private $source;
 
     public function __construct(
-        \Magento\Framework\Filesystem $filesystem,
-        SourceCsvFactory $sourceCsvFactory
+        \Magento\Framework\Filesystem $filesystem
     ) {
         register_shutdown_function([$this, 'destruct']);
         $this->filesystem = $filesystem;
-        $this->sourceCsvFactory = $sourceCsvFactory;
     }
 
-    public function init(SourceCsvInterface $source, $filePath)
+    public function init(SourceBuilderInterface $source, $filePath)
     {
-        /** @var SourceCsv $source */
-        $source = $this->sourceCsvFactory->create()->load($source->getData(SourceCsvInterface::ENTITY_ID));
         try {
             $directory = $this->filesystem->getDirectoryRead('var');
             $this->_file = $directory->openFile($directory->getRelativePath($filePath), 'r');
@@ -106,8 +97,8 @@ class Csv extends ReaderAbstract implements ReaderInterface
 
         $this->source = $source;
         $format = $source->getFormat();
-        $this->_delimiter = $format->getCsvDelimiter();
-        $this->_enclosure = $format->getCsvEnclosure();
+        $this->_delimiter = $format[SourceCsvFormatInterface::CSV_DELIMITER];
+        $this->_enclosure = $format[SourceCsvFormatInterface::CSV_ENCLOSURE];
         $colNames = $this->_getNextRow();
         $this->_colNames = $colNames;
         $this->_colQty = count($colNames);

@@ -9,7 +9,7 @@ namespace Magento\ImportService\Model\ResourceModel\Source;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
-use Magento\ImportService\Model\SourceCsv;
+use Magento\ImportService\Model\SourceBuilder;
 
 /**
  * Collection of Import Service Sources
@@ -21,7 +21,7 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(SourceCsv::class, SourceResourceModel::class);
+        $this->_init(SourceBuilder::class, SourceResourceModel::class);
     }
 
     /**

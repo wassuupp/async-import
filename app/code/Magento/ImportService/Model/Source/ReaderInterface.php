@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Source;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 
 /**
  *  Source Reader Interface
@@ -18,12 +18,12 @@ interface ReaderInterface extends \SeekableIterator
     const SOURCE = 'source';
 
     /**
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      * @param $filePath
      *
      * @return mixed
      */
-    public function init(SourceCsvInterface $source, $filePath);
+    public function init(SourceBuilderInterface $source, $filePath);
 
     /**
      * @return string
@@ -38,15 +38,15 @@ interface ReaderInterface extends \SeekableIterator
     public function setFilePath(string $filePath);
 
     /**
-     * @return SourceCsvInterface
+     * @return SourceBuilderInterface
      */
     public function getSource();
 
     /**
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      *
      * @return $this
      */
-    public function setSource(SourceCsvInterface $source);
+    public function setSource(SourceBuilderInterface $source);
 
 }

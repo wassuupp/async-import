@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportServiceApi\Api\Data;
+namespace Magento\ImportServiceApi\Api;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
- * Interface SourceInterface
+ * Interface SourceBuilderInterface
  */
-interface SourceInterface extends ExtensibleDataInterface
+interface SourceBuilderInterface extends ExtensibleDataInterface
 {
 
     public const ENTITY_ID = 'entity_id';
@@ -43,7 +43,7 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setUuid(string $uuid): SourceInterface;
+    public function setUuid(string $uuid): SourceBuilderInterface;
 
     /**
      * Retrieve data source type
@@ -59,7 +59,7 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setSourceType(string $sourceType): SourceInterface;
+    public function setSourceType(string $sourceType): SourceBuilderInterface;
 
     /**
      * Retrieve Import type
@@ -75,7 +75,7 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setImportType(string $importType): SourceInterface;
+    public function setImportType(string $importType): SourceBuilderInterface;
 
     /**
      * @return string|null
@@ -87,7 +87,7 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setStatus(?string $status): SourceInterface;
+    public function setStatus(?string $status): SourceBuilderInterface;
 
     /**
      * Retrieve Import data
@@ -103,7 +103,7 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setImportData(string $importData): SourceInterface;
+    public function setImportData(string $importData): SourceBuilderInterface;
 
     /**
      * Retrieve Source Format
@@ -119,7 +119,7 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setFormat(array $format): SourceInterface;
+    public function setFormat(array $format): SourceBuilderInterface;
 
     /**
      * Retrieve Import data
@@ -133,25 +133,25 @@ interface SourceInterface extends ExtensibleDataInterface
      *
      * @param string|null $date
      *
-     * @return SourceInterface
+     * @return SourceBuilderInterface
      */
-    public function setCreatedAt(?string $date): SourceInterface;
+    public function setCreatedAt(?string $date): SourceBuilderInterface;
 
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \Magento\ImportServiceApi\Api\Data\SourceExtensionInterface|null
+     * @return \Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface|null
      */
-    public function getExtensionAttributes(): ?SourceExtensionInterface;
+    public function getExtensionAttributes(): ?SourceBuilderExtensionInterface;
 
     /**
      * Set an extension attributes object.
      *
-     * @param \Magento\ImportServiceApi\Api\Data\SourceExtensionInterface $extensionAttributes
+     * @param \Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface $extensionAttributes
      *
      * @return $this
      */
     public function setExtensionAttributes(
-        \Magento\ImportServiceApi\Api\Data\SourceExtensionInterface $extensionAttributes
-    ): SourceInterface;
+        \Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface $extensionAttributes
+    ): SourceBuilderInterface;
 }

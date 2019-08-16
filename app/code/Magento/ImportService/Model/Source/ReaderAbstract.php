@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Source;
 
 use Magento\Framework\DataObject;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\Model\Source\ReaderInterface;
 
 abstract class ReaderAbstract extends DataObject implements ReaderInterface
@@ -41,7 +41,7 @@ abstract class ReaderAbstract extends DataObject implements ReaderInterface
     /**
      * @inheritDoc
      */
-    public function setSource(SourceCsvInterface $source)
+    public function setSource(SourceBuilderInterface $source)
     {
         return $this->setData(ReaderInterface::SOURCE, $source);
     }

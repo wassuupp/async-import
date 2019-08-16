@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import\Processor;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 
@@ -47,7 +47,7 @@ class Base64EncodedDataProcessor implements SourceProcessorInterface
      *  {@inheritdoc}
      */
     public function processUpload(
-        SourceCsvInterface $source,
+        SourceBuilderInterface $source,
         SourceUploadResponseInterface $response
     ): SourceUploadResponseInterface {
         $this->validator->validate($source);

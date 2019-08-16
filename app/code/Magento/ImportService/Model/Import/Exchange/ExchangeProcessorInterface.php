@@ -5,26 +5,26 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportService\Model\Import\Storage;
+namespace Magento\ImportService\Model\Import\Exchange;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
 use Magento\ImportServiceApi\Model\ImportStartResponse;
 
 /**
  *  Storage Processor Interface
  */
-interface ProcessorInterface
+interface ExchangeProcessorInterface
 {
 
     /**
      * @param array $mappingItemsList
      * @param ImportConfigInterface $importConfig
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      * @param ImportStartResponseFactory $importResponse
      *
      * @return ImportStartResponseFactory
      */
-    public function process(array $mappingItemsList, ImportConfigInterface $importConfig, SourceCsvInterface $source, ImportStartResponse $importResponse): ImportStartResponse;
+    public function process(array $mappingItemsList, ImportConfigInterface $importConfig, SourceBuilderInterface $source, ImportStartResponse $importResponse): ImportStartResponse;
 
 }

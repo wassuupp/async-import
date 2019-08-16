@@ -2,7 +2,6 @@
 
 namespace Magento\ImportService\Model\Import\Command;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
 use Magento\ImportServiceApi\Api\Data\ImportConfigInterface;
 use Magento\ImportServiceApi\Model\ImportStartResponse;
 

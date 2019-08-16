@@ -15,7 +15,7 @@ use Magento\Framework\Api\SearchResultsInterface;
  *
  * Separate command interface to which repository proxies initial GetList call
  *
- * @see \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface
+ * @see \Magento\ImportServiceApi\Api\SourceRepositoryInterface
  */
 interface GetListInterface
 {

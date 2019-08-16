@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\ImportService\Model\Import;
 
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\ImportService\Model\Import\Processor\SourceProcessorInterface;
 
@@ -34,12 +34,12 @@ class SourceProcessorPool
     /**
      * Provides processor
      *
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      *
      * @return SourceProcessorInterface
      * @throws ImportServiceException
      */
-    public function getProcessor(SourceCsvInterface $source): SourceProcessorInterface
+    public function getProcessor(SourceBuilderInterface $source): SourceProcessorInterface
     {
         foreach ($this->sourceProcessors as $key => $processorInformation) {
             if ($processorInformation['import_type'] === $source->getImportType()) {
