@@ -11,12 +11,12 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 
 /**
- * CSV files processor for asynchronous import
+ * Files processor for asynchronous import
  */
 class ExternalFileProcessor implements SourceProcessorInterface
 {
@@ -63,7 +63,7 @@ class ExternalFileProcessor implements SourceProcessorInterface
      * @throws FileSystemException
      */
     public function processUpload(
-        SourceCsvInterface $source,
+        SourceBuilderInterface $source,
         SourceUploadResponseInterface $response
     ): SourceUploadResponseInterface {
 

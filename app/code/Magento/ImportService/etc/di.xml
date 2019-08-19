@@ -8,16 +8,14 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Magento\ImportServiceApi\Api\SourceCsvUpdateInterface"
-                type="Magento\ImportService\Model\SourceCsvUpdate" />
-    <preference for="Magento\ImportServiceApi\Api\SourceCsvUploadInterface"
-                type="Magento\ImportService\Model\SourceCsvUpload" />
-    <preference for="Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface"
-                type="Magento\ImportService\Model\SourceCsvRepository" />
-    <preference for="Magento\ImportServiceApi\Api\Data\SourceCsvInterface"
-                type="Magento\ImportService\Model\SourceCsv" />
-    <preference for="Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface"
-                type="Magento\ImportService\Model\SourceCsvFormat" />
+    <preference for="Magento\ImportServiceApi\Api\Data\SourceInterface"
+                type="Magento\ImportService\Model\Source" />
+
+    <preference for="Magento\ImportServiceApi\Api\SourceBuilderInterface"
+                type="Magento\ImportService\Model\SourceBuilder" />
+
+    <preference for="Magento\ImportServiceApi\Api\SourceRepositoryInterface"
+                type="Magento\ImportService\Model\SourceRepository" />
 
     <preference for="Magento\ImportServiceApi\Api\Data\ImportMappingInterface"
                 type="Magento\ImportService\Model\ImportMapping" />
@@ -31,23 +29,6 @@
     <preference for="Magento\ImportService\Model\Source\Command\GetInterface" type="Magento\ImportService\Model\Source\Command\Get"/>
     <preference for="Magento\ImportService\Model\Source\Command\GetListInterface" type="Magento\ImportService\Model\Source\Command\GetList"/>
     <preference for="Magento\ImportService\Model\Source\Command\DeleteByUuidInterface" type="Magento\ImportService\Model\Source\Command\DeleteByUuid"/>
-    <virtualType name="Magento\ImportService\Model\Import\Type\Csv" type="Magento\ImportService\Model\Import\Type\FileSourceType">
-        <arguments>
-            <argument name="sourceType" xsi:type="string">csv</argument>
-            <argument name="allowedMimeTypes" xsi:type="array">
-                <item name="plain" xsi:type="string">text/plain</item>
-                <item name="csv" xsi:type="string">text/csv</item>
-                <item name="octet-stream" xsi:type="string">application/octet-stream</item>
-            </argument>
-        </arguments>
-    </virtualType>
-    <type name="Magento\ImportService\Model\Import\SourceTypePool">
-        <arguments>
-            <argument name="sourceTypes" xsi:type="array">
-                <item name="csv" xsi:type="object">Magento\ImportService\Model\Import\Type\Csv</item>
-            </argument>
-        </arguments>
-    </type>
     <virtualType name="Magento\ImportService\Model\Source\Validator\LocalPathFileProcessorValidator" type="Magento\ImportService\Model\Source\Validator\ImportServiceValidator">
         <arguments>
             <argument name="validators" xsi:type="array">
@@ -92,6 +73,28 @@
             <argument name="validator" xsi:type="object">Magento\ImportService\Model\Source\Validator\ExternalFileProcessorValidator</argument>
         </arguments>
     </type>
+
+    <type name="Magento\ImportService\Model\Import\ExchangeRepository">
+        <arguments>
+            <argument name="processorsPool" xsi:type="array">
+                <item name="amqp" xsi:type="object">Magento\ImportService\Model\Import\Exchange\AmqpProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\ImportService\Model\Import\ImportProcessorTopicsPool">
+        <arguments>
+            <argument name="importTopics" xsi:type="array">
+                <item name="advanced_pricing" xsi:type="array">
+                    <item name="add_update" xsi:type="array">
+                        <item name="topic" xsi:type="string">async.magento.catalog.api.tierpricestorageinterface.update.post</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+
     <type name="Magento\ImportService\Model\Import\SourceProcessorPool">
         <arguments>
             <argument name="sourceProcessors" xsi:type="array">
@@ -110,6 +113,9 @@
             </argument>
         </arguments>
     </type>
+
+    <preference for="Magento\ImportService\Model\Import\Command\StartInterface"
+                type="Magento\ImportService\Model\Import\Command\Start"/>
     <preference for="Magento\ImportServiceApi\Api\ImportStatusInterface"
                 type="Magento\ImportService\Model\ImportStatus" />
     <preference for="Magento\ImportServiceApi\Api\ImportStartInterface"
@@ -118,4 +124,5 @@
                 type="Magento\ImportService\Model\ImportConfig" />
     <preference for="Magento\ImportServiceApi\Api\ImportRestartOperationInterface"
                 type="Magento\ImportService\Model\ImportRestartOperation"/>
+
 </config>

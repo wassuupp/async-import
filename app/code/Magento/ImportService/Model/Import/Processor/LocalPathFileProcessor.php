@@ -13,12 +13,12 @@ use Magento\Framework\Exception\ValidatorException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\Write;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\Model\Source\Validator\ValidatorInterface;
 
 /**
- * CSV files processor for asynchronous import
+ * Files processor for asynchronous import
  */
 class LocalPathFileProcessor implements SourceProcessorInterface
 {
@@ -74,7 +74,7 @@ class LocalPathFileProcessor implements SourceProcessorInterface
      * @throws ValidatorException
      */
     public function processUpload(
-        SourceCsvInterface $source,
+        SourceBuilderInterface $source,
         SourceUploadResponseInterface $response
     ): SourceUploadResponseInterface {
         $this->validator->validate($source);

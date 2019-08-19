@@ -14,8 +14,8 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
+use Magento\ImportServiceApi\Api\SourceRepositoryInterface;
 use Magento\ImportService\ImportServiceException;
 
 /**
@@ -24,7 +24,7 @@ use Magento\ImportService\ImportServiceException;
 class FileSourceType implements SourceTypeInterface
 {
     /**
-     * @var SourceCsvRepositoryInterface
+     * @var SourceRepositoryInterface
      */
     private $sourceRepository;
 
@@ -49,16 +49,16 @@ class FileSourceType implements SourceTypeInterface
     private $allowedMimeTypes;
 
     /**
-     * CSV File Type constructor.
+     * File Type constructor.
      *
-     * @param SourceCsvRepositoryInterface $sourceRepository
+     * @param SourceRepositoryInterface $sourceRepository
      * @param Filesystem $filesystem
      * @param IdentityGenerator $identityGenerator
      * @param string $sourceType
      * @param array $allowedMimeTypes
      */
     public function __construct(
-        SourceCsvRepositoryInterface $sourceRepository,
+        SourceRepositoryInterface $sourceRepository,
         Filesystem $filesystem,
         IdentityGenerator $identityGenerator,
         string $sourceType = null,
@@ -94,15 +94,15 @@ class FileSourceType implements SourceTypeInterface
     /**
      * Save source content
      *
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      *
-     * @return SourceCsvInterface
+     * @return SourceBuilderInterface
      * @throws FileSystemException
      * @throws ImportServiceException
      * @throws CouldNotSaveException
      * @throws NoSuchEntityException
      */
-    public function save(SourceCsvInterface $source): SourceCsvInterface
+    public function save(SourceBuilderInterface $source): SourceBuilderInterface
     {
         $uuid = $source->getUuid() ?: $this->identityGenerator->generateId();
         $fileName = $uuid . $this->getFileExtension();
@@ -115,10 +115,22 @@ class FileSourceType implements SourceTypeInterface
                 __('Cannot create file with given source: %1', $errorMessage)
             );
         }
-        $source->setImportData($fileName)->setUuid($uuid)->setStatus(SourceCsvInterface::STATUS_UPLOADED);
+        $source->setImportData($fileName)->setUuid($uuid)->setStatus(SourceBuilderInterface::STATUS_UPLOADED);
         $source = $this->sourceRepository->save($source);
         $source = $this->sourceRepository->getByUuid($source->getUuid());
 
         return $source;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAbsolutePathToFile(SourceBuilderInterface $source)
+    {
+        /** @var string $contentFilePath */
+        $contentFilePath = SourceTypeInterface::IMPORT_SOURCE_FILE_PATH . $source->getImportData();
+        /** @var \Magento\Framework\Filesystem\Directory\Write $var */
+        $dirReader = $this->filesystem->getDirectoryRead(DirectoryList::VAR_DIR);
+        return $dirReader->getAbsolutePath($contentFilePath);
     }
 }

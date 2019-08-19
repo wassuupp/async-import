@@ -9,25 +9,19 @@ namespace Magento\ImportService\Model;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface;
-use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
+use Magento\ImportServiceApi\Api\SourceRepositoryInterface;
 use Magento\ImportService\Model\Source\Command\SaveInterface;
 use Magento\ImportService\Model\Source\Command\GetInterface;
 use Magento\ImportService\Model\Source\Command\GetListInterface;
 use Magento\ImportService\Model\Source\Command\DeleteByUuidInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 
 /**
  * Class SourceRepository
  */
-class SourceCsvRepository implements SourceCsvRepositoryInterface
+class SourceRepository implements SourceRepositoryInterface
 {
-    /**
-     * @var SourceResourceModel
-     */
-    private $sourceResourceModel;
-
     /**
      * @var GetListInterface
      */
@@ -49,20 +43,17 @@ class SourceCsvRepository implements SourceCsvRepositoryInterface
     private $commandSave;
 
     /**
-     * @param SourceResourceModel $sourceResourceModel
      * @param SaveInterface $commandSave
      * @param GetListInterface $commandGetList
      * @param DeleteByUuidInterface $commandDeleteByUuid
      * @param GetInterface $commandGet
      */
     public function __construct(
-        SourceResourceModel $sourceResourceModel,
         SaveInterface $commandSave,
         GetListInterface $commandGetList,
         DeleteByUuidInterface $commandDeleteByUuid,
         GetInterface $commandGet
     ) {
-        $this->sourceResourceModel  = $sourceResourceModel;
         $this->commandSave = $commandSave;
         $this->commandGetList = $commandGetList;
         $this->commandDeleteByUuid = $commandDeleteByUuid;
@@ -72,7 +63,7 @@ class SourceCsvRepository implements SourceCsvRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function save(SourceCsvInterface $source): SourceCsvInterface
+    public function save(SourceBuilderInterface $source): SourceBuilderInterface
     {
         return $this->commandSave->execute($source);
     }
@@ -80,7 +71,7 @@ class SourceCsvRepository implements SourceCsvRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getByUuid(string $uuid): SourceCsvInterface
+    public function getByUuid(string $uuid): SourceBuilderInterface
     {
         return $this->commandGet->execute($uuid);
     }

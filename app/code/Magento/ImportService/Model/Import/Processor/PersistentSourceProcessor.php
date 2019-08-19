@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Import\Processor;
 
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportServiceApi\Api\Data\SourceUploadResponseInterface;
 use Magento\ImportService\ImportServiceException;
 use Magento\ImportService\Model\Import\SourceTypePool;
@@ -47,7 +47,7 @@ class PersistentSourceProcessor implements SourceProcessorInterface
      * @throws ImportServiceException
      */
     public function processUpload(
-        SourceCsvInterface $source,
+        SourceBuilderInterface $source,
         SourceUploadResponseInterface $response
     ): SourceUploadResponseInterface {
         $sourceType = $this->sourceTypePool->getSourceType($source);

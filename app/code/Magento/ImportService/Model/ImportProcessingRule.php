@@ -12,7 +12,7 @@ use Magento\ImportServiceApi\Api\Data\ImportProcessingRuleInterface;
 use Magento\ImportServiceApi\Api\Data\ImportProcessingRuleExtensionInterface;
 
 /**
- * Class SourceFormatMapping
+ * Class ImportProcessingRule
  */
 class ImportProcessingRule extends AbstractExtensibleModel implements ImportProcessingRuleInterface
 {

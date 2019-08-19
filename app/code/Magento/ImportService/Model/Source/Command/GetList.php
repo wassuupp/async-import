@@ -77,12 +77,6 @@ class GetList implements GetListInterface
 
         foreach ($collection as $item) {
             /** get format object, check for null and convert object into array */
-            $format = $item->getFormat();
-            if (isset($format)) {
-
-                /** set converted array into object field */
-                $item->setData('format', $format->toArray());
-            }
             $sources[] = $item->toArray();
         }
 

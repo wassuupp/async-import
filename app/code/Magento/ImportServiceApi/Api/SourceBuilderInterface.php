@@ -6,20 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace Magento\ImportServiceApi\Api\Data;
+namespace Magento\ImportServiceApi\Api;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
- * Interface SourceCsvInterface
+ * Interface SourceBuilderInterface
  */
-interface SourceCsvInterface extends ExtensibleDataInterface
+interface SourceBuilderInterface extends ExtensibleDataInterface
 {
-
-    /**
-     * const CSV_SOURCE_TYPE
-     */
-    public const CSV_SOURCE_TYPE = 'csv';
 
     public const ENTITY_ID = 'entity_id';
     public const UUID = 'uuid';
@@ -29,6 +24,7 @@ interface SourceCsvInterface extends ExtensibleDataInterface
     public const FORMAT = 'format';
     public const CREATED_AT = 'created_at';
     public const STATUS = 'status';
+
     public const STATUS_UPLOADED = 'uploaded';
     public const STATUS_COMPLETED = 'completed';
     public const STATUS_FAILED = 'failed';
@@ -47,7 +43,7 @@ interface SourceCsvInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setUuid(string $uuid): SourceCsvInterface;
+    public function setUuid(string $uuid): SourceBuilderInterface;
 
     /**
      * Retrieve data source type
@@ -63,7 +59,7 @@ interface SourceCsvInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setSourceType(string $sourceType): SourceCsvInterface;
+    public function setSourceType(string $sourceType): SourceBuilderInterface;
 
     /**
      * Retrieve Import type
@@ -79,7 +75,7 @@ interface SourceCsvInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setImportType(string $importType): SourceCsvInterface;
+    public function setImportType(string $importType): SourceBuilderInterface;
 
     /**
      * @return string|null
@@ -91,7 +87,7 @@ interface SourceCsvInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setStatus(?string $status): SourceCsvInterface;
+    public function setStatus(?string $status): SourceBuilderInterface;
 
     /**
      * Retrieve Import data
@@ -107,23 +103,23 @@ interface SourceCsvInterface extends ExtensibleDataInterface
      *
      * @return $this
      */
-    public function setImportData(string $importData): SourceCsvInterface;
+    public function setImportData(string $importData): SourceBuilderInterface;
 
     /**
      * Retrieve Source Format
      *
-     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface|null
+     * @return array|null
      */
-    public function getFormat(): ?SourceCsvFormatInterface;
+    public function getFormat(): ?array;
 
     /**
      * Set Source Format
      *
-     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvFormatInterface $format
+     * @param array $format
      *
      * @return $this
      */
-    public function setFormat(SourceCsvFormatInterface $format): SourceCsvInterface;
+    public function setFormat(array $format): SourceBuilderInterface;
 
     /**
      * Retrieve Import data
@@ -137,25 +133,25 @@ interface SourceCsvInterface extends ExtensibleDataInterface
      *
      * @param string|null $date
      *
-     * @return SourceCsvInterface
+     * @return SourceBuilderInterface
      */
-    public function setCreatedAt(?string $date): SourceCsvInterface;
+    public function setCreatedAt(?string $date): SourceBuilderInterface;
 
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface|null
+     * @return \Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface|null
      */
-    public function getExtensionAttributes(): ?SourceCsvExtensionInterface;
+    public function getExtensionAttributes(): ?SourceBuilderExtensionInterface;
 
     /**
      * Set an extension attributes object.
      *
-     * @param \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
+     * @param \Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface $extensionAttributes
      *
      * @return $this
      */
     public function setExtensionAttributes(
-        \Magento\ImportServiceApi\Api\Data\SourceCsvExtensionInterface $extensionAttributes
-    ): SourceCsvInterface;
+        \Magento\ImportServiceApi\Api\SourceBuilderExtensionInterface $extensionAttributes
+    ): SourceBuilderInterface;
 }

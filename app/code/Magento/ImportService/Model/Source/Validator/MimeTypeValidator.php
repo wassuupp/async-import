@@ -15,7 +15,7 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\Write;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 use Magento\ImportService\Model\Import\SourceTypePool;
 
 /**
@@ -72,13 +72,13 @@ class MimeTypeValidator implements ValidatorInterface
     /**
      * Return error messages in array
      *
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      *
      * @return array
      * @throws FileSystemException
      * @throws ValidatorException
      */
-    public function validate(SourceCsvInterface $source)
+    public function validate(SourceBuilderInterface $source)
     {
         $errors = [];
 
@@ -116,6 +116,9 @@ class MimeTypeValidator implements ValidatorInterface
         }
 
         if ($mimeType) {
+            if (is_array($mimeType)){
+                $mimeType = implode(";", $mimeType);
+            }
             $mimeType = trim(explode(";", $mimeType)[0]);
             if (!in_array($mimeType, $this->sourceTypePool->getAllowedMimeTypes())) {
                 $errors[] = __(

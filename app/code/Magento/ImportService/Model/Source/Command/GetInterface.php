@@ -8,14 +8,14 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 
 /**
  * Get source by uuid command
  *
  * Separate command interface to which Repository proxies initial Get call
  *
- * @see \Magento\ImportServiceApi\Api\SourceCsvRepositoryInterface
+ * @see \Magento\ImportServiceApi\Api\SourceRepositoryInterface
  */
 interface GetInterface
 {
@@ -24,8 +24,8 @@ interface GetInterface
      *
      * @param string $uuid
      *
-     * @return SourceCsvInterface
+     * @return SourceBuilderInterface
      * @throws NoSuchEntityException
      */
-    public function execute(string $uuid): SourceCsvInterface;
+    public function execute(string $uuid): SourceBuilderInterface;
 }

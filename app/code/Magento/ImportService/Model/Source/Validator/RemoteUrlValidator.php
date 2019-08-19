@@ -9,7 +9,7 @@ namespace Magento\ImportService\Model\Source\Validator;
 
 use Magento\Framework\Filesystem\Driver\Http as HttpDriver;
 use Magento\Framework\Filesystem\Driver\Http\Proxy as Http;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 
 /**
  * Class RemoteUrlValidator
@@ -33,11 +33,11 @@ class RemoteUrlValidator implements ValidatorInterface
     /**
      * Return error messages in array
      *
-     * @param SourceCsvInterface $source
+     * @param SourceBuilderInterface $source
      *
      * @return array
      */
-    public function validate(SourceCsvInterface $source)
+    public function validate(SourceBuilderInterface $source)
     {
         $errors = [];
 

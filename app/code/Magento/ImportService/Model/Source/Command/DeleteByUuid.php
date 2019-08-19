@@ -9,8 +9,8 @@ namespace Magento\ImportService\Model\Source\Command;
 
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterfaceFactory;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterfaceFactory;
 use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 
 /**
@@ -19,7 +19,7 @@ use Magento\ImportService\Model\ResourceModel\Source as SourceResourceModel;
 class DeleteByUuid implements DeleteByUuidInterface
 {
     /**
-     * @var SourceCsvInterfaceFactory
+     * @var SourceBuilderInterfaceFactory
      */
     private $sourceFactory;
 
@@ -29,11 +29,11 @@ class DeleteByUuid implements DeleteByUuidInterface
     private $sourceResource;
 
     /**
-     * @param SourceCsvInterfaceFactory $sourceFactory
+     * @param SourceBuilderInterfaceFactory $sourceFactory
      * @param SourceResourceModel $sourceResource
      */
     public function __construct(
-        SourceCsvInterfaceFactory $sourceFactory,
+        SourceBuilderInterfaceFactory $sourceFactory,
         SourceResourceModel $sourceResource
     ) {
         $this->sourceFactory = $sourceFactory;
@@ -45,16 +45,16 @@ class DeleteByUuid implements DeleteByUuidInterface
      */
     public function execute(string $uuid): void
     {
-        /** @var SourceCsvInterface $source */
+        /** @var SourceBuilderInterface $source */
         $source = $this->sourceFactory->create();
-        $this->sourceResource->load($source, $uuid, SourceCsvInterface::UUID);
+        $this->sourceResource->load($source, $uuid, SourceBuilderInterface::UUID);
 
         if (null === $source->getUuid()) {
             throw new NoSuchEntityException(
                 __(
                     'There is no source with "%fieldValue" for "%fieldName". Verify and try again.',
                     [
-                        'fieldName' => SourceCsvInterface::UUID,
+                        'fieldName' => SourceBuilderInterface::UUID,
                         'fieldValue' => $uuid
                     ]
                 )

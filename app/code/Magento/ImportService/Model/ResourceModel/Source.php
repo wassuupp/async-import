@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\ImportService\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Magento\ImportServiceApi\Api\Data\SourceCsvInterface;
+use Magento\ImportServiceApi\Api\SourceBuilderInterface;
 
 /**
  * Class SourceResourceModel
@@ -19,6 +19,6 @@ class Source extends AbstractDb
 
     protected function _construct()
     {
-        $this->_init(self::TABLE_NAME, SourceCsvInterface::ENTITY_ID);
+        $this->_init(self::TABLE_NAME, SourceBuilderInterface::ENTITY_ID);
     }
 }
