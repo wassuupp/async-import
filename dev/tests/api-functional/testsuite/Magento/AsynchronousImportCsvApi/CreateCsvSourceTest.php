@@ -24,6 +24,7 @@ class CreateCsvSourceTest extends WebapiAbstract
 
     public function testCreateCsvSource()
     {
+        $this->markTestIncomplete();
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
