@@ -39,7 +39,7 @@ class ImportTypeValidator implements ImportValidatorInterface
 
         if ('' === trim($value)) {
             $errors[] = __('"%field" can not be empty.', ['field' => ImportInterface::IMPORT_TYPE]);
-            // phpcs:ignore Generic.CodeAnalysis.UnconditionalIfStatement
+            // phpcs:ignore Generic.CodeAnalysis.UnconditionalIfStatement,Magento2.CodeAnalysis.EmptyBlock
         } elseif (false) {
             // TODO: check allowed import types
         } else {

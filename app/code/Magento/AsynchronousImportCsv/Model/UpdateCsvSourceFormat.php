@@ -20,8 +20,8 @@ class UpdateCsvSourceFormat implements UpdateCsvSourceFormatInterface
      */
     public function execute(string $uuid, CsvFormatInterface $format): void
     {
+        // phpcs:ignore Magento2.CodeAnalysis.EmptyBlock
         // TODO:
         // $sourceToUpdate->getSourceType() !== CsvSourceCreateInterface::CSV_SOURCE_TYPE
-        // phpcs:ignore Generic.CodeAnalysis.UnconditionalIfStatement
     }
 }

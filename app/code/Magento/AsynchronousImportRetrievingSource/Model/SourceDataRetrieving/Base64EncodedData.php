@@ -54,6 +54,7 @@ class Base64EncodedData implements RetrieveSourceDataInterface
             );
         }
 
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction
         $content = base64_decode($sourceData->getSourceData());
 
         return $this->createResult(RetrievingResultInterface::STATUS_SUCCESS, $content);
