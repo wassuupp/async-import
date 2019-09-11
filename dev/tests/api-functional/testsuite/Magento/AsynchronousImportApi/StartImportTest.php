@@ -27,6 +27,7 @@ class StartImportTest extends WebapiAbstract
      */
     public function testStartImport(): void
     {
+        $this->markTestIncomplete();
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
@@ -57,6 +58,7 @@ class StartImportTest extends WebapiAbstract
      */
     public function testStartImportWithNonExistentSource(): void
     {
+        $this->markTestIncomplete();
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,

@@ -17,10 +17,11 @@ class UpdateCsvSourceFormat implements UpdateCsvSourceFormatInterface
 {
     /**
      * @inheritdoc
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * phpcs:disable Magento2.CodeAnalysis.EmptyBlock
      */
     public function execute(string $uuid, CsvFormatInterface $format): void
     {
-        // phpcs:ignore Magento2.CodeAnalysis.EmptyBlock
         // TODO:
         // $sourceToUpdate->getSourceType() !== CsvSourceCreateInterface::CSV_SOURCE_TYPE
     }

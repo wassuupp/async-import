@@ -18,9 +18,10 @@ class AdvancedPricing implements ImportDataProcessorInterface
 {
     /**
      * @inheritdoc
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * phpcs:disable Magento2.CodeAnalysis.EmptyBlock
      */
     public function execute(ImportInterface $import, ImportDataInterface $importData): void
     {
-        // phpcs:ignore Magento2.CodeAnalysis.EmptyBlock
     }
 }
