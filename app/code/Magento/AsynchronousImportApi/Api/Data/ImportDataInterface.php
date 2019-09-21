@@ -22,4 +22,12 @@ interface ImportDataInterface
      * @return array
      */
     public function getData(): array;
+
+    /**
+     * Set data
+     *
+     * @param array $data
+     * @return ImportDataInterface
+     */
+    public function setData(array $data): ImportDataInterface;
 }

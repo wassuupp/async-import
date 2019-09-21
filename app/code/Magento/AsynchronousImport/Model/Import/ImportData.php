@@ -35,4 +35,13 @@ class ImportData implements ImportDataInterface
     {
         return $this->data;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function setData(array $data): ImportDataInterface
+    {
+        $this->data = $data;
+        return $this;
+    }
 }
