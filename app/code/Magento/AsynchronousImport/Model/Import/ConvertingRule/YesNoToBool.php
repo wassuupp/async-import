@@ -56,39 +56,28 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
         if ([] === $applyToColumns) {
             return $importData;
         }
-//        if (!array_key_exists(self::CONVERTING_RULE_PARAMTER_APPLY_TO, $parameters)) {
-//            throw new NotFoundException(__(
-//                    'Parameter "%param" for converting rule "%rule" is not provided.',
-//                    [
-//                        'param' => self::CONVERTING_RULE_PARAMTER_APPLY_TO,
-//                        'rule'  => $convertingRule->getParameters(),
-//                    ]
-//                )
-//            );
-//        }
-
 
         $rows = $importData->getData();
         $headers = array_shift($rows) ?? [];
 
         $applyToHeaders = array_intersect($applyToColumns, $headers);
         if (count($applyToHeaders) < count($applyToColumns)) {
-            throw new NotFoundException(__(
-                    'The conversion rule "%rule" cannot be applied these columns "%columns".',
-                    [
-                        'rule'    => $convertingRule->getParameters(),
-                        'columns' => implode(', ', array_diff($applyToColumns, $applyToHeaders)),
-                    ]
-                )
+            $phrase = __(
+                'The conversting rule "%rule" cannot be applied to these columns: "%columns".',
+                [
+                    'rule'    => self::CONVERTING_RULE_PARAMTER_APPLY_TO,
+                    'columns' => implode(', ', array_diff($applyToColumns, $applyToHeaders)),
+                ]
             );
+            throw new NotFoundException($phrase);
         }
         foreach ($applyToColumns as $applyToColumn) {
             $key = array_search($applyToColumn, $headers, true);
-            foreach ($rows as $row) {
+            foreach ($rows as &$row) {
                 $row[$key] = $this->conversionMap[strtolower($row[$key])] ?? $row[$key];
             }
         }
 
-        return $importData->setData(array_merge($headers, $rows));
+        return $importData->setData(array_merge([$headers], $rows));
     }
 }
