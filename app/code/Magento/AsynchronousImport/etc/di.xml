@@ -39,4 +39,11 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\AsynchronousImportApi\Model\ConvertingRulesProcessorChain">
+        <arguments>
+            <argument name="ruleProcessors" xsi:type="array">
+                <item name="yes_no_to_bool" xsi:type="object">Magento\AsynchronousImport\Model\Import\ConvertingRule\YesNoToBool</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
