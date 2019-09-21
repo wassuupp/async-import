@@ -18,7 +18,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @var string
      */
-    private $separator;
+    private $escape;
 
     /**
      * @var string
@@ -41,20 +41,20 @@ class CsvFormat implements CsvFormatInterface
     private $extensionAttributes;
 
     /**
-     * @param string $separator
+     * @param string $escape
      * @param string $enclosure
      * @param string $delimiter
      * @param string $multipleValueSeparator
      * @param CsvFormatExtensionInterface $extensionAttributes
      */
     public function __construct(
-        string $separator,
-        string $enclosure,
-        string $delimiter,
-        string $multipleValueSeparator,
+        string $escape = CsvFormatInterface::DEFAULT_ESCAPE,
+        string $enclosure = CsvFormatInterface::DEFAULT_ENCLOSURE,
+        string $delimiter = CsvFormatInterface::DEFAULT_DELIMITER,
+        string $multipleValueSeparator = CsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR,
         CsvFormatExtensionInterface $extensionAttributes
     ) {
-        $this->separator = $separator;
+        $this->escape = $escape;
         $this->enclosure = $enclosure;
         $this->delimiter = $delimiter;
         $this->multipleValueSeparator = $multipleValueSeparator;
@@ -64,15 +64,15 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getSeparator(): string
+    public function getEscape(): ?string
     {
-        return $this->separator;
+        return $this->escape;
     }
 
     /**
      * @inheritdoc
      */
-    public function getEnclosure(): string
+    public function getEnclosure(): ?string
     {
         return $this->enclosure;
     }
@@ -80,7 +80,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getDelimiter(): string
+    public function getDelimiter(): ?string
     {
         return $this->delimiter;
     }
@@ -88,7 +88,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getMultipleValueSeparator(): string
+    public function getMultipleValueSeparator(): ?string
     {
         return $this->multipleValueSeparator;
     }

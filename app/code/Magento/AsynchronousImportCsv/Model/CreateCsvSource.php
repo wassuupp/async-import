@@ -73,24 +73,24 @@ class CreateCsvSource implements CreateCsvSourceInterface
     /**
      * @inheritdoc
      */
-    public function execute(string $uuid, SourceDataInterface $sourceData, CsvFormatInterface $format): void
+    public function execute(string $uuid, SourceDataInterface $sourceData, CsvFormatInterface $format = null): void
     {
         $retrievingResult = $this->retrieveSourceData->execute($sourceData);
-
         if ($retrievingResult->getStatus() === RetrievingResultInterface::STATUS_FAILED) {
             throw new RetrievingSourceException(__('Source retrieving was failed'), null, 0, $retrievingResult);
         }
 
-        $formatData = $this->dataObjectConverter->toFlatArray($format, [], CsvFormatInterface::class);
-        $formatData = array_merge(
-            [
-                CsvFormatInterface::SEPARATOR => CsvFormatInterface::DEFAULT_SEPARATOR,
+        if (is_null($format)) {
+            $formatData = [
+                CsvFormatInterface::ESCAPE => CsvFormatInterface::DEFAULT_ESCAPE,
                 CsvFormatInterface::ENCLOSURE => CsvFormatInterface::DEFAULT_ENCLOSURE,
                 CsvFormatInterface::DELIMITER => CsvFormatInterface::DEFAULT_DELIMITER,
                 CsvFormatInterface::MULTIPLE_VALUE_SEPARATOR => CsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR,
-            ],
-            $formatData
-        );
+            ];
+        } else {
+            $formatData = $this->dataObjectConverter->toFlatArray($format, [], CsvFormatInterface::class);
+        }
+
         $metaData = $this->serializer->serialize(
             [
                 'format' => CsvFormatInterface::FORMAT_TYPE,

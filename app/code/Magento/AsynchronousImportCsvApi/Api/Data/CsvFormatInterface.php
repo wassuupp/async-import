@@ -18,43 +18,43 @@ interface CsvFormatInterface extends ExtensibleDataInterface
 {
     public const FORMAT_TYPE = 'csv';
 
-    public const SEPARATOR = 'separator';
+    public const ESCAPE = 'escape';
     public const ENCLOSURE = 'enclosure';
     public const DELIMITER = 'delimiter';
     public const MULTIPLE_VALUE_SEPARATOR = 'multiple_value_separator';
 
-    public const DEFAULT_SEPARATOR = ',';
+    public const DEFAULT_ESCAPE = '\\';
     public const DEFAULT_ENCLOSURE = '"';
     public const DEFAULT_DELIMITER = ',';
     public const DEFAULT_MULTIPLE_VALUE_SEPARATOR = '|';
 
     /**
-     * Get CSV Separator
+     * Get CSV Escape
      *
-     * @return string
+     * @return ?string
      */
-    public function getSeparator(): string;
+    public function getEscape(): ?string;
 
     /**
      * Get CSV Enclosure
      *
-     * @return string
+     * @return string|null
      */
-    public function getEnclosure(): string;
+    public function getEnclosure(): ?string;
 
     /**
      * Get CSV Delimiter
      *
-     * @return string
+     * @return string|null
      */
-    public function getDelimiter(): string;
+    public function getDelimiter(): ?string;
 
     /**
      * Get Multiple Value Separator
      *
-     * @return string
+     * @return string|null
      */
-    public function getMultipleValueSeparator(): string;
+    public function getMultipleValueSeparator(): ?string;
 
     /**
      * Get existing extension attributes object
