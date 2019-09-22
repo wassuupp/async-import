@@ -69,7 +69,7 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
                 'The conversting rule "%rule" cannot be applied to these columns: "%columns".',
                 [
                     'rule'    => self::CONVERTING_RULE_PARAMTER_APPLY_TO,
-                    'columns' => implode(', ', $missing),
+                    'columns' => implode(', ', $missing) ?? '',
                 ]
             );
             throw new NotFoundException($phrase);

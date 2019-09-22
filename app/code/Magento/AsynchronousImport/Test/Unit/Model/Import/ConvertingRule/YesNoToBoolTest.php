@@ -31,7 +31,7 @@ class YesNoToBoolTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -47,7 +47,7 @@ class YesNoToBoolTest extends TestCase
      *
      * @throws NotFoundException
      */
-    public function testExecute_ApplyToIsNotSetInParameters_ReturnImportData()
+    public function testExecuteApplyToIsNotSetInParametersReturnImportData(): void
     {
         // prepare
         $this->convertingRuleMock->method('getParameters')->willReturn([]);
@@ -65,7 +65,7 @@ class YesNoToBoolTest extends TestCase
      *
      * @throws NotFoundException
      */
-    public function testExecute_ApplyToIsSetInParametersButAtLeastOneColumnInApplyToDoesNotExist_TrowAnException()
+    public function testExecuteApplyToIsSetInParametersButAtLeastOneColumnInApplyToDoesNotExistTrowAnException(): void
     {
         // prepare
         $this->convertingRuleMock->method('getParameters')->willReturn(['apply_to' => ['some_not_existing_column', 'some_other_not_existing_column']]);
@@ -91,7 +91,7 @@ class YesNoToBoolTest extends TestCase
      *
      * @throws NotFoundException
      */
-    public function testExecute_ApplyToIsSetInParametersAllColumnsInApplyToExist_DoSomething()
+    public function testExecuteApplyToIsSetInParametersAllColumnsInApplyToExistDoSomething(): void
     {
         // prepare
         $applyToColumn = 'apply_to_column';
@@ -117,7 +117,7 @@ class YesNoToBoolTest extends TestCase
      *
      * @throws NotFoundException
      */
-    public function testExecute_ImportValuesCanBeConveerted_ReturnTheConvertedData()
+    public function testExecuteImportValuesCanBeConveertedReturnTheConvertedData(): void
     {
         // prepare
         $applyToColumn = 'apply_to_column';
