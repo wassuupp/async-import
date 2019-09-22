@@ -27,6 +27,8 @@
     <preference for="Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface" type="Magento\AsynchronousImport\Model\Import\ConvertingRule"/>
     <preference for="Magento\AsynchronousImportApi\Api\StartImportInterface" type="Magento\AsynchronousImport\Model\Import\StartImport"/>
     <preference for="Magento\AsynchronousImportApi\Api\SaveImportInterface" type="Magento\AsynchronousImport\Model\Import\SaveImport"/>
+    <preference for="Magento\AsynchronousImportApi\Api\Data\ConvertingRule\ParameterInterface"
+                type="Magento\AsynchronousImport\Model\Import\ConvertingRule\Parameter"/>
     <type name="Magento\AsynchronousImportApi\Model\ImportValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">

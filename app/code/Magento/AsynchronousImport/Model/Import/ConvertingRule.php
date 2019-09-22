@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImport\Model\Import;
 
+use Magento\AsynchronousImportApi\Api\Data\ConvertingRule\ParameterInterface;
 use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
 
 /**
@@ -31,7 +32,7 @@ class ConvertingRule implements ConvertingRuleInterface
 
     /**
      * @param string $name
-     * @param array $parameters
+     * @param ParameterInterface[] $parameters
      * @param int $sort
      */
     public function __construct(string $name, array $parameters, int $sort)

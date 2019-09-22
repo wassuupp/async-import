@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImport\Model\Import;
 
 use Magento\AsynchronousImport\Model\Source\ResourceModel\Source as SourceResourceModel;
+use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
 use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\AbstractModel;
@@ -43,6 +44,7 @@ class Import extends AbstractModel implements ImportInterface
      * @param int $allowedErrorCount
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
+     * @param ConvertingRuleInterface[] $convertingRules
      * @param array $data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -57,6 +59,7 @@ class Import extends AbstractModel implements ImportInterface
         int $allowedErrorCount = null,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
+        array $convertingRules = [],
         array $data = []
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
@@ -67,6 +70,7 @@ class Import extends AbstractModel implements ImportInterface
         $this->setData(self::IMPORT_BEHAVIOUR, $importBehaviour);
         $this->setData(self::VALIDATION_STRATEGY, $validationStrategy);
         $this->setData(self::ALLOWED_ERROR_COUNT, $allowedErrorCount);
+        $this->setData(self::CONVERTING_RULES, $convertingRules);
     }
 
     /**
