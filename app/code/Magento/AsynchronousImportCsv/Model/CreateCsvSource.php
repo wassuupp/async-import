@@ -80,7 +80,7 @@ class CreateCsvSource implements CreateCsvSourceInterface
             throw new RetrievingSourceException(__('Source retrieving was failed'), null, 0, $retrievingResult);
         }
 
-        if (is_null($format)) {
+        if ($format === null) {
             $formatData = [
                 CsvFormatInterface::ESCAPE => CsvFormatInterface::DEFAULT_ESCAPE,
                 CsvFormatInterface::ENCLOSURE => CsvFormatInterface::DEFAULT_ENCLOSURE,
