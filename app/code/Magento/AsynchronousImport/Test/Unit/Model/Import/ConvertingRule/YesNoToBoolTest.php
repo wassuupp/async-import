@@ -1,9 +1,7 @@
 <?php
 /**
- * This file is part of the Mothership GmbH code.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
  */
 declare(strict_types=1);
 
