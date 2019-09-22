@@ -48,11 +48,11 @@ class CsvFormat implements CsvFormatInterface
      * @param CsvFormatExtensionInterface $extensionAttributes
      */
     public function __construct(
+        CsvFormatExtensionInterface $extensionAttributes,
         string $escape = CsvFormatInterface::DEFAULT_ESCAPE,
         string $enclosure = CsvFormatInterface::DEFAULT_ENCLOSURE,
         string $delimiter = CsvFormatInterface::DEFAULT_DELIMITER,
-        string $multipleValueSeparator = CsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR,
-        CsvFormatExtensionInterface $extensionAttributes
+        string $multipleValueSeparator = CsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR
     ) {
         $this->escape = $escape;
         $this->enclosure = $enclosure;
