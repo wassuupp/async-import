@@ -20,7 +20,7 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
     /**
      * Holds rule parameters
      */
-    const CONVERTING_RULE_PARAMTER_APPLY_TO = 'apply_to';
+    const CONVERTING_RULE_PARAMETER_APPLY_TO = 'apply_to';
 
     /**
      * Holds values to be converted
@@ -54,7 +54,7 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
     ): ImportDataInterface {
         $parameters = $convertingRule->getParameters();
 
-        $applyToColumns = $parameters[self::CONVERTING_RULE_PARAMTER_APPLY_TO] ?? [];
+        $applyToColumns = $parameters[self::CONVERTING_RULE_PARAMETER_APPLY_TO] ?? [];
         if ([] === $applyToColumns) {
             return $importData;
         }
@@ -68,7 +68,7 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
             $phrase = __(
                 'The conversting rule "%rule" cannot be applied to these columns: "%columns".',
                 [
-                    'rule'    => self::CONVERTING_RULE_PARAMTER_APPLY_TO,
+                    'rule'    => self::CONVERTING_RULE_PARAMETER_APPLY_TO,
                     'columns' => implode(', ', $missing) ?? '',
                 ]
             );

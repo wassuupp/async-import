@@ -68,7 +68,9 @@ class YesNoToBoolTest extends TestCase
     public function testExecuteApplyToIsSetInParametersButAtLeastOneColumnInApplyToDoesNotExistTrowAnException(): void
     {
         // prepare
-        $this->convertingRuleMock->method('getParameters')->willReturn(['apply_to' => ['some_not_existing_column', 'some_other_not_existing_column']]);
+        $this->convertingRuleMock
+            ->method('getParameters')
+            ->willReturn(['apply_to' => ['some_not_existing_column', 'some_other_not_existing_column']]);
 
         $headers = ['column_1', 'column_2', 'column_3'];
         $rows = [
@@ -113,7 +115,8 @@ class YesNoToBoolTest extends TestCase
     }
 
     /**
-     * Kurzbeschreibung
+     * Covers the case when there is an apply_to-parameter having values and for all values exist a column.
+     * Then we convert the affected values
      *
      * @throws NotFoundException
      */
@@ -153,7 +156,7 @@ class YesNoToBoolTest extends TestCase
     }
 
     /**
-     * Kurzbeschreibung
+     * Prepares Import Data
      *
      * @param array $headers
      * @param array $rows
@@ -161,7 +164,5 @@ class YesNoToBoolTest extends TestCase
     private function importDataGetData(array $headers, array $rows)
     {
         $this->importDataMock->method('getData')->willReturn(array_merge($headers, $rows));
-
     }
-
 }
