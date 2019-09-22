@@ -63,12 +63,13 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
         $headers = array_shift($rows) ?? [];
 
         $applyToHeaders = array_intersect($applyToColumns, $headers);
-        if (count($applyToHeaders) < count($applyToColumns)) {
+        $missing = array_diff($applyToColumns, $applyToHeaders);
+        if (count($missing) > 0) {
             $phrase = __(
                 'The conversting rule "%rule" cannot be applied to these columns: "%columns".',
                 [
                     'rule'    => self::CONVERTING_RULE_PARAMTER_APPLY_TO,
-                    'columns' => implode(', ', array_diff($applyToColumns, $applyToHeaders)),
+                    'columns' => implode(', ', $missing),
                 ]
             );
             throw new NotFoundException($phrase);
