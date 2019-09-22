@@ -7,6 +7,8 @@
  */
 declare(strict_types=1);
 
+namespace Magento\AsynchronousImport\Test\Unit\Model\Import\ConvertingRule;
+
 use Magento\AsynchronousImport\Model\Import\ConvertingRule\YesNoToBool;
 use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
