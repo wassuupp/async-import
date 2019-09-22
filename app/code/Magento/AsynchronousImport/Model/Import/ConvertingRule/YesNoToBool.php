@@ -48,8 +48,10 @@ class YesNoToBool implements ConvertingRuleProcessorInterface
      * @return ImportDataInterface
      * @throws NotFoundException
      */
-    public function execute(ImportDataInterface $importData, ConvertingRuleInterface $convertingRule): ImportDataInterface
-    {
+    public function execute(
+        ImportDataInterface $importData,
+        ConvertingRuleInterface $convertingRule
+    ): ImportDataInterface {
         $parameters = $convertingRule->getParameters();
 
         $applyToColumns = $parameters[self::CONVERTING_RULE_PARAMTER_APPLY_TO] ?? [];
