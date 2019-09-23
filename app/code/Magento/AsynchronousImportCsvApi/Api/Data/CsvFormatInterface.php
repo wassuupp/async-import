@@ -31,35 +31,35 @@ interface CsvFormatInterface extends ExtensibleDataInterface
     /**
      * Get CSV Escape
      *
-     * @return string
+     * @return string|null
      */
-    public function getEscape(): string;
+    public function getEscape(): ?string;
 
     /**
      * Get CSV Enclosure
      *
-     * @return string
+     * @return string|null
      */
-    public function getEnclosure(): string;
+    public function getEnclosure(): ?string;
 
     /**
      * Get CSV Delimiter
      *
-     * @return string
+     * @return string|null
      */
-    public function getDelimiter(): string;
+    public function getDelimiter(): ?string;
 
     /**
      * Get Multiple Value Separator
      *
-     * @return string
+     * @return string|null
      */
-    public function getMultipleValueSeparator(): string;
+    public function getMultipleValueSeparator(): ?string;
 
     /**
      * Get existing extension attributes object
      *
-     * @return \Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtensionInterface
+     * @return \Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtensionInterface|null
      */
-    public function getExtensionAttributes(): CsvFormatExtensionInterface;
+    public function getExtensionAttributes(): ?CsvFormatExtensionInterface;
 }

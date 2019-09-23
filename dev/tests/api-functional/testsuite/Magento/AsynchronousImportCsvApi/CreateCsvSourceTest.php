@@ -42,9 +42,36 @@ class CreateCsvSourceTest extends WebapiAbstract
                 'sourceData' => 'value2',
             ],
             'format' => [
-                'separator' => 'CSV',
+                'escape' => 'CSV',
                 'enclosure' => 'CSV',
                 'delimiter' => 'CSV',
+                'multipleValueSeparator' => 'CSV',
+                'extensionAttributes' => null,
+            ]
+        ];
+        $this->_webApiCall($serviceInfo, $data);
+    }
+
+    public function testCreateCsvSourceWithPartialFormat()
+    {
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH,
+                'httpMethod' => Request::HTTP_METHOD_POST,
+            ],
+            'soap' => [
+                'service' => self::SERVICE_NAME,
+                'operation' => self::SERVICE_NAME . 'Execute',
+            ],
+        ];
+
+        $data = [
+            'uuid' => 'c4f2d109-0792-41ff-9f24-788ed5634b41',
+            'sourceData' => [
+                'sourceType' => 'base64_encoded_data',
+                'sourceData' => 'value2',
+            ],
+            'format' => [
                 'multipleValueSeparator' => 'CSV',
             ]
         ];
