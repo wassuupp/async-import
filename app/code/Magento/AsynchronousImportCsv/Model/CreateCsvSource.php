@@ -80,21 +80,23 @@ class CreateCsvSource implements CreateCsvSourceInterface
             throw new RetrievingSourceException(__('Source retrieving was failed'), null, 0, $retrievingResult);
         }
 
-        if ($format === null) {
-            $formatData = [
+        $formatData = $format === null
+            ? []
+            : $this->dataObjectConverter->toFlatArray($format, [], CsvFormatInterface::class);
+
+        $formatData = array_merge(
+            [
                 CsvFormatInterface::ESCAPE => CsvFormatInterface::DEFAULT_ESCAPE,
                 CsvFormatInterface::ENCLOSURE => CsvFormatInterface::DEFAULT_ENCLOSURE,
                 CsvFormatInterface::DELIMITER => CsvFormatInterface::DEFAULT_DELIMITER,
                 CsvFormatInterface::MULTIPLE_VALUE_SEPARATOR => CsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR,
-            ];
-        } else {
-            $formatData = $this->dataObjectConverter->toFlatArray($format, [], CsvFormatInterface::class);
-        }
-
+            ],
+            $formatData
+        );
         $metaData = $this->serializer->serialize(
             [
                 'format' => CsvFormatInterface::FORMAT_TYPE,
-                'data' => $formatData
+                'data' => $formatData,
             ]
         );
 

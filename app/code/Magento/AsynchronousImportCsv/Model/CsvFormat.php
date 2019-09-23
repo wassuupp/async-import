@@ -48,11 +48,11 @@ class CsvFormat implements CsvFormatInterface
      * @param CsvFormatExtensionInterface $extensionAttributes
      */
     public function __construct(
-        CsvFormatExtensionInterface $extensionAttributes,
-        string $escape = CsvFormatInterface::DEFAULT_ESCAPE,
-        string $enclosure = CsvFormatInterface::DEFAULT_ENCLOSURE,
-        string $delimiter = CsvFormatInterface::DEFAULT_DELIMITER,
-        string $multipleValueSeparator = CsvFormatInterface::DEFAULT_MULTIPLE_VALUE_SEPARATOR
+        string $escape,
+        string $enclosure,
+        string $delimiter,
+        string $multipleValueSeparator,
+        CsvFormatExtensionInterface $extensionAttributes
     ) {
         $this->escape = $escape;
         $this->enclosure = $enclosure;
@@ -64,7 +64,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getEscape(): ?string
+    public function getEscape(): string
     {
         return $this->escape;
     }
@@ -72,7 +72,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getEnclosure(): ?string
+    public function getEnclosure(): string
     {
         return $this->enclosure;
     }
@@ -80,7 +80,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getDelimiter(): ?string
+    public function getDelimiter(): string
     {
         return $this->delimiter;
     }
@@ -88,7 +88,7 @@ class CsvFormat implements CsvFormatInterface
     /**
      * @inheritdoc
      */
-    public function getMultipleValueSeparator(): ?string
+    public function getMultipleValueSeparator(): string
     {
         return $this->multipleValueSeparator;
     }

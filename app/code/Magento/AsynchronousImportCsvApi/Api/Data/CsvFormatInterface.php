@@ -31,30 +31,30 @@ interface CsvFormatInterface extends ExtensibleDataInterface
     /**
      * Get CSV Escape
      *
-     * @return ?string
+     * @return string
      */
-    public function getEscape(): ?string;
+    public function getEscape(): string;
 
     /**
      * Get CSV Enclosure
      *
-     * @return string|null
+     * @return string
      */
-    public function getEnclosure(): ?string;
+    public function getEnclosure(): string;
 
     /**
      * Get CSV Delimiter
      *
-     * @return string|null
+     * @return string
      */
-    public function getDelimiter(): ?string;
+    public function getDelimiter(): string;
 
     /**
      * Get Multiple Value Separator
      *
-     * @return string|null
+     * @return string
      */
-    public function getMultipleValueSeparator(): ?string;
+    public function getMultipleValueSeparator(): string;
 
     /**
      * Get existing extension attributes object

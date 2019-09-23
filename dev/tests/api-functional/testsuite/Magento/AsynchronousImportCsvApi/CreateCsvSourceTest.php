@@ -24,7 +24,6 @@ class CreateCsvSourceTest extends WebapiAbstract
 
     public function testCreateCsvSource()
     {
-        $this->markTestIncomplete();
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
@@ -51,6 +50,27 @@ class CreateCsvSourceTest extends WebapiAbstract
         ];
         $this->_webApiCall($serviceInfo, $data);
     }
-    // with wrong source type
-    // without format
+
+    public function testCreateCsvSourceWithoutFormat()
+    {
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH,
+                'httpMethod' => Request::HTTP_METHOD_POST,
+            ],
+            'soap' => [
+                'service' => self::SERVICE_NAME,
+                'operation' => self::SERVICE_NAME . 'Execute',
+            ],
+        ];
+
+        $data = [
+            'uuid' => 'c4f2d109-0792-41ff-9f24-788ed5634b42',
+            'sourceData' => [
+                'sourceType' => 'base64_encoded_data',
+                'sourceData' => 'value2',
+            ],
+        ];
+        $this->_webApiCall($serviceInfo, $data);
+    }
 }
