@@ -19,7 +19,7 @@ class CreateCsvSourceTest extends WebapiAbstract
      * Service constants
      */
     const RESOURCE_PATH = '/V1/import/sources/csv';
-    const SERVICE_NAME = 'asynchronousImportCsvApiCreateSourceV1';
+    const SERVICE_NAME = 'asynchronousImportCsvApiCreateCsvSourceV1';
     /**#@-*/
 
     public function testCreateCsvSource()
