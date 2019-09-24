@@ -26,11 +26,11 @@ interface CreateCsvSourceInterface
      *
      * @param string $uuid
      * @param SourceDataInterface $sourceData
-     * @param CsvFormatInterface $format
+     * @param CsvFormatInterface|null $format
      * @return void
      * @throws RetrievingSourceException
      * @throws ValidationException
      * @throws CouldNotSaveException
      */
-    public function execute(string $uuid, SourceDataInterface $sourceData, CsvFormatInterface $format): void;
+    public function execute(string $uuid, SourceDataInterface $sourceData, CsvFormatInterface $format = null): void;
 }
