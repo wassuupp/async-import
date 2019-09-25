@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImport\Model\Import;
 
-use Magento\AsynchronousImportApi\Api\Data\ConvertingRule\ParameterInterface;
 use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
 
 /**
@@ -31,15 +30,22 @@ class ConvertingRule implements ConvertingRuleInterface
     private $sort;
 
     /**
-     * @param string $name
-     * @param ParameterInterface[] $parameters
-     * @param int $sort
+     * @var array
      */
-    public function __construct(string $name, array $parameters, int $sort)
+    private $applyTo;
+
+    /**
+     * @param string   $name
+     * @param int      $sort
+     * @param string[] $apply_to
+     * @param string[] $parameters
+     */
+    public function __construct(string $name, int $sort, array $apply_to = [], array $parameters = [])
     {
-        $this->name = $name;
+        $this->name       = $name;
         $this->parameters = $parameters;
-        $this->sort = $sort;
+        $this->sort       = $sort;
+        $this->applyTo    = $apply_to;
     }
 
     /**
@@ -64,5 +70,13 @@ class ConvertingRule implements ConvertingRuleInterface
     public function getSort(): int
     {
         return $this->sort;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getApplyTo(): array
+    {
+        return $this->applyTo;
     }
 }
