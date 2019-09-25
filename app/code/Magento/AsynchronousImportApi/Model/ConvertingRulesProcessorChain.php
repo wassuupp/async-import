@@ -62,6 +62,9 @@ class ConvertingRulesProcessorChain implements ConvertingRulesProcessorInterface
 
             /** @var ConvertingRuleProcessorInterface $convertingRuleProcessor */
             $convertingRuleProcessor = $this->ruleProcessors[$convertingRule->getName()];
+            if (!is_object($convertingRuleProcessor)) {
+                $convertingRuleProcessor = $this->objectManager->get($convertingRuleProcessor);
+            }
             $importData = $convertingRuleProcessor->execute($importData, $convertingRule);
         }
         return $importData;
