@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportRetrievingSourceApi\Api;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
 use Magento\Framework\Exception\AggregateExceptionInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
@@ -20,7 +20,7 @@ use Magento\Framework\Phrase;
 class RetrievingSourceException extends LocalizedException implements AggregateExceptionInterface
 {
     /**
-     * @var RetrievingResultInterface|null
+     * @var RetrievingSourceDataResultInterface|null
      */
     private $retrievingResult;
 
@@ -28,13 +28,13 @@ class RetrievingSourceException extends LocalizedException implements AggregateE
      * @param Phrase $phrase
      * @param \Exception $cause
      * @param int $code
-     * @param RetrievingResultInterface|null $retrievingResult
+     * @param RetrievingSourceDataResultInterface|null $retrievingResult
      */
     public function __construct(
         Phrase $phrase,
         \Exception $cause = null,
         $code = 0,
-        RetrievingResultInterface $retrievingResult = null
+        RetrievingSourceDataResultInterface $retrievingResult = null
     ) {
         parent::__construct($phrase, $cause, $code);
         $this->retrievingResult = $retrievingResult;
@@ -48,7 +48,7 @@ class RetrievingSourceException extends LocalizedException implements AggregateE
         $localizedErrors = [];
         if (null !== $this->retrievingResult) {
             foreach ($this->retrievingResult->getErrors() as $error) {
-                $localizedErrors[] = new LocalizedException($error);
+                $localizedErrors[] = new LocalizedException(__($error));
             }
         }
         return $localizedErrors;

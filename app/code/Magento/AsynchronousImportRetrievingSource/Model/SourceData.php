@@ -25,15 +25,23 @@ class SourceData implements SourceDataInterface
     private $sourceData;
 
     /**
+     * @var string
+     */
+    private $sourceDataFormat;
+
+    /**
      * @param string $sourceType
      * @param string $sourceData
+     * @param string $sourceDataFormat
      */
     public function __construct(
         string $sourceType,
-        string $sourceData
+        string $sourceData,
+        string $sourceDataFormat
     ) {
         $this->sourceType = $sourceType;
         $this->sourceData = $sourceData;
+        $this->sourceDataFormat = $sourceDataFormat;
     }
 
     /**
@@ -50,5 +58,13 @@ class SourceData implements SourceDataInterface
     public function getSourceData(): string
     {
         return $this->sourceData;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSourceDataFormat(): string
+    {
+        return $this->sourceDataFormat;
     }
 }

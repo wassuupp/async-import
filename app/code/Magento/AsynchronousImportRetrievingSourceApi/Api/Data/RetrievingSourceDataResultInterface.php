@@ -8,11 +8,11 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportRetrievingSourceApi\Api\Data;
 
 /**
- * Represents Source Data retrieving result
+ * Represents source data retrieving result
  *
  * @api
  */
-interface RetrievingResultInterface
+interface RetrievingSourceDataResultInterface
 {
     public const STATUS = 'status';
     public const ERRORS = 'errors';
@@ -31,7 +31,7 @@ interface RetrievingResultInterface
     /**
      * Get errors
      *
-     * @return array
+     * @return string[]
      */
     public function getErrors(): array;
 
