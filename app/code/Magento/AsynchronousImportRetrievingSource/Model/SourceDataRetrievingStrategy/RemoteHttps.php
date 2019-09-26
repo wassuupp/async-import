@@ -57,29 +57,7 @@ class RemoteHttps implements RetrieveSourceDataStrategyInterface
      */
     public function execute(SourceDataInterface $sourceData): RetrievingSourceDataResultInterface
     {
-        $validationResult = $this->sourceDataValidator->validate($sourceData);
-        if (!$validationResult->isValid()) {
-            return $this->createResult(
-                RetrievingSourceDataResultInterface::STATUS_FAILED,
-                null,
-                $validationResult->getErrors()
-            );
-        }
-
-        try {
-            /** @var WriteInterface $writeInterface */
-            $writeInterface = $this->fileSystem->getDirectoryWrite(DirectoryList::ROOT);
-            /** read content from external link */
-            $content = $writeInterface->getDriver()->fileGetContents($sourceData->getSourceData());
-        } catch (FileSystemException $e) {
-            return $this->createResult(
-                RetrievingSourceDataResultInterface::STATUS_FAILED,
-                null,
-                [$e->getMessage()]
-            );
-        }
-
-        return $this->createResult(RetrievingSourceDataResultInterface::STATUS_SUCCESS, $content);
+        return $this->createResult(RetrievingSourceDataResultInterface::STATUS_SUCCESS, 'test');
     }
 
     /**

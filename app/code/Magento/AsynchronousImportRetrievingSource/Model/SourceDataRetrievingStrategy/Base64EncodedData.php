@@ -68,8 +68,11 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
      * @param array $errors
      * @return RetrievingSourceDataResultInterface
      */
-    private function createResult(string $status, ?string $file, array $errors = []): RetrievingSourceDataResultInterface
-    {
+    private function createResult(
+        string $status,
+        ?string $file,
+        array $errors = []
+    ): RetrievingSourceDataResultInterface {
         $data = [
             RetrievingSourceDataResultInterface::STATUS => $status,
             RetrievingSourceDataResultInterface::FILE => $file,
