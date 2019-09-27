@@ -17,4 +17,12 @@
                 type="Magento\AsynchronousImportApi\Model\ConvertingRulesProcessorChain"/>
     <preference for="Magento\AsynchronousImportApi\Model\ImportDataProcessorInterface"
                 type="Magento\AsynchronousImportApi\Model\ImportDataProcessorChain"/>
+
+    <type name="Magento\AsynchronousImportApi\Model\ConvertingRulesProcessorInterface">
+        <arguments>
+            <argument name="convertingRules" xsi:type="array">
+                <item name="removeField" xsi:type="object">Magento\AsynchronousImportApi\Model\ConvertingRule\RemoveField</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

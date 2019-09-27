@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportApi\Model;
 
 use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
-use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportApi\Api\ImportException;
 
 /**
@@ -22,13 +21,13 @@ interface ConvertingRuleProcessorInterface
     /**
      * Responsible for converting import data. Represents one converting rule processor
      *
-     * @param ImportDataInterface $importData
+     * @param string[] $importData
      * @param ConvertingRuleInterface $convertingRule
-     * @return ImportDataInterface
+     * @return string[]
      * @throws ImportException
      */
     public function execute(
-        ImportDataInterface $importData,
+        array $importData,
         ConvertingRuleInterface $convertingRule
-    ): ImportDataInterface;
+    ): array;
 }
