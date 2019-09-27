@@ -39,4 +39,11 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\AsynchronousImportApi\Model\ConvertingRulesProcessorChain">
+        <arguments>
+            <argument name="ruleProcessors" xsi:type="array">
+                <item name="StringReplaceConvertor" xsi:type="object">Magento\AsynchronousImport\Model\Import\ConvertingRule\StringReplaceConvertor</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
