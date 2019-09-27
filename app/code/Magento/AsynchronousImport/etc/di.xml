@@ -39,4 +39,11 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\AsynchronousImportApi\Model\ConvertingRulesProcessorChain">
+        <arguments>
+            <argument name="ruleProcessors" xsi:type="array">
+                <item name="uc_first" xsi:type="object">Magento\AsynchronousImport\Model\Import\ConvertingRule\UcFirst</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
