@@ -38,7 +38,7 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
     {
         $validationResult = $this->sourceDataValidator->validate($sourceData);
         if (!$validationResult->isValid()) {
-            throw new ValidationException(__('Validation Failed'), null, 0, $validationResult);
+            throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
         }
 
         // phpcs:ignore Magento2.Functions.DiscouragedFunction

@@ -7,14 +7,15 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportRetrievingSource\Model;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataStatusInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataStatusInterfaceFactory;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterfaceFactory;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrieveSourceDataInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceDataException;
 use Magento\AsynchronousImportRetrievingSourceApi\Model\RetrieveSourceDataStrategyInterface;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Validation\ValidationException;
+use Magento\Framework\Validation\ValidationResultFactory;
 
 /**
  * @inheritdoc
@@ -27,28 +28,36 @@ class RetrieveSourceData implements RetrieveSourceDataInterface
     private $objectManager;
 
     /**
+     * @var ValidationResultFactory
+     */
+    private $validationResultFactory;
+
+    /**
      * @var array
      */
     private $retrievingStrategies;
 
     /**
-     * @var RetrievingSourceDataStatusInterfaceFactory
+     * @var RetrievingSourceDataResultInterfaceFactory
      */
-    private $retrievingStatusFactory;
+    private $retrievingResultFactory;
 
     /**
      * @param ObjectManagerInterface $objectManager
-     * @param RetrievingSourceDataStatusInterfaceFactory $retrievingStatusFactory
+     * @param ValidationResultFactory $validationResultFactory
+     * @param RetrievingSourceDataResultInterfaceFactory $retrievingResultFactory
      * @param array $retrievingStrategies
      * @throws RetrievingSourceDataException
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        RetrievingSourceDataStatusInterfaceFactory $retrievingStatusFactory,
+        ValidationResultFactory $validationResultFactory,
+        RetrievingSourceDataResultInterfaceFactory $retrievingResultFactory,
         array $retrievingStrategies = []
     ) {
         $this->objectManager = $objectManager;
-        $this->retrievingStatusFactory = $retrievingStatusFactory;
+        $this->validationResultFactory = $validationResultFactory;
+        $this->retrievingResultFactory = $retrievingResultFactory;
         foreach ($retrievingStrategies as $retrievingStrategy) {
             if (false === is_subclass_of($retrievingStrategy, RetrieveSourceDataStrategyInterface::class)) {
                 throw new RetrievingSourceDataException(
@@ -62,51 +71,30 @@ class RetrieveSourceData implements RetrieveSourceDataInterface
     /**
      * @inheritdoc
      */
-    public function execute(SourceDataInterface $sourceData): RetrievingSourceDataStatusInterface
+    public function execute(SourceDataInterface $sourceData): RetrievingSourceDataResultInterface
     {
-        if (!isset($this->retrievingStrategies[$sourceData->getSourceType()])) {
-            throw new RetrievingSourceDataException(
-                __('Source type %1 is not supported.', $sourceData->getSourceType())
+        $sourceType = $sourceData->getSourceType();
+        if (empty($sourceType)) {
+            $validationResult = $this->validationResultFactory->create(
+                ['errors' => [__('"%field" cannot be empty.', ['field' => SourceDataInterface::SOURCE_TYPE])]]
             );
+            throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
+        }
+
+        if (!isset($this->retrievingStrategies[$sourceType])) {
+            $validationResult = $this->validationResultFactory->create(
+                ['errors' => [__('Source type "%source_type" is not supported.', ['source_type' => $sourceType])]]
+            );
+            throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
         }
         /** @var RetrieveSourceDataStrategyInterface $retrievingStrategy */
-        $retrievingStrategy = $this->objectManager->get($this->retrievingStrategies[$sourceData->getSourceType()]);
+        $retrievingStrategy = $this->objectManager->get($this->retrievingStrategies[$sourceType]);
 
-        try {
-            $filepath = $retrievingStrategy->execute($sourceData);
+        $file = $retrievingStrategy->execute($sourceData);
 
-            $retrievingStatus = $this->createStatus(
-                RetrievingSourceDataStatusInterface::STATUS_SUCCESS,
-                $filepath
-            );
-        } catch (LocalizedException $e) {
-            $retrievingStatus = $this->createStatus(
-                RetrievingSourceDataStatusInterface::STATUS_FAILED,
-                null,
-                [$e->getMessage()]
-            );
-        }
+        $retrievingStatus = $this->retrievingResultFactory->create([
+            RetrievingSourceDataResultInterface::FILE => $file,
+        ]);
         return $retrievingStatus;
-    }
-
-    /**
-     * Create retrieving source data status
-     *
-     * @param string $status
-     * @param string|null $file
-     * @param array $errors
-     * @return RetrievingSourceDataStatusInterface
-     */
-    private function createStatus(
-        string $status,
-        string $file = null,
-        array $errors = []
-    ): RetrievingSourceDataStatusInterface {
-        $data = [
-            RetrievingSourceDataStatusInterface::STATUS => $status,
-            RetrievingSourceDataStatusInterface::FILE => $file,
-            RetrievingSourceDataStatusInterface::ERRORS => $errors,
-        ];
-        return $this->retrievingStatusFactory->create($data);
     }
 }
