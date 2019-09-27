@@ -10,6 +10,7 @@ namespace Magento\AsynchronousImportApi\Model;
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportApi\Api\ImportException;
 use Magento\AsynchronousImportApi\Model\ConvertingRule\Validator\ApplyTo;
+use Magento\AsynchronousImport\Model\Import\ImportDataFactory;
 use Magento\Framework\ObjectManagerInterface;
 
 /**

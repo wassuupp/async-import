@@ -15,25 +15,31 @@ class ApplyTo implements ValidatorInterface
 {
     /**
      * @param ImportDataInterface $importData
-     * @param ConvertingRuleInterface $convertingRule
+     * @param ConvertingRuleInterface[] $convertingRules
      * @return bool
      * @throws ImportException
      */
-    public function validate(ImportDataInterface $importData, ConvertingRuleInterface $convertingRule): bool
+    public function validate(ImportDataInterface $importData, array $convertingRules): bool
     {
         $dataToProcess = $importData->getData();
         $rowToProcess = array_shift($dataToProcess);
 
         $notExistedKeys = [];
-        foreach ($convertingRule->getApplyTo() as $applyToKey) {
-            if (!isset($rowToProcess[$applyToKey])) {
-                $notExistedKeys[] = $applyToKey;
+        foreach ($convertingRules as $convertingRule) {
+            foreach ($convertingRule->getApplyTo() as $applyToKey) {
+                if (!isset($rowToProcess[$applyToKey])) {
+                    $notExistedKeys[$convertingRule->getName()][] = $applyToKey;
+                }
             }
         }
 
         if (!empty($notExistedKeys)) {
+            $ruleMessages = [];
+            foreach ($notExistedKeys as $ruleName => $notExistedKey) {
+                $ruleMessages[] = $ruleName . ': ' . implode(', ', $notExistedKeys);
+            }
             throw new ImportException(
-                __('Following keys are not existed in import data array: %1.', implode(', ', $notExistedKeys))
+                __('Following keys are not existed in import data array: %1.', implode('; ', $ruleMessages))
             );
         }
 

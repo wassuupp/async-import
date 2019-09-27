@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportApi\Model\ProcessingRule;
+namespace Magento\AsynchronousImportApi\Model\ConvertingRule;
 
 use Magento\AsynchronousImport\Model\Import\ImportDataFactory;
 use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
@@ -31,7 +31,7 @@ class LeaveColumns implements ConvertingRuleProcessorInterface
     /**
      * @inheritDoc
      */
-    public function execute(ImportDataInterface $importData, ConvertingRuleInterface $convertingRule): ImportDataInterface
+    public function execute(array $importData, ConvertingRuleInterface $convertingRule): array
     {
         $applyToKeys = $convertingRule->getApplyTo();
 
@@ -39,15 +39,11 @@ class LeaveColumns implements ConvertingRuleProcessorInterface
             return $importData;
         }
 
-        $processedData = [];
-        foreach ($importData->getData() as $dataRow) {
-            $processedRow = [];
-            foreach ($applyToKeys as $applyToKey) {
-                $newRow[$applyToKey] = $dataRow[$applyToKey];
-            }
-            $processedData[] = $processedRow;
+        $processedImportData = [];
+        foreach ($applyToKeys as $applyToKey) {
+            $newRow[$applyToKey] = $importData[$applyToKey];
         }
 
-        return $this->importDataFactory->create(['data' => $processedData]);
+        return $processedImportData;
     }
 }

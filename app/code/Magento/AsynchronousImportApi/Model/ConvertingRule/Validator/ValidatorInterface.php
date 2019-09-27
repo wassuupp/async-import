@@ -15,12 +15,12 @@ interface ValidatorInterface
 {
     /**
      * @param ImportDataInterface $importData
-     * @param ConvertingRuleInterface $convertingRule
+     * @param ConvertingRuleInterface[] $convertingRules
      * @return bool
      * @throws ImportException
      */
     public function validate(
         ImportDataInterface $importData,
-        ConvertingRuleInterface $convertingRule
+        array $convertingRules
     ): bool;
 }
