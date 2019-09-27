@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportApi\Model\ConvertingRule;
 
-
 use Magento\AsynchronousImport\Model\Import\ImportDataFactory;
 use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
 use Magento\AsynchronousImportApi\Model\ConvertingRuleProcessorInterface;
