@@ -1,0 +1,130 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\AsynchronousImportCsvApi;
+
+use Magento\Framework\Webapi\Exception;
+use Magento\Framework\Webapi\Rest\Request;
+use Magento\TestFramework\TestCase\WebapiAbstract;
+
+/**
+ * Start import with invalid data test
+ */
+class StartImportWithInvalidDataTest extends WebapiAbstract
+{
+    /**#@+
+     * Service constants
+     */
+    const RESOURCE_PATH = '/V1/import/csv';
+    const SERVICE_NAME = 'asynchronousImportCsvApiStartImportV1';
+    /**#@-*/
+
+    /**
+     * @param array $source
+     * @param array $expectedErrorData
+     * @dataProvider dataProviderInvalidSource
+     * @throws \Exception
+     */
+    public function testStartImportWithInvalidSource(array $source, array $expectedErrorData)
+    {
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH,
+                'httpMethod' => Request::HTTP_METHOD_POST,
+            ],
+            'soap' => [
+                'service' => self::SERVICE_NAME,
+                'operation' => self::SERVICE_NAME . 'Execute',
+            ],
+        ];
+
+        $data = [
+            'source' => $source,
+            'import' => [
+                'importType' => 'advanced_pricing',
+                'importBehaviour' => 'add',
+            ],
+        ];
+        $this->assertWebApiCallErrors($serviceInfo, $data, $expectedErrorData);
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProviderInvalidSource(): array
+    {
+        return [
+            'unsupported_source_type' => [
+                [
+                    'sourceType' => 'unsupported_source_type',
+                    'sourceDefinition' => base64_encode('value2'),
+                    'sourceDataFormat' => 'CSV',
+                ],
+                [
+                    'message' => 'Validation Failed.',
+                    'errors' => [
+                        [
+                            'message' => 'Source type "%source_type" is not supported.',
+                            'parameters' => [
+                                'source_type' => 'unsupported_source_type',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'invalid_base64_data' => [
+                [
+                    'sourceType' => 'base64_encoded_data',
+                    'sourceDefinition' => '#invalid_base64_data',
+                    'sourceDataFormat' => 'CSV',
+                ],
+                [
+                    'message' => 'Validation Failed.',
+                    'errors' => [
+                        [
+                            'message' => 'Base64 import data string is invalid.',
+                            'parameters' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param array $serviceInfo
+     * @param array $data
+     * @param array $expectedErrorData
+     * @return void
+     * @throws \Exception
+     */
+    private function assertWebApiCallErrors(array $serviceInfo, array $data, array $expectedErrorData)
+    {
+        try {
+            $this->_webApiCall($serviceInfo, $data);
+            $this->fail('Expected throwing exception');
+        } catch (\Exception $e) {
+            if (TESTS_WEB_API_ADAPTER === self::ADAPTER_REST) {
+                self::assertEquals($expectedErrorData, $this->processRestExceptionResult($e));
+                self::assertEquals(Exception::HTTP_BAD_REQUEST, $e->getCode());
+            } elseif (TESTS_WEB_API_ADAPTER === self::ADAPTER_SOAP) {
+                $this->assertInstanceOf('SoapFault', $e);
+                $expectedWrappedErrors = [];
+                foreach ($expectedErrorData['errors'] as $error) {
+                    // @see \Magento\TestFramework\TestCase\WebapiAbstract::getActualWrappedErrors()
+                    $expectedWrappedErrors[] = [
+                        'message' => $error['message'],
+                        'params' => $error['parameters'],
+                    ];
+                }
+                $this->checkSoapFault($e, $expectedErrorData['message'], 'env:Sender', [], $expectedWrappedErrors);
+            } else {
+                throw $e;
+            }
+        }
+    }
+}
