@@ -9,6 +9,7 @@ namespace Magento\AsynchronousImportApi\Model;
 
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportApi\Api\ImportException;
+use Magento\AsynchronousImportApi\Model\ConvertingRule\Validator\ApplyTo;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
@@ -24,20 +25,28 @@ class ConvertingRulesProcessorChain implements ConvertingRulesProcessorInterface
     private $objectManager;
 
     /**
+     * @var ApplyTo
+     */
+    private $applyToValidator;
+
+    /**
      * @var array
      */
     private $ruleProcessors;
 
     /**
      * @param ObjectManagerInterface $objectManager
+     * @param ApplyTo $applyToValidator
      * @param array $ruleProcessors
      * @throws ImportException
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
+        ApplyTo $applyToValidator,
         array $ruleProcessors = []
     ) {
         $this->objectManager = $objectManager;
+        $this->applyToValidator = $applyToValidator;
         foreach ($ruleProcessors as $ruleProcessor) {
             if (false === is_subclass_of($ruleProcessor, ConvertingRuleProcessorInterface::class)) {
                 throw new ImportException(
@@ -58,6 +67,10 @@ class ConvertingRulesProcessorChain implements ConvertingRulesProcessorInterface
                 throw new ImportException(
                     __('Converting rule %1 is not supported.', $convertingRule->getName())
                 );
+            }
+
+            if (!empty($convertingRule->getApplyTo())) {
+                $this->applyToValidator->validate($importData, $convertingRule);
             }
 
             /** @var ConvertingRuleProcessorInterface $convertingRuleProcessor */
