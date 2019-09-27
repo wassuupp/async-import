@@ -10,6 +10,7 @@ namespace Magento\AsynchronousImportApi\Model;
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportApi\Api\ImportException;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\AsynchronousImport\Model\Import\ImportDataFactory;
 
 /**
  * Chain of import data convertors. Extension point for new data converting rules
