@@ -40,7 +40,7 @@ class StartImport implements StartImportInterface
         string $uuid = null,
         CsvFormatInterface $format = null
     ): string {
-        $sourceData = $this->retrieveSourceData->execute($source);
+        $this->retrieveSourceData->execute($source);
 
         return $uuid;
     }

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportCsvApi;
 
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\Framework\Webapi\Exception;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\TestFramework\TestCase\WebapiAbstract;
@@ -58,6 +59,24 @@ class StartImportWithInvalidDataTest extends WebapiAbstract
     public function dataProviderInvalidSource(): array
     {
         return [
+            'empty_source_type' => [
+                [
+                    'sourceType' => '',
+                    'sourceDefinition' => base64_encode('value2'),
+                    'sourceDataFormat' => 'CSV',
+                ],
+                [
+                    'message' => 'Validation Failed.',
+                    'errors' => [
+                        [
+                            'message' => '"%field" cannot be empty.',
+                            'parameters' => [
+                                'field' => SourceInterface::SOURCE_TYPE,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'unsupported_source_type' => [
                 [
                     'sourceType' => 'unsupported_source_type',
@@ -76,6 +95,24 @@ class StartImportWithInvalidDataTest extends WebapiAbstract
                     ],
                 ],
             ],
+            'empty_source_definition' => [
+                [
+                    'sourceType' => 'base64_encoded_data',
+                    'sourceDefinition' => '',
+                    'sourceDataFormat' => 'CSV',
+                ],
+                [
+                    'message' => 'Validation Failed.',
+                    'errors' => [
+                        [
+                            'message' => '"%field" cannot be empty.',
+                            'parameters' => [
+                                'field' => SourceInterface::SOURCE_DEFINITION,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'invalid_base64_data' => [
                 [
                     'sourceType' => 'base64_encoded_data',
@@ -88,6 +125,24 @@ class StartImportWithInvalidDataTest extends WebapiAbstract
                         [
                             'message' => 'Base64 import data string is invalid.',
                             'parameters' => [],
+                        ],
+                    ],
+                ],
+            ],
+            'empty_source_data_format' => [
+                [
+                    'sourceType' => 'base64_encoded_data',
+                    'sourceDefinition' => base64_encode('value2'),
+                    'sourceDataFormat' => '',
+                ],
+                [
+                    'message' => 'Validation Failed.',
+                    'errors' => [
+                        [
+                            'message' => '"%field" cannot be empty.',
+                            'parameters' => [
+                                'field' => SourceInterface::SOURCE_DATA_FORMAT,
+                            ],
                         ],
                     ],
                 ],

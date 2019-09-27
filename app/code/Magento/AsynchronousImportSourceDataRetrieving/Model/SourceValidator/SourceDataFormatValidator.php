@@ -39,7 +39,7 @@ class SourceDataFormatValidator implements SourceValidatorInterface
         $sourceDataFormat = (string)$source->getSourceDataFormat();
 
         if (empty($sourceDataFormat)) {
-            $errors[] = __('""%1" cannot be empty.', SourceInterface::SOURCE_DATA_FORMAT);
+            $errors[] = __('"%field" cannot be empty.', ['field' => SourceInterface::SOURCE_DATA_FORMAT]);
         }
         return $this->validationResultFactory->create(['errors' => $errors]);
     }

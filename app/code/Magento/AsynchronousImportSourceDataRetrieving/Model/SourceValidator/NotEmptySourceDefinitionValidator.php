@@ -39,7 +39,7 @@ class NotEmptySourceDefinitionValidator implements SourceValidatorInterface
         $sourceDefinition = (string)$source->getSourceDefinition();
 
         if (empty($sourceDefinition)) {
-            $errors[] = __('""%1" cannot be empty.', SourceInterface::SOURCE_DEFINITION);
+            $errors[] = __('"%field" cannot be empty.', ['field' => SourceInterface::SOURCE_DEFINITION]);
         }
         return $this->validationResultFactory->create(['errors' => $errors]);
     }

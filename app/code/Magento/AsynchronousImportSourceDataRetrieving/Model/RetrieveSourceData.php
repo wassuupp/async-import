@@ -100,9 +100,11 @@ class RetrieveSourceData implements RetrieveSourceDataInterface
         $retrievedData = $retrievingStrategy->execute($source);
 
         /** @var SourceDataInterface $sourceData */
-        $sourceData = $this->sourceDataFactory->create([
-            SourceDataInterface::DATA => $retrievedData,
-        ]);
+        $sourceData = $this->sourceDataFactory->create(
+            [
+                SourceDataInterface::DATA => $retrievedData,
+            ]
+        );
         return $sourceData;
     }
 }

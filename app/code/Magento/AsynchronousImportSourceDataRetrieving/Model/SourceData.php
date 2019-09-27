@@ -27,7 +27,6 @@ class SourceData implements SourceDataInterface
         $this->data = $data;
     }
 
-
     /**
      * @inheritdoc
      */

@@ -39,7 +39,7 @@ class SourceTypeValidator implements SourceValidatorInterface
         $sourceType = (string)$source->getSourceType();
 
         if (empty($sourceType)) {
-            $errors[] = __('""%1" cannot be empty.', SourceInterface::SOURCE_TYPE);
+            $errors[] = __('"%field" cannot be empty.', ['field' => SourceInterface::SOURCE_TYPE]);
         }
         return $this->validationResultFactory->create(['errors' => $errors]);
     }
