@@ -7,12 +7,12 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportRetrievingSource\Model;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataStatusInterface;
 
 /**
  * @inheritdoc
  */
-class RetrievingSourceDataResult implements RetrievingSourceDataResultInterface
+class RetrievingSourceDataStatus implements RetrievingSourceDataStatusInterface
 {
     /**
      * One of const RetrievingResultInterface::STATUS_*

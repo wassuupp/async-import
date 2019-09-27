@@ -10,7 +10,7 @@ namespace Magento\AsynchronousImportCsvApi\Api;
 use Magento\AsynchronousImportApi\Api\ImportException;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceDataException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Validation\ValidationException;
 
@@ -28,7 +28,7 @@ interface CreateCsvSourceInterface
      * @param SourceDataInterface $sourceData
      * @param CsvFormatInterface|null $format
      * @return void
-     * @throws RetrievingSourceException
+     * @throws RetrievingSourceDataException
      * @throws ValidationException
      * @throws CouldNotSaveException
      */

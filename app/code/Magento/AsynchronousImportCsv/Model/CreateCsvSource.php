@@ -15,7 +15,7 @@ use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingResultInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrieveSourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceDataException;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Serialize\SerializerInterface;
 
@@ -77,7 +77,7 @@ class CreateCsvSource implements CreateCsvSourceInterface
     {
         $retrievingResult = $this->retrieveSourceData->execute($sourceData);
         if ($retrievingResult->getStatus() === RetrievingResultInterface::STATUS_FAILED) {
-            throw new RetrievingSourceException(__('Source retrieving was failed'), null, 0, $retrievingResult);
+            throw new RetrievingSourceDataException(__('Source retrieving was failed'), null, 0, $retrievingResult);
         }
 
         $formatData = $format === null

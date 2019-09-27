@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportRetrievingSourceApi\Api;
 
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataStatusInterface;
 
 /**
  * Retrieve source data operation. Uses differect strategies for source data retrieving
@@ -23,8 +23,8 @@ interface RetrieveSourceDataInterface
      * Retrieve source data operation. Uses differect strategies for source data retrieving
      *
      * @param SourceDataInterface $sourceData
-     * @return \Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface
-     * @throws RetrievingSourceException
+     * @return \Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataStatusInterface
+     * @throws RetrievingSourceDataException
      */
-    public function execute(SourceDataInterface $sourceData): RetrievingSourceDataResultInterface;
+    public function execute(SourceDataInterface $sourceData): RetrievingSourceDataStatusInterface;
 }

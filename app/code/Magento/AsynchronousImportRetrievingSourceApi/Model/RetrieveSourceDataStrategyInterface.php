@@ -8,11 +8,11 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportRetrievingSourceApi\Model;
 
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceDataException;
+use Magento\Framework\Validation\ValidationException;
 
 /**
- * Extension point for adding of new data source retrieving algorithm
+ * Extension point for adding of new data source retrieving algorithms
  * Represents concrete strategy
  *
  * @api
@@ -23,8 +23,9 @@ interface RetrieveSourceDataStrategyInterface
      * Retrieve source data operation
      *
      * @param SourceDataInterface $sourceData
-     * @return RetrievingSourceDataResultInterface
-     * @throws RetrievingSourceException
+     * @return string Local file path
+     * @throws ValidationException
+     * @throws RetrievingSourceDataException
      */
-    public function execute(SourceDataInterface $sourceData): RetrievingSourceDataResultInterface;
+    public function execute(SourceDataInterface $sourceData): string;
 }

@@ -24,7 +24,6 @@ class RetrievingSourceDataTest extends WebapiAbstract
 
     public function testRetrievingSourceData()
     {
-        $this->markTestIncomplete();
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,

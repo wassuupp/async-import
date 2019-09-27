@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportRetrievingSourceApi\Model;
 
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceDataException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;
@@ -39,7 +39,7 @@ class SourceDataValidatorChain implements SourceDataValidatorInterface
      * @param ObjectManagerInterface $objectManager
      * @param ValidationResultFactory $validationResultFactory
      * @param array $validators
-     * @throws RetrievingSourceException
+     * @throws RetrievingSourceDataException
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
@@ -50,7 +50,7 @@ class SourceDataValidatorChain implements SourceDataValidatorInterface
         $this->validationResultFactory = $validationResultFactory;
         foreach ($validators as $validator) {
             if (!$validator instanceof SourceDataValidatorInterface) {
-                throw new RetrievingSourceException(
+                throw new RetrievingSourceDataException(
                     __('Validator must implement ' . SourceDataValidatorInterface::class . '.')
                 );
             }

@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportRetrievingSourceApi\Api;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataStatusInterface;
 use Magento\Framework\Exception\AggregateExceptionInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
@@ -17,27 +17,27 @@ use Magento\Framework\Phrase;
  *
  * @api
  */
-class RetrievingSourceException extends LocalizedException implements AggregateExceptionInterface
+class RetrievingSourceDataException extends LocalizedException implements AggregateExceptionInterface
 {
     /**
-     * @var RetrievingSourceDataResultInterface|null
+     * @var RetrievingSourceDataStatusInterface|null
      */
-    private $retrievingResult;
+    private $retrievingStatus;
 
     /**
      * @param Phrase $phrase
      * @param \Exception $cause
      * @param int $code
-     * @param RetrievingSourceDataResultInterface|null $retrievingResult
+     * @param RetrievingSourceDataStatusInterface|null $retrievingStatus
      */
     public function __construct(
         Phrase $phrase,
         \Exception $cause = null,
         $code = 0,
-        RetrievingSourceDataResultInterface $retrievingResult = null
+        RetrievingSourceDataStatusInterface $retrievingStatus = null
     ) {
         parent::__construct($phrase, $cause, $code);
-        $this->retrievingResult = $retrievingResult;
+        $this->retrievingStatus = $retrievingStatus;
     }
 
     /**
@@ -46,8 +46,8 @@ class RetrievingSourceException extends LocalizedException implements AggregateE
     public function getErrors(): array
     {
         $localizedErrors = [];
-        if (null !== $this->retrievingResult) {
-            foreach ($this->retrievingResult->getErrors() as $error) {
+        if (null !== $this->retrievingStatus) {
+            foreach ($this->retrievingStatus->getErrors() as $error) {
                 $localizedErrors[] = new LocalizedException(__($error));
             }
         }
