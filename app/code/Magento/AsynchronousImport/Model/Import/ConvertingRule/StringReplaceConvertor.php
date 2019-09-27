@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImport\Model\Import\ConvertingRule;
 
+use Magento\AsynchronousImport\Model\Import\ImportDataFactory;
 use Magento\AsynchronousImportApi\{
     Api\Data\ConvertingRuleInterface,
     Api\Data\ImportDataInterface,
@@ -17,6 +18,21 @@ class StringReplaceConvertor implements ConvertingRuleProcessorInterface
 {
     private const PARAMETER_SEARCH = 'search';
     private const PARAMETER_REPLACE = 'replace';
+
+    /**
+     * @var ImportDataFactory
+     */
+    private $importDataFactory;
+
+    /**
+     * StringReplaceConvertor constructor.
+     * @param ImportDataFactory $importDataFactory
+     */
+    public function __construct(
+        ImportDataFactory $importDataFactory
+    ) {
+        $this->importDataFactory = $importDataFactory;
+    }
 
     /**
      * Responsible for converting import data. Represents one converting rule processor
@@ -47,8 +63,8 @@ class StringReplaceConvertor implements ConvertingRuleProcessorInterface
             }
         }
         unset($row);
-        $importData->{ImportDataInterface::DATA} = $data;
-        return $importData;
+
+        return $this->importDataFactory->create($data);
     }
 
     /**
@@ -57,6 +73,6 @@ class StringReplaceConvertor implements ConvertingRuleProcessorInterface
      */
     private function validateParameters(array $parameters): bool
     {
-        return isset($parameters[self::PARAMETER_SEARCH], self::PARAMETER_REPLACE);
+        return isset($parameters[self::PARAMETER_SEARCH], $parameters[self::PARAMETER_REPLACE]);
     }
 }
