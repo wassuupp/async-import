@@ -5,25 +5,25 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportRetrievingSourceApi\Api;
+namespace Magento\AsynchronousImportRetrievingSourceApi\Model;
 
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
 
 /**
- * Retrieve source data operation. Uses differect strategies for source data retrieving
- *
- * Used fully qualified namespaces in annotations for proper work of WebApi request parser
+ * Extension point for adding of new data source retrieving algorithm
+ * Represents concrete strategy
  *
  * @api
  */
-interface RetrieveSourceDataInterface
+interface RetrieveSourceDataStrategyInterface
 {
     /**
-     * Retrieve source data operation. Uses differect strategies for source data retrieving
+     * Retrieve source data operation
      *
      * @param SourceDataInterface $sourceData
-     * @return \Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface
+     * @return RetrievingSourceDataResultInterface
      * @throws RetrievingSourceException
      */
     public function execute(SourceDataInterface $sourceData): RetrievingSourceDataResultInterface;

@@ -5,12 +5,12 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportRetrievingSource\Model\SourceDataRetrieving;
+namespace Magento\AsynchronousImportRetrievingSource\Model\SourceDataRetrievingStrategy;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingResultInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingResultInterfaceFactory;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterfaceFactory;
 use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrieveSourceDataInterface;
+use Magento\AsynchronousImportRetrievingSourceApi\Model\RetrieveSourceDataStrategyInterface;
 use Magento\AsynchronousImportRetrievingSourceApi\Model\SourceDataValidatorInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
@@ -18,9 +18,9 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
 
 /**
- * Files processor for asynchronous import
+ * Http strategy for retrieving source data
  */
-class ExternalFile implements RetrieveSourceDataInterface
+class RemoteHttp implements RetrieveSourceDataStrategyInterface
 {
     /**
      * @var Filesystem
@@ -33,19 +33,19 @@ class ExternalFile implements RetrieveSourceDataInterface
     private $sourceDataValidator;
 
     /**
-     * @var RetrievingResultInterfaceFactory
+     * @var RetrievingSourceDataResultInterfaceFactory
      */
     private $retrievingResultFactory;
 
     /**
      * @param Filesystem $fileSystem
      * @param SourceDataValidatorInterface $sourceDataValidator
-     * @param RetrievingResultInterfaceFactory $retrievingResultFactory
+     * @param RetrievingSourceDataResultInterfaceFactory $retrievingResultFactory
      */
     public function __construct(
         Filesystem $fileSystem,
         SourceDataValidatorInterface $sourceDataValidator,
-        RetrievingResultInterfaceFactory $retrievingResultFactory
+        RetrievingSourceDataResultInterfaceFactory $retrievingResultFactory
     ) {
         $this->fileSystem = $fileSystem;
         $this->sourceDataValidator = $sourceDataValidator;
@@ -55,12 +55,12 @@ class ExternalFile implements RetrieveSourceDataInterface
     /**
      * @inheritdoc
      */
-    public function execute(SourceDataInterface $sourceData): RetrievingResultInterface
+    public function execute(SourceDataInterface $sourceData): RetrievingSourceDataResultInterface
     {
         $validationResult = $this->sourceDataValidator->validate($sourceData);
         if (!$validationResult->isValid()) {
             return $this->createResult(
-                RetrievingResultInterface::STATUS_FAILED,
+                RetrievingSourceDataResultInterface::STATUS_FAILED,
                 null,
                 $validationResult->getErrors()
             );
@@ -73,13 +73,13 @@ class ExternalFile implements RetrieveSourceDataInterface
             $content = $writeInterface->getDriver()->fileGetContents($sourceData->getSourceData());
         } catch (FileSystemException $e) {
             return $this->createResult(
-                RetrievingResultInterface::STATUS_FAILED,
+                RetrievingSourceDataResultInterface::STATUS_FAILED,
                 null,
                 [$e->getMessage()]
             );
         }
 
-        return $this->createResult(RetrievingResultInterface::STATUS_SUCCESS, $content);
+        return $this->createResult(RetrievingSourceDataResultInterface::STATUS_SUCCESS, $content);
     }
 
     /**
@@ -88,14 +88,17 @@ class ExternalFile implements RetrieveSourceDataInterface
      * @param string $status
      * @param string|null $file
      * @param array $errors
-     * @return RetrievingResultInterface
+     * @return RetrievingSourceDataResultInterface
      */
-    private function createResult(string $status, ?string $file, array $errors = []): RetrievingResultInterface
-    {
+    private function createResult(
+        string $status,
+        ?string $file,
+        array $errors = []
+    ) {
         $data = [
-            RetrievingResultInterface::STATUS => $status,
-            RetrievingResultInterface::FILE => $file,
-            RetrievingResultInterface::ERRORS => $errors,
+            RetrievingSourceDataResultInterface::STATUS => $status,
+            RetrievingSourceDataResultInterface::FILE => $file,
+            RetrievingSourceDataResultInterface::ERRORS => $errors,
         ];
         return $this->retrievingResultFactory->create($data);
     }

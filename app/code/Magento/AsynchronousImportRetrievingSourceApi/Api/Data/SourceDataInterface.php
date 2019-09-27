@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportRetrievingSourceApi\Api\Data;
 
 /**
- * Represents Source Data retrieving request
+ * Represents source data retrieving request
  *
  * @api
  */
@@ -16,6 +16,7 @@ interface SourceDataInterface
 {
     public const SOURCE_TYPE = 'source_type';
     public const SOURCE_DATA = 'source_data';
+    public const SOURCE_DATA_FORMAT = 'source_data_format';
 
     /**
      * Get source type
@@ -25,9 +26,16 @@ interface SourceDataInterface
     public function getSourceType(): string;
 
     /**
-     * Get Source data
+     * Get source data
      *
      * @return string
      */
     public function getSourceData(): string;
+
+    /**
+     * Get source data format
+     *
+     * @return string
+     */
+    public function getSourceDataFormat(): string;
 }
