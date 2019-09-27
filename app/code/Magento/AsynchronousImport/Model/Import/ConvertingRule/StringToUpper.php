@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImport\Model\Import\ConvertingRule;
 
+use Magento\AsynchronousImport\Model\Import\ImportDataFactory;
 use Magento\AsynchronousImportApi\{
     Api\Data\ConvertingRuleInterface,
     Api\Data\ImportDataInterface,
@@ -18,6 +19,20 @@ use Magento\AsynchronousImportApi\{
  */
 class StringToUpper implements ConvertingRuleProcessorInterface
 {
+    /**
+     * @var ImportDataFactory
+     */
+    private $importDataFactory;
+
+    /**
+     * StringToUpper constructor.
+     * @param ImportDataFactory $importDataFactory
+     */
+    public function __construct(ImportDataFactory $importDataFactory)
+    {
+        $this->importDataFactory = $importDataFactory;
+    }
+
     /**
      * Execution converting rule
      *
@@ -40,8 +55,6 @@ class StringToUpper implements ConvertingRuleProcessorInterface
         }
         unset($row);
 
-        $importData->{ImportDataInterface::DATA} = $data;
-
-        return $importData;
+        return $this->importDataFactory->create($data);
     }
 }
