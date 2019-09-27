@@ -43,7 +43,7 @@ interface ConvertingRuleInterface
     /**
      * Get apply to
      *
-     * @return array
+     * @return string[]
      */
     public function getApplyTo(): array;
 }

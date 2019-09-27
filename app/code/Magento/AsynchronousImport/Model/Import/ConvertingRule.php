@@ -38,7 +38,7 @@ class ConvertingRule implements ConvertingRuleInterface
      * @param string $name
      * @param array $parameters
      * @param int $sort
-     * @param array $applyTo
+     * @param string[] $applyTo
      */
     public function __construct(string $name, array $parameters, int $sort, array $applyTo)
     {
