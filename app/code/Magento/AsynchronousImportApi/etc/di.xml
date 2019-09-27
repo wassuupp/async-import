@@ -21,7 +21,8 @@
     <type name="Magento\AsynchronousImportApi\Model\ConvertingRulesProcessorInterface">
         <arguments>
             <argument name="convertingRules" xsi:type="array">
-                <item name="leaveColumns" xsi:type="object">Magento\AsynchronousImportApi\Model\ProcessingRule\LeaveColumns</item>
+                <item name="leaveColumns" xsi:type="object">Magento\AsynchronousImportApi\Model\ConvertingRule\LeaveColumns</item>
+                <item name="removeField" xsi:type="object">Magento\AsynchronousImportApi\Model\ConvertingRule\RemoveField</item>
             </argument>
         </arguments>
     </type>

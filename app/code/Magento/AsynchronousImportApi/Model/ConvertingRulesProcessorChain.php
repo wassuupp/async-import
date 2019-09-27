@@ -33,14 +33,20 @@ class ConvertingRulesProcessorChain implements ConvertingRulesProcessorInterface
      * @var array
      */
     private $ruleProcessors;
+    /**
+     * @var ImportDataFactory
+     */
+    private $importDataFactory;
 
     /**
+     * @param ImportDataFactory $importDataFactory
      * @param ObjectManagerInterface $objectManager
      * @param ApplyTo $applyToValidator
      * @param array $ruleProcessors
      * @throws ImportException
      */
     public function __construct(
+        ImportDataFactory $importDataFactory,
         ObjectManagerInterface $objectManager,
         ApplyTo $applyToValidator,
         array $ruleProcessors = []
@@ -55,6 +61,7 @@ class ConvertingRulesProcessorChain implements ConvertingRulesProcessorInterface
             }
         }
         $this->ruleProcessors = $ruleProcessors;
+        $this->importDataFactory = $importDataFactory;
     }
 
     /**
@@ -62,21 +69,23 @@ class ConvertingRulesProcessorChain implements ConvertingRulesProcessorInterface
      */
     public function execute(ImportDataInterface $importData, array $convertingRules): ImportDataInterface
     {
-        foreach ($convertingRules as $convertingRule) {
-            if (!isset($this->ruleProcessors[$convertingRule->getName()])) {
-                throw new ImportException(
-                    __('Converting rule %1 is not supported.', $convertingRule->getName())
-                );
-            }
+        $this->applyToValidator->validate($importData, $convertingRules);
 
-            if (!empty($convertingRule->getApplyTo())) {
-                $this->applyToValidator->validate($importData, $convertingRule);
-            }
+        $processedData = [];
+        foreach ($importData->getData() as $dataRow) {
+            foreach ($convertingRules as $convertingRule) {
+                if (!isset($this->ruleProcessors[$convertingRule->getName()])) {
+                    throw new ImportException(
+                        __('Converting rule %1 is not supported.', $convertingRule->getName())
+                    );
+                }
 
-            /** @var ConvertingRuleProcessorInterface $convertingRuleProcessor */
-            $convertingRuleProcessor = $this->objectManager->get($this->ruleProcessors[$convertingRule->getName()]);
-            $importData = $convertingRuleProcessor->execute($importData, $convertingRule);
+                /** @var ConvertingRuleProcessorInterface $convertingRuleProcessor */
+                $convertingRuleProcessor = $this->objectManager->get($this->ruleProcessors[$convertingRule->getName()]);
+                $dataRow = $convertingRuleProcessor->execute($dataRow, $convertingRule);
+            }
+            $processedData[] = $dataRow;
         }
-        return $importData;
+        return $this->importDataFactory->create(['data' => $processedData]);
     }
 }
