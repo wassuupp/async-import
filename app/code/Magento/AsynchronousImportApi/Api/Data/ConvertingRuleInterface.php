@@ -17,6 +17,7 @@ interface ConvertingRuleInterface
     public const NAME = 'name';
     public const PARAMETERS = 'parameters';
     public const SORT = 'sort';
+    public const APPLY_TO = 'apply_to';
 
     /**
      * Get rule name
@@ -38,4 +39,11 @@ interface ConvertingRuleInterface
      * @return int
      */
     public function getSort(): int;
+
+    /**
+     * Get apply to
+     *
+     * @return string[]
+     */
+    public function getApplyTo(): array;
 }
