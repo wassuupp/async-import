@@ -30,15 +30,22 @@ class ConvertingRule implements ConvertingRuleInterface
     private $sort;
 
     /**
+     * @var array
+     */
+    private $applyTo;
+
+    /**
      * @param string $name
      * @param array $parameters
      * @param int $sort
+     * @param array $applyTo
      */
-    public function __construct(string $name, array $parameters, int $sort)
+    public function __construct(string $name, array $parameters, int $sort, array $applyTo)
     {
         $this->name = $name;
         $this->parameters = $parameters;
         $this->sort = $sort;
+        $this->applyTo = $applyTo;
     }
 
     /**
@@ -63,5 +70,13 @@ class ConvertingRule implements ConvertingRuleInterface
     public function getSort(): int
     {
         return $this->sort;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getApplyTo(): array
+    {
+        return $this->applyTo;
     }
 }
