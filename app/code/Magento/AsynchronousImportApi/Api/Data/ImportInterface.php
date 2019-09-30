@@ -39,11 +39,4 @@ interface ImportInterface
      * @return string|null
      */
     public function getImportBehaviour(): string;
-
-    /**
-     * Get converting rules
-     *
-     * @return \Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface[]
-     */
-    public function getConvertingRules(): array;
 }

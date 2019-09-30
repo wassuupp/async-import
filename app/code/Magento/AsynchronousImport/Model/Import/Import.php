@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImport\Model\Import;
 
-use Magento\AsynchronousImport\Model\Source\ResourceModel\Source as SourceResourceModel;
+use Magento\AsynchronousImport\Model\Import\ResourceModel\Import as ImportResourceModel;
 use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\AbstractModel;
@@ -70,7 +70,7 @@ class Import extends AbstractModel implements ImportInterface
      */
     protected function _construct(): void
     {
-        $this->_init(SourceResourceModel::class);
+        $this->_init(ImportResourceModel::class);
     }
 
     /**
