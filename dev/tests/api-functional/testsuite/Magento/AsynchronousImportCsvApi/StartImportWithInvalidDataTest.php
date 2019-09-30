@@ -123,7 +123,10 @@ class StartImportWithInvalidDataTest extends WebapiAbstract
                     'message' => 'Validation Failed.',
                     'errors' => [
                         [
-                            'message' => 'Base64 import data string is invalid.',
+                            'message' => 'Invalid "%field". Base64 import data string is invalid.',
+                            'parameters' => [
+                                'field' => SourceInterface::SOURCE_DEFINITION,
+                            ],
                         ],
                     ],
                 ],
