@@ -7,6 +7,7 @@ namespace Magento\TestFramework\TestCase;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
+use Magento\Framework\Webapi\Exception as WebapiException;
 use Magento\Webapi\Model\Soap\Fault;
 use Magento\TestFramework\Helper\Bootstrap;
 
@@ -708,7 +709,7 @@ abstract class WebapiAbstract extends \PHPUnit\Framework\TestCase
         } catch (\Exception $e) {
             if (TESTS_WEB_API_ADAPTER === self::ADAPTER_REST) {
                 self::assertEquals($expectedErrorData, $this->processRestExceptionResult($e));
-                self::assertEquals(Exception::HTTP_BAD_REQUEST, $e->getCode());
+                self::assertEquals(WebapiException::HTTP_BAD_REQUEST, $e->getCode());
             } elseif (TESTS_WEB_API_ADAPTER === self::ADAPTER_SOAP) {
                 $this->assertInstanceOf('SoapFault', $e);
                 $expectedWrappedErrors = [];
