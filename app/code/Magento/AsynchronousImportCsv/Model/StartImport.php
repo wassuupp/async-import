@@ -8,9 +8,10 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportCsv\Model;
 
 use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
+use Magento\AsynchronousImportApi\Api\Data\ImportDataInterfaceFactory;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportCsvApi\Api\StartImportInterface;
-use Magento\AsynchronousImportCsvApi\Model\SourceDataReaderInterface;
+use Magento\AsynchronousImportCsvApi\Model\DataParserInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
 
@@ -25,20 +26,28 @@ class StartImport implements StartImportInterface
     private $retrieveSourceData;
 
     /**
-     * @var SourceDataReaderInterface
+     * @var DataParserInterface
      */
-    private $sourceDataReader;
+    private $dataParser;
+
+    /**
+     * @var ImportDataInterfaceFactory
+     */
+    private $importDataFactory;
 
     /**
      * @param RetrieveSourceDataInterface $retrieveSourceData
-     * @param SourceDataReaderInterface $sourceDataReader
+     * @param DataParserInterface $dataParser
+     * @param ImportDataInterfaceFactory $importDataFactory
      */
     public function __construct(
         RetrieveSourceDataInterface $retrieveSourceData,
-        SourceDataReaderInterface $sourceDataReader
+        DataParserInterface $dataParser,
+        ImportDataInterfaceFactory $importDataFactory
     ) {
         $this->retrieveSourceData = $retrieveSourceData;
-        $this->sourceDataReader = $sourceDataReader;
+        $this->dataParser = $dataParser;
+        $this->importDataFactory = $importDataFactory;
     }
 
     /**
@@ -51,8 +60,11 @@ class StartImport implements StartImportInterface
         CsvFormatInterface $format = null
     ): string {
         $sourceData = $this->retrieveSourceData->execute($source);
-        $this->sourceDataReader->execute($sourceData, $format);
 
+        foreach ($sourceData as $batch) {
+            $csvData = $this->dataParser->execute($batch, $format);
+            $this->importDataFactory->create(['data' => $csvData]);
+        }
         return 'UID';
     }
 }

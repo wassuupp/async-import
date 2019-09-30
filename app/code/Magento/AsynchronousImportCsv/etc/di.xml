@@ -17,6 +17,6 @@
     <preference for="Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtensionInterface"
                 type="Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtension"/>
 
-    <preference for="Magento\AsynchronousImportCsvApi\Model\SourceDataReaderInterface"
-                type="Magento\AsynchronousImportCsv\Model\SourceDataReader"/>
+    <preference for="Magento\AsynchronousImportCsvApi\Model\DataParserInterface"
+                type="Magento\AsynchronousImportCsv\Model\DataParser"/>
 </config>
