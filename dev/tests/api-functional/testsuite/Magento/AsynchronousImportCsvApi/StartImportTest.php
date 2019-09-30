@@ -35,7 +35,7 @@ class StartImportTest extends WebapiAbstract
             ],
         ];
 
-        $csvString = 'value2';
+        $csvString = "value1\nvalue2\nvalue3\nvalue4\nvalue5";
         $data = [
             'source' => [
                 'sourceType' => 'base64_encoded_data',

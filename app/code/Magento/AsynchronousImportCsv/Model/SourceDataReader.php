@@ -38,9 +38,12 @@ class SourceDataReader implements SourceDataReaderInterface
     public function execute(SourceDataInterface $sourceData, CsvFormatInterface $csvFormat = null): ImportDataInterface
     {
         $parsedData = [];
-        foreach ($sourceData->getData() as $row) {
-            $parsedData[] = str_getcsv($row);
+        foreach ($sourceData->getIterator() as $batch) {
+            foreach ($batch as $row) {
+                $parsedData[] = str_getcsv($row);
+            }
         }
+
         $importData = $this->importDataFactory->create(['data' => $parsedData]);
         return $importData;
     }

@@ -18,8 +18,8 @@ class RemoteHttps implements RetrieveSourceDataStrategyInterface
     /**
      * @inheritdoc
      */
-    public function execute(SourceInterface $source): array
+    public function execute(SourceInterface $source): \Traversable
     {
-        return ['remote-https-data'];
+        return new \ArrayIterator(['remote-https-data']);
     }
 }

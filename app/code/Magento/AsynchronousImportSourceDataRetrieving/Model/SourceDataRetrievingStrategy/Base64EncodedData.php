@@ -16,13 +16,23 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Model\RetrieveSourceDataSt
 class Base64EncodedData implements RetrieveSourceDataStrategyInterface
 {
     /**
+     * @var int
+     */
+    private $batchSize = 3;
+
+    /**
      * @inheritdoc
      */
-    public function execute(SourceInterface $source): array
+    public function execute(SourceInterface $source): \Traversable
     {
         // phpcs:ignore Magento2.Functions.DiscouragedFunction
         $data = base64_decode($source->getSourceDefinition());
+        $data = explode("\n", $data);
 
-        return [$data];
+        $offset = 0;
+        while ($sub = array_slice($data, $offset, $this->batchSize)) {
+            $offset += $this->batchSize;
+            yield $sub;
+        }
     }
 }

@@ -22,8 +22,8 @@ interface RetrieveSourceDataStrategyInterface
      * Source data retrieving strategy
      *
      * @param SourceInterface $source
-     * @return array
+     * @return \Traversable
      * @throws SourceDataRetrievingException
      */
-    public function execute(SourceInterface $source): array;
+    public function execute(SourceInterface $source): \Traversable;
 }

@@ -12,14 +12,7 @@ namespace Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data;
  *
  * @api
  */
-interface SourceDataInterface
+interface SourceDataInterface extends \IteratorAggregate
 {
-    public const DATA = 'data';
-
-    /**
-     * Get data
-     *
-     * @return array
-     */
-    public function getData(): array;
+    public const ITERATOR = 'iterator';
 }
