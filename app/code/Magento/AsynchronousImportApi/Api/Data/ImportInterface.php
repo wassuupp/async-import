@@ -31,14 +31,14 @@ interface ImportInterface
      *
      * @return string|null
      */
-    public function getImportType(): ?string;
+    public function getImportType(): string;
 
     /**
      * Get import behaviour
      *
      * @return string|null
      */
-    public function getImportBehaviour(): ?string;
+    public function getImportBehaviour(): string;
 
     /**
      * Get converting rules

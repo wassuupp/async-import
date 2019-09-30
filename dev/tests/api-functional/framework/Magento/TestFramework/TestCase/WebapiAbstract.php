@@ -671,6 +671,12 @@ abstract class WebapiAbstract extends \PHPUnit\Framework\TestCase
      */
     private function getActualWrappedErrors(\stdClass $errorNode)
     {
+        if (!isset($errorNode->parameters)) {
+            return [
+                'message' => $errorNode->message,
+            ];
+        }
+
         $actualParameters = [];
         $parameterNode = $errorNode->parameters->parameter;
         if (is_array($parameterNode)) {
@@ -685,5 +691,41 @@ abstract class WebapiAbstract extends \PHPUnit\Framework\TestCase
             // Can not rename on parameters due to Backward Compatibility
             'params' => $actualParameters,
         ];
+    }
+
+    /**
+     * @param array $serviceInfo
+     * @param array $data
+     * @param array $expectedErrorData
+     * @return void
+     * @throws \Exception
+     */
+    protected function assertWebApiCallErrors(array $serviceInfo, array $data, array $expectedErrorData)
+    {
+        try {
+            $this->_webApiCall($serviceInfo, $data);
+            $this->fail('Expected throwing exception');
+        } catch (\Exception $e) {
+            if (TESTS_WEB_API_ADAPTER === self::ADAPTER_REST) {
+                self::assertEquals($expectedErrorData, $this->processRestExceptionResult($e));
+                self::assertEquals(Exception::HTTP_BAD_REQUEST, $e->getCode());
+            } elseif (TESTS_WEB_API_ADAPTER === self::ADAPTER_SOAP) {
+                $this->assertInstanceOf('SoapFault', $e);
+                $expectedWrappedErrors = [];
+                foreach ($expectedErrorData['errors'] as $error) {
+                    // @see \Magento\TestFramework\TestCase\WebapiAbstract::getActualWrappedErrors()
+                    $expectedWrappedError = [
+                        'message' => $error['message'],
+                    ];
+                    if (isset($error['parameters'])) {
+                        $expectedWrappedError['params'] = $error['parameters'];
+                    }
+                    $expectedWrappedErrors[] = $expectedWrappedError;
+                }
+                $this->checkSoapFault($e, $expectedErrorData['message'], 'env:Sender', [], $expectedWrappedErrors);
+            } else {
+                throw $e;
+            }
+        }
     }
 }

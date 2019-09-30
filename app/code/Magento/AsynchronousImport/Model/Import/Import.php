@@ -35,9 +35,10 @@ class Import extends AbstractModel implements ImportInterface
      *
      * @param Context $context
      * @param Registry $registry
-     * @param string $uuid
      * @param string $importType
      * @param string $importBehaviour
+     * @param array $convertingRules
+     * @param string|null $uuid
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param array $data
@@ -46,9 +47,10 @@ class Import extends AbstractModel implements ImportInterface
     public function __construct(
         Context $context,
         Registry $registry,
+        string $importType,
+        string $importBehaviour,
         string $uuid = null,
-        string $importType = null,
-        string $importBehaviour = null,
+        array $convertingRules = [],
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
@@ -58,6 +60,7 @@ class Import extends AbstractModel implements ImportInterface
         $this->setData(self::UUID, $uuid);
         $this->setData(self::IMPORT_TYPE, $importType);
         $this->setData(self::IMPORT_BEHAVIOUR, $importBehaviour);
+        $this->setData(self::CONVERTING_RULES, $convertingRules);
     }
 
     /**
@@ -81,7 +84,7 @@ class Import extends AbstractModel implements ImportInterface
     /**
      * @inheritdoc
      */
-    public function getImportType(): ?string
+    public function getImportType(): string
     {
         return $this->getData(self::IMPORT_TYPE);
     }
@@ -89,7 +92,7 @@ class Import extends AbstractModel implements ImportInterface
     /**
      * @inheritdoc
      */
-    public function getImportBehaviour(): ?string
+    public function getImportBehaviour(): string
     {
         return $this->getData(self::IMPORT_BEHAVIOUR);
     }

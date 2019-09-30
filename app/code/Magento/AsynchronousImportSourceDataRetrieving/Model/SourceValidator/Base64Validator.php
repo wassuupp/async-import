@@ -41,7 +41,6 @@ class Base64Validator implements SourceValidatorInterface
         if (!preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $sourceDefinition)) {
             $errors[] = __('Base64 import data string is invalid.');
         }
-
         return $this->validationResultFactory->create(['errors' => $errors]);
     }
 }
