@@ -18,8 +18,8 @@ class LocalFile implements RetrieveSourceDataStrategyInterface
     /**
      * @inheritdoc
      */
-    public function execute(SourceInterface $source): array
+    public function execute(SourceInterface $source): \Traversable
     {
-        return ['local-file-data'];
+        return new \ArrayIterator(['local-file-data']);
     }
 }

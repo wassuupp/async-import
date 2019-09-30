@@ -15,23 +15,23 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceDataInterfa
 class SourceData implements SourceDataInterface
 {
     /**
-     * @var array
+     * @var \Traversable
      */
-    private $data;
+    private $iterator;
 
     /**
-     * @param array $data
+     * @param \Traversable $iterator
      */
-    public function __construct(array $data)
+    public function __construct(\Traversable $iterator)
     {
-        $this->data = $data;
+        $this->iterator = $iterator;
     }
 
     /**
      * @inheritdoc
      */
-    public function getData(): array
+    public function getIterator(): \Traversable
     {
-        return $this->data;
+        return $this->iterator;
     }
 }
