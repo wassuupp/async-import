@@ -6,7 +6,7 @@
         "magento/framework": "*",
         "magento/module-asynchronous-import-api": "*",
         "magento/module-asynchronous-import-csv-api": "*",
-        "magento/module-asynchronous-import-retrieving-source-api": "*"
+        "magento/module-asynchronous-import-source-data-retrieving-api": "*"
     },
     "type": "magento2-module",
     "license": [

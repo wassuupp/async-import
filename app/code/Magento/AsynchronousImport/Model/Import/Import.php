@@ -35,12 +35,10 @@ class Import extends AbstractModel implements ImportInterface
      *
      * @param Context $context
      * @param Registry $registry
-     * @param string $uuid
-     * @param string $sourceUuid
      * @param string $importType
      * @param string $importBehaviour
-     * @param string $validationStrategy
-     * @param int $allowedErrorCount
+     * @param string|null $uuid
+     * @param array $convertingRules
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param array $data
@@ -49,12 +47,10 @@ class Import extends AbstractModel implements ImportInterface
     public function __construct(
         Context $context,
         Registry $registry,
+        string $importType,
+        string $importBehaviour,
         string $uuid = null,
-        string $sourceUuid = null,
-        string $importType = null,
-        string $importBehaviour = null,
-        string $validationStrategy = null,
-        int $allowedErrorCount = null,
+        array $convertingRules = [],
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
@@ -62,11 +58,9 @@ class Import extends AbstractModel implements ImportInterface
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
 
         $this->setData(self::UUID, $uuid);
-        $this->setData(self::SOURCE_UUID, $sourceUuid);
         $this->setData(self::IMPORT_TYPE, $importType);
         $this->setData(self::IMPORT_BEHAVIOUR, $importBehaviour);
-        $this->setData(self::VALIDATION_STRATEGY, $validationStrategy);
-        $this->setData(self::ALLOWED_ERROR_COUNT, $allowedErrorCount);
+        $this->setData(self::CONVERTING_RULES, $convertingRules);
     }
 
     /**
@@ -90,15 +84,7 @@ class Import extends AbstractModel implements ImportInterface
     /**
      * @inheritdoc
      */
-    public function getSourceUuid(): ?string
-    {
-        return $this->getData(self::SOURCE_UUID);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getImportType(): ?string
+    public function getImportType(): string
     {
         return $this->getData(self::IMPORT_TYPE);
     }
@@ -106,25 +92,9 @@ class Import extends AbstractModel implements ImportInterface
     /**
      * @inheritdoc
      */
-    public function getImportBehaviour(): ?string
+    public function getImportBehaviour(): string
     {
         return $this->getData(self::IMPORT_BEHAVIOUR);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getValidationStrategy(): ?string
-    {
-        return $this->getData(self::VALIDATION_STRATEGY);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAllowedErrorCount(): ?int
-    {
-        return $this->getData(self::ALLOWED_ERROR_COUNT);
     }
 
     /**
