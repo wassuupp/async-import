@@ -10,6 +10,7 @@ namespace Magento\AsynchronousImportCsv\Model;
 use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportCsvApi\Api\StartImportInterface;
+use Magento\AsynchronousImportCsvApi\Model\SourceDataReaderInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
 
@@ -24,11 +25,20 @@ class StartImport implements StartImportInterface
     private $retrieveSourceData;
 
     /**
-     * @param RetrieveSourceDataInterface $retrieveSourceData
+     * @var SourceDataReaderInterface
      */
-    public function __construct(RetrieveSourceDataInterface $retrieveSourceData)
-    {
+    private $sourceDataReader;
+
+    /**
+     * @param RetrieveSourceDataInterface $retrieveSourceData
+     * @param SourceDataReaderInterface $sourceDataReader
+     */
+    public function __construct(
+        RetrieveSourceDataInterface $retrieveSourceData,
+        SourceDataReaderInterface $sourceDataReader
+    ) {
         $this->retrieveSourceData = $retrieveSourceData;
+        $this->sourceDataReader = $sourceDataReader;
     }
 
     /**
@@ -40,8 +50,9 @@ class StartImport implements StartImportInterface
         string $uuid = null,
         CsvFormatInterface $format = null
     ): string {
-        $this->retrieveSourceData->execute($source);
+        $sourceData = $this->retrieveSourceData->execute($source);
+        $this->sourceDataReader->execute($sourceData, $format);
 
-        return $uuid;
+        return 'UID';
     }
 }
