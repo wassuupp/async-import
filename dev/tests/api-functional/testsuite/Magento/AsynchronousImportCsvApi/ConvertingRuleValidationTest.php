@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportCsvApi;
 
-use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
+use Magento\AsynchronousImportDataConvertingApi\Api\Data\ConvertingRuleInterface;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 

@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportCsvApi\Api;
 
-use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesException;
+use Magento\AsynchronousImportDataConvertingApi\Api\ApplyConvertingRulesException;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 use Magento\Framework\Validation\ValidationException;
@@ -28,7 +28,7 @@ interface StartImportInterface
      * @param ImportInterface $import
      * @param string|null $uuid
      * @param CsvFormatInterface|null $format
-     * @param \Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface[] $convertingRules
+     * @param \Magento\AsynchronousImportDataConvertingApi\Api\Data\ConvertingRuleInterface[] $convertingRules
      * @return string
      * @throws ValidationException
      * @throws SourceDataRetrievingException

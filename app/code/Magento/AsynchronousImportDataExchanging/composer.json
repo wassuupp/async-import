@@ -1,12 +1,10 @@
 {
-    "name": "magento/module-asynchronous-import-csv-api",
+    "name": "magento/module-asynchronous-import-data-exchanging",
     "description": "N/A",
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
         "magento/framework": "*",
-        "magento/module-asynchronous-import-data-converting-api": "*",
-        "magento/module-asynchronous-import-data-exchanging-api": "*",
-        "magento/module-asynchronous-import-source-data-retrieving-api": "*"
+        "magento/module-asynchronous-import-data-exchanging-api": "*"
     },
     "type": "magento2-module",
     "license": [
@@ -18,7 +16,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Magento\\AsynchronousImportCsvApi\\": ""
+            "Magento\\AsynchronousImportDataExchanging\\": ""
         }
     }
 }

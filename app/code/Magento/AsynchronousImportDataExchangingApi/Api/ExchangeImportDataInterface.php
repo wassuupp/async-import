@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\AsynchronousImportDataExchangingApi\Api;
+
+use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
+
+/**
+ * Operation for exchanging import data with destination instance
+ *
+ * @api
+ */
+interface ExchangeImportDataInterface
+{
+    /**
+     * Operation for exchanging import data with destination instance
+     *
+     * @param ImportInterface $import
+     * @param array $importData
+     * @return string
+     * @throws ImportDataExchangeException
+     */
+    public function execute(ImportInterface $import, array $importData): string;
+}

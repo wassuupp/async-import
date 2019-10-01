@@ -7,7 +7,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magento\AsynchronousImportDataExchangeApi\Model\ImportDataProcessorChain">
+    <type name="Magento\AsynchronousImportDataExchangingApi\Model\ImportDataProcessorChain">
         <arguments>
             <argument name="processors" xsi:type="array">
                 <item name="advanced_pricing" xsi:type="string">Magento\AsynchronousImportAdvancedPricing\Model\ImportDataProcessor\AdvancedPricing</item>

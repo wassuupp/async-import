@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportAdvancedPricing\Model\ImportDataProcessor;
 
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 
 /**
  * @inheritdoc

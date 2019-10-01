@@ -1,10 +1,9 @@
 {
-    "name": "magento/module-asynchronous-import-advanced-pricing",
+    "name": "magento/module-asynchronous-import-data-exchanging-api",
     "description": "N/A",
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
-        "magento/framework": "*",
-        "magento/module-asynchronous-import-data-exchanging-api": "*"
+        "magento/framework": "*"
     },
     "type": "magento2-module",
     "license": [
@@ -16,7 +15,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Magento\\AsynchronousImportAdvancedPricing\\": ""
+            "Magento\\AsynchronousImportDataExchangingApi\\": ""
         }
     }
 }
