@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportDataExchanging\Model\Import;
 
+use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportExtensionInterface;
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 
 /**
@@ -30,18 +31,26 @@ class Import implements ImportInterface
     private $importBehaviour;
 
     /**
+     * @var ImportExtensionInterface|null
+     */
+    private $extensionAttributes;
+
+    /**
      * @param string $importType
      * @param string $importBehaviour
      * @param string|null $uuid
+     * @param ImportExtensionInterface|null $extensionAttributes
      */
     public function __construct(
         string $importType,
         string $importBehaviour,
-        string $uuid = null
+        string $uuid = null,
+        ImportExtensionInterface $extensionAttributes = null
     ) {
         $this->importType = $importType;
         $this->importBehaviour = $importBehaviour;
         $this->uuid = $uuid;
+        $this->extensionAttributes = $extensionAttributes;
     }
 
 
@@ -67,5 +76,13 @@ class Import implements ImportInterface
     public function getImportBehaviour(): string
     {
         return $this->importBehaviour;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getExtensionAttributes(): ?ImportExtensionInterface
+    {
+        return $this->extensionAttributes;
     }
 }

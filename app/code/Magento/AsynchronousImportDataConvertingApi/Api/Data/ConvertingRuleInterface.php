@@ -29,21 +29,21 @@ interface ConvertingRuleInterface
     /**
      * Get rule parameters
      *
-     * @return string[]
+     * @return string[]|null Null value is needed fro SOAP parser
      */
     public function getParameters(): array;
 
     /**
      * Get sort
      *
-     * @return int
+     * @return int|null
      */
-    public function getSort(): int;
+    public function getSort(): ?int;
 
     /**
      * Get apply to
      *
-     * @return string[]
+     * @return string[]|null Null value is needed fro SOAP parser
      */
     public function getApplyTo(): array;
 }

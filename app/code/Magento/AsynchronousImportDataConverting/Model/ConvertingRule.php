@@ -37,10 +37,10 @@ class ConvertingRule implements ConvertingRuleInterface
     /**
      * @param string $identifier
      * @param array $parameters
-     * @param int $sort
+     * @param int|null $sort
      * @param string[] $applyTo
      */
-    public function __construct(string $identifier, array $parameters = [], int $sort = 0, array $applyTo = [])
+    public function __construct(string $identifier, array $parameters = [], int $sort = null, array $applyTo = [])
     {
         $this->identifier = $identifier;
         $this->parameters = $parameters;
@@ -67,7 +67,7 @@ class ConvertingRule implements ConvertingRuleInterface
     /**
      * @inheritdoc
      */
-    public function getSort(): int
+    public function getSort(): ?int
     {
         return $this->sort;
     }

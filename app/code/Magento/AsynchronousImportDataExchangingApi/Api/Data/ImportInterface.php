@@ -7,12 +7,14 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportDataExchangingApi\Api\Data;
 
+use Magento\Framework\Api\ExtensibleDataInterface;
+
 /**
  * Describes how to import data
  *
  * @api
  */
-interface ImportInterface
+interface ImportInterface extends ExtensibleDataInterface
 {
     public const UUID = 'uuid';
     public const IMPORT_TYPE = 'import_type';
@@ -28,14 +30,23 @@ interface ImportInterface
     /**
      * Get import type
      *
-     * @return string|null
+     * @return string
      */
     public function getImportType(): string;
 
     /**
      * Get import behaviour
      *
-     * @return string|null
+     * @return string
      */
     public function getImportBehaviour(): string;
+
+    /**
+     * Get existing extension attributes object
+     *
+     * Used fully qualified namespaces in annotations for proper work of extension interface/class code generation
+     *
+     * @return \Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportExtensionInterface|null
+     */
+    public function getExtensionAttributes(): ?ImportExtensionInterface;
 }

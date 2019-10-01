@@ -56,7 +56,6 @@ class StartImport implements StartImportInterface
     public function execute(
         SourceInterface $source,
         ImportInterface $import,
-        string $uuid = null,
         CsvFormatInterface $format = null,
         array $convertingRules = []
     ): string {

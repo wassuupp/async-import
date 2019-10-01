@@ -13,10 +13,6 @@
     <preference for="Magento\AsynchronousImportCsvApi\Api\StartImportInterface"
                 type="Magento\AsynchronousImportCsv\Model\StartImport"/>
 
-    <!-- needed for resolving issue with generation of CsvFormatExtension -->
-    <preference for="Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtensionInterface"
-                type="Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtension"/>
-
     <preference for="Magento\AsynchronousImportCsvApi\Model\DataParserInterface"
                 type="Magento\AsynchronousImportCsv\Model\DataParser"/>
 </config>

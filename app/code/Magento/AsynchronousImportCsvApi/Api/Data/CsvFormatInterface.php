@@ -59,6 +59,8 @@ interface CsvFormatInterface extends ExtensibleDataInterface
     /**
      * Get existing extension attributes object
      *
+     * Used fully qualified namespaces in annotations for proper work of extension interface/class code generation
+     *
      * @return \Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatExtensionInterface|null
      */
     public function getExtensionAttributes(): ?CsvFormatExtensionInterface;
