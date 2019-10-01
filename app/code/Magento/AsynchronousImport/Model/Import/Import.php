@@ -38,7 +38,6 @@ class Import extends AbstractModel implements ImportInterface
      * @param string $importType
      * @param string $importBehaviour
      * @param string|null $uuid
-     * @param array $convertingRules
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param array $data

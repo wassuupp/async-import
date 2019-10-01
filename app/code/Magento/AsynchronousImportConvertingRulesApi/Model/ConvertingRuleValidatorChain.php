@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportConvertingRulesApi\Model;
 
+use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesException;
 use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
-use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;
@@ -39,7 +39,7 @@ class ConvertingRuleValidatorChain implements ConvertingRuleValidatorInterface
      * @param ObjectManagerInterface $objectManager
      * @param ValidationResultFactory $validationResultFactory
      * @param array $validators
-     * @throws SourceDataRetrievingException
+     * @throws ApplyConvertingRulesException
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
@@ -50,7 +50,7 @@ class ConvertingRuleValidatorChain implements ConvertingRuleValidatorInterface
         $this->validationResultFactory = $validationResultFactory;
         foreach ($validators as $validator) {
             if (!$validator instanceof ConvertingRuleValidatorInterface) {
-                throw new SourceDataRetrievingException(
+                throw new ApplyConvertingRulesException(
                     __('Validator must implement ' . ConvertingRuleValidatorInterface::class . '.')
                 );
             }

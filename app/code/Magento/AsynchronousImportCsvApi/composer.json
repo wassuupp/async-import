@@ -5,6 +5,7 @@
         "php": "~7.1.3||~7.2.0||~7.3.0",
         "magento/framework": "*",
         "magento/module-asynchronous-import-api": "*",
+        "magento/module-asynchronous-import-converting-rules-api": "*",
         "magento/module-asynchronous-import-source-data-retrieving-api": "*"
     },
     "type": "magento2-module",
