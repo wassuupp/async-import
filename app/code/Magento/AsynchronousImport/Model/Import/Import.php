@@ -50,7 +50,6 @@ class Import extends AbstractModel implements ImportInterface
         string $importType,
         string $importBehaviour,
         string $uuid = null,
-        array $convertingRules = [],
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
@@ -60,7 +59,6 @@ class Import extends AbstractModel implements ImportInterface
         $this->setData(self::UUID, $uuid);
         $this->setData(self::IMPORT_TYPE, $importType);
         $this->setData(self::IMPORT_BEHAVIOUR, $importBehaviour);
-        $this->setData(self::CONVERTING_RULES, $convertingRules);
     }
 
     /**
@@ -95,13 +93,5 @@ class Import extends AbstractModel implements ImportInterface
     public function getImportBehaviour(): string
     {
         return $this->getData(self::IMPORT_BEHAVIOUR);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConvertingRules(): array
-    {
-        return $this->getData(self::CONVERTING_RULES);
     }
 }

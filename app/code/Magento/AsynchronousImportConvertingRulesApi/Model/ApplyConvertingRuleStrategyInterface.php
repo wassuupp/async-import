@@ -11,14 +11,15 @@ use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
 
 /**
- * Extension point for applying one converting rule to import data
+ * Extension point for adding converting rule applying algorithms
+ * Represents concrete strategy
  *
  * @api
  */
-interface ApplyConvertingRuleInterface
+interface ApplyConvertingRuleStrategyInterface
 {
     /**
-     * Extension point for applying one converting rule to import data
+     * Converting rule applying strategy
      *
      * @param ImportDataInterface $importData
      * @param ConvertingRuleInterface $convertingRule

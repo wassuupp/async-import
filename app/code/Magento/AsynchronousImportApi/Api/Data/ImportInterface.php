@@ -17,7 +17,6 @@ interface ImportInterface
     public const UUID = 'uuid';
     public const IMPORT_TYPE = 'import_type';
     public const IMPORT_BEHAVIOUR = 'import_behaviour';
-    public const CONVERTING_RULES = 'converting_rules';
 
     /**
      * Get import uuid

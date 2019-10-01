@@ -5,17 +5,16 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportConvertingRulesApi\Model;
+namespace Magento\AsynchronousImportConvertingRules\Model;
 
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesException;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface;
+use Magento\AsynchronousImportConvertingRulesApi\Model\ApplyConvertingRuleStrategyInterface;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
- * Chain of import data convertors. Extension point for new data converting rules
- *
- * @api
+ * @inheritdoc
  */
 class ApplyConvertingRules implements ApplyConvertingRulesInterface
 {
@@ -27,26 +26,26 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     /**
      * @var array
      */
-    private $ruleProcessors;
+    private $ruleApplyingStrategies;
 
     /**
      * @param ObjectManagerInterface $objectManager
-     * @param array $ruleProcessors
+     * @param array $ruleApplyingStrategies
      * @throws ApplyConvertingRulesException
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        array $ruleProcessors = []
+        array $ruleApplyingStrategies = []
     ) {
         $this->objectManager = $objectManager;
-        foreach ($ruleProcessors as $ruleProcessor) {
-            if (false === is_subclass_of($ruleProcessor, ApplyConvertingRuleInterface::class)) {
+        foreach ($ruleApplyingStrategies as $ruleApplyingStrategy) {
+            if (false === is_subclass_of($ruleApplyingStrategy, ApplyConvertingRuleStrategyInterface::class)) {
                 throw new ApplyConvertingRulesException(
-                    __('%1 must implement %2.', [$ruleProcessor, ApplyConvertingRuleInterface::class])
+                    __('%1 must implement %2.', [$ruleApplyingStrategy, ApplyConvertingRuleStrategyInterface::class])
                 );
             }
         }
-        $this->ruleProcessors = $ruleProcessors;
+        $this->ruleApplyingStrategies = $ruleApplyingStrategies;
     }
 
     /**
@@ -55,15 +54,17 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     public function execute(ImportDataInterface $importData, array $convertingRules): ImportDataInterface
     {
         foreach ($convertingRules as $convertingRule) {
-            if (!isset($this->ruleProcessors[$convertingRule->getName()])) {
+            if (!isset($this->ruleApplyingStrategies[$convertingRule->getIdentifier()])) {
                 throw new ApplyConvertingRulesException(
-                    __('Converting rule %1 is not supported.', $convertingRule->getName())
+                    __('Converting rule "%1" is not supported.', $convertingRule->getIdentifier())
                 );
             }
 
-            /** @var ApplyConvertingRuleInterface $convertingRuleProcessor */
-            $convertingRuleProcessor = $this->objectManager->get($this->ruleProcessors[$convertingRule->getName()]);
-            $importData = $convertingRuleProcessor->execute($importData, $convertingRule);
+            /** @var ApplyConvertingRuleStrategyInterface $ruleApplyingStrategy */
+            $ruleApplyingStrategy = $this->objectManager->get(
+                $this->ruleApplyingStrategies[$convertingRule->getIdentifier()]
+            );
+            $importData = $ruleApplyingStrategy->execute($importData, $convertingRule);
         }
         return $importData;
     }
