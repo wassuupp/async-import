@@ -7,6 +7,18 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface"
+                type="Magento\AsynchronousImportConvertingRules\Model\ConvertingRule"/>
+
     <preference for="Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface"
                 type="Magento\AsynchronousImportConvertingRules\Model\ApplyConvertingRules"/>
+
+    <!-- Converting rule validators -->
+    <type name="Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorChain">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="identifier" xsi:type="object">Magento\AsynchronousImportConvertingRules\Model\ConvertingRuleValidator\IdentifierValidator</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

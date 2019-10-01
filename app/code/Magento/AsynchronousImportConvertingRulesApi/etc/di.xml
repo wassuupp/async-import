@@ -7,6 +7,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\AsynchronousImportDataExchangeApi\Model\ApplyConvertingRulesInterface"
-                type="Magento\AsynchronousImportDataExchangeApi\Model\ApplyConvertingRules"/>
+    <preference for="Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorInterface"
+                type="Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorChain"/>
 </config>

@@ -5,20 +5,20 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportSourceDataRetrievingApi\Model;
+namespace Magento\AsynchronousImportConvertingRulesApi\Model;
 
-use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
+use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;
 
 /**
- * Extension point for adding source validators via DI configuration
+ * Extension point for adding converting rule validators via DI configuration
  *
  * @api
  */
-class SourceValidatorChain implements SourceValidatorInterface
+class ConvertingRuleValidatorChain implements ConvertingRuleValidatorInterface
 {
     /**
      * @var ObjectManagerInterface
@@ -31,7 +31,7 @@ class SourceValidatorChain implements SourceValidatorInterface
     private $validationResultFactory;
 
     /**
-     * @var SourceValidatorInterface[]
+     * @var ConvertingRuleValidatorInterface[]
      */
     private $validators;
 
@@ -49,9 +49,9 @@ class SourceValidatorChain implements SourceValidatorInterface
         $this->objectManager = $objectManager;
         $this->validationResultFactory = $validationResultFactory;
         foreach ($validators as $validator) {
-            if (!$validator instanceof SourceValidatorInterface) {
+            if (!$validator instanceof ConvertingRuleValidatorInterface) {
                 throw new SourceDataRetrievingException(
-                    __('Validator must implement ' . SourceValidatorInterface::class . '.')
+                    __('Validator must implement ' . ConvertingRuleValidatorInterface::class . '.')
                 );
             }
         }
@@ -61,11 +61,11 @@ class SourceValidatorChain implements SourceValidatorInterface
     /**
      * @inheritdoc
      */
-    public function validate(SourceInterface $source): ValidationResult
+    public function validate(ConvertingRuleInterface $convertingRule): ValidationResult
     {
         $errors = [];
         foreach ($this->validators as $validator) {
-            $validationResult = $validator->validate($source);
+            $validationResult = $validator->validate($convertingRule);
 
             if (!$validationResult->isValid()) {
                 $errors[] = $validationResult->getErrors();

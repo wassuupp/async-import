@@ -11,7 +11,10 @@ use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesException;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Model\ApplyConvertingRuleStrategyInterface;
+use Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorInterface;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Validation\ValidationException;
+use Magento\Framework\Validation\ValidationResultFactory;
 
 /**
  * @inheritdoc
@@ -24,20 +27,37 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     private $objectManager;
 
     /**
+     * @var ConvertingRuleValidatorInterface
+     */
+    private $convertingRuleValidator;
+
+    /**
+     * @var ValidationResultFactory
+     */
+    private $validationResultFactory;
+
+    /**
      * @var array
      */
     private $ruleApplyingStrategies;
 
     /**
      * @param ObjectManagerInterface $objectManager
+     * @param ConvertingRuleValidatorInterface $convertingRuleValidator
+     * @param ValidationResultFactory $validationResultFactory
      * @param array $ruleApplyingStrategies
      * @throws ApplyConvertingRulesException
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
+        ConvertingRuleValidatorInterface $convertingRuleValidator,
+        ValidationResultFactory $validationResultFactory,
         array $ruleApplyingStrategies = []
     ) {
         $this->objectManager = $objectManager;
+        $this->convertingRuleValidator = $convertingRuleValidator;
+        $this->validationResultFactory = $validationResultFactory;
+
         foreach ($ruleApplyingStrategies as $ruleApplyingStrategy) {
             if (false === is_subclass_of($ruleApplyingStrategy, ApplyConvertingRuleStrategyInterface::class)) {
                 throw new ApplyConvertingRulesException(
@@ -54,10 +74,24 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     public function execute(ImportDataInterface $importData, array $convertingRules): ImportDataInterface
     {
         foreach ($convertingRules as $convertingRule) {
-            if (!isset($this->ruleApplyingStrategies[$convertingRule->getIdentifier()])) {
-                throw new ApplyConvertingRulesException(
-                    __('Converting rule "%1" is not supported.', $convertingRule->getIdentifier())
+            $validationResult = $this->convertingRuleValidator->validate($convertingRule);
+            if (false === $validationResult->isValid()) {
+                throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
+            }
+
+            $identifier = $convertingRule->getIdentifier();
+            if (!isset($this->ruleApplyingStrategies[$identifier])) {
+                $validationResult = $this->validationResultFactory->create(
+                    [
+                        'errors' => [
+                            __(
+                                'Converting rule "%identifier" is not supported.',
+                                ['identifier' => $identifier]
+                            ),
+                        ],
+                    ]
                 );
+                throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
             }
 
             /** @var ApplyConvertingRuleStrategyInterface $ruleApplyingStrategy */

@@ -9,6 +9,7 @@ namespace Magento\AsynchronousImportConvertingRulesApi\Api;
 
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
+use Magento\Framework\Validation\ValidationException;
 
 /**
  * Apply converting rules to import data operation. Uses differect strategies for rules applying
@@ -23,6 +24,7 @@ interface ApplyConvertingRulesInterface
      * @param ImportDataInterface $importData
      * @param ConvertingRuleInterface[] $convertingRules
      * @return ImportDataInterface
+     * @throws ValidationException
      * @throws ApplyConvertingRulesException
      */
     public function execute(
