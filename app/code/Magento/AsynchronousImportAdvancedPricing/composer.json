@@ -6,6 +6,9 @@
         "magento/framework": "*",
         "magento/module-asynchronous-import-data-exchanging-api": "*"
     },
+    "suggest": {
+        "magento/module-asynchronous-import-data-exchanging": "*"
+    },
     "type": "magento2-module",
     "license": [
         "OSL-3.0",

@@ -53,7 +53,6 @@ class Import implements ImportInterface
         $this->extensionAttributes = $extensionAttributes;
     }
 
-
     /**
      * @inheritdoc
      */
