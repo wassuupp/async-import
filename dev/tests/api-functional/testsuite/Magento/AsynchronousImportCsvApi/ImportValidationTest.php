@@ -7,14 +7,14 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportCsvApi;
 
-use Magento\AsynchronousImportDataConvertingApi\Api\Data\ConvertingRuleInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
- * Start import with invalid converting rule test
+ * Start import with invalid import request test
  */
-class ConvertingRuleValidationTest extends WebapiAbstract
+class ImportValidationTest extends WebapiAbstract
 {
     /**#@+
      * Service constants
@@ -24,12 +24,12 @@ class ConvertingRuleValidationTest extends WebapiAbstract
     /**#@-*/
 
     /**
-     * @param array $convertingRule
+     * @param array $import
      * @param array $expectedErrorData
      * @dataProvider dataProviderInvalidData
      * @throws \Exception
      */
-    public function testStartImportWithInvalidSource(array $convertingRule, array $expectedErrorData)
+    public function testStartImportWithInvalidImport(array $import, array $expectedErrorData)
     {
         $serviceInfo = [
             'rest' => [
@@ -48,13 +48,7 @@ class ConvertingRuleValidationTest extends WebapiAbstract
                 'sourceDefinition' => base64_encode("value1\nvalue2\nvalue3\nvalue4\nvalue5"),
                 'sourceDataFormat' => 'CSV',
             ],
-            'import' => [
-                'importType' => 'advanced_pricing',
-                'importBehaviour' => 'add',
-            ],
-            'convertingRules' => [
-                $convertingRule
-            ]
+            'import' => $import,
         ];
         $this->assertWebApiCallErrors($serviceInfo, $data, $expectedErrorData);
     }
@@ -65,9 +59,10 @@ class ConvertingRuleValidationTest extends WebapiAbstract
     public function dataProviderInvalidData(): array
     {
         return [
-            'empty_converting_rule_identifier' => [
+            'empty_import_type' => [
                 [
-                    'identifier' => '',
+                    'importType' => '',
+                    'importBehaviour' => 'add',
                 ],
                 [
                     'message' => 'Validation Failed.',
@@ -75,23 +70,41 @@ class ConvertingRuleValidationTest extends WebapiAbstract
                         [
                             'message' => '"%field" cannot be empty.',
                             'parameters' => [
-                                'field' => ConvertingRuleInterface::IDENTIFIER,
+                                'field' => ImportInterface::IMPORT_TYPE,
                             ],
                         ],
                     ],
                 ],
             ],
-            'unsupported_converting_rule' => [
+            'unsupported_import_type' => [
                 [
-                    'identifier' => 'unsupported_source_type',
+                    'importType' => 'unsupported_import_type',
+                    'importBehaviour' => 'add',
                 ],
                 [
                     'message' => 'Validation Failed.',
                     'errors' => [
                         [
-                            'message' => 'Converting rule "%identifier" is not supported.',
+                            'message' => 'Import type "%import_type" is not supported.',
                             'parameters' => [
-                                'identifier' => 'unsupported_source_type',
+                                'import_type' => 'unsupported_import_type',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'empty_import_behaviour' => [
+                [
+                    'importType' => 'advanced_price',
+                    'importBehaviour' => '',
+                ],
+                [
+                    'message' => 'Validation Failed.',
+                    'errors' => [
+                        [
+                            'message' => '"%field" cannot be empty.',
+                            'parameters' => [
+                                'field' => ImportInterface::IMPORT_BEHAVIOUR,
                             ],
                         ],
                     ],

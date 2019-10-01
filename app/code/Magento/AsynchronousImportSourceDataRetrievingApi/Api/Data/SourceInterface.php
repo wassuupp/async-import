@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data;
 
 /**
- * Represents source data retrieving request
+ * Describes how to retrieve data from data source
  *
  * @api
  */

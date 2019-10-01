@@ -1,0 +1,12 @@
+{
+  "asynchronous_import_status": {
+    "column": {
+      "uuid": true,
+      "import_type": true,
+      "import_behaviour": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  }
+}

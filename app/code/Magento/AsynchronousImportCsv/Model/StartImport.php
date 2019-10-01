@@ -7,12 +7,12 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportCsv\Model;
 
-use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
-use Magento\AsynchronousImportApi\Api\Data\ImportDataInterfaceFactory;
-use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface;
+use Magento\AsynchronousImportDataConvertingApi\Api\ApplyConvertingRulesInterface;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportCsvApi\Api\StartImportInterface;
 use Magento\AsynchronousImportCsvApi\Model\DataParserInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeImportDataInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
 
@@ -32,31 +32,31 @@ class StartImport implements StartImportInterface
     private $dataParser;
 
     /**
-     * @var ImportDataInterfaceFactory
-     */
-    private $importDataFactory;
-
-    /**
      * @var ApplyConvertingRulesInterface
      */
     private $applyConvertingRules;
 
     /**
+     * @var ExchangeImportDataInterface
+     */
+    private $exchangeImportData;
+
+    /**
      * @param RetrieveSourceDataInterface $retrieveSourceData
      * @param DataParserInterface $dataParser
-     * @param ImportDataInterfaceFactory $importDataFactory
      * @param ApplyConvertingRulesInterface $applyConvertingRules
+     * @param ExchangeImportDataInterface $exchangeImportData
      */
     public function __construct(
         RetrieveSourceDataInterface $retrieveSourceData,
         DataParserInterface $dataParser,
-        ImportDataInterfaceFactory $importDataFactory,
-        ApplyConvertingRulesInterface $applyConvertingRules
+        ApplyConvertingRulesInterface $applyConvertingRules,
+        ExchangeImportDataInterface $exchangeImportData
     ) {
         $this->retrieveSourceData = $retrieveSourceData;
         $this->dataParser = $dataParser;
-        $this->importDataFactory = $importDataFactory;
         $this->applyConvertingRules = $applyConvertingRules;
+        $this->exchangeImportData = $exchangeImportData;
     }
 
     /**
@@ -65,16 +65,15 @@ class StartImport implements StartImportInterface
     public function execute(
         SourceInterface $source,
         ImportInterface $import,
-        string $uuid = null,
         CsvFormatInterface $format = null,
         array $convertingRules = []
     ): string {
         $sourceData = $this->retrieveSourceData->execute($source);
 
         foreach ($sourceData as $batch) {
-            $csvData = $this->dataParser->execute($batch, $format);
-            $importData = $this->importDataFactory->create(['data' => $csvData]);
-            $this->applyConvertingRules->execute($importData, $convertingRules);
+            $importData = $this->dataParser->execute($batch, $format);
+            $importData = $this->applyConvertingRules->execute($importData, $convertingRules);
+            $this->exchangeImportData->execute($import, $importData);
         }
         return 'UID';
     }

@@ -10,14 +10,14 @@ namespace Magento\AsynchronousImportCsvApi\Model;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 
 /**
- * Extension point for of parsing data (based on passed CSV format)
+ * Extension point for data parsing (based on passed CSV format)
  *
  * @api
  */
 interface DataParserInterface
 {
     /**
-     * Extension point for of parsing data (based on passed CSV format)
+     * Extension point for data parsing (based on passed CSV format)
      *
      * @param array $data
      * @param CsvFormatInterface|null $csvFormat
