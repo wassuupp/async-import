@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportConvertingRulesApi\Api\Data;
 
 /**
- * Represents converting rule
+ * Describes how to change data before import
  *
  * @api
  */

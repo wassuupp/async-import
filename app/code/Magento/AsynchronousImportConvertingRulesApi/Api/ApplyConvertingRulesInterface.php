@@ -11,8 +11,8 @@ use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterfac
 use Magento\Framework\Validation\ValidationException;
 
 /**
- * Describes how to change data before import
  * Apply converting rules to import data operation. Uses differect strategies for rules applying
+ * Responsible for data changing before import
  *
  * @api
  */
