@@ -5,17 +5,17 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImport\Model\Source\Validator;
+namespace Magento\AsynchronousImportConvertingRules\Model\ConvertingRuleValidator;
 
+use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
+use Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorInterface;
 use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;
-use Magento\AsynchronousImportApi\Api\Data\SourceInterface;
-use Magento\AsynchronousImportApi\Model\SourceValidatorInterface;
 
 /**
- * Check that "meta_data" value is valid
+ * @inheritdoc
  */
-class MetaDataValidator implements SourceValidatorInterface
+class IdentifierValidator implements ConvertingRuleValidatorInterface
 {
     /**
      * @var ValidationResultFactory
@@ -33,14 +33,13 @@ class MetaDataValidator implements SourceValidatorInterface
     /**
      * @inheritdoc
      */
-    public function validate(SourceInterface $source): ValidationResult
+    public function validate(ConvertingRuleInterface $convertingRule): ValidationResult
     {
-        $value = (string)$source->getMetaData();
+        $errors = [];
+        $identifier = (string)$convertingRule->getIdentifier();
 
-        if ('' === trim($value)) {
-            $errors[] = __('"%field" can not be empty.', ['field' => SourceInterface::META_DATA]);
-        } else {
-            $errors = [];
+        if (empty($identifier)) {
+            $errors[] = __('"%field" cannot be empty.', ['field' => ConvertingRuleInterface::IDENTIFIER]);
         }
         return $this->validationResultFactory->create(['errors' => $errors]);
     }

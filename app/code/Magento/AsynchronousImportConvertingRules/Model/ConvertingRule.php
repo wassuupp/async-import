@@ -5,9 +5,9 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImport\Model\Import;
+namespace Magento\AsynchronousImportConvertingRules\Model;
 
-use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
+use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
 
 /**
  * @inheritdoc
@@ -17,7 +17,7 @@ class ConvertingRule implements ConvertingRuleInterface
     /**
      * @var string
      */
-    private $name;
+    private $identifier;
 
     /**
      * @var array
@@ -35,14 +35,14 @@ class ConvertingRule implements ConvertingRuleInterface
     private $applyTo;
 
     /**
-     * @param string $name
+     * @param string $identifier
      * @param array $parameters
      * @param int $sort
      * @param string[] $applyTo
      */
-    public function __construct(string $name, array $parameters, int $sort, array $applyTo)
+    public function __construct(string $identifier, array $parameters = [], int $sort = 0, array $applyTo = [])
     {
-        $this->name = $name;
+        $this->identifier = $identifier;
         $this->parameters = $parameters;
         $this->sort = $sort;
         $this->applyTo = $applyTo;
@@ -51,9 +51,9 @@ class ConvertingRule implements ConvertingRuleInterface
     /**
      * @inheritdoc
      */
-    public function getName(): string
+    public function getIdentifier(): string
     {
-        return $this->name;
+        return $this->identifier;
     }
 
     /**

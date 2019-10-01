@@ -8,14 +8,13 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportCsvApi;
 
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
-use Magento\Framework\Webapi\Exception;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
- * Start import with invalid data test
+ * Start import with invalid source test
  */
-class StartImportWithInvalidDataTest extends WebapiAbstract
+class SourceValidationTest extends WebapiAbstract
 {
     /**#@+
      * Service constants
@@ -27,7 +26,7 @@ class StartImportWithInvalidDataTest extends WebapiAbstract
     /**
      * @param array $source
      * @param array $expectedErrorData
-     * @dataProvider dataProviderInvalidSource
+     * @dataProvider dataProviderInvalidData
      * @throws \Exception
      */
     public function testStartImportWithInvalidSource(array $source, array $expectedErrorData)
@@ -56,7 +55,7 @@ class StartImportWithInvalidDataTest extends WebapiAbstract
     /**
      * @return array
      */
-    public function dataProviderInvalidSource(): array
+    public function dataProviderInvalidData(): array
     {
         return [
             'empty_source_type' => [

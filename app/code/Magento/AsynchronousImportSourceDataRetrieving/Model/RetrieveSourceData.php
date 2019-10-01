@@ -91,7 +91,11 @@ class RetrieveSourceData implements RetrieveSourceDataInterface
         $sourceType = $source->getSourceType();
         if (!isset($this->retrievingStrategies[$sourceType])) {
             $validationResult = $this->validationResultFactory->create(
-                ['errors' => [__('Source type "%source_type" is not supported.', ['source_type' => $sourceType])]]
+                [
+                    'errors' => [
+                        __('Source type "%source_type" is not supported.', ['source_type' => $sourceType]),
+                    ],
+                ]
             );
             throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
         }

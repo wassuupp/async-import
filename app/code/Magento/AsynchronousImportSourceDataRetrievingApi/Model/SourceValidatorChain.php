@@ -14,7 +14,7 @@ use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;
 
 /**
- * Extension point for adding new source validators via DI configuration
+ * Extension point for adding source validators via DI configuration
  *
  * @api
  */

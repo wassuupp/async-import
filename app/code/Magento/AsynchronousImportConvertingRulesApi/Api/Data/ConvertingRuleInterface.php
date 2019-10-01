@@ -5,26 +5,26 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportApi\Api\Data;
+namespace Magento\AsynchronousImportConvertingRulesApi\Api\Data;
 
 /**
- * Represents rule of converting data fields
+ * Represents converting rule
  *
  * @api
  */
 interface ConvertingRuleInterface
 {
-    public const NAME = 'name';
+    public const IDENTIFIER = 'identifier';
     public const PARAMETERS = 'parameters';
     public const SORT = 'sort';
     public const APPLY_TO = 'apply_to';
 
     /**
-     * Get rule name
+     * Get rule identifier
      *
      * @return string
      */
-    public function getName(): string;
+    public function getIdentifier(): string;
 
     /**
      * Get rule parameters

@@ -5,27 +5,25 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportApi\Model;
+namespace Magento\AsynchronousImportConvertingRulesApi\Model;
 
-use Magento\AsynchronousImportApi\Api\Data\ConvertingRuleInterface;
 use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
-use Magento\AsynchronousImportApi\Api\ImportException;
+use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
 
 /**
- * Responsible for converting import data. Represents one converting rule
+ * Extension point for adding converting rule applying algorithms
+ * Represents concrete strategy
  *
- * @see ConvertorRulesProcessorInterface
  * @api
  */
-interface ConvertingRuleProcessorInterface
+interface ApplyConvertingRuleStrategyInterface
 {
     /**
-     * Responsible for converting import data. Represents one converting rule processor
+     * Converting rule applying strategy
      *
      * @param ImportDataInterface $importData
      * @param ConvertingRuleInterface $convertingRule
      * @return ImportDataInterface
-     * @throws ImportException
      */
     public function execute(
         ImportDataInterface $importData,

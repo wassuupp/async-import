@@ -1,12 +1,11 @@
 {
-    "name": "magento/module-asynchronous-import-csv-api",
+    "name": "magento/module-asynchronous-import-converting-rules",
     "description": "N/A",
     "require": {
         "php": "~7.1.3||~7.2.0||~7.3.0",
         "magento/framework": "*",
         "magento/module-asynchronous-import-api": "*",
-        "magento/module-asynchronous-import-converting-rules-api": "*",
-        "magento/module-asynchronous-import-source-data-retrieving-api": "*"
+        "magento/module-asynchronous-import-converting-rules-api": "*"
     },
     "type": "magento2-module",
     "license": [
@@ -18,7 +17,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Magento\\AsynchronousImportCsvApi\\": ""
+            "Magento\\AsynchronousImportConvertingRules\\": ""
         }
     }
 }

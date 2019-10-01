@@ -11,7 +11,7 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\Framework\Validation\ValidationResult;
 
 /**
- * Extension point for adding new source validators
+ * Extension point for adding source validators
  *
  * @api
  */

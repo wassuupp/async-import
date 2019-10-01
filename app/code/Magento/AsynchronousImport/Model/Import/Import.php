@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImport\Model\Import;
 
-use Magento\AsynchronousImport\Model\Source\ResourceModel\Source as SourceResourceModel;
+use Magento\AsynchronousImport\Model\Import\ResourceModel\Import as ImportResourceModel;
 use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\AbstractModel;
@@ -38,7 +38,6 @@ class Import extends AbstractModel implements ImportInterface
      * @param string $importType
      * @param string $importBehaviour
      * @param string|null $uuid
-     * @param array $convertingRules
      * @param AbstractResource|null $resource
      * @param AbstractDb|null $resourceCollection
      * @param array $data
@@ -50,7 +49,6 @@ class Import extends AbstractModel implements ImportInterface
         string $importType,
         string $importBehaviour,
         string $uuid = null,
-        array $convertingRules = [],
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
@@ -60,7 +58,6 @@ class Import extends AbstractModel implements ImportInterface
         $this->setData(self::UUID, $uuid);
         $this->setData(self::IMPORT_TYPE, $importType);
         $this->setData(self::IMPORT_BEHAVIOUR, $importBehaviour);
-        $this->setData(self::CONVERTING_RULES, $convertingRules);
     }
 
     /**
@@ -70,7 +67,7 @@ class Import extends AbstractModel implements ImportInterface
      */
     protected function _construct(): void
     {
-        $this->_init(SourceResourceModel::class);
+        $this->_init(ImportResourceModel::class);
     }
 
     /**
@@ -95,13 +92,5 @@ class Import extends AbstractModel implements ImportInterface
     public function getImportBehaviour(): string
     {
         return $this->getData(self::IMPORT_BEHAVIOUR);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getConvertingRules(): array
-    {
-        return $this->getData(self::CONVERTING_RULES);
     }
 }

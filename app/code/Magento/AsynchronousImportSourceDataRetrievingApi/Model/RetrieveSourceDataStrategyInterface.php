@@ -11,7 +11,7 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 
 /**
- * Extension point for adding new source data retrieving algorithms
+ * Extension point for adding source data retrieving algorithms
  * Represents concrete strategy
  *
  * @api
