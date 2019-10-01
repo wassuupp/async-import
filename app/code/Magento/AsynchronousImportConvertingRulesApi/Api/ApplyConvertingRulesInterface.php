@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportConvertingRulesApi\Api;
 
-use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
+use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface;
 use Magento\Framework\Validation\ValidationException;
 
 /**

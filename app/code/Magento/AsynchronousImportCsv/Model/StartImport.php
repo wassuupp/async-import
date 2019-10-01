@@ -7,12 +7,12 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportCsv\Model;
 
-use Magento\AsynchronousImportApi\Api\Data\ImportInterface;
-use Magento\AsynchronousImportApi\Api\Data\ImportDataInterfaceFactory;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface;
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportCsvApi\Api\StartImportInterface;
 use Magento\AsynchronousImportCsvApi\Model\DataParserInterface;
+use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterfaceFactory;
+use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
 

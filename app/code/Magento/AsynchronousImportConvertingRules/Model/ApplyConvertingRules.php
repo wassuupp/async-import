@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportConvertingRules\Model;
 
-use Magento\AsynchronousImportApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesException;
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Model\ApplyConvertingRuleStrategyInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorInterface;
+use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Validation\ValidationException;
 use Magento\Framework\Validation\ValidationResultFactory;
