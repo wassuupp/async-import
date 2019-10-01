@@ -8,5 +8,4 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface" type="Magento\AsynchronousImportDataExchange\Model\Import\Import"/>
-    <preference for="Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface" type="Magento\AsynchronousImportDataExchange\Model\ImportData"/>
 </config>

@@ -10,7 +10,7 @@ namespace Magento\AsynchronousImportCsvApi\Api\Data;
 use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
- * Represents CSV format
+ * Describes how to parse data
  *
  * @api
  */

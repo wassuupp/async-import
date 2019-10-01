@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportDataExchangeApi\Api;
 
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface;
 
 /**
@@ -21,9 +20,9 @@ interface ExchangeImportDataInterface
      * Operation for exchanging import data with destination instance
      *
      * @param ImportInterface $import
-     * @param ImportDataInterface $importData
+     * @param array $importData
      * @return string
      * @throws ImportDataExchangeException
      */
-    public function execute(ImportInterface $import, ImportDataInterface $importData): string;
+    public function execute(ImportInterface $import, array $importData): string;
 }

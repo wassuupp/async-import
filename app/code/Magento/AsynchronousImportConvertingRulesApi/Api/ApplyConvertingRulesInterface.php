@@ -8,10 +8,10 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportConvertingRulesApi\Api;
 
 use Magento\AsynchronousImportConvertingRulesApi\Api\Data\ConvertingRuleInterface;
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface;
 use Magento\Framework\Validation\ValidationException;
 
 /**
+ * Describes how to change data before import
  * Apply converting rules to import data operation. Uses differect strategies for rules applying
  *
  * @api
@@ -21,14 +21,14 @@ interface ApplyConvertingRulesInterface
     /**
      * Apply converting rules to import data operation. Uses differect strategies for rules applying
      *
-     * @param ImportDataInterface $importData
+     * @param array $importData
      * @param ConvertingRuleInterface[] $convertingRules
-     * @return ImportDataInterface
+     * @return array
      * @throws ValidationException
      * @throws ApplyConvertingRulesException
      */
     public function execute(
-        ImportDataInterface $importData,
+        array $importData,
         array $convertingRules
-    ): ImportDataInterface;
+    ): array;
 }

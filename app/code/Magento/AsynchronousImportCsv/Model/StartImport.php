@@ -11,7 +11,6 @@ use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterfa
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportCsvApi\Api\StartImportInterface;
 use Magento\AsynchronousImportCsvApi\Model\DataParserInterface;
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterfaceFactory;
 use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
@@ -32,11 +31,6 @@ class StartImport implements StartImportInterface
     private $dataParser;
 
     /**
-     * @var ImportDataInterfaceFactory
-     */
-    private $importDataFactory;
-
-    /**
      * @var ApplyConvertingRulesInterface
      */
     private $applyConvertingRules;
@@ -44,18 +38,15 @@ class StartImport implements StartImportInterface
     /**
      * @param RetrieveSourceDataInterface $retrieveSourceData
      * @param DataParserInterface $dataParser
-     * @param ImportDataInterfaceFactory $importDataFactory
      * @param ApplyConvertingRulesInterface $applyConvertingRules
      */
     public function __construct(
         RetrieveSourceDataInterface $retrieveSourceData,
         DataParserInterface $dataParser,
-        ImportDataInterfaceFactory $importDataFactory,
         ApplyConvertingRulesInterface $applyConvertingRules
     ) {
         $this->retrieveSourceData = $retrieveSourceData;
         $this->dataParser = $dataParser;
-        $this->importDataFactory = $importDataFactory;
         $this->applyConvertingRules = $applyConvertingRules;
     }
 
@@ -72,8 +63,7 @@ class StartImport implements StartImportInterface
         $sourceData = $this->retrieveSourceData->execute($source);
 
         foreach ($sourceData as $batch) {
-            $csvData = $this->dataParser->execute($batch, $format);
-            $importData = $this->importDataFactory->create(['data' => $csvData]);
+            $importData = $this->dataParser->execute($batch, $format);
             $this->applyConvertingRules->execute($importData, $convertingRules);
         }
         return 'UID';

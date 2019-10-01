@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportAdvancedPricing\Model\ImportDataProcessor;
 
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface;
 use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportInterface;
 
 /**
@@ -20,7 +19,7 @@ class AdvancedPricing implements ImportDataProcessorInterface
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * phpcs:disable Magento2.CodeAnalysis.EmptyBlock
      */
-    public function execute(ImportInterface $import, ImportDataInterface $importData): void
+    public function execute(ImportInterface $import, array $importData): void
     {
     }
 }

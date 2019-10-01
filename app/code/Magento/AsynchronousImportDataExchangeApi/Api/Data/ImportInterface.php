@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\AsynchronousImportDataExchangeApi\Api\Data;
 
 /**
- * Represents import request
+ * Describes how to import data
  *
  * @api
  */

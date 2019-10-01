@@ -11,7 +11,6 @@ use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesExcepti
 use Magento\AsynchronousImportConvertingRulesApi\Api\ApplyConvertingRulesInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Model\ApplyConvertingRuleStrategyInterface;
 use Magento\AsynchronousImportConvertingRulesApi\Model\ConvertingRuleValidatorInterface;
-use Magento\AsynchronousImportDataExchangeApi\Api\Data\ImportDataInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Validation\ValidationException;
 use Magento\Framework\Validation\ValidationResultFactory;
@@ -71,7 +70,7 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     /**
      * @inheritdoc
      */
-    public function execute(ImportDataInterface $importData, array $convertingRules): ImportDataInterface
+    public function execute(array $importData, array $convertingRules): array
     {
         foreach ($convertingRules as $convertingRule) {
             $validationResult = $this->convertingRuleValidator->validate($convertingRule);
