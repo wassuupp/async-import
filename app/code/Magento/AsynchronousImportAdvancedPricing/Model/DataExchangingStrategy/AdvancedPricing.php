@@ -5,14 +5,15 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportAdvancedPricing\Model\ImportDataProcessor;
+namespace Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy;
 
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
+use Magento\AsynchronousImportDataExchangingApi\Model\ExchangeDataStrategyInterface;
 
 /**
  * @inheritdoc
  */
-class AdvancedPricing implements ImportDataProcessorInterface
+class AdvancedPricing implements ExchangeDataStrategyInterface
 {
     /**
      * @inheritdoc

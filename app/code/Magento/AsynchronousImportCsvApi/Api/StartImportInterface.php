@@ -11,6 +11,7 @@ use Magento\AsynchronousImportDataConvertingApi\Api\ApplyConvertingRulesExceptio
 use Magento\AsynchronousImportCsvApi\Api\Data\CsvFormatInterface;
 use Magento\AsynchronousImportDataConvertingApi\Api\Data\ConvertingRuleInterface;
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\ImportDataExchangeException;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 use Magento\Framework\Validation\ValidationException;
@@ -33,6 +34,7 @@ interface StartImportInterface
      * @throws ValidationException
      * @throws SourceDataRetrievingException
      * @throws ApplyConvertingRulesException
+     * @throws ImportDataExchangeException
      */
     public function execute(
         SourceInterface $source,

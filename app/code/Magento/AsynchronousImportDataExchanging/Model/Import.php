@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportDataExchanging\Model\Import;
+namespace Magento\AsynchronousImportDataExchanging\Model;
 
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportExtensionInterface;
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;

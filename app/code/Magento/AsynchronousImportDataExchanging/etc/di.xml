@@ -7,5 +7,19 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface" type="Magento\AsynchronousImportDataExchanging\Model\Import\Import"/>
+    <preference for="Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface"
+                type="Magento\AsynchronousImportDataExchanging\Model\Import"/>
+
+    <preference for="Magento\AsynchronousImportDataExchangingApi\Api\ExchangeImportDataInterface"
+                type="Magento\AsynchronousImportDataExchanging\Model\ExchangeImportData"/>
+
+    <!-- Import validators -->
+    <type name="Magento\AsynchronousImportDataExchangingApi\Model\ImportValidatorChain">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="import_type" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\ImportValidator\ImportTypeValidator</item>
+                <item name="import_behaviour" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\ImportValidator\ImportBehaviourValidator</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

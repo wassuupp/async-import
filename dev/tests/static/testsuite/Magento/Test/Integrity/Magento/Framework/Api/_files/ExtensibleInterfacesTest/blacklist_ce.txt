@@ -3,3 +3,4 @@ module Magento_Customer Model/Address/AbstractAddress.php
 library magento/framework MessageQueue/Rpc/Publisher.php
 module Magento_GraphQl Model/Query/ContextInterface.php
 module Magento_AsynchronousImportCsvApi Api/Data/CsvFormatInterface.php
+module Magento_AsynchronousImportDataExchangingApi Api/Data/ImportInterface.php

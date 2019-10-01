@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportDataExchanging\Model\Import\Validator;
+namespace Magento\AsynchronousImportDataExchanging\Model\ImportValidator;
 
 use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;
@@ -13,9 +13,9 @@ use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 use Magento\AsynchronousImportDataExchangingApi\Model\ImportValidatorInterface;
 
 /**
- * Check that "import_behaviour" value is valid
+ * Check that "import_type" value is valid
  */
-class ImportBehaviourValidator implements ImportValidatorInterface
+class ImportTypeValidator implements ImportValidatorInterface
 {
     /**
      * @var ValidationResultFactory
@@ -35,14 +35,13 @@ class ImportBehaviourValidator implements ImportValidatorInterface
      */
     public function validate(ImportInterface $import): ValidationResult
     {
-        $value = (string)$import->getImportBehaviour();
+        $value = (string)$import->getImportType();
 
         if ('' === trim($value)) {
-            $errors[] = __('"%field" can not be empty.', ['field' => ImportInterface::IMPORT_BEHAVIOUR]);
+            $errors[] = __('"%field" cannot be empty.', ['field' => ImportInterface::IMPORT_TYPE]);
             // phpcs:ignore Generic.CodeAnalysis.UnconditionalIfStatement,Magento2.CodeAnalysis.EmptyBlock
         } elseif (false) {
-            // TODO: check allowed import behaviours
-            return $this->validationResultFactory->create(['errors' => []]);
+            // TODO: check allowed import types
         } else {
             $errors = [];
         }

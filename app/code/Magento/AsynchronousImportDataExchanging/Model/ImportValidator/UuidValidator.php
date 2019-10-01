@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportDataExchanging\Model\Import\Validator;
+namespace Magento\AsynchronousImportDataExchanging\Model\ImportValidator;
 
 use Magento\Framework\Validation\ValidationResult;
 use Magento\Framework\Validation\ValidationResultFactory;

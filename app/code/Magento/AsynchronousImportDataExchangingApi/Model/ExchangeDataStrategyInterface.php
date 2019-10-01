@@ -5,26 +5,24 @@
  */
 declare(strict_types=1);
 
-namespace Magento\AsynchronousImportDataExchangingApi\Api;
+namespace Magento\AsynchronousImportDataExchangingApi\Model;
 
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
-use Magento\Framework\Validation\ValidationException;
 
 /**
- * Operation for exchanging import data with destination instance. Uses differect strategies for data import
+ * Extension point for adding data import algorithms
+ * Represents concrete strategy
  *
  * @api
  */
-interface ExchangeImportDataInterface
+interface ExchangeDataStrategyInterface
 {
     /**
-     * Operation for exchanging import data with destination instance
+     * Data import strategy
      *
      * @param ImportInterface $import
      * @param array $importData
      * @return void
-     * @throws ValidationException
-     * @throws ImportDataExchangeException
      */
     public function execute(ImportInterface $import, array $importData): void;
 }
