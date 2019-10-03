@@ -12,9 +12,9 @@ use Magento\Framework\Webapi\Rest\Request;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
- * UppercaseFirstCharacter converting rule test
+ * UppercaseString converting rule test
  */
-class UppercaseFirstCharacterRuleTest extends WebapiAbstract
+class UppercaseStringRuleTest extends WebapiAbstract
 {
     /**#@+
      * Service constants
@@ -49,7 +49,7 @@ class UppercaseFirstCharacterRuleTest extends WebapiAbstract
             ],
             'convertingRules' => [
                 [
-                    'identifier' => 'uppercase_first_character',
+                    'identifier' => 'uppercase_string',
                     'applyTo' => ['value1'],
                 ],
             ],
@@ -101,7 +101,7 @@ class UppercaseFirstCharacterRuleTest extends WebapiAbstract
         return [
             'missed_converting_rule_apply_to' => [
                 [
-                    'identifier' => 'uppercase_first_character',
+                    'identifier' => 'uppercase_string',
                 ],
                 [
                     'message' => 'Validation Failed.',
@@ -117,7 +117,7 @@ class UppercaseFirstCharacterRuleTest extends WebapiAbstract
             ],
             'empty_converting_rule_apply_to' => [
                 [
-                    'identifier' => 'uppercase_first_character',
+                    'identifier' => 'uppercase_string',
                     'applyTo' => [],
                 ],
                 [
@@ -134,7 +134,7 @@ class UppercaseFirstCharacterRuleTest extends WebapiAbstract
             ],
             'wrong_format_converting_rule_apply_to' => [
                 [
-                    'identifier' => 'uppercase_first_character',
+                    'identifier' => 'uppercase_string',
                     'applyTo' => 'string_but_not_array',
                 ],
                 TESTS_WEB_API_ADAPTER === self::ADAPTER_REST
