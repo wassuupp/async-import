@@ -70,8 +70,16 @@ class StartImport implements StartImportInterface
     ): string {
         $sourceData = $this->retrieveSourceData->execute($source);
 
-        foreach ($sourceData as $batch) {
-            $importData = $this->dataParser->execute($batch, $format);
+        $headers = [];
+        foreach ($sourceData as $key => $batch) {
+            $importData = [];
+            $parsedData = $this->dataParser->execute($batch, $format);
+            if (0 === $key) {
+                $headers = array_shift($parsedData);
+            }
+            foreach ($parsedData as $row) {
+                $importData[] = array_combine($headers, $row);
+            }
             $importData = $this->applyConvertingRules->execute($importData, $convertingRules);
             $this->exchangeImportData->execute($import, $importData);
         }

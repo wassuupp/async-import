@@ -9,4 +9,13 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorInterface"
                 type="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain"/>
+
+    <!-- Converting rule validators -->
+    <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="apply_to" xsi:type="object">Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidator\ApplyToValidator</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
