@@ -11,9 +11,9 @@ use Magento\AsynchronousImportDataConvertingApi\Api\Data\ConvertingRuleInterface
 use Magento\AsynchronousImportDataConvertingApi\Model\ApplyConvertingRuleStrategyInterface;
 
 /**
- * Take "applyTo" columns and will make first letter as upper case
+ * Take "apply_to" columns and remove it from data
  */
-class UppercaseFirstCharacter implements ApplyConvertingRuleStrategyInterface
+class RemoveField implements ApplyConvertingRuleStrategyInterface
 {
     /**
      * @inheritdoc
@@ -23,16 +23,11 @@ class UppercaseFirstCharacter implements ApplyConvertingRuleStrategyInterface
         ConvertingRuleInterface $convertingRule
     ): array {
         $applyTo = $convertingRule->getApplyTo();
+        $keysForRemove = array_flip($applyTo);
 
-        foreach ($importData as &$row) {
-            foreach ($applyTo as $columnName) {
-                if (isset($row[$columnName])) {
-                    $row[$columnName] = ucfirst($row[$columnName]);
-                }
-            }
+        foreach ($importData as $key => $row) {
+            $importData[$key] = array_diff_key($row, $keysForRemove);
         }
-        unset($row);
-
         return $importData;
     }
 }
