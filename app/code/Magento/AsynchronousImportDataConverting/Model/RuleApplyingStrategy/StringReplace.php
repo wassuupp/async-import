@@ -11,10 +11,15 @@ use Magento\AsynchronousImportDataConvertingApi\Api\Data\ConvertingRuleInterface
 use Magento\AsynchronousImportDataConvertingApi\Model\ApplyConvertingRuleStrategyInterface;
 
 /**
- * Take "applyTo" columns and make them uppercase
+ * Take "applyTo" columns and replace all occurrences of the search string with the replacement string
  */
-class UppercaseString implements ApplyConvertingRuleStrategyInterface
+class StringReplace implements ApplyConvertingRuleStrategyInterface
 {
+    public const RULE_IDENTIFIER = 'string_replace';
+
+    public const PARAMETER_SEARCH = 'search';
+    public const PARAMETER_REPLACE = 'replace';
+
     /**
      * @inheritdoc
      */
@@ -23,11 +28,16 @@ class UppercaseString implements ApplyConvertingRuleStrategyInterface
         ConvertingRuleInterface $convertingRule
     ): array {
         $applyTo = $convertingRule->getApplyTo();
+        $parameters = $convertingRule->getParameters();
 
         foreach ($importData as &$row) {
             foreach ($applyTo as $columnName) {
                 if (isset($row[$columnName])) {
-                    $row[$columnName] = mb_strtoupper($row[$columnName]);
+                    $row[$columnName] = str_replace(
+                        $parameters[self::PARAMETER_SEARCH],
+                        $parameters[self::PARAMETER_REPLACE],
+                        $row[$columnName]
+                    );
                 }
             }
         }

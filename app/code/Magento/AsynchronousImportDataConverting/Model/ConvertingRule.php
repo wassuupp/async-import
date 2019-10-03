@@ -36,7 +36,7 @@ class ConvertingRule implements ConvertingRuleInterface
 
     /**
      * @param string $identifier
-     * @param array $parameters
+     * @param string[] $parameters
      * @param int|null $sort
      * @param string[] $applyTo
      */
