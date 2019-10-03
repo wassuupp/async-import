@@ -18,6 +18,7 @@
         <arguments>
             <argument name="ruleApplyingStrategies" xsi:type="array">
                 <item name="uppercase_first_character" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter</item>
+                <item name="remove_field" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField</item>
             </argument>
         </arguments>
     </type>
@@ -33,6 +34,7 @@
         <arguments>
             <argument name="rulesForWhichApplyToIsRequired" xsi:type="array">
                 <item name="uppercase_first_character" xsi:type="string">uppercase_first_character</item>
+                <item name="remove_field" xsi:type="string">remove_field</item>
             </argument>
         </arguments>
     </type>
