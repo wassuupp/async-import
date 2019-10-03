@@ -17,7 +17,7 @@ interface ConvertingRuleInterface
     public const IDENTIFIER = 'identifier';
     public const PARAMETERS = 'parameters';
     public const SORT = 'sort';
-    public const APPLY_TO = 'apply_to';
+    public const APPLY_TO = 'applyTo';
 
     /**
      * Get rule identifier
