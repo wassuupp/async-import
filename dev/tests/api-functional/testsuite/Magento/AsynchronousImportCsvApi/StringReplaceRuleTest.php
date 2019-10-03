@@ -100,6 +100,7 @@ class StringReplaceRuleTest extends WebapiAbstract
 
     /**
      * @return array
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function dataProviderInvalidData(): array
     {
