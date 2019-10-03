@@ -13,11 +13,26 @@
     <preference for="Magento\AsynchronousImportDataConvertingApi\Api\ApplyConvertingRulesInterface"
                 type="Magento\AsynchronousImportDataConverting\Model\ApplyConvertingRules"/>
 
+    <!-- Rule applying strategies -->
+    <type name="Magento\AsynchronousImportDataConverting\Model\ApplyConvertingRules">
+        <arguments>
+            <argument name="ruleApplyingStrategies" xsi:type="array">
+                <item name="uppercase_first_character" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter</item>
+            </argument>
+        </arguments>
+    </type>
     <!-- Converting rule validators -->
     <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">
                 <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidator\ApplyToValidator">
+        <arguments>
+            <argument name="rulesForWhichApplyToIsRequired" xsi:type="array">
+                <item name="uppercase_first_character" xsi:type="string">uppercase_first_character</item>
             </argument>
         </arguments>
     </type>
