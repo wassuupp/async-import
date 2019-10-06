@@ -17,9 +17,9 @@
     <type name="Magento\AsynchronousImportDataConverting\Model\ApplyConvertingRules">
         <arguments>
             <argument name="ruleApplyingStrategies" xsi:type="array">
-                <item name="uppercase_first_character" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter</item>
-                <item name="remove_field" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField</item>
-                <item name="uppercase_string" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString</item>
+                <item name="uppercase_first_character" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter\Proxy</item>
+                <item name="remove_field" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField\Proxy</item>
+                <item name="uppercase_string" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString\Proxy</item>
             </argument>
         </arguments>
     </type>
@@ -27,7 +27,7 @@
     <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator</item>
+                <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator\Proxy</item>
             </argument>
         </arguments>
     </type>

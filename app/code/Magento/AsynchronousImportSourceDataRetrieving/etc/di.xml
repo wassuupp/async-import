@@ -20,10 +20,10 @@
     <type name="Magento\AsynchronousImportSourceDataRetrieving\Model\RetrieveSourceData">
         <arguments>
             <argument name="retrievingStrategies" xsi:type="array">
-                <item name="local_file" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\LocalFile</item>
-                <item name="base64_encoded_data" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\Base64EncodedData</item>
-                <item name="remote_http" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\RemoteHttp</item>
-                <item name="remote_https" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\RemoteHttps</item>
+                <item name="local_file" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\LocalFile\Proxy</item>
+                <item name="base64_encoded_data" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\Base64EncodedData\Proxy</item>
+                <item name="remote_http" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\RemoteHttp\Proxy</item>
+                <item name="remote_https" xsi:type="string">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\RemoteHttps\Proxy</item>
             </argument>
         </arguments>
     </type>
@@ -31,10 +31,10 @@
     <type name="Magento\AsynchronousImportSourceDataRetrievingApi\Model\SourceValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="source_type" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\SourceTypeValidator</item>
-                <item name="not_empty_source_definition" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\NotEmptySourceDefinitionValidator</item>
-                <item name="source_data_format" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\SourceDataFormatValidator</item>
-                <item name="source_definition_base64" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\Base64Validator</item>
+                <item name="source_type" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\SourceTypeValidator\Proxy</item>
+                <item name="not_empty_source_definition" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\NotEmptySourceDefinitionValidator\Proxy</item>
+                <item name="source_data_format" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\SourceDataFormatValidator\Proxy</item>
+                <item name="source_definition_base64" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\Base64Validator\Proxy</item>
             </argument>
         </arguments>
     </type>
