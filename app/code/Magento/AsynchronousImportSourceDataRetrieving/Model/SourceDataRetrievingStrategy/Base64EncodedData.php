@@ -25,12 +25,12 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
      */
     private $dataSeparator;
 
-    /*
+    /**
      * @param string $dataSeparator
      */
     public function __construct(
         $dataSeparator
-    ){
+    ) {
         $this->dataSeparator = $dataSeparator;
     }
 
