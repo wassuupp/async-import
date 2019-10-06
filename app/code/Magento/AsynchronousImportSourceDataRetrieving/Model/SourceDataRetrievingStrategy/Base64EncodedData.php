@@ -21,13 +21,27 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
     private $batchSize = 3;
 
     /**
+     * @var string
+     */
+    private $dataSeparator;
+
+    /*
+     * @param string $dataSeparator
+     */
+    public function __construct(
+        $dataSeparator
+    ){
+        $this->dataSeparator = $dataSeparator;
+    }
+
+    /**
      * @inheritdoc
      */
     public function execute(SourceInterface $source): \Traversable
     {
         // phpcs:ignore Magento2.Functions.DiscouragedFunction
         $data = base64_decode($source->getSourceDefinition());
-        $data = explode("\n", $data);
+        $data = explode($this->dataSeparator, $data);
 
         $offset = 0;
         while ($sub = array_slice($data, $offset, $this->batchSize)) {
