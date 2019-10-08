@@ -21,19 +21,17 @@ class StringReplaceRuleTest extends WebapiAbstract
      * Service constants
      */
     const RESOURCE_PATH = '/V1/import/csv';
-    const SERVICE_NAME = 'asynchronousImportCsvApiStartImportV1';
     /**#@-*/
 
     public function testStartImportWithConvertingRule()
     {
+        if (TESTS_WEB_API_ADAPTER === self::ADAPTER_SOAP) {
+            $this->markTestSkipped('Do not support SOAP for new functionallity.');
+        }
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
                 'httpMethod' => Request::HTTP_METHOD_POST,
-            ],
-            'soap' => [
-                'service' => self::SERVICE_NAME,
-                'operation' => self::SERVICE_NAME . 'Execute',
             ],
         ];
 
@@ -70,14 +68,13 @@ class StringReplaceRuleTest extends WebapiAbstract
      */
     public function testStartImportWithInvalidConvertingRule(array $convertingRule, array $expectedErrorData)
     {
+        if (TESTS_WEB_API_ADAPTER === self::ADAPTER_SOAP) {
+            $this->markTestSkipped('Do not support SOAP for new functionallity.');
+        }
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
                 'httpMethod' => Request::HTTP_METHOD_POST,
-            ],
-            'soap' => [
-                'service' => self::SERVICE_NAME,
-                'operation' => self::SERVICE_NAME . 'Execute',
             ],
         ];
 
@@ -155,24 +152,10 @@ class StringReplaceRuleTest extends WebapiAbstract
                         StringReplace::PARAMETER_REPLACE => 'replace',
                     ],
                 ],
-                TESTS_WEB_API_ADAPTER === self::ADAPTER_REST
-                    ?
-                    [
-                        'message' => 'The "string" value\'s type is invalid. The "string[]" type was expected. Verify'
-                            . ' and try again.',
-                    ]
-                    :
-                    [
-                        'message' => 'Validation Failed.',
-                        'errors' => [
-                            [
-                                'message' => '"%field" cannot be empty.',
-                                'parameters' => [
-                                    'field' => ConvertingRuleInterface::APPLY_TO,
-                                ],
-                            ],
-                        ],
-                    ]
+                [
+                    'message' => 'The "string" value\'s type is invalid. The "string[]" type was expected. Verify'
+                        . ' and try again.',
+                ],
             ],
             'missed_search_parameter' => [
                 [
