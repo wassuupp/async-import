@@ -61,7 +61,7 @@ class ExchangeImportData implements ExchangeImportDataInterface
         foreach ($exchangingStrategies as $exchangingStrategy) {
             if (!$exchangingStrategy instanceof ExchangeDataStrategyInterface) {
                 throw new ImportDataExchangeException(
-                    __('Validator must implement ' . ExchangeDataStrategyInterface::class . '.')
+                    __('Validator must implement %1.', ExchangeDataStrategyInterface::class)
                 );
             }
         }

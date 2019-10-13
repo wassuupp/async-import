@@ -51,7 +51,7 @@ class ConvertingRuleValidatorChain implements ConvertingRuleValidatorInterface
         foreach ($validators as $validator) {
             if (!$validator instanceof ConvertingRuleValidatorInterface) {
                 throw new ApplyConvertingRulesException(
-                    __('Validator must implement ' . ConvertingRuleValidatorInterface::class . '.')
+                    __('Validator must implement %1.', ConvertingRuleValidatorInterface::class)
                 );
             }
         }

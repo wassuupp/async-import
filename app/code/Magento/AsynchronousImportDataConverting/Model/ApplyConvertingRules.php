@@ -60,7 +60,7 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
         foreach ($ruleApplyingStrategies as $ruleApplyingStrategy) {
             if (!$ruleApplyingStrategy instanceof ApplyConvertingRuleStrategyInterface) {
                 throw new ApplyConvertingRulesException(
-                    __('Validator must implement ' . ApplyConvertingRuleStrategyInterface::class . '.')
+                    __('Validator must implement %1.', ApplyConvertingRuleStrategyInterface::class)
                 );
             }
         }

@@ -51,7 +51,7 @@ class ImportValidatorChain implements ImportValidatorInterface
         foreach ($validators as $validator) {
             if (!$validator instanceof ImportValidatorInterface) {
                 throw new ImportDataExchangeException(
-                    __('Validator must implement ' . ImportValidatorInterface::class . '.')
+                    __('Validator must implement %1.', ImportValidatorInterface::class)
                 );
             }
         }

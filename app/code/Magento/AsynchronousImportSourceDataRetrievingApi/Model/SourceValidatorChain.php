@@ -51,7 +51,7 @@ class SourceValidatorChain implements SourceValidatorInterface
         foreach ($validators as $validator) {
             if (!$validator instanceof SourceValidatorInterface) {
                 throw new SourceDataRetrievingException(
-                    __('Validator must implement ' . SourceValidatorInterface::class . '.')
+                    __('Validator must implement %1.', SourceValidatorInterface::class)
                 );
             }
         }

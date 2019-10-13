@@ -71,7 +71,7 @@ class RetrieveSourceData implements RetrieveSourceDataInterface
         foreach ($retrievingStrategies as $retrievingStrategy) {
             if (!$retrievingStrategy instanceof RetrieveSourceDataInterface) {
                 throw new SourceDataRetrievingException(
-                    __('Validator must implement ' . RetrieveSourceDataStrategyInterface::class . '.')
+                    __('Validator must implement %1.', RetrieveSourceDataStrategyInterface::class)
                 );
             }
         }
