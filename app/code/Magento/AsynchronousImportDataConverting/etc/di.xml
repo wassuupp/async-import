@@ -28,7 +28,6 @@
     <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator</item>
                 <item name="string_replace_parameters" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\StringReplaceParametersValidator</item>
                 <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator\Proxy</item>
             </argument>
