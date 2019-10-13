@@ -59,9 +59,9 @@ class ExchangeImportData implements ExchangeImportDataInterface
         $this->validationResultFactory = $validationResultFactory;
 
         foreach ($exchangingStrategies as $exchangingStrategy) {
-            if (false === is_subclass_of($exchangingStrategy, ExchangeDataStrategyInterface::class)) {
+            if (!$exchangingStrategy instanceof ExchangeDataStrategyInterface) {
                 throw new ImportDataExchangeException(
-                    __('%1 must implement %2.', [$exchangingStrategy, ExchangeDataStrategyInterface::class])
+                    __('Validator must implement ' . ExchangeDataStrategyInterface::class . '.')
                 );
             }
         }

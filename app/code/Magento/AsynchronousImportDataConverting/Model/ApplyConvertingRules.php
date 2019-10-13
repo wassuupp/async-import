@@ -58,9 +58,9 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
         $this->validationResultFactory = $validationResultFactory;
 
         foreach ($ruleApplyingStrategies as $ruleApplyingStrategy) {
-            if (false === is_subclass_of($ruleApplyingStrategy, ApplyConvertingRuleStrategyInterface::class)) {
+            if (!$ruleApplyingStrategy instanceof ApplyConvertingRuleStrategyInterface) {
                 throw new ApplyConvertingRulesException(
-                    __('%1 must implement %2.', [$ruleApplyingStrategy, ApplyConvertingRuleStrategyInterface::class])
+                    __('Validator must implement ' . ApplyConvertingRuleStrategyInterface::class . '.')
                 );
             }
         }

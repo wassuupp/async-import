@@ -69,9 +69,9 @@ class RetrieveSourceData implements RetrieveSourceDataInterface
         $this->sourceDataFactory = $sourceDataFactory;
 
         foreach ($retrievingStrategies as $retrievingStrategy) {
-            if (false === is_subclass_of($retrievingStrategy, RetrieveSourceDataStrategyInterface::class)) {
+            if (!$retrievingStrategy instanceof RetrieveSourceDataInterface) {
                 throw new SourceDataRetrievingException(
-                    __('%1 must implement %2.', [$retrievingStrategy, RetrieveSourceDataStrategyInterface::class])
+                    __('Validator must implement ' . RetrieveSourceDataStrategyInterface::class . '.')
                 );
             }
         }
