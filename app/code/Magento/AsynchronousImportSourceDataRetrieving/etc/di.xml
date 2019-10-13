@@ -38,4 +38,10 @@
             </argument>
         </arguments>
     </type>
+    <!-- Base64 Encoded Data -->
+    <type name="Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\Base64EncodedData">
+        <arguments>
+            <argument name="dataSeparator" xsi:type="string">\n</argument>
+        </arguments>
+    </type>
 </config>

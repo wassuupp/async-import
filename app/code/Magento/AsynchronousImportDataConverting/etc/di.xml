@@ -20,6 +20,7 @@
                 <item name="uppercase_first_character" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter\Proxy</item>
                 <item name="remove_field" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField\Proxy</item>
                 <item name="uppercase_string" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString\Proxy</item>
+                <item name="string_replace" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\StringReplace</item>
             </argument>
         </arguments>
     </type>
@@ -27,6 +28,8 @@
     <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">
+                <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator</item>
+                <item name="string_replace_parameters" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\StringReplaceParametersValidator</item>
                 <item name="identifier" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\ConvertingRuleValidator\IdentifierValidator\Proxy</item>
             </argument>
         </arguments>
@@ -37,6 +40,7 @@
                 <item name="uppercase_first_character" xsi:type="string">uppercase_first_character</item>
                 <item name="remove_field" xsi:type="string">remove_field</item>
                 <item name="uppercase_string" xsi:type="string">uppercase_string</item>
+                <item name="string_replace" xsi:type="string">string_replace</item>
             </argument>
         </arguments>
     </type>

@@ -20,7 +20,6 @@ class SourceValidationTest extends WebapiAbstract
      * Service constants
      */
     const RESOURCE_PATH = '/V1/import/csv';
-    const SERVICE_NAME = 'asynchronousImportCsvApiStartImportV1';
     /**#@-*/
 
     /**
@@ -31,14 +30,13 @@ class SourceValidationTest extends WebapiAbstract
      */
     public function testStartImportWithInvalidSource(array $source, array $expectedErrorData)
     {
+        if (TESTS_WEB_API_ADAPTER === self::ADAPTER_SOAP) {
+            $this->markTestSkipped('Do not support SOAP for new functionallity.');
+        }
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
                 'httpMethod' => Request::HTTP_METHOD_POST,
-            ],
-            'soap' => [
-                'service' => self::SERVICE_NAME,
-                'operation' => self::SERVICE_NAME . 'Execute',
             ],
         ];
 
