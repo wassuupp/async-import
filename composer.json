@@ -297,8 +297,8 @@
         "magento/module-asynchronous-import-data-exchanging-api": "*",
         "magento/module-asynchronous-import-source-data-retrieving": "*",
         "magento/module-asynchronous-import-source-data-retrieving-api": "*",
-        "magento/module-asynchronous-operations-source-data-upload": "*",
-        "magento/module-asynchronous-operations-source-data-upload-api": "*"
+        "magento/module-asynchronous-import-source-data-upload": "*",
+        "magento/module-asynchronous-import-source-data-upload-api": "*"
     },
     "conflict": {
         "gene/bluefoot": "*"
