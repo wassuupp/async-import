@@ -14,7 +14,7 @@
     <type name="Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidatorChain">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="apply_to" xsi:type="object">Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidator\ApplyToValidator\Proxy</item>
+                <item name="apply_to" xsi:type="object">Magento\AsynchronousImportDataConvertingApi\Model\ConvertingRuleValidator\ApplyToValidator</item>
             </argument>
         </arguments>
     </type>
