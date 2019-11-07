@@ -21,6 +21,7 @@
                 <item name="remove_field" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField\Proxy</item>
                 <item name="uppercase_string" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString\Proxy</item>
                 <item name="string_replace" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\StringReplace\Proxy</item>
+                <item name="lowercase_string" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\LowercaseString\Proxy</item>
             </argument>
         </arguments>
     </type>
@@ -40,6 +41,7 @@
                 <item name="remove_field" xsi:type="string">remove_field</item>
                 <item name="uppercase_string" xsi:type="string">uppercase_string</item>
                 <item name="string_replace" xsi:type="string">string_replace</item>
+                <item name="lowercase_string" xsi:type="string">lowercase_string</item>
             </argument>
         </arguments>
     </type>
