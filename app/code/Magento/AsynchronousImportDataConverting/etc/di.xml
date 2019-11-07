@@ -21,6 +21,7 @@
                 <item name="remove_field" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField</item>
                 <item name="uppercase_string" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString</item>
                 <item name="string_replace" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\StringReplace</item>
+                <item name="yes_no_to_bool" xsi:type="string">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\YesNoToBool</item>
             </argument>
         </arguments>
     </type>
@@ -40,6 +41,16 @@
                 <item name="remove_field" xsi:type="string">remove_field</item>
                 <item name="uppercase_string" xsi:type="string">uppercase_string</item>
                 <item name="string_replace" xsi:type="string">string_replace</item>
+                <item name="yes_no_to_bool" xsi:type="string">yes_no_to_bool</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Converting rules -->
+    <type name="Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\YesNoToBool">
+        <arguments>
+            <argument name="conversionMap" xsi:type="array">
+                <item name="yes" xsi:type="boolean">true</item>
+                <item name="no" xsi:type="boolean">false</item>
             </argument>
         </arguments>
     </type>
