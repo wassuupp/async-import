@@ -15,9 +15,6 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Model\RetrieveSourceDataSt
  */
 class Base64EncodedData implements RetrieveSourceDataStrategyInterface
 {
-
-    public const BASE64_STRATEGY_NAME = "base64_encoded_data";
-
     /**
      * @var int
      */
@@ -26,20 +23,18 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
     /**
      * @var string
      */
-    private $dataSeparator = "\n";
+    private $dataSeparator;
 
     /**
-     * @param int $batchSize
-     * @param string|null $dataSeparator
+     * @param string $dataSeparator
+     * @param $batchSize
      */
     public function __construct(
-        $batchSize,
-        $dataSeparator = null
+        $dataSeparator,
+        $batchSize
     ) {
+        $this->dataSeparator = $dataSeparator;
         $this->batchSize = $batchSize;
-        if ($dataSeparator !== null) {
-            $this->dataSeparator = $dataSeparator;
-        }
     }
 
     /**
