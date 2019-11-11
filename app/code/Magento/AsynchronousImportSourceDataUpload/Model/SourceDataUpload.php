@@ -82,7 +82,7 @@ class SourceDataUpload implements SourceDataUploadInterface
             $fullFilePath = $this->getPreparedFullFilePath($this->filePath, $fileName);
         } catch (\Magento\Framework\Exception\FileSystemException $e) {
             throw new SourceDataUploadException(
-                __('Error while fetching target file name %1.', $sourceData->getSourceDefinition())
+                __('Error while fetching target file path for %1.', $fileName)
             );
         }
 
