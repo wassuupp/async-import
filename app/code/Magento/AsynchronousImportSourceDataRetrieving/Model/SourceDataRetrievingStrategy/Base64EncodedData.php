@@ -43,10 +43,6 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
         $data = base64_decode($source->getSourceDefinition());
         $data = explode($this->dataSeparator, $data);
 
-        $offset = 0;
-        while ($sub = array_slice($data, $offset, $this->batchSize)) {
-            $offset += $this->batchSize;
-            yield $sub;
-        }
+        return new \ArrayIterator($data);
     }
 }
