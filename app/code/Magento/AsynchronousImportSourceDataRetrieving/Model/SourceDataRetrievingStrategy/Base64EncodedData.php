@@ -18,7 +18,7 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
     /**
      * @var int
      */
-    private $batchSize = 3;
+    private $batchSize;
 
     /**
      * @var string
@@ -27,11 +27,14 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
 
     /**
      * @param string $dataSeparator
+     * @param $batchSize
      */
     public function __construct(
-        $dataSeparator
+        $dataSeparator,
+        $batchSize
     ) {
         $this->dataSeparator = $dataSeparator;
+        $this->batchSize = $batchSize;
     }
 
     /**
@@ -43,10 +46,13 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
         $data = base64_decode($source->getSourceDefinition());
         $data = explode($this->dataSeparator, $data);
 
+        $resultData = [];
         $offset = 0;
         while ($sub = array_slice($data, $offset, $this->batchSize)) {
             $offset += $this->batchSize;
-            yield $sub;
+            $resultData[] = $sub;
         }
+
+        return new \ArrayIterator($resultData);
     }
 }
