@@ -105,10 +105,11 @@ class SourceDataUpload implements SourceDataUploadInterface
     private function getFileDataFromIterator(\Traversable $iterator)
     {
         $result = [];
-        foreach ($iterator as $row) {
-            $result[] = $row;
+        foreach ($iterator as $batch) {
+            foreach ($batch as $row) {
+                $result[] = $row;
+            }
         }
-        // todo use constant for csv separator
         return implode("\n", $result);
     }
 
