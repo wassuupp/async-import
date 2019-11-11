@@ -7,17 +7,22 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportSourceDataUpload\Model;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\RetrievingSourceDataResultInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrieveSourceDataInterface;
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceDataInterface;
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
+use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterface;
+use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterfaceFactory;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadException;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadInterface;
-use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterfaceFactory;
-use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Io\File;
+use Magento\Framework\Validation\ValidationException;
 
+/**
+ * Class SourceDataUpload
+ * @package Magento\AsynchronousImportSourceDataUpload\Model
+ */
 class SourceDataUpload implements SourceDataUploadInterface
 {
     /** @var DirectoryList */
@@ -58,43 +63,79 @@ class SourceDataUpload implements SourceDataUploadInterface
     }
 
     /**
-     * @param SourceDataInterface $sourceData
+     * @param SourceInterface $sourceData
      * @return SourceDataUploadResultInterface
-     * @throws RetrievingSourceException
      * @throws SourceDataUploadException
+     * @throws SourceDataRetrievingException
+     * @throws ValidationException
      */
-    public function execute(SourceDataInterface $sourceData): SourceDataUploadResultInterface
+    public function execute(SourceInterface $sourceData): SourceDataUploadResultInterface
     {
-        /** @var RetrievingSourceDataResultInterface $fileResult */
-        $fileResult = $this->retrieveSourceDataProcessor->execute($sourceData);
+        /** @var SourceDataInterface $retrievedData */
+        $retrievedData = $this->retrieveSourceDataProcessor->execute($sourceData);
+
+        /** @var string $fileName */
+        $fileName = $this->getUniqueFileName($sourceData->getSourceDataFormat());
 
         try {
-            $fullFilePath = $this->getFullFilePath($this->filePath, $sourceData->getSourceData());
+            /** @var string $fullFilePath */
+            $fullFilePath = $this->getPreparedFullFilePath($this->filePath, $fileName);
         } catch (\Magento\Framework\Exception\FileSystemException $e) {
             throw new SourceDataUploadException(
-                __('Error while fetching target file name %1.', $sourceData->getSourceData())
+                __('Error while fetching target file name %1.', $sourceData->getSourceDefinition())
             );
         }
 
-        $fileSaveResult = $this->file->write($fullFilePath, $fileResult->getFile());
+        $dataForSave = $this->getFileDataFromIterator($retrievedData->getIterator());
+
+        $fileSaveResult = $this->file->write($fullFilePath, $dataForSave);
         if (!$fileSaveResult) {
             throw new SourceDataUploadException(
-                __('Can not save file %1.', $sourceData->getSourceData())
+                __('Can not save file %1.', $fullFilePath)
             );
         }
 
-        return $this->sourceDataUploadResultFactory->create(['file' => $fullFilePath]);
+        return $this->sourceDataUploadResultFactory->create(['file' => $fileName]);
     }
 
     /**
+     * @param \Traversable $iterator
+     * @return string
+     */
+    private function getFileDataFromIterator(\Traversable $iterator)
+    {
+        $result = [];
+        foreach ($iterator as $row) {
+            $result[] = $row;
+        }
+        // todo use constant for csv separator
+        return implode("\n", $result);
+    }
+
+    /**
+     * Get file path and create directory if it does not exist
+     *
      * @param $filePath
-     * @param $sourceFilePath
+     * @param string $fileName
      * @return string
      * @throws \Magento\Framework\Exception\FileSystemException
      */
-    protected function getFullFilePath($filePath, $sourceFilePath)
+    protected function getPreparedFullFilePath($filePath, $fileName)
     {
-        $pathParts = pathinfo($sourceFilePath);
-        return $this->directoryList->getPath('var') . DS . $filePath . DS . $pathParts['basename'] . $pathParts['extension'];
+        $directoryPath = $this->directoryList->getPath('var') . DIRECTORY_SEPARATOR . $filePath;
+        if (!$this->file->isWriteable($directoryPath)) {
+            $this->file->mkdir($directoryPath);
+        }
+
+        return $directoryPath . DIRECTORY_SEPARATOR . $fileName;
+    }
+
+    /**
+     * @param $dataFormat
+     * @return string
+     */
+    protected function getUniqueFileName($dataFormat)
+    {
+        return uniqid() . '.' . $dataFormat;
     }
 }

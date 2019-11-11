@@ -8,7 +8,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <route url="/V1/import/source" method="POST">
-        <service class="Magento\AsynchronousImportSourceDataUploadApi\API\SourceDataUploadInterface" method="execute"/>
+        <service class="Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadInterface" method="execute"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>

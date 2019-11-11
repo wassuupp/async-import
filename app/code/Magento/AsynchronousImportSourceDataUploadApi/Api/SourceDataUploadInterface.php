@@ -4,23 +4,21 @@
  * See COPYING.txt for license details.
  */
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\RetrievingSourceException;
-use Magento\AsynchronousImportSourceDataUploadApi\API\SourceDataUploadException;
-
 declare(strict_types=1);
 
 namespace Magento\AsynchronousImportSourceDataUploadApi\Api;
 
-use Magento\AsynchronousImportRetrievingSourceApi\Api\Data\SourceDataInterface;
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterface;
+use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 
 interface SourceDataUploadInterface
 {
     /**
-     * @param SourceDataInterface $sourceData
+     * @param SourceInterface $sourceData
      * @return SourceDataUploadResultInterface
-     * @throws RetrievingSourceException
+     * @throws SourceDataRetrievingException
      * @throws SourceDataUploadException
      */
-    public function execute(SourceDataInterface $sourceData): SourceDataUploadResultInterface;
+    public function execute(SourceInterface $sourceData): SourceDataUploadResultInterface;
 }
