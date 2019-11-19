@@ -21,6 +21,7 @@
                 <item name="remove_field" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField\Proxy</item>
                 <item name="uppercase_string" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString\Proxy</item>
                 <item name="string_replace" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\StringReplace\Proxy</item>
+                <item name="yes_no_to_bool" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\YesNoToBool\Proxy</item>
                 <item name="lowercase_string" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\LowercaseString\Proxy</item>
             </argument>
         </arguments>
@@ -42,6 +43,16 @@
                 <item name="uppercase_string" xsi:type="string">uppercase_string</item>
                 <item name="string_replace" xsi:type="string">string_replace</item>
                 <item name="lowercase_string" xsi:type="string">lowercase_string</item>
+                <item name="yes_no_to_bool" xsi:type="string">yes_no_to_bool</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Converting rules -->
+    <type name="Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\YesNoToBool">
+        <arguments>
+            <argument name="conversionMap" xsi:type="array">
+                <item name="yes" xsi:type="boolean">true</item>
+                <item name="no" xsi:type="boolean">false</item>
             </argument>
         </arguments>
     </type>
