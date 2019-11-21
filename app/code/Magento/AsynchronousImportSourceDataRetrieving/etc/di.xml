@@ -41,7 +41,6 @@
     <!-- Base64 Encoded Data -->
     <type name="Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\Base64EncodedData">
         <arguments>
-            <argument name="dataSeparator" xsi:type="string">\n</argument>
             <argument name="batchSize" xsi:type="number">3</argument>
         </arguments>
     </type>
