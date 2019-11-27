@@ -37,7 +37,7 @@ class Base64Validator implements SourceValidatorInterface
     public function validate(SourceInterface $source): ValidationResult
     {
         $errors = [];
-        if ($source->getSourceType() !== Base64EncodedData::BASE64_STRATEGY_NAME){
+        if ($source->getSourceType() !== Base64EncodedData::BASE64_STRATEGY_NAME) {
             return $this->validationResultFactory->create(['errors' => $errors]);
         }
 
