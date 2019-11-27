@@ -34,7 +34,7 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
         $dataSeparator = null
     ) {
         $this->batchSize = $batchSize;
-        if (!is_null($dataSeparator)) {
+        if ($dataSeparator !== null) {
             $this->dataSeparator = $dataSeparator;
         }
     }
