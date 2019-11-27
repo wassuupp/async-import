@@ -49,11 +49,13 @@ class Base64EncodedDataTest extends \PHPUnit\Framework\TestCase
         $csvString = "value1\nvalue2\nvalue3\nvalue4\nvalue5";
 
         /** @var SourceInterface $sourceInterface */
-        $sourceInterface = $this->sourceInterfaceFactory->create([
-            'sourceType' => 'base64_encoded_data',
-            'sourceDefinition' => base64_encode($csvString),
-            'sourceDataFormat' => 'CSV'
-        ]);
+        $sourceInterface = $this->sourceInterfaceFactory->create(
+            [
+                'sourceType' => 'base64_encoded_data',
+                'sourceDefinition' => base64_encode($csvString),
+                'sourceDataFormat' => 'CSV'
+            ]
+        );
 
         $iterator = $this->model->execute($sourceInterface);
         $this->assertCount(2, $iterator);
