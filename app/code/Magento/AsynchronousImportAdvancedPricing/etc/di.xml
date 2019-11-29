@@ -11,8 +11,46 @@
     <type name="Magento\AsynchronousImportDataExchanging\Model\ExchangeImportData">
         <arguments>
             <argument name="exchangingStrategies" xsi:type="array">
-                <item name="advanced_pricing" xsi:type="object">Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy\AdvancedPricing\Proxy</item>
+                <item name="advanced_pricing" xsi:type="array">
+                    <item name="add" xsi:type="object">Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy\AdvancedPricing\Behaviour\Add\Proxy</item>
+                    <item name="delete" xsi:type="object">Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy\AdvancedPricing\Behaviour\Delete\Proxy</item>
+                </item>
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Sc">
+        <arguments>
+            <argument name="exchangingProperties" xsi:type="array">
+                <item name="advanced_pricing" xsi:type="array">
+                    <item name="add" xsi:type="array">
+                        <item name="topic" xsi:type="string">async.magento.catalog.api.tierpricestorageinterface.update.post</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Api">
+        <arguments>
+            <argument name="exchangingProperties" xsi:type="array">
+                <item name="advanced_pricing" xsi:type="array">
+                    <item name="add" xsi:type="array">
+                        <item name="method" xsi:type="string">POST</item>
+                        <item name="url" xsi:type="string">products/tier-prices</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <type name="Magento\AsynchronousImportDataExchanging\Model\ExchangeAdaptersRegistry">
+        <arguments>
+            <argument name="exchangeAdapters" xsi:type="array">
+                <item name="sc" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Sc\Proxy</item>
+                <item name="api" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Api\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>

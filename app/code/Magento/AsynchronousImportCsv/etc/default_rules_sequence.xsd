@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="sequences">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="sequence" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:unique name="uniqueSequenceName">
+            <xs:annotation>
+                <xs:documentation>
+                    Sequence Name have to be unique
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="sequence"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+
+    </xs:element>
+
+    <xs:element name="sequence">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element ref="rule" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="sequenceAttributeGroup"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="rule">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element ref="paramethers" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="ruleAttributeGroup"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="paramethers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element ref="item" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="parametherAttributeGroup"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="item">
+        <xs:annotation>
+            <xs:documentation>
+                Single parameter
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attributeGroup ref="itemAttributeGroup"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attributeGroup name="itemAttributeGroup">
+        <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="parametherAttributeGroup">
+        <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="sequenceAttributeGroup">
+        <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="ruleAttributeGroup">
+        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="sortOrder" type="xs:float" use="optional" />
+    </xs:attributeGroup>
+
+</xs:schema>

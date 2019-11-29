@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<sequences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/sequence.xsd">
+
+    <sequence name="default_advanced_prices">
+        <rule name="WebsiteNameToId" sortOrder="10">
+            <paramethers name="apply_to" xsi:type="array">
+                <item name="website_id" xsi:type="string">website_id</item>
+            </paramethers>
+        </rule>
+        <rule name="StringToLower" sortOrder="10">
+            <paramethers name="apply_to" xsi:type="array">
+                <item name="price_type" xsi:type="string">price_type</item>
+            </paramethers>
+        </rule>
+    </sequence>
+
+</sequences>
