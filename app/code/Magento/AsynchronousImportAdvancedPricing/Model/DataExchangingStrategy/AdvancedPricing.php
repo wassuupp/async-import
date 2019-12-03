@@ -23,4 +23,22 @@ class AdvancedPricing implements ExchangeDataStrategyInterface
     public function execute(ImportInterface $import, array $importData): void
     {
     }
+
+    /**
+     * @param array $tierPriceData
+     * @return TierPriceInterface
+     */
+    private function getFilledTierPriceModel(array $tierPriceData)
+    {
+        $tierPrice = $this->tierPriceFactory->create();
+
+        $tierPrice->setPrice($tierPriceData[self::PRICE_KEY_NAME]);
+        $tierPrice->setPriceType($tierPriceData[self::VALUE_KEY_NAME]);
+        $tierPrice->setWebsiteId($tierPriceData[self::WEBSITE_KEY_NAME]);
+        $tierPrice->setSku($tierPriceData[self::SKU_KEY_NAME]);
+        $tierPrice->setCustomerGroup($tierPriceData[self::CUSTOMER_GROUP_KEY_NAME]);
+        $tierPrice->setQuantity($tierPriceData[self::QTY_KEY_NAME]);
+
+        return $tierPrice;
+    }
 }
