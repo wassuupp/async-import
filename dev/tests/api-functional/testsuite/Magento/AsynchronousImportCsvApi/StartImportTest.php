@@ -33,7 +33,15 @@ class StartImportTest extends WebapiAbstract
             ],
         ];
 
-        $csvString = "value1\nvalue2\nvalue3\nvalue4\nvalue5";
+        $csvString = <<<csv
+"sku","tier_price_website","tier_price_customer_group","tier_price_qty","tier_price","tier_price_value_type"
+"Test","All Websites [USD]","ALL GROUPS","2","10","Fixed"
+"Test","All Websites [USD]","ALL GROUPS","3","15","Discount"
+"Test","All Websites [USD]","ALL GROUPS","4","20","Discount"
+"Test","All Websites [USD]","ALL GROUPS","5","25","Discount"
+"Test","All Websites [USD]","ALL GROUPS","6","30","Discount"
+csv;
+
         $data = [
             'source' => [
                 'sourceType' => 'base64_encoded_data',
