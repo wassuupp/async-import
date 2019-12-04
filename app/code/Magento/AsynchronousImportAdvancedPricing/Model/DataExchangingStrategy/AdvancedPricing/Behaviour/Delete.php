@@ -16,10 +16,15 @@ use Magento\AsynchronousImportDataExchangingApi\Model\ExchangeDataBehaviourInter
 class Delete implements ExchangeDataBehaviourInterface
 {
 
+    /**
+     * Execute Delete operation
+     *
+     * @param ImportInterface $import
+     * @param array $importData
+     */
     public function execute(ImportInterface $import, array $importData): void
     {
         exit;
-        // TODO: Implement execute() method.
     }
 
 }

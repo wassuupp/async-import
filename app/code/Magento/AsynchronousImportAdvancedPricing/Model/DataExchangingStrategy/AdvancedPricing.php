@@ -16,8 +16,16 @@ use Magento\AsynchronousImportDataExchangingApi\Model\ExchangeDataStrategyInterf
 class AdvancedPricing implements ExchangeDataStrategyInterface
 {
 
+    /**
+     * @var array Import Behaviours processors
+     */
     private $importBehaviours;
 
+    /**
+     * AdvancedPricing constructor.
+     *
+     * @param array $importBehaviours
+     */
     public function __construct(
         array $importBehaviours
     ) {
@@ -25,9 +33,10 @@ class AdvancedPricing implements ExchangeDataStrategyInterface
     }
 
     /**
-     * @inheritdoc
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * phpcs:disable Magento2.CodeAnalysis.EmptyBlock
+     * Execution of Advanced pricing import
+     *
+     * @param ImportInterface $import
+     * @param array $importData
      */
     public function execute(ImportInterface $import, array $importData): void
     {

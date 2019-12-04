@@ -12,20 +12,29 @@ use Magento\Framework\Validation\ValidationException;
 use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterInterface;
 
 /**
- * Operation for exchanging import data with destination instance. Uses differect strategies for data import
+ * Data Exchange adapter for Magento API connection
  *
  * @api
  */
 class Api implements ExchangeAdapterInterface
 {
 
+    /**
+     * Api constructor.
+     * @param array $exchangingProperties
+     */
     public function __construct(
         array $exchangingProperties = []
     ) {
         $this->exchangingProperties = $exchangingProperties;
     }
 
-
+    /**
+     * Execute processing
+     *
+     * @param ImportInterface $import
+     * @param array $importData
+     */
     public function execute(ImportInterface $import, array $importData): void{
 
         echo "do Export via API here";

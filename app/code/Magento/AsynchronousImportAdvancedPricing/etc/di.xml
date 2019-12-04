@@ -18,7 +18,6 @@
             </argument>
         </arguments>
     </type>
-
     <type name="Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Sc">
         <arguments>
             <argument name="exchangingProperties" xsi:type="array">
@@ -42,15 +41,4 @@
             </argument>
         </arguments>
     </type>
-
-
-    <type name="Magento\AsynchronousImportDataExchanging\Model\ExchangeAdaptersRegistry">
-        <arguments>
-            <argument name="exchangeAdapters" xsi:type="array">
-                <item name="sc" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Sc\Proxy</item>
-                <item name="api" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Api\Proxy</item>
-            </argument>
-        </arguments>
-    </type>
-
 </config>

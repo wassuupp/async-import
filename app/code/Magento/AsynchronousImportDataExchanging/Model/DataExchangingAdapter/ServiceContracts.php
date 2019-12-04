@@ -12,20 +12,30 @@ use Magento\Framework\Validation\ValidationException;
 use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterInterface;
 
 /**
- * Operation for exchanging import data with destination instance. Uses differect strategies for data import
+ * Data exchange adapter for processing requests based on Service contracts.
+ * So module is installed as part of Magento monolyth
  *
  * @api
  */
-class Sc implements ExchangeAdapterInterface
+class ServiceContracts implements ExchangeAdapterInterface
 {
 
+    /**
+     * ServiceContracts constructor.
+     * @param array $exchangingProperties
+     */
     public function __construct(
         array $exchangingProperties
     ) {
         $this->exchangingProperties = $exchangingProperties;
     }
 
-
+    /**
+     * Execute
+     *
+     * @param ImportInterface $import
+     * @param array $importData
+     */
     public function execute(ImportInterface $import, array $importData): void{
 
         echo "do Export via SC here";

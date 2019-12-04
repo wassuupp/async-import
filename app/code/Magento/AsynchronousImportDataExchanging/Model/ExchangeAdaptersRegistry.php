@@ -11,13 +11,18 @@ use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 use Magento\Framework\Validation\ValidationException;
 
 /**
- * Operation for exchanging import data with destination instance. Uses differect strategies for data import
+ * Registry for receive processors of import data
  *
  * @api
  */
 class ExchangeAdaptersRegistry
 {
 
+    /**
+     * ExchangeAdaptersRegistry constructor.
+     *
+     * @param array $exchangeAdapters
+     */
     public function __construct(
         array $exchangeAdapters
     ) {

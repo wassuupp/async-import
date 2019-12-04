@@ -80,7 +80,7 @@ class StartImport implements StartImportInterface
             foreach ($parsedData as $row) {
                 $importData[] = array_combine($headers, $row);
             }
-//            $importData = $this->applyConvertingRules->execute($importData, $convertingRules);
+            $importData = $this->applyConvertingRules->execute($importData, $convertingRules);
             $this->exchangeImportData->execute($import, $importData);
         }
         return 'UID';

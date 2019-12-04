@@ -10,15 +10,14 @@ namespace Magento\AsynchronousImportDataExchangingApi\Model;
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
 
 /**
- * Extension point for adding data import algorithms
- * Represents concrete strategy
+ * Extension point of Exchange for Data behaviour interfaces
  *
  * @api
  */
 interface ExchangeDataBehaviourInterface
 {
     /**
-     * Data import behaviour execution
+     * Exchange for Data behaviour execution
      *
      * @param ImportInterface $import
      * @param array $importData
