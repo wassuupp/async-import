@@ -68,8 +68,8 @@ class StartImport implements StartImportInterface
         CsvFormatInterface $format = null,
         array $convertingRules = []
     ): string {
-        $sourceData = $this->retrieveSourceData->execute($source);
 
+        $sourceData = $this->retrieveSourceData->execute($source);
         $headers = [];
         foreach ($sourceData as $key => $batch) {
             $importData = [];

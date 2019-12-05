@@ -48,14 +48,6 @@ class ExchangeImportData implements ExchangeImportDataInterface
     ) {
         $this->importValidator = $importValidator;
         $this->validationResultFactory = $validationResultFactory;
-
-        foreach ($exchangingStrategies as $exchangingStrategy) {
-            if (!$exchangingStrategy instanceof ExchangeDataStrategyInterface) {
-                throw new ImportDataExchangeException(
-                    __('Exchange data strategy must implement %1.', ExchangeDataStrategyInterface::class)
-                );
-            }
-        }
         $this->exchangingStrategies = $exchangingStrategies;
     }
 
@@ -70,16 +62,17 @@ class ExchangeImportData implements ExchangeImportDataInterface
         }
 
         $importType = $import->getImportType();
-        if (!isset($this->exchangingStrategies[$importType])) {
+        $importBehaviour = $import->getImportBehaviour();
+        if (!isset($this->exchangingStrategies[$importType]) || !isset($this->exchangingStrategies[$importType][$importBehaviour])) {
             $validationResult = $this->validationResultFactory->create(
                 [
                     'errors' => [
-                        __('Import type "%import_type" is not supported.', ['import_type' => $importType]),
-                    ],
+                        __('Import type "%import_type" with behaviour "%import_behaviour" is not supported.', ['import_type' => $importType, 'import_behaviour' => $importBehaviour])
+                    ]
                 ]
             );
             throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
         }
-        $this->exchangingStrategies[$importType]->execute($import, $importData);
+        $this->exchangingStrategies[$importType][$importBehaviour]->execute($import, $importData);
     }
 }

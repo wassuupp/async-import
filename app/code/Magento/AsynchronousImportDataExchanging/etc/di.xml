@@ -22,4 +22,14 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\AsynchronousImportDataExchanging\Model\ExchangeAdaptersRegistry">
+        <arguments>
+            <argument name="exchangeAdapters" xsi:type="array">
+                <item name="service_contracts" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\ServiceContracts\Proxy</item>
+                <item name="api" xsi:type="object">Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Api\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>

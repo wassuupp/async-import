@@ -1,5 +1,7 @@
 <?php
 /**
+ * @deprecated Ignore it for now
+ *
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
@@ -15,12 +17,31 @@ use Magento\AsynchronousImportDataExchangingApi\Model\ExchangeDataStrategyInterf
  */
 class AdvancedPricing implements ExchangeDataStrategyInterface
 {
+
     /**
-     * @inheritdoc
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * phpcs:disable Magento2.CodeAnalysis.EmptyBlock
+     * @var array Import Behaviours processors
+     */
+    private $importBehaviours;
+
+    /**
+     * AdvancedPricing constructor.
+     *
+     * @param array $importBehaviours
+     */
+    public function __construct(
+        array $importBehaviours
+    ) {
+        $this->importBehaviours = $importBehaviours;
+    }
+
+    /**
+     * Execution of Advanced pricing import
+     *
+     * @param ImportInterface $import
+     * @param array $importData
      */
     public function execute(ImportInterface $import, array $importData): void
     {
+        $this->importBehaviours[$import->getImportBehaviour()]->execute($importData);
     }
 }
