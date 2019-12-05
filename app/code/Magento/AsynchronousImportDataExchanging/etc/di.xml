@@ -32,4 +32,7 @@
         </arguments>
     </type>
 
+    <preference for="Magento\AsynchronousImportDataExchanging\Model\Configuration\ConfigInterface"
+                type="Magento\AsynchronousImportDataExchanging\Model\Configuration\Config" />
+
 </config>

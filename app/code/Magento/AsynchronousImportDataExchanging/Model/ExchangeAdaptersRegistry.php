@@ -7,8 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportDataExchanging\Model;
 
-use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
-use Magento\Framework\Validation\ValidationException;
+use Magento\AsynchronousImportDataExchanging\Model\Configuration\ConfigInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterInterface;
+use Magento\AsynchronousImportDataExchanging\Exception\AdapterNotFoundException;
 
 /**
  * Registry for receive processors of import data
@@ -17,25 +18,43 @@ use Magento\Framework\Validation\ValidationException;
  */
 class ExchangeAdaptersRegistry
 {
+    /**
+     * @var ConfigInterface
+     */
+    private $config;
 
     /**
      * ExchangeAdaptersRegistry constructor.
-     *
+     * @param ConfigInterface $config
      * @param array $exchangeAdapters
      */
     public function __construct(
+        ConfigInterface $config,
         array $exchangeAdapters
     ) {
+        $this->config = $config;
         $this->exchangeAdapters = $exchangeAdapters;
     }
 
-    public function get(){
+    /**
+     * @return \Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterInterface
+     * @throws AdapterNotFoundException
+     */
+    public function get()
+    {
+        if (!isset($this->exchangeAdapters[$this->config->getAdapterConfiguration()])
+            || !$this->exchangeAdapters[$this->config->getAdapterConfiguration()] instanceof ExchangeAdapterInterface
+        ) {
+            throw new AdapterNotFoundException(
+                __('Exchange Adapter was not found. Check dependency injection configuration.')
+            );
+        }
 
-        /**
-         * @TODO Get Config values
-         */
-        $adapters = "api";
-        return $this->exchangeAdapters[$adapters];
+        /** @var ExchangeAdapterInterface $adapter */
+        $adapter = $this->exchangeAdapters[
+            $this->config->getAdapterConfiguration()
+        ];
 
+        return $adapter;
     }
 }
