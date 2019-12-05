@@ -15,7 +15,7 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Model\RetrieveSourceDataSt
  */
 class Base64EncodedData implements RetrieveSourceDataStrategyInterface
 {
-
+    
     public const BASE64_STRATEGY_NAME = "base64_encoded_data";
 
     /**
