@@ -11,10 +11,7 @@ interface ConfigInterface
     public const EXCHANGE_ADAPTER_NODE = 'exchange_adapter';
 
     /** @var string  */
-    public const TYPE_NODE = 'type';
-
-    /** @var string  */
-    public const RECEIVER_NODE = 'receiver';
+    public const PARAMETERS_NODE = 'parameters';
 
     /** @var string  */
     public const INTEGRATION_TOKEN = 'integration_token';
@@ -30,12 +27,13 @@ interface ConfigInterface
      *
      * @return mixed
      */
-    public function getAdapterType();
+    public function getAdapter();
 
     /**
      * Returns the receiver details
      *
+     * @param string $adapterName
      * @return array
      */
-    public function getReceiverDetails();
+    public function getReceiverDetails($adapterName);
 }

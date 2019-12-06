@@ -9,14 +9,15 @@ namespace Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter;
 
 use Magento\AsynchronousImportDataExchangingApi\Api\boolen;
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\ImportInterface;
-use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterWithReceiverInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\MiddlewareExchangeAdapterInterface;
+use Magento\AsynchronousImportDataExchanging\Model\Configuration\ConfigInterface;
 
 /**
  * Data Exchange adapter for Magento API connection
  *
  * @api
  */
-class Api implements ExchangeAdapterWithReceiverInterface
+class Api implements MiddlewareExchangeAdapterInterface
 {
     private $remoteReceiver;
 
@@ -40,6 +41,20 @@ class Api implements ExchangeAdapterWithReceiverInterface
     }
 
     /**
+     * @return array|null
+     */
+    public function getParameters()
+    {
+        $data = $this->remoteReceiver->getData();
+
+        if (is_array($data)) {
+            return $data;
+        }
+
+        return null;
+    }
+
+    /**
      * Execute processing
      *
      * @param ImportInterface $import
@@ -49,11 +64,9 @@ class Api implements ExchangeAdapterWithReceiverInterface
 
         echo "do Export via API here";
         var_dump($this->exchangingProperties);
-        $integrationToken = $this->remoteReceiver->getIntegrationToken();
-        $baseUrl = $this->remoteReceiver->getBaseUrl();
+        $parameters = $this->getParameters();
+        $token = $parameters[ConfigInterface::INTEGRATION_TOKEN];
+        $baseUrl = $parameters[ConfigInterface::BASE_URL];
         exit;
-
     }
-
-
 }

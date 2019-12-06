@@ -26,10 +26,10 @@ class Config implements ConfigInterface
      *
      * @return string
      */
-    public function getAdapterType()
+    public function getAdapter()
     {
         /** @var string $key */
-        $key = self::ASYNCHRONOUS_IMPORT_NODE . "/" . self::EXCHANGE_ADAPTER_NODE . "/" . self::TYPE_NODE;
+        $key = self::ASYNCHRONOUS_IMPORT_NODE . "/" . self::EXCHANGE_ADAPTER_NODE;
 
         return $this->deploymentConfig->get(
             $key,
@@ -39,13 +39,13 @@ class Config implements ConfigInterface
 
     /**
      * Returns the receiver details
-     *
+     * @param string $adapterName
      * @return array
      */
-    public function getReceiverDetails()
+    public function getReceiverDetails($adapterName)
     {
         /** @var string $key */
-        $key = self::ASYNCHRONOUS_IMPORT_NODE . "/" . self::EXCHANGE_ADAPTER_NODE . "/" . self::RECEIVER_NODE;
+        $key = self::ASYNCHRONOUS_IMPORT_NODE . "/" . $adapterName . "/" . self::PARAMETERS_NODE;
 
         /** @var array $data */
         $data = $this->deploymentConfig->get($key);
