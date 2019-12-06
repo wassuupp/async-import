@@ -7,11 +7,16 @@ declare(strict_types=1);
 
 namespace Magento\AsynchronousImportDataExchangingApi\Api;
 
-interface ExchangeAdapterWithReceiverInterface extends ExchangeAdapterInterface
+interface MiddlewareExchangeAdapterInterface extends ExchangeAdapterInterface
 {
     /**
      * @param $remoteReceiver \Magento\AsynchronousImportDataExchangingApi\Api\Data\RemoteReceiverInterface
      * @return $this
      */
     public function setRemoteReceiver($remoteReceiver);
+
+    /**
+     * @return array|null
+     */
+    public function getParameters();
 }

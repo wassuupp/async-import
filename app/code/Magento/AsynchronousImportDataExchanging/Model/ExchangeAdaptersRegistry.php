@@ -11,7 +11,7 @@ use Magento\AsynchronousImportDataExchanging\Exception\AdapterNotFoundException;
 use Magento\AsynchronousImportDataExchanging\Model\Configuration\ConfigInterface;
 use Magento\AsynchronousImportDataExchangingApi\Api\Data\RemoteReceiverInterfaceFactory;
 use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterInterface;
-use Magento\AsynchronousImportDataExchangingApi\Api\ExchangeAdapterWithReceiverInterface;
+use Magento\AsynchronousImportDataExchangingApi\Api\MiddlewareExchangeAdapterInterface;
 
 /**
  * Registry for receive processors of import data
@@ -52,8 +52,8 @@ class ExchangeAdaptersRegistry
      */
     public function get()
     {
-        if (!isset($this->exchangeAdapters[$this->config->getAdapterType()])
-            || !$this->exchangeAdapters[$this->config->getAdapterType()] instanceof ExchangeAdapterInterface
+        if (!isset($this->exchangeAdapters[$this->config->getAdapter()])
+            || !$this->exchangeAdapters[$this->config->getAdapter()] instanceof ExchangeAdapterInterface
         ) {
             throw new AdapterNotFoundException(
                 __('Exchange Adapter was not found. Check dependency injection configuration.')
@@ -62,12 +62,12 @@ class ExchangeAdaptersRegistry
 
         /** @var ExchangeAdapterInterface $adapter */
         $adapter = $this->exchangeAdapters[
-            $this->config->getAdapterType()
+            $this->config->getAdapter()
         ];
 
-        if ($adapter instanceof ExchangeAdapterWithReceiverInterface) {
+        if ($adapter instanceof MiddlewareExchangeAdapterInterface) {
             /** @var array $receiverConfig */
-            $receiverConfig = $this->config->getReceiverDetails();
+            $receiverConfig = $this->config->getReceiverDetails($this->config->getAdapter());
             /** @var \Magento\AsynchronousImportDataExchangingApi\Api\Data\RemoteReceiverInterface $remoteReceiver */
             $remoteReceiver = $this->remoteReceiverFactory->create();
 
