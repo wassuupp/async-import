@@ -35,6 +35,8 @@
                 <item name="not_empty_source_definition" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\NotEmptySourceDefinitionValidator</item>
                 <item name="source_data_format" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\SourceDataFormatValidator</item>
                 <item name="source_definition_base64" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\Base64Validator</item>
+                <item name="source_definition_http" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\RemoteHttpValidator</item>
+                <item name="source_definition_file" xsi:type="object">Magento\AsynchronousImportSourceDataRetrieving\Model\SourceValidator\LocalFileValidator</item>
             </argument>
         </arguments>
     </type>
@@ -44,4 +46,22 @@
             <argument name="batchSize" xsi:type="number">3</argument>
         </arguments>
     </type>
+    <!-- Remote Http Data -->
+    <type name="Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\RemoteHttp">
+        <arguments>
+            <argument name="batchSize" xsi:type="number">3</argument>
+        </arguments>
+    </type>
+    <!-- Local File Data -->
+    <type name="Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\LocalFile">
+        <arguments>
+            <argument name="batchSize" xsi:type="number">3</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\LocalFile\FileResolver">
+        <arguments>
+            <argument name="relativePath" xsi:type="string">asynchronous_import/source_data_upload</argument>
+        </arguments>
+    </type>
+
 </config>
