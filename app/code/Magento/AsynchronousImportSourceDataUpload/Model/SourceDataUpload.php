@@ -37,9 +37,6 @@ class SourceDataUpload implements SourceDataUploadInterface
     /** @var FileResolver  */
     private $fileResolver;
 
-    /** @var string */
-    private $filePath;
-
     /** @var File */
     private $file;
 
