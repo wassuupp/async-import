@@ -15,13 +15,13 @@ use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResul
 use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterfaceFactory;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadException;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadInterface;
+use Magento\AsynchronousImportSourceDataRetrieving\Model\SourceDataRetrievingStrategy\LocalFile\FileResolver;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Validation\ValidationException;
 
 /**
- * Class SourceDataUpload
- * @package Magento\AsynchronousImportSourceDataUpload\Model
+ * @inheritdoc
  */
 class SourceDataUpload implements SourceDataUploadInterface
 {
@@ -34,6 +34,9 @@ class SourceDataUpload implements SourceDataUploadInterface
     /** @var SourceDataUploadResultInterfaceFactory */
     private $sourceDataUploadResultFactory;
 
+    /** @var FileResolver  */
+    private $fileResolver;
+
     /** @var string */
     private $filePath;
 
@@ -45,21 +48,21 @@ class SourceDataUpload implements SourceDataUploadInterface
      * @param DirectoryList $directoryList
      * @param RetrieveSourceDataInterface $retrieveSourceDataProcessor
      * @param SourceDataUploadResultInterfaceFactory $sourceDataUploadResultFactory
+     * @param FileResolver $fileResolver
      * @param File $file
-     * @param string $filePath
      */
     public function __construct(
         DirectoryList $directoryList,
         RetrieveSourceDataInterface $retrieveSourceDataProcessor,
         SourceDataUploadResultInterfaceFactory $sourceDataUploadResultFactory,
-        File $file,
-        $filePath = ''
+        FileResolver $fileResolver,
+        File $file
     ) {
         $this->directoryList = $directoryList;
         $this->retrieveSourceDataProcessor = $retrieveSourceDataProcessor;
         $this->sourceDataUploadResultFactory = $sourceDataUploadResultFactory;
+        $this->fileResolver = $fileResolver;
         $this->file = $file;
-        $this->filePath = $filePath;
     }
 
     /**
@@ -79,7 +82,7 @@ class SourceDataUpload implements SourceDataUploadInterface
 
         try {
             /** @var string $fullFilePath */
-            $fullFilePath = $this->getPreparedFullFilePath($this->filePath, $fileName);
+            $fullFilePath = $this->getPreparedFullFilePath($fileName);
         } catch (\Magento\Framework\Exception\FileSystemException $e) {
             throw new SourceDataUploadException(
                 __('Error while fetching target file path for %1.', $fileName)
@@ -116,19 +119,13 @@ class SourceDataUpload implements SourceDataUploadInterface
     /**
      * Get file path and create directory if it does not exist
      *
-     * @param $filePath
      * @param string $fileName
      * @return string
      * @throws \Magento\Framework\Exception\FileSystemException
      */
-    protected function getPreparedFullFilePath($filePath, $fileName)
+    protected function getPreparedFullFilePath($fileName)
     {
-        $directoryPath = $this->directoryList->getPath('var') . DIRECTORY_SEPARATOR . $filePath;
-        if (!$this->file->isWriteable($directoryPath)) {
-            $this->file->mkdir($directoryPath);
-        }
-
-        return $directoryPath . DIRECTORY_SEPARATOR . $fileName;
+        return $this->fileResolver->getRootPath() . DIRECTORY_SEPARATOR . $fileName;
     }
 
     /**

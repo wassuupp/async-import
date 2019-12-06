@@ -10,8 +10,7 @@ namespace Magento\AsynchronousImportSourceDataUpload\Model;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterface;
 
 /**
- * Class SourceDataUploadResult
- * @package Magento\AsynchronousImportSourceDataUpload\Model
+ * @inheritdoc
  */
 class SourceDataUploadResult implements SourceDataUploadResultInterface
 {
