@@ -17,12 +17,24 @@
     <type name="Magento\AsynchronousImportDataConverting\Model\ApplyConvertingRules">
         <arguments>
             <argument name="ruleApplyingStrategies" xsi:type="array">
-                <item name="uppercase_first_character" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter\Proxy</item>
-                <item name="remove_field" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField\Proxy</item>
-                <item name="uppercase_string" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString\Proxy</item>
-                <item name="string_replace" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\StringReplace\Proxy</item>
-                <item name="yes_no_to_bool" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\YesNoToBool\Proxy</item>
-                <item name="lowercase_string" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\LowercaseString\Proxy</item>
+                <item name="uppercase_first_character" xsi:type="array">
+                    <item name="default" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseFirstCharacter\Proxy</item>
+                </item>
+                <item name="remove_field" xsi:type="array">
+                    <item name="default" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\RemoveField\Proxy</item>
+                </item>
+                <item name="uppercase_string" xsi:type="array">
+                    <item name="default" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\UppercaseString\Proxy</item>
+                </item>
+                <item name="string_replace" xsi:type="array">
+                    <item name="default" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\StringReplace\Proxy</item>
+                </item>
+                <item name="yes_no_to_bool" xsi:type="array">
+                    <item name="default" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\YesNoToBool\Proxy</item>
+                </item>
+                <item name="lowercase_string" xsi:type="array">
+                    <item name="default" xsi:type="object">Magento\AsynchronousImportDataConverting\Model\RuleApplyingStrategy\LowercaseString\Proxy</item>
+                </item>
             </argument>
         </arguments>
     </type>

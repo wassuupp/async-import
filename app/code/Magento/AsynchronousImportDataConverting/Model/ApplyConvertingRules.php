@@ -19,6 +19,9 @@ use Magento\Framework\Validation\ValidationResultFactory;
  */
 class ApplyConvertingRules implements ApplyConvertingRulesInterface
 {
+
+    public const DEFAULT_APPLY_STRATEGIES_KEY = "default";
+
     /**
      * @var ConvertingRuleValidatorInterface
      */
@@ -35,6 +38,11 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     private $ruleApplyingStrategies;
 
     /**
+     * @var string
+     */
+    private $rulesEnabledStrategy;
+
+    /**
      * @param ConvertingRuleValidatorInterface $convertingRuleValidator
      * @param ValidationResultFactory $validationResultFactory
      * @param ApplyConvertingRuleStrategyInterface[] $ruleApplyingStrategies
@@ -47,15 +55,12 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
     ) {
         $this->convertingRuleValidator = $convertingRuleValidator;
         $this->validationResultFactory = $validationResultFactory;
-
-        foreach ($ruleApplyingStrategies as $ruleApplyingStrategy) {
-            if (!$ruleApplyingStrategy instanceof ApplyConvertingRuleStrategyInterface) {
-                throw new ApplyConvertingRulesException(
-                    __('Apply converting rule strategy must implement %1.', ApplyConvertingRuleStrategyInterface::class)
-                );
-            }
-        }
         $this->ruleApplyingStrategies = $ruleApplyingStrategies;
+        /**
+         * @ToDo use configuration for define default default rules pool
+         */
+        $this->rulesEnabledStrategy = "service_contracts";
+        $this->filterApplyStrategies();
     }
 
     /**
@@ -90,5 +95,27 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
                 ->execute($importData, $convertingRule);
         }
         return $importData;
+    }
+
+    /**
+     * Filter stretegies based on system settings
+     */
+    private function filterApplyStrategies(){
+
+        $activeApplyStrategies = [];
+        foreach ($this->ruleApplyingStrategies as $strategyKey => $implementations) {
+            $activeStrategy = $implementations[$this->rulesEnabledStrategy]
+                ?? $implementations[self::DEFAULT_APPLY_STRATEGIES_KEY]
+                ?? false;
+
+            if ($activeStrategy !== false && !$activeStrategy instanceof ApplyConvertingRuleStrategyInterface) {
+                throw new ApplyConvertingRulesException(
+                    __('Apply converting rule strategy must implement %1.', ApplyConvertingRuleStrategyInterface::class)
+                );
+            }
+            $activeStrategy ? $activeApplyStrategies[$strategyKey] = $activeStrategy : false;
+        }
+        $this->ruleApplyingStrategies = $activeApplyStrategies;
+
     }
 }
