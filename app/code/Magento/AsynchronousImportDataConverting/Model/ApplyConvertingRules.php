@@ -68,8 +68,8 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
      */
     public function execute(array $importData, array $convertingRules): array
     {
-        usort($convertingRules, function ($rule1, $rule2) {
-            return $rule1['sort'] <=> $rule2['sort'];
+        usort($convertingRules, function ($previousRule, $nextRule) {
+            return $previousRule['sort'] <=> $nextRule['sort'];
         });
         foreach ($convertingRules as $convertingRule) {
             $validationResult = $this->convertingRuleValidator->validate($convertingRule);
@@ -91,8 +91,7 @@ class ApplyConvertingRules implements ApplyConvertingRulesInterface
                 );
                 throw new ValidationException(__('Validation Failed.'), null, 0, $validationResult);
             }
-            $importData = $this->ruleApplyingStrategies[$convertingRule->getIdentifier()]
-                ->execute($importData, $convertingRule);
+            $importData = $this->ruleApplyingStrategies[$identifier]->execute($importData, $convertingRule);
         }
         return $importData;
     }
