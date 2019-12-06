@@ -32,4 +32,10 @@
         </arguments>
     </type>
 
+    <preference for="Magento\AsynchronousImportDataExchanging\Model\Configuration\ConfigInterface"
+                type="Magento\AsynchronousImportDataExchanging\Model\Configuration\Config" />
+
+    <preference for="Magento\AsynchronousImportDataExchangingApi\Api\Data\RemoteReceiverInterface"
+                type="Magento\AsynchronousImportDataExchanging\Model\Configuration\RemoteReceiver" />
+
 </config>
