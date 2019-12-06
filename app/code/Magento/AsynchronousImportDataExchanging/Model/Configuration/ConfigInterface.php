@@ -11,6 +11,18 @@ interface ConfigInterface
     public const EXCHANGE_ADAPTER_NODE = 'exchange_adapter';
 
     /** @var string  */
+    public const TYPE_NODE = 'type';
+
+    /** @var string  */
+    public const RECEIVER_NODE = 'receiver';
+
+    /** @var string  */
+    public const INTEGRATION_TOKEN = 'integration_token';
+
+    /** @var string  */
+    public const BASE_URL = 'base_url';
+
+    /** @var string  */
     public const DEFAULT_EXCHANGE_ADAPTER = 'service_contracts';
 
     /**
@@ -18,5 +30,12 @@ interface ConfigInterface
      *
      * @return mixed
      */
-    public function getAdapterConfiguration();
+    public function getAdapterType();
+
+    /**
+     * Returns the receiver details
+     *
+     * @return array
+     */
+    public function getReceiverDetails();
 }
