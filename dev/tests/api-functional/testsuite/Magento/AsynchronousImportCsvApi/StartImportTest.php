@@ -33,7 +33,11 @@ class StartImportTest extends WebapiAbstract
             ],
         ];
 
-        $csvString = "value1\nvalue2\nvalue3\nvalue4\nvalue5";
+        $csvString = <<<csv
+"sku","website_id","customer_group","quantity","price","price_type"
+"Test","0","ALL GROUPS","2","10","fixed"
+"Test","0","ALL GROUPS","3","15","discount"
+csv;
         $data = [
             'source' => [
                 'sourceType' => 'base64_encoded_data',
@@ -42,7 +46,7 @@ class StartImportTest extends WebapiAbstract
             ],
             'import' => [
                 'importType' => 'advanced_pricing',
-                'importBehaviour' => 'add',
+                'importBehaviour' => 'update',
             ],
         ];
         $this->_webApiCall($serviceInfo, $data);

@@ -13,17 +13,21 @@
             <argument name="exchangingStrategies" xsi:type="array">
                 <item name="advanced_pricing" xsi:type="array">
                     <item name="add" xsi:type="object">Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy\AdvancedPricing\Behaviour\Add\Proxy</item>
+                    <item name="update" xsi:type="object">Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy\AdvancedPricing\Behaviour\Update\Proxy</item>
                     <item name="delete" xsi:type="object">Magento\AsynchronousImportAdvancedPricing\Model\DataExchangingStrategy\AdvancedPricing\Behaviour\Delete\Proxy</item>
                 </item>
             </argument>
         </arguments>
     </type>
-    <type name="Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\Sc">
+    <type name="Magento\AsynchronousImportDataExchanging\Model\DataExchangingAdapter\ServiceContracts">
         <arguments>
             <argument name="exchangingProperties" xsi:type="array">
                 <item name="advanced_pricing" xsi:type="array">
                     <item name="add" xsi:type="array">
-                        <item name="topic" xsi:type="string">async.magento.catalog.api.tierpricestorageinterface.update.post</item>
+                        <item name="topic" xsi:type="string">Magento\Catalog\Api\TierPriceStorageInterface</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="topic" xsi:type="string">Magento\Catalog\Api\TierPriceStorageInterface</item>
                     </item>
                 </item>
             </argument>
