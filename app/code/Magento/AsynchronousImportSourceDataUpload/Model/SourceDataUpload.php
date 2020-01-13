@@ -10,14 +10,12 @@ namespace Magento\AsynchronousImportSourceDataUpload\Model;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceDataInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\Data\SourceInterface;
 use Magento\AsynchronousImportSourceDataRetrievingApi\Api\RetrieveSourceDataInterface;
-use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingException;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterface;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\Data\SourceDataUploadResultInterfaceFactory;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadException;
 use Magento\AsynchronousImportSourceDataUploadApi\Api\SourceDataUploadInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\Framework\Validation\ValidationException;
 
 /**
  * Class SourceDataUpload
@@ -25,49 +23,64 @@ use Magento\Framework\Validation\ValidationException;
  */
 class SourceDataUpload implements SourceDataUploadInterface
 {
-    /** @var DirectoryList */
+    /**
+     * @var DirectoryList
+     */
     private $directoryList;
 
-    /** @var RetrieveSourceDataInterface */
+    /**
+     * @var RetrieveSourceDataInterface
+     */
     private $retrieveSourceDataProcessor;
 
-    /** @var SourceDataUploadResultInterfaceFactory */
+    /**
+     * @var SourceDataUploadResultInterfaceFactory
+     */
     private $sourceDataUploadResultFactory;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $filePath;
 
-    /** @var File */
+    /**
+     * @var File
+     */
     private $file;
 
     /**
+     * @var string
+     */
+    private $dataSeparator;
+
+    /**
      * SourceDataUpload constructor.
+     *
      * @param DirectoryList $directoryList
      * @param RetrieveSourceDataInterface $retrieveSourceDataProcessor
      * @param SourceDataUploadResultInterfaceFactory $sourceDataUploadResultFactory
      * @param File $file
-     * @param string $filePath
+     * @param string x$filePath
+     * @oaram string $dataSeparator
      */
     public function __construct(
         DirectoryList $directoryList,
         RetrieveSourceDataInterface $retrieveSourceDataProcessor,
         SourceDataUploadResultInterfaceFactory $sourceDataUploadResultFactory,
         File $file,
-        $filePath = ''
+        $filePath = '',
+        $dataSeparator = SourceInterface::SOURCE_DATA_SEPARATOR
     ) {
         $this->directoryList = $directoryList;
         $this->retrieveSourceDataProcessor = $retrieveSourceDataProcessor;
         $this->sourceDataUploadResultFactory = $sourceDataUploadResultFactory;
         $this->file = $file;
         $this->filePath = $filePath;
+        $this->dataSeparator = $dataSeparator;
     }
 
     /**
-     * @param SourceInterface $sourceData
-     * @return SourceDataUploadResultInterface
-     * @throws SourceDataUploadException
-     * @throws SourceDataRetrievingException
-     * @throws ValidationException
+     * @inheritdoc
      */
     public function execute(SourceInterface $sourceData): SourceDataUploadResultInterface
     {
@@ -99,7 +112,10 @@ class SourceDataUpload implements SourceDataUploadInterface
     }
 
     /**
+     * Get source data for file content
+     *
      * @param \Traversable $iterator
+     *
      * @return string
      */
     private function getFileDataFromIterator(\Traversable $iterator)
@@ -110,29 +126,31 @@ class SourceDataUpload implements SourceDataUploadInterface
                 $result[] = $row;
             }
         }
-        return implode("\n", $result);
+        return implode(SourceInterface::SOURCE_DATA_SEPARATOR, $result);
     }
 
     /**
      * Get file path and create directory if it does not exist
      *
-     * @param $filePath
+     * @param string $filePath
      * @param string $fileName
-     * @return string
-     * @throws \Magento\Framework\Exception\FileSystemException
+     *
+     * @return string string
+     *
+     * @throws \Exception
      */
     protected function getPreparedFullFilePath($filePath, $fileName)
     {
-        $directoryPath = $this->directoryList->getPath('var') . DIRECTORY_SEPARATOR . $filePath;
-        if (!$this->file->isWriteable($directoryPath)) {
-            $this->file->mkdir($directoryPath);
-        }
-
+        $directoryPath = $this->directoryList->getPath(DirectoryList::VAR_DIR) . DIRECTORY_SEPARATOR . $filePath;
+        $this->file->checkAndCreateFolder($directoryPath);
         return $directoryPath . DIRECTORY_SEPARATOR . $fileName;
     }
 
     /**
-     * @param $dataFormat
+     * Get Unique file name for imported data
+     *
+     * @param string $dataFormat
+     *
      * @return string
      */
     protected function getUniqueFileName($dataFormat)

@@ -15,8 +15,12 @@ use Magento\AsynchronousImportSourceDataRetrievingApi\Api\SourceDataRetrievingEx
 interface SourceDataUploadInterface
 {
     /**
+     * Execute data upload
+     *
      * @param SourceInterface $sourceData
+     *
      * @return SourceDataUploadResultInterface
+     *
      * @throws SourceDataRetrievingException
      * @throws SourceDataUploadException
      */

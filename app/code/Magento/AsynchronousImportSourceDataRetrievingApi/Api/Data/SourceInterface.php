@@ -17,6 +17,7 @@ interface SourceInterface
     public const SOURCE_TYPE = 'source_type';
     public const SOURCE_DEFINITION = 'source_definition';
     public const SOURCE_DATA_FORMAT = 'source_data_format';
+    public const SOURCE_DATA_SEPARATOR = "\n";
 
     /**
      * Get source type

@@ -15,7 +15,7 @@
 
     <type name="Magento\AsynchronousImportSourceDataUpload\Model\SourceDataUpload">
         <arguments>
-            <argument name="filePath" xsi:type="string">asynchronous_import/source_data_upload</argument>
+            <argument name="filePath" xsi:type="string">import/source_data</argument>
         </arguments>
     </type>
 </config>

@@ -23,20 +23,18 @@ class Base64EncodedData implements RetrieveSourceDataStrategyInterface
     /**
      * @var string
      */
-    private $dataSeparator = "\n";
+    private $dataSeparator;
 
     /**
      * @param int $batchSize
-     * @param string|null $dataSeparator
+     * @param string $dataSeparator
      */
     public function __construct(
         $batchSize,
-        $dataSeparator = null
+        $dataSeparator = SourceInterface::SOURCE_DATA_SEPARATOR
     ) {
         $this->batchSize = $batchSize;
-        if ($dataSeparator !== null) {
-            $this->dataSeparator = $dataSeparator;
-        }
+        $this->dataSeparator = $dataSeparator;
     }
 
     /**
